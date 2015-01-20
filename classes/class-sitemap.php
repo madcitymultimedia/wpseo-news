@@ -77,7 +77,7 @@ class WPSEO_News_Sitemap {
 					$exclude = 0;
 
 					foreach ( $cats as $cat ) {
-						if ( isset( $this->options['catexclude_' . $cat->slug] ) ) {
+						if ( isset( $this->options[ 'catexclude_' . $cat->slug ] ) ) {
 							$exclude ++;
 						}
 					}
@@ -237,7 +237,7 @@ class WPSEO_News_Sitemap {
 			'description' => $attachment->post_content,
 			'href'        => get_permalink( $attachment->ID ),
 			'src'         => $attachment->guid,
-			'title'       => $attachment->post_title
+			'title'       => $attachment->post_title,
 		);
 	}
 

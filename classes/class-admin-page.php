@@ -30,15 +30,8 @@ class WPSEO_News_Admin_Page {
 
 		// Default Genre
 		echo $wpseo_admin_pages->select( 'default_genre', __( 'Default Genre', 'wordpress-seo-news' ),
-			array(
-				"none"          => __( "None", 'wordpress-seo-news' ),
-				"pressrelease"  => __( "Press Release", 'wordpress-seo-news' ),
-				"satire"        => __( "Satire", 'wordpress-seo-news' ),
-				"blog"          => __( "Blog", 'wordpress-seo-news' ),
-				"oped"          => __( "Op-Ed", 'wordpress-seo-news' ),
-				"opinion"       => __( "Opinion", 'wordpress-seo-news' ),
-				"usergenerated" => __( "User Generated", 'wordpress-seo-news' ),
-			) );
+			WPSEO_News::list_genres()
+		);
 
 		// Default keywords
 		echo $wpseo_admin_pages->textinput( 'default_keywords', __( 'Default Keywords', 'wordpress-seo-news' ) );
@@ -55,7 +48,7 @@ class WPSEO_News_Admin_Page {
 		}
 
 		// Post categories to exclude
-		if ( isset( $options['newssitemap_include_post'] ) ) {
+		if ( isset( $options[ 'newssitemap_include_post' ] ) ) {
 			echo '<h2>' . __( 'Post categories to exclude', 'wordpress-seo-news' ) . '</h2>';
 			foreach ( get_categories() as $cat ) {
 				echo $wpseo_admin_pages->checkbox( 'catexclude_' . $cat->slug, $cat->name . ' (' . $cat->count . ' posts)', false );
@@ -74,8 +67,8 @@ class WPSEO_News_Admin_Page {
 		echo '<input id="' . $esc_form_key . '_button" class="wpseo_image_upload_button button" type="button" value="' . __( 'Upload Image', 'wordpress-seo-news' ) . '" />';
 		echo '<br class="clear"/>';
 
-		echo "<p>" . sprintf( __( 'You can find your Editors\' Pick RSS feed here: %1$sEditors\' Pick RSS Feed%2$s', 'wordpress-seo-news' ), "<a target='_blank' class='button-secondary' href='" . home_url( 'editors-pick.rss' ) . "'>", '</a>' ) . "</p>";
-		echo "<p>" . sprintf( __( 'You can submit your Editors\' Pick RSS feed here: %1$sSubmit Editors\' Pick RSS Feed%2$s', 'wordpress-seo-news' ), "<a class='button-secondary' href='https://support.google.com/news/publisher/contact/editors_picks' target='_blank'>", '</a>' ) . "</p>";
+		echo '<p>' . sprintf( __( 'You can find your Editors\' Pick RSS feed here: %1$sEditors\' Pick RSS Feed%2$s', 'wordpress-seo-news' ), "<a target='_blank' class='button-secondary' href='" . home_url( 'editors-pick.rss' ) . "'>", '</a>' ) . '</p>';
+		echo '<p>' . sprintf( __( 'You can submit your Editors\' Pick RSS feed here: %1$sSubmit Editors\' Pick RSS Feed%2$s', 'wordpress-seo-news' ), "<a class='button-secondary' href='https://support.google.com/news/publisher/contact/editors_picks' target='_blank'>", '</a>' ) . '</p>';
 
 		// Admin footer
 		$wpseo_admin_pages->admin_footer( true, false );
