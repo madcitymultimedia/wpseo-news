@@ -6,7 +6,7 @@ class WPSEO_News_Javascript_Strings {
 	private static function fill() {
 		self::$strings = array(
 			'ajaxurl'      => admin_url( 'admin-ajax.php' ),
-			'choose_image' => __( "Choose image.", 'wordpress-seo-news' ),
+			'choose_image' => __( 'Choose image.', 'wordpress-seo-news' ),
 		);
 	}
 

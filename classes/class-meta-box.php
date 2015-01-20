@@ -170,8 +170,8 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				'meta_query'  => array(
 					array(
 						'key'   => '_yoast_wpseo_newssitemap-standout',
-						'value' => 'on'
-					)
+						'value' => 'on',
+					),
 				),
 				'date_query'  => array(
 					'after' => '-7 days',
@@ -196,7 +196,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		$standout_desc .= '<br />';
 
 		$standout_desc .= sprintf(
-			__('Note: Google has a limit of %d stand out tags per seven days. Using more tags can cause removal from Google news. See for more information <a href="https://support.google.com/news/publisher/answer/191283?hl=en">this Google page</a>.', 'wordpress-seo-news'),
+			__( 'Note: Google has a limit of %d stand out tags per seven days. Using more tags can cause removal from Google news. See for more information <a href="https://support.google.com/news/publisher/answer/191283?hl=en">this Google page</a>.', 'wordpress-seo-news' ),
 			$this->max_standouts
 		);
 

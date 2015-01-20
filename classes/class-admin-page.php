@@ -48,7 +48,7 @@ class WPSEO_News_Admin_Page {
 		}
 
 		// Post categories to exclude
-		if ( isset( $options[ 'newssitemap_include_post' ] ) ) {
+		if ( isset( $options['newssitemap_include_post'] ) ) {
 			echo '<h2>' . __( 'Post categories to exclude', 'wordpress-seo-news' ) . '</h2>';
 			foreach ( get_categories() as $cat ) {
 				echo $wpseo_admin_pages->checkbox( 'catexclude_' . $cat->slug, $cat->name . ' (' . $cat->count . ' posts)', false );
