@@ -111,11 +111,11 @@ class WPSEO_News_Meta_Keywords {
 	 * Sanitize this->keywords, first make the array unique and then sanitize each keyword of it
 	 */
 	private function sanitize_keywords() {
-		// Make the list of keywords unique
-		$this->keywords = array_unique( $this->keywords );
-
 		// Sanitize each keyword
 		$this->keywords = array_map( array( $this, 'sanitize_keyword' ), $this->keywords );
+
+		// Make the list of keywords unique
+		$this->keywords = array_unique( $this->keywords );
 	}
 
 	/**
