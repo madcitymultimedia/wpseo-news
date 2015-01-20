@@ -35,11 +35,11 @@ class WPSEO_News_Sitemap_Editors_Pick {
 				'meta_query'  => array(
 					array(
 						'key'   => '_yoast_wpseo_newssitemap-editors-pick',
-						'value' => 'on'
-					)
+						'value' => 'on',
+					),
 				),
 				'order'       => 'DESC',
-				'orderby'     => 'date'
+				'orderby'     => 'date',
 			)
 		);
 

@@ -230,7 +230,7 @@ class WPSEO_News {
 				'manage_options',
 				'wpseo_news',
 				array( $admin_page, 'display' ),
-				array( array( $this, 'enqueue_admin_page' ) )
+				array( array( $this, 'enqueue_admin_page' ) ),
 		);
 
 		return $submenu_pages;
@@ -312,13 +312,13 @@ class WPSEO_News {
 	public static function get_included_post_types() {
 		static $post_types;
 
-		if($post_types === null ) {
+		if ( $post_types === null ) {
 			$options = self::get_options();
 
 			// Get supported post types
 			$post_types = array();
 			foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $post_type ) {
-				if ( isset( $options['newssitemap_include_' . $post_type->name] ) && ( 'on' == $options['newssitemap_include_' . $post_type->name] ) ) {
+				if ( isset( $options[ 'newssitemap_include_' . $post_type->name ] ) && ( 'on' == $options[ 'newssitemap_include_' . $post_type->name ] ) ) {
 					$post_types[] = $post_type->name;
 				}
 			}
@@ -329,7 +329,24 @@ class WPSEO_News {
 			}
 		}
 
-	  return $post_types;
+		return $post_types;
+	}
+
+	/**
+	 * Listing the genres
+	 *
+	 * @return array
+	 */
+	public static function list_genres() {
+		return array(
+			'none'          => __( 'None', 'wordpress-seo-news' ),
+			'pressrelease'  => __( 'Press Release', 'wordpress-seo-news' ),
+			'satire'        => __( 'Satire', 'wordpress-seo-news' ),
+			'blog'          => __( 'Blog', 'wordpress-seo-news' ),
+			'oped'          => __( 'Op-Ed', 'wordpress-seo-news' ),
+			'opinion'       => __( 'Opinion', 'wordpress-seo-news' ),
+			'usergenerated' => __( 'User Generated', 'wordpress-seo-news' ),
+		);
 	}
 
 }

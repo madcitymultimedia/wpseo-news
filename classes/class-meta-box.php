@@ -23,54 +23,54 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	public function get_meta_boxes( $post_type = 'post' ) {
 		$mbs = array(
 			'newssitemap-exclude'      => array(
-				"name"  => "newssitemap-exclude",
-				"type"  => "checkbox",
-				"std"   => "on",
-				"title" => __( "Exclude from News Sitemap", 'wordpress-seo-news' )
+				'name'  => 'newssitemap-exclude',
+				'type'  => 'checkbox',
+				'std'   => 'on',
+				'title' => __( 'Exclude from News Sitemap', 'wordpress-seo-news' )
 			),
 			'newssitemap-keywords'     => array(
-				"name"        => "newssitemap-keywords",
-				"type"        => "text",
-				"std"         => "",
-				"title"       => __( "Meta News Keywords", 'wordpress-seo-news' ),
-				"description" => __( "Comma separated list of the keywords this article aims at, use a maximum of 10 keywords.", "wordpress-seo-news" ),
+				'name'        => 'newssitemap-keywords',
+				'type'        => 'text',
+				'std'        => '',
+				'title'       => __( 'Meta News Keywords', 'wordpress-seo-news' ),
+				'description' => __( 'Comma separated list of the keywords this article aims at, use a maximum of 10 keywords.', 'wordpress-seo-news' ),
 			),
 			'newssitemap-genre'        => array(
-				"name"        => "newssitemap-genre",
-				"type"        => "multiselect",
-				"std"         => ( ( isset( $this->options['default_genre'] ) ) ? $this->options['default_genre'] : 'blog' ),
-				"title"       => __( "Google News Genre", 'wordpress-seo-news' ),
-				"description" => __( "Genre to show in Google News Sitemap.", 'wordpress-seo-news' ),
-				"options"     => $this->genre_list(),
+				'name'        => 'newssitemap-genre',
+				'type'        => 'multiselect',
+				'std'         => ( ( isset( $this->options['default_genre'] ) ) ? $this->options['default_genre'] : 'blog' ),
+				'title'       => __( 'Google News Genre', 'wordpress-seo-news' ),
+				'description' => __( 'Genre to show in Google News Sitemap.', 'wordpress-seo-news' ),
+				'options'     => WPSEO_News::list_genres(),
 				'serialized'  => true,
 			),
 			'newssitemap-original'     => array(
-				"name"        => "newssitemap-original",
-				"std"         => "",
-				"type"        => "text",
-				"title"       => __( "Original Source", 'wordpress-seo-news' ),
-				"description" => __( 'Is this article the original source of this news? If not, please enter the URL of the original source here. If there are multiple sources, please separate them by a pipe symbol: | .', 'wordpress-seo-news' ),
+				'name'        => 'newssitemap-original',
+				'std'         => '',
+				'type'        => 'text',
+				'title'       => __( 'Original Source', 'wordpress-seo-news' ),
+				'description' => __( 'Is this article the original source of this news? If not, please enter the URL of the original source here. If there are multiple sources, please separate them by a pipe symbol: | .', 'wordpress-seo-news' ),
 			),
 			'newssitemap-stocktickers' => array(
-				"name"        => "newssitemap-original",
-				"std"         => "",
-				"type"        => "text",
-				"title"       => __( "Original Source", 'wordpress-seo-news' ),
-				"description" => __( 'Is this article the original source of this news? If not, please enter the URL of the original source here. If there are multiple sources, please separate them by a pipe symbol: | .', 'wordpress-seo-news' ),
+				'name'        => 'newssitemap-original',
+				'std'         => '',
+				'type'        => 'text',
+				'title'       => __( 'Original Source', 'wordpress-seo-news' ),
+				'description' => __( 'Is this article the original source of this news? If not, please enter the URL of the original source here. If there are multiple sources, please separate them by a pipe symbol: | .', 'wordpress-seo-news' ),
 			),
 			'newssitemap-standout'     => array(
-				"name"        => "newssitemap-standout",
-				"std"         => "",
-				"type"        => "checkbox",
-				"title"       => __( "Standout", 'wordpress-seo-news' ),
-				"description" => $this->standout_description(),
+				'name'        => 'newssitemap-standout',
+				'std'         => '',
+				'type'        => 'checkbox',
+				'title'       => __( 'Standout', 'wordpress-seo-news' ),
+				'description' => $this->standout_description(),
 			),
 			'newssitemap-editors-pick' => array(
-				"name"        => "newssitemap-editors-pick",
-				"std"         => "",
-				"type"        => "checkbox",
-				"title"       => __( "Editors' Pick", 'wordpress-seo-news' ),
-				"description" => __( "Editors' Picks enables you to provide up to five links to original news content you believe represents your organization’s best journalistic work at any given moment, and potentially have it displayed on the Google News homepage or select section pages.", 'wordpress-seo-news' ),
+				'name'        => 'newssitemap-editors-pick',
+				'std'         => '',
+				'type'        => 'checkbox',
+				'title'       => __( "Editors' Pick", 'wordpress-seo-news' ),
+				'description' => __( "Editors' Picks enables you to provide up to five links to original news content you believe represents your organization’s best journalistic work at any given moment, and potentially have it displayed on the Google News homepage or select section pages.", 'wordpress-seo-news' ),
 			),
 		);
 
@@ -131,23 +131,6 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	}
 
 	/**
-	 * The list with genres
-	 *
-	 * @return array
-	 */
-	private function genre_list() {
-		return array(
-			"none"          => __( "None", 'wordpress-seo-news' ),
-			"pressrelease"  => __( "Press Release", 'wordpress-seo-news' ),
-			"satire"        => __( "Satire", 'wordpress-seo-news' ),
-			"blog"          => __( "Blog", 'wordpress-seo-news' ),
-			"oped"          => __( "Op-Ed", 'wordpress-seo-news' ),
-			"opinion"       => __( "Opinion", 'wordpress-seo-news' ),
-			"usergenerated" => __( "User Generated", 'wordpress-seo-news' ),
-		);
-	}
-
-	/**
 	 * Check if current post_type is supported
 	 *
 	 * @return bool
@@ -187,8 +170,8 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				'meta_query'  => array(
 					array(
 						'key'   => '_yoast_wpseo_newssitemap-standout',
-						'value' => 'on'
-					)
+						'value' => 'on',
+					),
 				),
 				'date_query'  => array(
 					'after' => '-7 days',
@@ -213,7 +196,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		$standout_desc .= '<br />';
 
 		$standout_desc .= sprintf(
-			__('Note: Google has a limit of %d stand out tags per seven days. Using more tags can cause removal from Google news. See for more information <a href="https://support.google.com/news/publisher/answer/191283?hl=en">this Google page</a>.', 'wordpress-seo-news'),
+			__( 'Note: Google has a limit of %d stand out tags per seven days. Using more tags can cause removal from Google news. See for more information <a href="https://support.google.com/news/publisher/answer/191283?hl=en">this Google page</a>.', 'wordpress-seo-news' ),
 			$this->max_standouts
 		);
 
