@@ -1,6 +1,8 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if ( ! defined( 'ABSPATH' ) ) {
+	exit;
+} // Exit if accessed directly
 
 class WPSEO_News_Autoloader {
 
@@ -30,7 +32,6 @@ class WPSEO_News_Autoloader {
 			if ( file_exists( $full_path ) ) {
 				require_once( $full_path );
 			}
-
 		}
 
 	}

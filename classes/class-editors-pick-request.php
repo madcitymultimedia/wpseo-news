@@ -35,8 +35,8 @@ class WPSEO_News_Editors_Pick_Request {
 	 * @return array rules
 	 */
 	public function add_rewrite_rule( $rules ) {
-		$newrules                     = array();
-		$newrules[self::REWRITE_RULE] = 'index.php?wpseo-news-editors-pick=all';
+		$newrules                       = array();
+		$newrules[ self::REWRITE_RULE ] = 'index.php?wpseo-news-editors-pick=all';
 
 		return $newrules + $rules;
 	}
@@ -47,7 +47,7 @@ class WPSEO_News_Editors_Pick_Request {
 	public function flush_rules() {
 		$rules = get_option( 'rewrite_rules' );
 
-		if ( ! isset( $rules[self::REWRITE_RULE] ) ) {
+		if ( ! isset( $rules[ self::REWRITE_RULE ] ) ) {
 			global $wp_rewrite;
 			$wp_rewrite->flush_rules();
 		}
