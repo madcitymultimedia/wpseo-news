@@ -6,8 +6,10 @@ class WPSEO_News_Sitemap {
 
 	public function __construct() {
 		$this->options = WPSEO_News::get_options();
-	}
 
+		add_action( 'init', array( $this, 'init' ), 10 );
+		add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
+	}
 
 	/**
 	 * Register the XML News sitemap with the main sitemap class.
@@ -49,85 +51,98 @@ class WPSEO_News_Sitemap {
 	 */
 	public function build() {
 
+		$output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
+
 		$post_types = $this->get_post_types();
 		$items      = $this->get_items( $post_types );
 
-		$output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
-
 		// Loop through items
 		if ( ! empty( $items ) ) {
-
-			$publication_name = ! empty( $this->options['name'] ) ? $this->options['name'] : get_bloginfo( 'name' );
-			$publication_lang = $this->get_publication_lang();
-
 			foreach ( $items as $item ) {
-				$item->post_status = 'publish';
-
-				if ( WPSEO_Meta::get_value( 'newssitemap-exclude', $item->ID ) == 'on' ) {
-					continue;
-				}
-
-				if ( false != WPSEO_Meta::get_value( 'meta-robots', $item->ID ) && strpos( WPSEO_Meta::get_value( 'meta-robots', $item->ID ), 'noindex' ) !== false ) {
-					continue;
-				}
-
-				if ( 'post' == $item->post_type ) {
-
-					$cats    = get_the_terms( $item->ID, 'category' );
-					$exclude = 0;
-
-					foreach ( $cats as $cat ) {
-						if ( isset( $this->options[ 'catexclude_' . $cat->slug ] ) ) {
-							$exclude ++;
-						}
-					}
-
-					if ( $exclude >= count( $cats ) ) {
-						continue;
-					}
-				}
-
-				$keywords      = new WPSEO_News_Meta_Keywords( $item->ID );
-				$genre         = $this->get_item_genre( $item->ID );
-				$stock_tickers = $this->get_item_stock_tickers( $item->ID );
-
-				$output .= '<url>' . "\n";
-				$output .= "\t<loc>" . get_permalink( $item ) . '</loc>' . "\n";
-				$output .= "\t<news:news>\n";
-				$output .= "\t\t<news:publication>" . "\n";
-				$output .= "\t\t\t<news:name><![CDATA[" . htmlspecialchars( $publication_name ) . ']]></news:name>' . "\n";
-				$output .= "\t\t\t<news:language>" . htmlspecialchars( $publication_lang ) . '</news:language>' . "\n";
-				$output .= "\t\t</news:publication>\n";
-
-				if ( ! empty( $genre ) ) {
-					$output .= "\t\t<news:genres><![CDATA[" . htmlspecialchars( $genre ) . ']]></news:genres>' . "\n";
-				}
-
-				$output .= "\t\t<news:publication_date>" . $this->get_publication_date( $item->post_date_gmt ) . '</news:publication_date>' . "\n";
-				$output .= "\t\t<news:title><![CDATA[" . htmlspecialchars( $item->post_title ) . ']]></news:title>' . "\n";
-
-				if ( ! empty( $keywords ) ) {
-					$output .= "\t\t<news:keywords><![CDATA[" . htmlspecialchars( $keywords ) . ']]></news:keywords>' . "\n";
-				}
-
-				if ( ! empty( $stock_tickers ) ) {
-					$output .= "\t\t<news:stock_tickers><![CDATA[" . htmlspecialchars( $stock_tickers ) . ']]></news:stock_tickers>' . "\n";
-				}
-
-				$output .= "\t</news:news>\n";
-
-				// Get images
-				if ( $image_output = $this->get_item_image_output( $item ) ) {
-					$output .= $image_output;
-				}
-
-				$output .= '</url>' . "\n";
+				$this->build_item($item, $output);
 			}
 		}
 
 		$output .= '</urlset>';
 		$GLOBALS['wpseo_sitemaps']->set_stylesheet( '<?xml-stylesheet type="text/xsl" href="' . preg_replace( '/^http[s]?:/', '', plugin_dir_url( WPSEO_News::get_file() ) ) . 'assets/xml-news-sitemap.xsl"?>' );
 		$GLOBALS['wpseo_sitemaps']->set_sitemap( $output );
+	}
+
+	private function build_item( $item, &$output ) {
+		$item->post_status = 'publish';
+
+		// Check if item should be skipped
+		if ( $this->skip_build_item($item) ) {
+			return;
+		}
+
+		$publication_name = ! empty( $this->options['name'] ) ? $this->options['name'] : get_bloginfo( 'name' );
+		$publication_lang = $this->get_publication_lang();
+
+		$keywords      = new WPSEO_News_Meta_Keywords( $item->ID );
+		$genre         = $this->get_item_genre( $item->ID );
+		$stock_tickers = $this->get_item_stock_tickers( $item->ID );
+
+		$output .= '<url>' . "\n";
+		$output .= "\t<loc>" . get_permalink( $item ) . '</loc>' . "\n";
+		$output .= "\t<news:news>\n";
+		$output .= "\t\t<news:publication>" . "\n";
+		$output .= "\t\t\t<news:name><![CDATA[" . htmlspecialchars( $publication_name ) . ']]></news:name>' . "\n";
+		$output .= "\t\t\t<news:language>" . htmlspecialchars( $publication_lang ) . '</news:language>' . "\n";
+		$output .= "\t\t</news:publication>\n";
+
+		if ( ! empty( $genre ) ) {
+			$output .= "\t\t<news:genres><![CDATA[" . htmlspecialchars( $genre ) . ']]></news:genres>' . "\n";
+		}
+
+		$output .= "\t\t<news:publication_date>" . $this->get_publication_date( $item->post_date_gmt ) . '</news:publication_date>' . "\n";
+		$output .= "\t\t<news:title><![CDATA[" . htmlspecialchars( $item->post_title ) . ']]></news:title>' . "\n";
+
+		if ( ! empty( $keywords ) ) {
+			$output .= "\t\t<news:keywords><![CDATA[" . htmlspecialchars( $keywords ) . ']]></news:keywords>' . "\n";
+		}
+
+		if ( ! empty( $stock_tickers ) ) {
+			$output .= "\t\t<news:stock_tickers><![CDATA[" . htmlspecialchars( $stock_tickers ) . ']]></news:stock_tickers>' . "\n";
+		}
+
+		$output .= "\t</news:news>\n";
+
+		// Get images
+		if ( $image_output = $this->get_item_image_output( $item ) ) {
+			$output .= $image_output;
+		}
+
+		$output .= '</url>' . "\n";
+	}
+
+	private function skip_build_item( $item ) {
+		if ( WPSEO_Meta::get_value( 'newssitemap-exclude', $item->ID ) == 'on' ) {
+			return true;
+		}
+
+		if ( false != WPSEO_Meta::get_value( 'meta-robots', $item->ID ) && strpos( WPSEO_Meta::get_value( 'meta-robots', $item->ID ), 'noindex' ) !== false ) {
+			return true;
+		}
+
+		if ( 'post' == $item->post_type && $this->exclude_item_terms( $item->ID ) ) {
+			return true;
+		}
+	}
+
+	private function exclude_item_terms( $item_id ) {
+		$cats    = get_the_terms( $item_id, 'category' );
+		$exclude = 0;
+
+		foreach ( $cats as $cat ) {
+			if ( isset( $this->options[ 'catexclude_' . $cat->slug ] ) ) {
+				$exclude ++;
+			}
+		}
+
+		if ( $exclude >= count( $cats ) ) {
+			return true;
+		}
 	}
 
 	/**
