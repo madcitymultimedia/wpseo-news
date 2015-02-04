@@ -30,6 +30,8 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 		// The date in XML format
 		$date_in_rss = get_the_date( DATE_RFC822, $this->post_id );
 
+		ob_flush();
+
 		// Start buffering to get the output of display method
 		ob_start();
 
