@@ -48,8 +48,8 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= '<title>Test Blog</title>' . PHP_EOL;
 		$expected_output .= '<item>' . PHP_EOL;
 		$expected_output .= '<title><![CDATA[generate rss]]></title>' . PHP_EOL;
-		$expected_output .= '<guid isPermaLink="true">http://example.org/?p=' . $this->post_id . '</guid>' . PHP_EOL;
-		$expected_output .= '<link>http://example.org/?p=' . $this->post_id . '</link>' . PHP_EOL;
+		$expected_output .= '<guid isPermaLink="true">' . get_permalink( $this->post_id ) . '</guid>' . PHP_EOL;
+		$expected_output .= '<link>' . get_permalink( $this->post_id ) . '</link>' . PHP_EOL;
 		$expected_output .= '<description><![CDATA[Post excerpt 1]]></description>' . PHP_EOL;
 		$expected_output .= '<dc:creator><![CDATA[]]></dc:creator>' . PHP_EOL;
 		$expected_output .= '<pubDate>' . $date_in_rss . '</pubDate>' . PHP_EOL;
