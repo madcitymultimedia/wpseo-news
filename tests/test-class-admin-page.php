@@ -39,7 +39,7 @@ class WPSEO_News_Admin_Page_Test extends WPSEO_News_UnitTestCase {
 EOT;
 
 		// Check if the $output contains the $expected_output
-		$this->expectOutputString( $expected_output, $output );
+		$this->assertContains( $expected_output, $output );
 
 	}
 
