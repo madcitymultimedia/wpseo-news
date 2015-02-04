@@ -30,7 +30,13 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 		// The date in XML format
 		$date_in_rss = get_the_date( DATE_RFC822, $this->post_id );
 
+		// Start buffering to get the output of display method
+		ob_start();
+
 		$this->instance->generate_rss( false );
+
+		$output = ob_get_contents();
+		ob_end_clean();
 
 		// We expect this part in the generated HTML
 		$expected_output  = '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
@@ -51,8 +57,11 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= '</channel>' . PHP_EOL;
 		$expected_output .= '</rss>' . PHP_EOL;
 
+		var_dump($output == $expected_output);
+
 		// Check if the $output contains the $expected_output
-		$this->expectOutputString( $expected_output );
+		$this->assertEquals( $expected_output, $output );
+//		$this->expectOutputString( $expected_output );
 	}
 
 }
