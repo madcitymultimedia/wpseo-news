@@ -31,7 +31,7 @@ class WPSEO_News_Admin_Page_Test extends WPSEO_News_UnitTestCase {
 		$this->instance->display();
 
 		$output = ob_get_contents();
-		ob_clean();
+		ob_end_clean();
 
 		// We expect this part in the generated HTML
 		$expected_output = <<<EOT
@@ -39,7 +39,7 @@ class WPSEO_News_Admin_Page_Test extends WPSEO_News_UnitTestCase {
 EOT;
 
 		// Check if the $output contains the $expected_output
-		$this->assertContains( $expected_output, $output );
+		$this->expectOutputString( $expected_output, $output );
 
 	}
 
