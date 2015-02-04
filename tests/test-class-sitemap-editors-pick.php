@@ -30,37 +30,29 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 		// The date in XML format
 		$date_in_rss = get_the_date( DATE_RFC822, $this->post_id );
 
-		// Start buffering to get the output of display method
-		ob_start();
-
 		$this->instance->generate_rss( false );
 
-		$output = ob_get_clean();
-
-		ob_end_clean();
-
 		// We expect this part in the generated HTML
-		$expected_output = <<<EOT
-<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">
-<channel>
-<atom:link href="http://example.org/editors-pick.rss" rel="self" type="application/rss+xml" />
-<link>http://example.org</link>
-<description>Just another WordPress site</description>
-<title>Test Blog</title>
-<item>
-<title><![CDATA[generate rss]]></title>
-<guid isPermaLink="true">http://example.org/?p={$this->post_id}</guid>
-<link>http://example.org/?p={$this->post_id}</link>
-<description><![CDATA[Post excerpt 1]]></description>
-<dc:creator><![CDATA[]]></dc:creator>
-<pubDate>{$date_in_rss}</pubDate>
-</item>
-</channel>
-</rss>
-EOT;
+		$expected_output  = '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
+		$expected_output .= '<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">' . PHP_EOL;
+		$expected_output .= '<channel>' . PHP_EOL;
+		$expected_output .= '<atom:link href="http://example.org/editors-pick.rss" rel="self" type="application/rss+xml" />' . PHP_EOL;
+		$expected_output .= '<link>http://example.org</link>' . PHP_EOL;
+		$expected_output .= '<description>Just another WordPress site</description>' . PHP_EOL;
+		$expected_output .= '<title>Test Blog</title>' . PHP_EOL;
+		$expected_output .= '<item>' . PHP_EOL;
+		$expected_output .= '<title><![CDATA[generate rss]]></title>' . PHP_EOL;
+		$expected_output .= '<guid isPermaLink="true">http://example.org/?p=' . $this->post_id . '</guid>' . PHP_EOL;
+		$expected_output .= '<link>http://example.org/?p=' . $this->post_id . '</link>' . PHP_EOL;
+		$expected_output .= '<description><![CDATA[Post excerpt 1]]></description>' . PHP_EOL;
+		$expected_output .= '<dc:creator><![CDATA[]]></dc:creator>' . PHP_EOL;
+		$expected_output .= '<pubDate>' . $date_in_rss . '</pubDate>' . PHP_EOL;
+		$expected_output .= '</item>' . PHP_EOL;
+		$expected_output .= '</channel>' . PHP_EOL;
+		$expected_output .= '</rss>' . PHP_EOL;
 
 		// Check if the $output contains the $expected_output
-		$this->assertContains( $expected_output, $output );
+		$this->expectOutputString( $expected_output );
 	}
 
 }
