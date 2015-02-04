@@ -59,7 +59,7 @@ class WPSEO_News_Sitemap {
 		// Loop through items
 		if ( ! empty( $items ) ) {
 			foreach ( $items as $item ) {
-				$this->build_item($item, $output);
+				$this->build_item( $item, $output );
 			}
 		}
 
@@ -72,7 +72,7 @@ class WPSEO_News_Sitemap {
 		$item->post_status = 'publish';
 
 		// Check if item should be skipped
-		if ( $this->skip_build_item($item) ) {
+		if ( $this->skip_build_item( $item ) ) {
 			return;
 		}
 
