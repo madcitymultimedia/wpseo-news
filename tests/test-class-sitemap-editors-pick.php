@@ -57,8 +57,6 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= '</channel>' . PHP_EOL;
 		$expected_output .= '</rss>' . PHP_EOL;
 
-		var_dump($output == $expected_output);
-
 		// Check if the $output contains the $expected_output
 		$this->assertEquals( $expected_output, $output );
 //		$this->expectOutputString( $expected_output );
