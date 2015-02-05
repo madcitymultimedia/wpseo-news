@@ -16,7 +16,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	/**
 	 * @covers WPSEO_News_Sitemap::add_to_index
 	 */
-	public function add_to_index() {
+	public function test_add_to_index() {
 
 		$output = $this->instance->add_to_index('');
 
