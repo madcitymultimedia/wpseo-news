@@ -357,9 +357,12 @@ class WPSEO_News_Sitemap_Item {
 			$genre = implode( ',', $genre );
 		}
 
-		if ( $genre == '' && isset( $this->options['default_genre'] ) && $this->options['default_genre'] != '' ) {
-			$genre = $this->options['default_genre'];
+		if ( $genre === '' && isset( $this->options['default_genre'] ) && $this->options['default_genre'] != '' ) {
+			$genre = implode( ',', $this->options['default_genre'] );
 		}
+
+
+
 		$genre = trim( preg_replace( '/^none,?/', '', $genre ) );
 
 		return $genre;
