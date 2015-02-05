@@ -258,7 +258,7 @@ class WPSEO_News_Sitemap_Item {
 		$exclude = 0;
 
 		foreach ( $cats as $cat ) {
-			if ( isset( $this->options['catexclude_' . $cat->slug ] ) ) {
+			if ( isset( $this->options[ 'catexclude_' . $cat->slug ] ) ) {
 				$exclude ++;
 			}
 		}
