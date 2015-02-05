@@ -50,11 +50,9 @@ class WPSEO_News_Sitemap {
 	 * Build the sitemap and push it to the XML Sitemaps Class instance for display.
 	 */
 	public function build() {
-
 		$output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
 
-		$post_types = $this->get_post_types();
-		$items      = $this->get_items( $post_types );
+		$items = $this->get_items();
 
 		// Loop through items
 		if ( ! empty( $items ) ) {
@@ -70,12 +68,12 @@ class WPSEO_News_Sitemap {
 	/**
 	 * Getting all the items for the sitemap
 	 *
-	 * @param array $post_types
-	 *
 	 * @return mixed
 	 */
-	private function get_items( $post_types ) {
+	private function get_items() {
 		global $wpdb;
+
+		$post_types = $this->get_post_types();
 
 		// Get posts for the last two days only, credit to Alex Moss for this code.
 		$items = $wpdb->get_results( "SELECT ID, post_content, post_name, post_author, post_parent, post_date_gmt, post_date, post_date_gmt, post_title, post_type
@@ -180,20 +178,18 @@ class WPSEO_News_Sitemap_Item {
 			return true;
 		}
 
-		if ( 'post' == $this->item->post_type && $this->exclude_item_terms( $this->item->ID ) ) {
+		if ( 'post' == $this->item->post_type && $this->exclude_item_terms() ) {
 			return true;
 		}
 	}
 
 	/**
 	 * Exclude the item when one of his terms is excluded
-	 *
-	 * @param $item_id
-	 *
+	 *x
 	 * @return bool
 	 */
-	private function exclude_item_terms( $item_id ) {
-		$cats    = get_the_terms( $item_id, 'category' );
+	private function exclude_item_terms() {
+		$cats    = get_the_terms( $this->item->ID, 'category' );
 		$exclude = 0;
 
 		foreach ( $cats as $cat ) {
