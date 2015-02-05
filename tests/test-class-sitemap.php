@@ -30,4 +30,20 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 	}
 
+	/**
+	 * Check what happens if no posts are added
+	 * 
+	 * @covers WPSEO_News_Sitemap::build_sitemap
+	 */
+	public function test_sitemap_empty() {
+
+		$output = $this->instance->build_sitemap();
+
+		$expected_output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+</urlset>';
+
+		$this->assertEquals($expected_output, $output);
+
+	}
+
 }

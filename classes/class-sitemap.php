@@ -50,6 +50,17 @@ class WPSEO_News_Sitemap {
 	 * Build the sitemap and push it to the XML Sitemaps Class instance for display.
 	 */
 	public function build() {
+		$GLOBALS['wpseo_sitemaps']->set_stylesheet( '<?xml-stylesheet type="text/xsl" href="' . preg_replace( '/^http[s]?:/', '', plugin_dir_url( WPSEO_News::get_file() ) ) . 'assets/xml-news-sitemap.xsl"?>' );
+
+		$GLOBALS['wpseo_sitemaps']->set_sitemap( $this->build_sitemap() );
+	}
+
+	/**
+	 * Building the XML for the sitemap
+	 *
+	 * @return string
+	 */
+	public function build_sitemap() {
 		$output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
 
 		$items = $this->get_items();
@@ -60,8 +71,8 @@ class WPSEO_News_Sitemap {
 		}
 
 		$output .= '</urlset>';
-		$GLOBALS['wpseo_sitemaps']->set_stylesheet( '<?xml-stylesheet type="text/xsl" href="' . preg_replace( '/^http[s]?:/', '', plugin_dir_url( WPSEO_News::get_file() ) ) . 'assets/xml-news-sitemap.xsl"?>' );
-		$GLOBALS['wpseo_sitemaps']->set_sitemap( $output );
+
+		return $output;
 	}
 
 	/**
