@@ -258,7 +258,7 @@ class WPSEO_News_Sitemap_Item {
 		$exclude = 0;
 
 		foreach ( $cats as $cat ) {
-			if ( isset( $this->options['catexclude_' . $cat->slug] ) ) {
+			if ( isset( $this->options['catexclude_' . $cat->slug ] ) ) {
 				$exclude ++;
 			}
 		}
@@ -501,7 +501,7 @@ class WPSEO_News_Sitemap_Images {
 		foreach ( $matches[0] as $img ) {
 			if ( preg_match( '/src=("|\')([^"|\']+)("|\')/', $img, $match ) ) {
 				if ( $src = $this->parse_image_source( $match[2] ) ) {
-					$this->images[$src] = $this->parse_image( $img );
+					$this->images[ $src ] = $this->parse_image( $img );
 				} else {
 					continue;
 				}
@@ -536,7 +536,7 @@ class WPSEO_News_Sitemap_Images {
 			return;
 		}
 
-		if ( isset( $url['images'][$src] ) ) {
+		if ( isset( $url['images'][ $src ] ) ) {
 			return;
 		}
 
@@ -618,9 +618,9 @@ class WPSEO_News_Sitemap_Images {
 			}
 
 			if ( '' != $attachment['src'] ) {
-				$this->images[$attachment['src']] = $image;
+				$this->images[ $attachment['src'] ] = $image;
 			} elseif ( '' != $attachment['href'] ) {
-				$this->images[$attachment['href']] = $image;
+				$this->images[ $attachment['href'] ] = $image;
 			}
 		}
 	}
