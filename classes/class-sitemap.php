@@ -595,18 +595,18 @@ class WPSEO_News_Sitemap_Images {
 		 */
 		$src = apply_filters( 'wpseo_xml_sitemap_img_src', $src, $this->item );
 
-		$this->output .= "\t\t<image:image>\n";
-		$this->output .= "\t\t\t<image:loc>" . htmlspecialchars( $src ) . "</image:loc>\n";
+		$this->output .= "\t<image:image>\n";
+		$this->output .= "\t\t<image:loc>" . htmlspecialchars( $src ) . "</image:loc>\n";
 
 		if ( isset( $img['title'] ) ) {
-			$this->output .= "\t\t\t<image:title>" . htmlspecialchars( $img['title'] ) . "</image:title>\n";
+			$this->output .= "\t\t<image:title>" . htmlspecialchars( $img['title'] ) . "</image:title>\n";
 		}
 
 		if ( isset( $img['alt'] ) ) {
-			$this->output .= "\t\t\t<image:caption>" . htmlspecialchars( $img['alt'] ) . "</image:caption>\n";
+			$this->output .= "\t\t<image:caption>" . htmlspecialchars( $img['alt'] ) . "</image:caption>\n";
 		}
 
-		$this->output .= "\t\t</image:image>\n";
+		$this->output .= "\t</image:image>\n";
 	}
 
 	/**
