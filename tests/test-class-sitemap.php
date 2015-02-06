@@ -47,6 +47,34 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
+	 * Check what happens if there is one post added
+	 *
+	 * @covers WPSEO_News_Sitemap::build_sitemap
+	 */
+	public function test_sitemap_NOT_empty() {
+		$post_id = $this->factory->post->create(
+			array(
+				'post_title' => 'generate rss'
+			)
+		);
+		$output = $this->instance->build_sitemap();
+		$expected_output = "<url>\n";
+		$expected_output .= "\t<loc>" . get_permalink( $post_id ) . "</loc>\n";
+		$expected_output .= "\t<news:news>\n";
+		$expected_output .= "\t\t<news:publication>\n";
+		$expected_output .= "\t\t\t<news:name><![CDATA[Test Blog]]></news:name>\n";
+		$expected_output .= "\t\t\t<news:language>en</news:language>\n";
+		$expected_output .= "\t\t</news:publication>\n";
+		$expected_output .= "\t\t<news:publication_date>" . get_the_date( 'c', $post_id ) . "</news:publication_date>\n";
+		$expected_output .= "\t\t<news:title><![CDATA[generate rss]]></news:title>\n";
+		$expected_output .= "\t\t<news:keywords><![CDATA[]]></news:keywords>\n";
+		$expected_output .= "\t</news:news>\n";
+		$expected_output .= "</url>";
+		// Check if the $output contains the $expected_output
+		$this->assertContains( $expected_output, $output );
+	}
+
+	/**
 	 * Check what happens if there is one post added with a image in its content
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
