@@ -47,14 +47,17 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check what happens if there is one post added
+	 * Check what happens if there is one post added with a image in its content
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
-	public function test_sitemap_NOT_empty() {
+	public function test_sitemap_WITH_image() {
+
+		$image   = home_url('tests/assets/yoast.png');
 		$post_id = $this->factory->post->create(
 			array(
-				'post_title' => 'generate rss'
+				'post_title' => 'generate rss',
+				'post_content' => '<img src="' . $image . '" />'
 			)
 		);
 
@@ -71,12 +74,13 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= "\t\t<news:title><![CDATA[generate rss]]></news:title>\n";
 		$expected_output .= "\t\t<news:keywords><![CDATA[]]></news:keywords>\n";
 		$expected_output .= "\t</news:news>\n";
+		$expected_output .= "\t<image:image>\n";
+		$expected_output .= "\t\t<image:loc>" . $image . "</image:loc>\n";
+		$expected_output .= "\t</image:image>\n";
 		$expected_output .= "</url>";
 
 		// Check if the $output contains the $expected_output
 		$this->assertContains( $expected_output, $output );
-
-
 	}
 
 }
