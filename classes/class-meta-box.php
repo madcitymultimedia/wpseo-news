@@ -11,6 +11,11 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
 	public function __construct() {
 		$this->options = WPSEO_News::get_options();
+
+		add_filter( 'wpseo_save_metaboxes', array( $this, 'save' ), 10, 1 );
+		add_action( 'wpseo_tab_header', array( $this, 'header' ) );
+		add_action( 'wpseo_tab_content', array( $this, 'content' ) );
+		add_filter( 'add_extra_wpseo_meta_fields', array( $this, 'add_meta_fields_to_wpseo_meta' ) );
 	}
 
 	/**

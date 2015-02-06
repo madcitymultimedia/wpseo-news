@@ -12,13 +12,14 @@ class WPSEO_News_Head {
 	 */
 	public function __construct() {
 		do_action( 'wpseo_news_head' );
+
+		add_action( 'wpseo_head', array( $this, 'add_head_tags' ) );
 	}
 
 	/**
 	 * Display the optional sources link elements in the <code>&lt;head&gt;</code>.
 	 */
 	public function add_head_tags() {
-
 		if ( is_singular() ) {
 			global $post;
 
