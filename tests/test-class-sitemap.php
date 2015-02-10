@@ -172,7 +172,8 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	 */
 	public function test_sitemap_WITH_keywords_AND_tags() {
 
-
+		// Be sure eventually hook will be removed
+		remove_action('wpseo_news_options', array($this, 'set_default_keywords'));
 
 		// Create post
 		$post_id = $this->factory->post->create();
@@ -184,8 +185,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$term = wp_insert_term( 'tag', 'post_tag');
 		wp_set_post_terms( $post_id, array( $term['term_id'] ) );
 
-		$instance = new WPSEO_News_Sitemap();
-		$output   = $instance->build_sitemap();
+		$output   = $this->instance->build_sitemap();
 
 		// The expected output
 		$expected_output = "\t\t<news:keywords><![CDATA[keyword, tag]]></news:keywords>\n";
