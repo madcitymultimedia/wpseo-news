@@ -171,6 +171,90 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
+	 * Check what happens if there is one post added with keywords and tags
+	 *
+	 * @covers WPSEO_News_Sitemap::build_sitemap
+	 */
+	public function test_sitemap_WITH_keywords_AND_tags() {
+		// Create post
+		$post_id = $this->factory->post->create();
+
+		// Set keyword for this post
+		update_post_meta( $post_id, '_yoast_wpseo_newssitemap-keywords', 'keyword' );
+
+		// Add tag to the post
+		$term = wp_insert_term( 'tag', 'post_tag');
+		wp_set_post_terms( $post_id, array( $term['term_id'] ) );
+
+		$output = $this->instance->build_sitemap();
+
+		// The expected output
+		$expected_output = "\t\t<news:keywords><![CDATA[keyword, tag]]></news:keywords>\n";
+		$expected_output .= "\t</news:news>\n";
+		// Check if the $output contains the $expected_output
+
+		$this->assertContains( $expected_output, $output );
+	}
+
+
+	/**
+	 * Check what happens if there is one post added with keywords and tags
+	 *
+	 * @covers WPSEO_News_Sitemap::build_sitemap
+	 */
+	public function test_sitemap_WITH_tags_AND_default_keywords() {
+		// Create post
+		$post_id = $this->factory->post->create();
+
+		// Set keyword for this post
+		update_post_meta( $post_id, '_yoast_wpseo_newssitemap-keywords', 'keyword' );
+
+		// Add tag to the post
+		$term = wp_insert_term( 'tag', 'post_tag');
+		wp_set_post_terms( $post_id, array( $term['term_id'] ) );
+
+		$output = $this->instance->build_sitemap();
+
+		// The expected output
+		$expected_output = "\t\t<news:keywords><![CDATA[keyword, tag]]></news:keywords>\n";
+		$expected_output .= "\t</news:news>\n";
+		// Check if the $output contains the $expected_output
+
+		$this->assertContains( $expected_output, $output );
+	}
+
+
+
+	/**
+	 * Check what happens if there is one post added with keywords and default keywords
+	 *
+	 * @covers WPSEO_News_Sitemap::build_sitemap
+	 */
+	public function test_sitemap_WITH_keywords_and_default_keywords() {
+
+		// Create post
+		$post_id = $this->factory->post->create();
+
+		add_action('wpseo_news_options', array($this, 'set_default_keywords'));
+
+		$this->instance = new WPSEO_News_Sitemap();
+
+
+		// Add tag to the post
+		$term = wp_insert_term( 'tag', 'post_tag');
+		wp_set_post_terms( $post_id, array( $term['term_id'] ) );
+
+		$output = $this->instance->build_sitemap();
+
+		// The expected output
+		$expected_output = "\t\t<news:keywords><![CDATA[tag, unit, test]]></news:keywords>\n";
+		$expected_output .= "\t</news:news>\n";
+		// Check if the $output contains the $expected_output
+
+		$this->assertContains( $expected_output, $output );
+	}
+
+	/**
 	 * Check what happens if there is one post added with a image in its content
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
