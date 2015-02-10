@@ -163,6 +163,8 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		// Check if the $output contains the $expected_output
 		$this->assertContains( $expected_output, $output );
+
+		unset($this->instance);
 	}
 
 	/**
