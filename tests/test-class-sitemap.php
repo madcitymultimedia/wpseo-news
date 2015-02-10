@@ -85,11 +85,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	 */
 	public function test_sitemap_post_excluded() {
 		// Create post
-		$post_id = $this->factory->post->create(
-			array(
-				'post_title' => 'generate rss'
-			)
-		);
+		$post_id = $this->factory->post->create();
 
 		// Set meta value to exclude
 		update_post_meta( $post_id, '_yoast_wpseo_newssitemap-exclude', 'on' );
@@ -112,11 +108,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	 */
 	public function test_sitemap_WITH_keywords() {
 		// Create post
-		$post_id = $this->factory->post->create(
-			array(
-				'post_title' => 'generate rss'
-			)
-		);
+		$post_id = $this->factory->post->create();
 
 		// Set meta value to exclude
 		update_post_meta( $post_id, '_yoast_wpseo_newssitemap-keywords', 'keyword' );
@@ -138,11 +130,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	 */
 	public function test_sitemap_WITH_tag() {
 		// Create post
-		$post_id = $this->factory->post->create(
-			array(
-				'post_title' => 'generate rss'
-			)
-		);
+		$post_id = $this->factory->post->create();
 
 		// Set meta value to exclude
 		$term = wp_insert_term( 'tag', 'post_tag');
@@ -192,7 +180,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$image   = home_url( 'tests/assets/yoast.png' );
 		$post_id = $this->factory->post->create(
 			array(
-				'post_title'   => 'generate rss',
+				'post_title'   => 'with images',
 				'post_content' => '<img src="' . $image . '" />'
 			)
 		);
