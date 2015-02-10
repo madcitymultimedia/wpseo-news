@@ -283,6 +283,38 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
+	 * Check what happens if post added with some simular tags, keywords and default keywords
+	 *
+	 * @covers WPSEO_News_Sitemap::build_sitemap
+	 */
+	public function test_sitemap_WITH_SIMULAR_keywords_AND_tags_AND_default_keywords() {
+
+		// Create post
+		$post_id = $this->factory->post->create();
+
+		// Set keyword for this post
+		update_post_meta( $post_id, '_yoast_wpseo_newssitemap-keywords', 'simular,keyword' );
+
+		add_action('wpseo_news_options', array($this, 'set_default_keywords'));
+
+		$this->instance = new WPSEO_News_Sitemap();
+
+		// Add tag to the post
+		$term1 = wp_insert_term( 'tag',     'post_tag');
+		$term2 = wp_insert_term( 'simular', 'post_tag');
+		wp_set_post_terms( $post_id, array( $term1['term_id'], $term2['term_id'] ) );
+
+		$output = $this->instance->build_sitemap();
+
+		// The expected output
+		$expected_output = "\t\t<news:keywords><![CDATA[simular, keyword, tag, unit, test]]></news:keywords>\n";
+		$expected_output .= "\t</news:news>\n";
+		// Check if the $output contains the $expected_output
+
+		$this->assertContains( $expected_output, $output );
+	}
+
+	/**
 	 * Check what happens if there is one post added with a image in its content
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
@@ -377,6 +409,8 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		// Check if the $output contains the $expected_output
 		$this->assertContains( $expected_output, $output );
 	}
+
+
 
 
 	public function restrict_featured_image( $options ) {
