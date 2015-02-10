@@ -119,12 +119,12 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		);
 
 		// Set meta value to exclude
-		update_post_meta( $post_id, '_yoast_wpseo_newssitemap-keywords', 'test' );
+		update_post_meta( $post_id, '_yoast_wpseo_newssitemap-keywords', 'keyword' );
 
 		$output = $this->instance->build_sitemap();
 
 		// The expected output
-		$expected_output = "\t\t<news:keywords><![CDATA[test]]></news:keywords>\n";
+		$expected_output = "\t\t<news:keywords><![CDATA[keyword]]></news:keywords>\n";
 		$expected_output .= "\t</news:news>\n";
 		// Check if the $output contains the $expected_output
 
@@ -152,6 +152,30 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		// The expected output
 		$expected_output = "\t\t<news:keywords><![CDATA[tag]]></news:keywords>\n";
+		$expected_output .= "\t</news:news>\n";
+		// Check if the $output contains the $expected_output
+
+		$this->assertContains( $expected_output, $output );
+	}
+
+	/**
+	 * Check what happens if there is one post added and there is are default keywords present
+	 *
+	 * @covers WPSEO_News_Sitemap::build_sitemap
+	 */
+	public function test_sitemap_WITH_default_keywords() {
+
+		add_action('wpseo_news_options', array($this, 'set_default_keywords'));
+
+		$this->instance = new WPSEO_News_Sitemap();
+
+		// Create post
+		$post_id = $this->factory->post->create();
+
+		$output = $this->instance->build_sitemap();
+
+		// The expected output
+		$expected_output = "\t\t<news:keywords><![CDATA[unit, test]]></news:keywords>\n";
 		$expected_output .= "\t</news:news>\n";
 		// Check if the $output contains the $expected_output
 
@@ -257,6 +281,11 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 	public function restrict_featured_image( $options ) {
 		$options['restrict_sitemap_featured_img'] = true;
+		return $options;
+	}
+
+	public function set_default_keywords( $options ) {
+		$options['default_keywords'] = 'unit, test';
 		return $options;
 	}
 
