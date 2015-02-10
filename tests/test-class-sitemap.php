@@ -78,7 +78,6 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$this->assertContains( $expected_output, $output );
 	}
 
-
 	/**
 	 * Check what happens if there is one post added
 	 *
@@ -105,6 +104,60 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$this->assertContains( $expected_output, $output );
 	}
 
+
+	/**
+	 * Check what happens if there is one post added with keywords
+	 *
+	 * @covers WPSEO_News_Sitemap::build_sitemap
+	 */
+	public function test_sitemap_WITH_keywords() {
+		// Create post
+		$post_id = $this->factory->post->create(
+			array(
+				'post_title' => 'generate rss'
+			)
+		);
+
+		// Set meta value to exclude
+		update_post_meta( $post_id, '_yoast_wpseo_newssitemap-keywords', 'test' );
+
+		$output = $this->instance->build_sitemap();
+
+		// The expected output
+		$expected_output = "\t\t<news:keywords><![CDATA[test]]></news:keywords>\n";
+		$expected_output .= "\t</news:news>\n";
+		// Check if the $output contains the $expected_output
+
+		$this->assertContains( $expected_output, $output );
+	}
+
+	/**
+	 * Check what happens if there is one post added with only a single tag
+	 *
+	 * @covers WPSEO_News_Sitemap::build_sitemap
+	 */
+	public function test_sitemap_WITH_tag() {
+		// Create post
+		$post_id = $this->factory->post->create(
+			array(
+				'post_title' => 'generate rss'
+			)
+		);
+
+		// Set meta value to exclude
+		$term = wp_insert_term( 'tag', 'post_tag');
+		wp_set_post_terms( $post_id, array( $term['term_id'] ) );
+
+		$output = $this->instance->build_sitemap();
+
+		// The expected output
+		$expected_output = "\t\t<news:keywords><![CDATA[tag]]></news:keywords>\n";
+		$expected_output .= "\t</news:news>\n";
+		// Check if the $output contains the $expected_output
+
+		$this->assertContains( $expected_output, $output );
+	}
+
 	/**
 	 * Check what happens if there is one post added with a image in its content
 	 *
@@ -122,21 +175,9 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		$output = $this->instance->build_sitemap();
 
-		$expected_output = "<url>\n";
-		$expected_output .= "\t<loc>" . get_permalink( $post_id ) . "</loc>\n";
-		$expected_output .= "\t<news:news>\n";
-		$expected_output .= "\t\t<news:publication>\n";
-		$expected_output .= "\t\t\t<news:name><![CDATA[Test Blog]]></news:name>\n";
-		$expected_output .= "\t\t\t<news:language>en</news:language>\n";
-		$expected_output .= "\t\t</news:publication>\n";
-		$expected_output .= "\t\t<news:publication_date>" . get_the_date( 'c', $post_id ) . "</news:publication_date>\n";
-		$expected_output .= "\t\t<news:title><![CDATA[generate rss]]></news:title>\n";
-		$expected_output .= "\t\t<news:keywords><![CDATA[]]></news:keywords>\n";
-		$expected_output .= "\t</news:news>\n";
-		$expected_output .= "\t<image:image>\n";
+		$expected_output  = "\t<image:image>\n";
 		$expected_output .= "\t\t<image:loc>" . $image . "</image:loc>\n";
 		$expected_output .= "\t</image:image>\n";
-		$expected_output .= "</url>";
 
 		// Check if the $output contains the $expected_output
 		$this->assertContains( $expected_output, $output );
@@ -164,17 +205,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		$output = $this->instance->build_sitemap();
 
-		$expected_output = "<url>\n";
-		$expected_output .= "\t<loc>" . get_permalink( $post_id ) . "</loc>\n";
-		$expected_output .= "\t<news:news>\n";
-		$expected_output .= "\t\t<news:publication>\n";
-		$expected_output .= "\t\t\t<news:name><![CDATA[Test Blog]]></news:name>\n";
-		$expected_output .= "\t\t\t<news:language>en</news:language>\n";
-		$expected_output .= "\t\t</news:publication>\n";
-		$expected_output .= "\t\t<news:publication_date>" . get_the_date( 'c', $post_id ) . "</news:publication_date>\n";
-		$expected_output .= "\t\t<news:title><![CDATA[featured image]]></news:title>\n";
-		$expected_output .= "\t\t<news:keywords><![CDATA[]]></news:keywords>\n";
-		$expected_output .= "\t</news:news>\n";
+		$expected_output  = "\t</news:news>\n";
 		$expected_output .= "\t<image:image>\n";
 		$expected_output .= "\t\t<image:loc>" . $image . "</image:loc>\n";
 		$expected_output .= "\t</image:image>\n";
@@ -182,7 +213,6 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= "\t\t<image:loc>" . $featured_image . "</image:loc>\n";
 		$expected_output .= "\t\t<image:title>attachment</image:title>\n";
 		$expected_output .= "\t</image:image>\n";
-		$expected_output .= "</url>";
 
 		// Check if the $output contains the $expected_output
 		$this->assertContains( $expected_output, $output );
@@ -197,11 +227,13 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		add_action('wpseo_news_options', array($this, 'restrict_featured_image'));
 
+		$this->instance = new WPSEO_News_Sitemap();
+
 		$image          = home_url( 'tests/assets/yoast.png' );
 		$post_id = $this->factory->post->create(
 			array(
 				'post_title'   => 'featured image',
-				'post_content' => ''
+				'post_content' => '<img src="' . $image . '" />'
 			)
 		);
 
@@ -212,31 +244,20 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		$output = $this->instance->build_sitemap();
 
-		$expected_output = "<url>\n";
-		$expected_output .= "\t<loc>" . get_permalink( $post_id ) . "</loc>\n";
-		$expected_output .= "\t<news:news>\n";
-		$expected_output .= "\t\t<news:publication>\n";
-		$expected_output .= "\t\t\t<news:name><![CDATA[Test Blog]]></news:name>\n";
-		$expected_output .= "\t\t\t<news:language>en</news:language>\n";
-		$expected_output .= "\t\t</news:publication>\n";
-		$expected_output .= "\t\t<news:publication_date>" . get_the_date( 'c', $post_id ) . "</news:publication_date>\n";
-		$expected_output .= "\t\t<news:title><![CDATA[featured image]]></news:title>\n";
-		$expected_output .= "\t\t<news:keywords><![CDATA[]]></news:keywords>\n";
-		$expected_output .= "\t</news:news>\n";
+		$expected_output  = "\t</news:news>\n";
 		$expected_output .= "\t<image:image>\n";
 		$expected_output .= "\t\t<image:loc>" . $featured_image . "</image:loc>\n";
 		$expected_output .= "\t\t<image:title>attachment</image:title>\n";
 		$expected_output .= "\t</image:image>\n";
-		$expected_output .= "</url>";
 
 		// Check if the $output contains the $expected_output
 		$this->assertContains( $expected_output, $output );
 	}
 
+
 	public function restrict_featured_image( $options ) {
 		$options['restrict_sitemap_featured_img'] = true;
 		return $options;
-
 	}
 
 
