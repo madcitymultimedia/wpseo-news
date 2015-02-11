@@ -168,6 +168,10 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$this->assertContains( $expected_output, $output );
 
 		unset($this->instance);
+
+
+		// Be sure eventually hook will be removed
+		remove_action('wpseo_news_options', array($this, 'set_default_keywords'));
 	}
 
 	/**
