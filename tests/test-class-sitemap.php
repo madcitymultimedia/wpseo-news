@@ -10,6 +10,9 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
+		// Be sure eventually hook will be removed
+		remove_action('wpseo_news_options', array($this, 'set_default_keywords'));
+
 		$this->instance = new WPSEO_News_Sitemap();
 	}
 
@@ -173,9 +176,6 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
 	public function test_sitemap_WITH_keywords_AND_tags() {
-
-		// Be sure eventually hook will be removed
-		remove_action('wpseo_news_options', array($this, 'set_default_keywords'));
 
 		// Create post
 		$post_id = $this->factory->post->create();
