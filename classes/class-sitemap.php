@@ -305,7 +305,7 @@ class WPSEO_News_Sitemap_Item {
 	private function build_news_tag() {
 
 		$keywords      = new WPSEO_News_Meta_Keywords( $this->item->ID );
-		$genre         = $this->get_item_genre( $this->item->ID );
+		$genre         = $this->get_item_genre( );
 		$stock_tickers = $this->get_item_stock_tickers( $this->item->ID );
 
 		$this->output .= "\t<news:news>\n";
@@ -347,12 +347,10 @@ class WPSEO_News_Sitemap_Item {
 	/**
 	 * Getting the genre for given $item_id
 	 *
-	 * @param integer $item_id
-	 *
 	 * @return string
 	 */
-	private function get_item_genre( $item_id ) {
-		$genre = WPSEO_Meta::get_value( 'newssitemap-genre', $item_id );
+	private function get_item_genre( ) {
+		$genre = WPSEO_Meta::get_value( 'newssitemap-genre', $this->item->ID );
 		if ( is_array( $genre ) ) {
 			$genre = implode( ',', $genre );
 		}
