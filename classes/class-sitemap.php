@@ -67,7 +67,7 @@ class WPSEO_News_Sitemap {
 
 		// Loop through items
 		if ( ! empty( $items ) ) {
-			$this->build_items( $items, $output );
+			$output .= $this->build_items( $items );
 		}
 
 		$output .= '</urlset>';
@@ -101,12 +101,14 @@ class WPSEO_News_Sitemap {
 	 * Loop through all $items and build each one of it
 	 *
 	 * @param array  $items
-	 * @param string $output
+	 * @return string $output
 	 */
-	private function build_items( $items, &$output ) {
+	private function build_items( $items ) {
+		$output = '';
 		foreach ( $items as $item ) {
 			$output .= new WPSEO_News_Sitemap_Item( $item, $this->options );
 		}
+		return $output;
 	}
 
 	/**
@@ -305,7 +307,7 @@ class WPSEO_News_Sitemap_Item {
 	private function build_news_tag() {
 
 		$keywords      = new WPSEO_News_Meta_Keywords( $this->item->ID );
-		$genre         = $this->get_item_genre( );
+		$genre         = $this->get_item_genre();
 		$stock_tickers = $this->get_item_stock_tickers( $this->item->ID );
 
 		$this->output .= "\t<news:news>\n";
