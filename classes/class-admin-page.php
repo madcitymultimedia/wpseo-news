@@ -44,7 +44,7 @@ class WPSEO_News_Admin_Page {
 		$this->editors_pick();
 
 		// Admin footer
-		echo $this->wpseo_admin_pages->admin_footer( true, false );
+		$this->wpseo_admin_pages->admin_footer( true, false );
 	}
 
 	/**
