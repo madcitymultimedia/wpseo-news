@@ -12,12 +12,11 @@ class WPSEO_News_Admin_Page {
 	 * Display admin page
 	 */
 	public function display() {
-		global $wpseo_admin_pages;
-
-		$this->wpseo_admin_pages = $wpseo_admin_pages;
+		// Setting the object for admin pages
+		$this->wpseo_admin_pages = $this->get_wpseo_admin_pages();
 
 		// Admin header
-		$wpseo_admin_pages->admin_header( true, 'yoast_wpseo_news_options', 'wpseo_news' );
+		$this->wpseo_admin_pages->admin_header( true, 'yoast_wpseo_news_options', 'wpseo_news' );
 
 		// This filter is documented in class-sitemap.php
 		$news_sitemap_xml = apply_filters( 'wpseo_news_sitemap_url', home_url( 'news-sitemap.xml' ) );
@@ -27,10 +26,10 @@ class WPSEO_News_Admin_Page {
 		echo '<p>' . sprintf( __( 'You can find your news sitemap here: %1$sXML News sitemap%2$s', 'wordpress-seo-news' ), "<a target='_blank' class='button-secondary' href='" . $news_sitemap_xml . "'>", '</a>' ) . '</p>';
 
 		// Google News Publication Name
-		echo $wpseo_admin_pages->textinput( 'name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );
+		echo $this->wpseo_admin_pages->textinput( 'name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );
 
 		// Default Genre
-		echo $wpseo_admin_pages->select( 'default_genre', __( 'Default Genre', 'wordpress-seo-news' ), WPSEO_News::list_genres() );
+		echo $this->wpseo_admin_pages->select( 'default_genre', __( 'Default Genre', 'wordpress-seo-news' ), WPSEO_News::list_genres() );
 
 		// Default keywords
 		$this->default_keywords();
@@ -45,7 +44,21 @@ class WPSEO_News_Admin_Page {
 		$this->editors_pick();
 
 		// Admin footer
-		$wpseo_admin_pages->admin_footer( true, false );
+		Yoast_Form::get_instance()->admin_footer( true, false );
+	}
+
+	/**
+	 * Getting the object for the seo admin pages
+	 *
+	 * @return object
+	 */
+	private function get_wpseo_admin_pages() {
+		if ( class_exists( 'Yoast_Form' ) ) {
+			return Yoast_Form::get_instance();
+		}
+
+		global $wpseo_admin_pages;
+		return $wpseo_admin_pages;
 	}
 
 	/**
@@ -90,11 +103,10 @@ class WPSEO_News_Admin_Page {
 		echo '<h2>' . __( "Editors' Pick", 'wordpress-seo-news' ) . '</h2>';
 
 		$esc_form_key = 'ep_image_src';
-		$option       = WPSEO_News::get_options();
-		$meta_value   = $option[ $esc_form_key ];
+		$options      = WPSEO_News::get_options();
 
 		echo '<label class="select" for="' . $esc_form_key . '">' . __( "Editors' Pick Image", 'wordpress-seo-news' ) . ':</label>';
-		echo '<input id="' . $esc_form_key . '" type="text" size="36" name="wpseo_news[' . $esc_form_key . ']" value="' . esc_attr( $meta_value ) . '" />';
+		echo '<input id="' . $esc_form_key . '" type="text" size="36" name="wpseo_news[' . $esc_form_key . ']" value="' . esc_attr( $options[ $esc_form_key ] ) . '" />';
 		echo '<input id="' . $esc_form_key . '_button" class="wpseo_image_upload_button button" type="button" value="' . __( 'Upload Image', 'wordpress-seo-news' ) . '" />';
 		echo '<br class="clear"/>';
 
