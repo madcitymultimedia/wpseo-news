@@ -44,7 +44,7 @@ class WPSEO_News_Admin_Page {
 		$this->editors_pick();
 
 		// Admin footer
-		Yoast_Form::get_instance()->admin_footer( true, false );
+		echo $this->wpseo_admin_pages->admin_footer( true, false );
 	}
 
 	/**
