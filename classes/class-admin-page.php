@@ -42,7 +42,7 @@ class WPSEO_News_Admin_Page {
 		echo '<br><br>';
 
 		// Post Types to include in News Sitemap
-		echo '<h2>' . __( 'Post Types to include in News Sitemap and Editors' Pick RSS', 'wordpress-seo-news' ) . '</h2>';
+		echo '<h2>' . __( 'Post Types to include in News Sitemap and Editors&#39; Pick RSS', 'wordpress-seo-news' ) . '</h2>';
 		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
 			echo $wpseo_admin_pages->checkbox( 'newssitemap_include_' . $posttype->name, $posttype->labels->name, false );
 		}
