@@ -235,7 +235,7 @@ class WPSEO_News_Sitemap {
 			'caption'     => $attachment->post_excerpt,
 			'description' => $attachment->post_content,
 			'href'        => get_permalink( $attachment->ID ),
-			'src'         => $attachment->guid,
+			'src'         => wp_get_attachment_url( $attachment->ID ),
 			'title'       => $attachment->post_title,
 		);
 	}
