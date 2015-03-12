@@ -112,7 +112,6 @@ class WPSEO_News_Wrappers {
 		return self::admin_pages()->admin_footer( $submit, $show_sidebar );
 	}
 
-
 	/**
 	 * Fallback for the textinput method
 	 *
@@ -186,9 +185,5 @@ class WPSEO_News_Wrappers {
 
 		return $wpseo_admin_pages;
 	}
-
-
-
-
 
 }
