@@ -210,24 +210,32 @@ class WPSEO_News_Sitemap {
 
 		if ( $this->is_valid_datetime( $item->post_date_gmt ) ) {
 			// Create a DateTime object date in the correct timezone
-			$datetime = new DateTime( $item->post_date_gmt, new DateTimeZone( $timezone_string ) );
-
-			return $datetime->format( 'c' );
+			return $this->format_date_from_timzone( $item->post_date_gmt, $timezone_string );
 		}
 		elseif ( $this->is_valid_datetime( $item->post_modified_gmt ) ) {
 			// Fallback 1: post_modified_gmt
-			$datetime = new DateTime( $item->post_modified_gmt, new DateTimeZone( $timezone_string ) );
-
-			return $datetime->format( 'c' );
+			return $this->format_date_from_timzone( $item->post_modified_gmt, $timezone_string );
 		}
 		elseif ( $this->is_valid_datetime( $item->post_modified ) ) {
 			// Fallback 2: post_modified
-			$datetime = new DateTime( $item->post_modified, new DateTimeZone( $timezone_string ) );
-
-			return $datetime->format( 'c' );
+			return $this->format_date_from_timzone( $item->post_modified, $timezone_string );
 		}
 
 		return '';
+	}
+
+	/**
+	 *
+	 *
+	 * @param $datetime_string
+	 * @param $timezone
+	 *
+	 * @return string
+	 */
+	private function format_date_from_timzone( $datetime_string, $timezone ) {
+		$datetime = new DateTime( $datetime_string, new DateTimeZone( $timezone ) );
+
+		return $datetime->format( 'c' );
 	}
 
 	/**
