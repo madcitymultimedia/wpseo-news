@@ -87,9 +87,10 @@ class WPSEO_News_Sitemap {
 					}
 				}
 
-				$keywords      = new WPSEO_News_Meta_Keywords( $item->ID );
-				$genre         = $this->get_item_genre( $item->ID );
-				$stock_tickers = $this->get_item_stock_tickers( $item->ID );
+				$keywords         = new WPSEO_News_Meta_Keywords( $item->ID );
+				$genre            = $this->get_item_genre( $item->ID );
+				$stock_tickers    = $this->get_item_stock_tickers( $item->ID );
+				$publication_date = $this->get_publication_date( $item->post_date_gmt );
 
 				$output .= '<url>' . "\n";
 				$output .= "\t<loc>" . get_permalink( $item ) . '</loc>' . "\n";
@@ -103,7 +104,7 @@ class WPSEO_News_Sitemap {
 					$output .= "\t\t<news:genres><![CDATA[" . htmlspecialchars( $genre ) . ']]></news:genres>' . "\n";
 				}
 
-				$output .= "\t\t<news:publication_date>" . $this->get_publication_date( $item->post_date_gmt ) . '</news:publication_date>' . "\n";
+				$output .= empty( $publication_date ) ? '' : "\t\t<news:publication_date>" . $publication_date . '</news:publication_date>' . "\n";
 				$output .= "\t\t<news:title><![CDATA[" . htmlspecialchars( $item->post_title ) . ']]></news:title>' . "\n";
 
 				if ( ! empty( $keywords ) ) {
@@ -207,10 +208,14 @@ class WPSEO_News_Sitemap {
 			$timezone_string = $this->wp_get_timezone_string();
 		}
 
-		// Create a DateTime object date in the correct timezone
-		$datetime = new DateTime( $item_date, new DateTimeZone( $timezone_string ) );
+		if( $this->is_valid_datetime( $item_date ) ) {
+			// Create a DateTime object date in the correct timezone
+			$datetime = new DateTime( $item_date, new DateTimeZone( $timezone_string ) );
 
-		return $datetime->format( 'c' );
+			return $datetime->format( 'c' );
+		}
+
+		return '';
 	}
 
 	/**
@@ -492,6 +497,20 @@ class WPSEO_News_Sitemap {
 		$output .= "\t\t</image:image>\n";
 
 		return $output;
+	}
+
+	/**
+	 * Wrapper function to check if we have a valid datetime (Uses a new util in WPSEO)
+	 *
+	 * @param string $datetime
+	 *
+	 * @return bool
+	 */
+	private function is_valid_datetime( $datetime ) {
+		if ( method_exists( 'WPSEO_Utils', 'is_valid_datetime' ) ) {
+			return WPSEO_Utils::is_valid_datetime( $datetime );
+		}
+		return true;
 	}
 
 }
