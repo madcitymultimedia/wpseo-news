@@ -208,7 +208,7 @@ class WPSEO_News_Sitemap {
 			$timezone_string = $this->wp_get_timezone_string();
 		}
 
-		if( $this->is_valid_datetime( $item_date ) ) {
+		if ( $this->is_valid_datetime( $item_date ) ) {
 			// Create a DateTime object date in the correct timezone
 			$datetime = new DateTime( $item_date, new DateTimeZone( $timezone_string ) );
 
