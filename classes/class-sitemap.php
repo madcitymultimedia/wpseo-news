@@ -90,7 +90,7 @@ class WPSEO_News_Sitemap {
 				$keywords         = new WPSEO_News_Meta_Keywords( $item->ID );
 				$genre            = $this->get_item_genre( $item->ID );
 				$stock_tickers    = $this->get_item_stock_tickers( $item->ID );
-				$publication_date = $this->get_publication_date( $item->post_date_gmt );
+				$publication_date = $this->get_publication_date( $item );
 
 				$output .= '<url>' . "\n";
 				$output .= "\t<loc>" . get_permalink( $item ) . '</loc>' . "\n";
@@ -195,11 +195,11 @@ class WPSEO_News_Sitemap {
 	/**
 	 * Parses the inputted date into xml format
 	 *
-	 * @param string $item_date
+	 * @param string $item
 	 *
 	 * @return string
 	 */
-	private function get_publication_date( $item_date ) {
+	private function get_publication_date( $item ) {
 
 		static $timezone_string;
 
@@ -208,9 +208,21 @@ class WPSEO_News_Sitemap {
 			$timezone_string = $this->wp_get_timezone_string();
 		}
 
-		if ( $this->is_valid_datetime( $item_date ) ) {
+		if ( $this->is_valid_datetime( $item->post_date_gmt ) ) {
 			// Create a DateTime object date in the correct timezone
-			$datetime = new DateTime( $item_date, new DateTimeZone( $timezone_string ) );
+			$datetime = new DateTime( $item->post_date_gmt, new DateTimeZone( $timezone_string ) );
+
+			return $datetime->format( 'c' );
+		}
+		elseif ( $this->is_valid_datetime( $item->post_modified_gmt ) ) {
+			// Fallback 1: post_modified_gmt
+			$datetime = new DateTime( $item->post_modified_gmt, new DateTimeZone( $timezone_string ) );
+
+			return $datetime->format( 'c' );
+		}
+		elseif ( $this->is_valid_datetime( $item->post_modified ) ) {
+			// Fallback 2: post_modified
+			$datetime = new DateTime( $item->post_modified, new DateTimeZone( $timezone_string ) );
 
 			return $datetime->format( 'c' );
 		}
