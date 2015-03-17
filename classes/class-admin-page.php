@@ -136,7 +136,7 @@ class WPSEO_News_Wrappers {
 			return;
 		}
 
-		return self::admin_pages()->textinput($var, $label, $option);
+		return self::admin_pages()->textinput( $var, $label, $option );
 	}
 
 	/**
@@ -159,7 +159,7 @@ class WPSEO_News_Wrappers {
 			return;
 		}
 
-		return self::admin_pages()->select($var, $label, $option);
+		return self::admin_pages()->select( $var, $label, $option );
 	}
 
 	/**
@@ -182,7 +182,7 @@ class WPSEO_News_Wrappers {
 			return;
 		}
 
-		return self::admin_pages()->checkbox($var, $label, $label_left, $option);
+		return self::admin_pages()->checkbox( $var, $label, $label_left, $option );
 	}
 
 	/**
