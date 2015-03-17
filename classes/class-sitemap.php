@@ -270,9 +270,11 @@ class WPSEO_News_Sitemap_Item {
 		$cats    = get_the_terms( $this->item->ID, 'category' );
 		$exclude = 0;
 
-		foreach ( $cats as $cat ) {
-			if ( isset( $this->options[ 'catexclude_' . $cat->slug ] ) ) {
-				$exclude ++;
+		if( is_array( $cats ) ) {
+			foreach ( $cats as $cat ) {
+				if ( isset( $this->options[ 'catexclude_' . $cat->slug ] ) ) {
+					$exclude ++;
+				}
 			}
 		}
 
