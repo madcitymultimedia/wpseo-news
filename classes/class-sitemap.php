@@ -230,7 +230,7 @@ class WPSEO_News_Sitemap {
 	private function format_date_with_timezone( $datetime_string ) {
 		static $timezone_string;
 
-		if ( $timezone_string == null ) {
+		if ( $timezone_string === null ) {
 			// Get the timezone string
 			$timezone_string = $this->wp_get_timezone_string();
 		}
