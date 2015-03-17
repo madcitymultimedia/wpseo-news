@@ -200,7 +200,34 @@ class WPSEO_News_Sitemap {
 	 * @return string
 	 */
 	private function get_publication_date( $item ) {
+		if ( $this->is_valid_datetime( $item->post_date_gmt ) ) {
+			// Create a DateTime object date in the correct timezone
+			return $this->format_date_with_timezone( $item->post_date_gmt );
+		}
+		elseif ( $this->is_valid_datetime( $item->post_modified_gmt ) ) {
+			// Fallback 1: post_modified_gmt
+			return $this->format_date_with_timezone( $item->post_modified_gmt );
+		}
+		elseif ( $this->is_valid_datetime( $item->post_modified ) ) {
+			// Fallback 2: post_modified
+			return $this->format_date_with_timezone( $item->post_modified );
+		}
+		elseif ( $this->is_valid_datetime( $item->post_date ) ) {
+			// Fallback 3: post_date
+			return $this->format_date_with_timezone( $item->post_date );
+		}
 
+		return '';
+	}
+
+	/**
+	 * Format a datestring with a timezone
+	 *
+	 * @param $datetime_string
+	 *
+	 * @return string
+	 */
+	private function format_date_with_timezone( $datetime_string ) {
 		static $timezone_string;
 
 		if ( $timezone_string == null ) {
@@ -208,32 +235,7 @@ class WPSEO_News_Sitemap {
 			$timezone_string = $this->wp_get_timezone_string();
 		}
 
-		if ( $this->is_valid_datetime( $item->post_date_gmt ) ) {
-			// Create a DateTime object date in the correct timezone
-			return $this->format_date_from_timezone( $item->post_date_gmt, $timezone_string );
-		}
-		elseif ( $this->is_valid_datetime( $item->post_modified_gmt ) ) {
-			// Fallback 1: post_modified_gmt
-			return $this->format_date_from_timezone( $item->post_modified_gmt, $timezone_string );
-		}
-		elseif ( $this->is_valid_datetime( $item->post_modified ) ) {
-			// Fallback 2: post_modified
-			return $this->format_date_from_timezone( $item->post_modified, $timezone_string );
-		}
-
-		return '';
-	}
-
-	/**
-	 *
-	 *
-	 * @param $datetime_string
-	 * @param $timezone
-	 *
-	 * @return string
-	 */
-	private function format_date_from_timezone( $datetime_string, $timezone ) {
-		$datetime = new DateTime( $datetime_string, new DateTimeZone( $timezone ) );
+		$datetime = new DateTime( $datetime_string, new DateTimeZone( $timezone_string ) );
 
 		return $datetime->format( 'c' );
 	}
