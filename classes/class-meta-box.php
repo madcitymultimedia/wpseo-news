@@ -52,11 +52,11 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				'description' => __( 'Is this article the original source of this news? If not, please enter the URL of the original source here. If there are multiple sources, please separate them by a pipe symbol: | .', 'wordpress-seo-news' ),
 			),
 			'newssitemap-stocktickers' => array(
-				'name'        => 'newssitemap-original',
+				'name'        => 'newssitemap-stocktickers',
 				'std'         => '',
 				'type'        => 'text',
-				'title'       => __( 'Original Source', 'wordpress-seo-news' ),
-				'description' => __( 'Is this article the original source of this news? If not, please enter the URL of the original source here. If there are multiple sources, please separate them by a pipe symbol: | .', 'wordpress-seo-news' ),
+				'title'       => __( 'Stock Tickers', 'wordpress-seo-news' ),
+				'description' => __( 'A comma-separated list of up to 5 stock tickers of the companies, mutual funds, or other financial entities that are the main subject of the article. Each ticker must be prefixed by the name of its stock exchange, and must match its entry in Google Finance. For example, "NASDAQ:AMAT" (but not "NASD:AMAT"), or "BOM:500325" (but not "BOM:RIL").', 'wordpress-seo-news' ),
 			),
 			'newssitemap-standout'     => array(
 				'name'        => 'newssitemap-standout',
