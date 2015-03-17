@@ -83,6 +83,8 @@ class WPSEO_News_Wrappers {
 	 * @param string $option_long_name
 	 * @param string $option
 	 * @param bool   $contains_files
+	 *
+	 * @return mixed
 	 */
 	public static function admin_header( $form = true, $option_long_name = 'yoast_wpseo_options', $option = 'wpseo', $contains_files = false ) {
 
@@ -100,6 +102,8 @@ class WPSEO_News_Wrappers {
 	 *
 	 * @param bool $submit
 	 * @param bool $show_sidebar
+	 *
+	 * @return mixed
 	 */
 	public static function admin_footer( $submit = true, $show_sidebar = true ) {
 
@@ -118,6 +122,8 @@ class WPSEO_News_Wrappers {
 	 * @param string $var
 	 * @param string $label
 	 * @param string $option
+	 *
+	 * @return mixed
 	 */
 	public static function textinput($var, $label, $option = '') {
 		if ( method_exists( 'Yoast_Form', 'textinput' ) ) {
@@ -140,6 +146,8 @@ class WPSEO_News_Wrappers {
 	 * @param string $label
 	 * @param array  $values
 	 * @param string $option
+	 *
+	 * @return mixed
 	 */
 	public static function select( $var, $label, $values, $option = '' ) {
 		if ( method_exists( 'Yoast_Form', 'select' ) ) {
@@ -161,6 +169,8 @@ class WPSEO_News_Wrappers {
 	 * @param        $label
 	 * @param bool   $label_left
 	 * @param string $option
+	 *
+	 * @return mixed
 	 */
 	public static function checkbox( $var, $label, $label_left = false, $option = '' ) {
 		if ( method_exists( 'Yoast_Form', 'checkbox' ) ) {
