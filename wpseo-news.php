@@ -346,6 +346,26 @@ class WPSEO_News {
 		);
 	}
 
+	/**
+	 * Getting the name for the sitemap, if $full_path is true, it will return the full path
+	 *
+	 * @param bool $full_path
+	 *
+	 * @return string mixed
+	 */
+	public static function get_sitemap_name( $full_path = true ) {
+		// This filter is documented in classes/class-sitemap.php
+		$sitemap_name = apply_filters( 'wpseo_news_sitemap_name', 'news' );
+
+		// When $full_path is true, it will generate a full path
+		if ( $full_path ) {
+			return home_url( $sitemap_name . '-sitemap.xml' );
+		}
+
+		return $sitemap_name;
+
+	}
+
 }
 
 // Load text domain

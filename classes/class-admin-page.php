@@ -12,12 +12,9 @@ class WPSEO_News_Admin_Page {
 		// Admin header
 		WPSEO_News_Wrappers::admin_header( true, 'yoast_wpseo_news_options', 'wpseo_news' );
 
-		// This filter is documented in class-sitemap.php
-		$news_sitemap_xml = apply_filters( 'wpseo_news_sitemap_url', home_url( 'news-sitemap.xml' ) );
-
 		// Introducten
 		echo '<p>' . __( 'You will generally only need XML News sitemap when your website is included in Google News.', 'wordpress-seo-news' ) . '</p>';
-		echo '<p>' . sprintf( __( 'You can find your news sitemap here: %1$sXML News sitemap%2$s', 'wordpress-seo-news' ), "<a target='_blank' class='button-secondary' href='" . $news_sitemap_xml . "'>", '</a>' ) . '</p>';
+		echo '<p>' . sprintf( __( 'You can find your news sitemap here: %1$sXML News sitemap%2$s', 'wordpress-seo-news' ), "<a target='_blank' class='button-secondary' href='" . WPSEO_News::get_sitemap_name(). "'>", '</a>' ) . '</p>';
 
 		// Google News Publication Name
 		echo WPSEO_News_Wrappers::textinput( 'name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );

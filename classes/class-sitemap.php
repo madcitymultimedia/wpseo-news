@@ -16,7 +16,7 @@ class WPSEO_News_Sitemap {
 	 */
 	public function init() {
 		if ( isset( $GLOBALS['wpseo_sitemaps'] ) ) {
-			$GLOBALS['wpseo_sitemaps']->register_sitemap( 'news', array( $this, 'build' ) );
+			$GLOBALS['wpseo_sitemaps']->register_sitemap( WPSEO_News::get_sitemap_name( false ), array( $this, 'build' ) );
 		}
 	}
 
@@ -32,11 +32,11 @@ class WPSEO_News_Sitemap {
 		$date = new DateTime( get_lastpostdate( 'gmt' ), new DateTimeZone( new WPSEO_News_Sitemap_Timezone() ) );
 
 		/**
-		 * Filter: 'wpseo_news_sitemap_url' - Allow filtering the news sitemap XML URL
+		 * Filter: 'wpseo_news_sitemap_name' - Allow filtering the news sitemap XML URL
 		 *
 		 * @api string $news_sitemap_xml The news sitemap XML URL
 		 */
-		$news_sitemap_xml = apply_filters( 'wpseo_news_sitemap_url', home_url( 'news-sitemap.xml' ) );
+		$news_sitemap_xml = WPSEO_News::get_sitemap_name( );
 
 		$str .= '<sitemap>' . "\n";
 		$str .= '<loc>' . $news_sitemap_xml . '</loc>' . "\n";
