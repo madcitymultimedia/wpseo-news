@@ -1,8 +1,8 @@
 News SEO for WordPress SEO
 ==========================
 Requires at least: 3.8  
-Tested up to: 4.0  
-Stable tag: 2.2.2  
+Tested up to: 4.2
+Stable tag: 2.3
 Depends: wordpress-seo
 
 
@@ -24,7 +24,21 @@ Installation
 Changelog
 =========
 
-### 2.2.2 December 17th, 2014
+### 2.3: March 24th, 2014
+
+* Bugfixes
+	* Fixes a bug where an invalid argument error could be raised when visiting the sitemap.
+	* Fixes a bug where the sitemap could contain wrongly formatted publication dates.
+	* Fixes a bug where the `wpseo_news_sitemap_url` filter wasn't working properly.
+	* Fixes a bug where the News sitemap genre wasn't saved on posts.
+	* Fixes a bug where the sitemap didn't always contain the correct image url, props [Marcus Jaschen](https://github.com/mjaschen).
+	* Fixes a bug with duplicate keywords in the news sitemap.
+	* Fixes an issue where the Editor's pick RSS took very long to load, by only fetching the selected post types from the database.
+	* Fixes a bug where the default keywords and the meta news keywords weren't added to the sitemap.
+* Enhancement
+	* Introduces a few string improvements.
+
+### 2.2.2: December 17th, 2014
 
 * Bugfixes
   * The stocktickers didn't work properly, these are fixed
