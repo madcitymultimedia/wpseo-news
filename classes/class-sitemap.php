@@ -227,6 +227,7 @@ class WPSEO_News_Sitemap_Item {
 		$this->item    = $item;
 		$this->options = $options;
 
+
 		// Check if item should be skipped
 		if ( ! $this->skip_build_item() ) {
 			$this->build_item();
@@ -270,9 +271,11 @@ class WPSEO_News_Sitemap_Item {
 		$cats    = get_the_terms( $this->item->ID, 'category' );
 		$exclude = 0;
 
-		foreach ( $cats as $cat ) {
-			if ( isset( $this->options[ 'catexclude_' . $cat->slug ] ) ) {
-				$exclude ++;
+		if ( is_array( $cats ) ) {
+			foreach ( $cats as $cat ) {
+				if ( isset( $this->options[ 'catexclude_' . $cat->slug ] ) ) {
+					$exclude ++;
+				}
 			}
 		}
 
@@ -319,7 +322,7 @@ class WPSEO_News_Sitemap_Item {
 			$this->output .= "\t\t<news:genres><![CDATA[" . htmlspecialchars( $genre ) . ']]></news:genres>' . "\n";
 		}
 
-		$this->output .= "\t\t<news:publication_date>" . $this->get_publication_date( $this->item->post_date_gmt ) . '</news:publication_date>' . "\n";
+		$this->output .= "\t\t<news:publication_date>" . $this->get_publication_date( $this->item ) . '</news:publication_date>' . "\n";
 		$this->output .= "\t\t<news:title><![CDATA[" . htmlspecialchars( $this->item->post_title ) . ']]></news:title>' . "\n";
 
 		if ( ! empty( $keywords ) ) {
@@ -358,10 +361,8 @@ class WPSEO_News_Sitemap_Item {
 		}
 
 		if ( $genre === '' && isset( $this->options['default_genre'] ) && $this->options['default_genre'] != '' ) {
-			$genre = implode( ',', $this->options['default_genre'] );
+			$genre = is_array( $this->options['default_genre'] ) ? implode( ',', $this->options['default_genre'] ) : $this->options['default_genre'];
 		}
-
-
 
 		$genre = trim( preg_replace( '/^none,?/', '', $genre ) );
 
@@ -387,17 +388,45 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Parses the inputted date into xml format
+	 * Parses the $item argument into an xml format
 	 *
-	 * @param string $item_date
+	 * @param string $item
 	 *
 	 * @return string
 	 */
-	private function get_publication_date( $item_date ) {
+	private function get_publication_date( $item ) {
+		if ( $this->is_valid_datetime( $item->post_date_gmt ) ) {
+			// Create a DateTime object date in the correct timezone
+			return $this->format_date_with_timezone( $item->post_date_gmt );
+		}
+		elseif ( $this->is_valid_datetime( $item->post_modified_gmt ) ) {
+			// Fallback 1: post_modified_gmt
+			return $this->format_date_with_timezone( $item->post_modified_gmt );
+		}
+		elseif ( $this->is_valid_datetime( $item->post_modified ) ) {
+			// Fallback 2: post_modified
+			return $this->format_date_with_timezone( $item->post_modified );
+		}
+		elseif ( $this->is_valid_datetime( $item->post_date ) ) {
+			// Fallback 3: post_date
+			return $this->format_date_with_timezone( $item->post_date );
+		}
+
+		return '';
+	}
+
+	/**
+	 * Format a datestring with a timezone
+	 *
+	 * @param $item_date
+	 *
+	 * @return string
+	 */
+	private function format_date_with_timezone( $item_date ) {
 
 		static $timezone_string;
 
-		if ( $timezone_string == null ) {
+		if ( $timezone_string === null ) {
 			// Get the timezone string
 			$timezone_string = new WPSEO_News_Sitemap_Timezone();
 		}
@@ -429,6 +458,19 @@ class WPSEO_News_Sitemap_Item {
 		$this->output .= new WPSEO_News_Sitemap_Images( $this->item, $this->options );
 	}
 
+	/**
+	 * Wrapper function to check if we have a valid datetime (Uses a new util in WPSEO)
+	 *
+	 * @param string $datetime
+	 *
+	 * @return bool
+	 */
+	private function is_valid_datetime( $datetime ) {
+		if ( method_exists( 'WPSEO_Utils', 'is_valid_datetime' ) ) {
+			return WPSEO_Utils::is_valid_datetime( $datetime );
+		}
+		return true;
+	}
 }
 
 class WPSEO_News_Sitemap_Images {
@@ -665,5 +707,4 @@ class WPSEO_News_Sitemap_Images {
 			'title'       => $attachment->post_title,
 		);
 	}
-
 }
