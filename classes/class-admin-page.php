@@ -3,20 +3,14 @@
 class WPSEO_News_Admin_Page {
 
 	/**
-	 * Holder for object for admin_pages
-	 * @var
-	 */
-	private $wpseo_admin_pages;
-
-	/**
 	 * Display admin page
 	 */
 	public function display() {
-		// Setting the object for admin pages
-		$this->wpseo_admin_pages = $this->get_wpseo_admin_pages();
+		// Load options
+		$options = WPSEO_News::get_options();
 
 		// Admin header
-		$this->wpseo_admin_pages->admin_header( true, 'yoast_wpseo_news_options', 'wpseo_news' );
+		WPSEO_News_Wrappers::admin_header( true, 'yoast_wpseo_news_options', 'wpseo_news' );
 
 		// This filter is documented in class-sitemap.php
 		$news_sitemap_xml = apply_filters( 'wpseo_news_sitemap_url', home_url( 'news-sitemap.xml' ) );
@@ -26,10 +20,12 @@ class WPSEO_News_Admin_Page {
 		echo '<p>' . sprintf( __( 'You can find your news sitemap here: %1$sXML News sitemap%2$s', 'wordpress-seo-news' ), "<a target='_blank' class='button-secondary' href='" . $news_sitemap_xml . "'>", '</a>' ) . '</p>';
 
 		// Google News Publication Name
-		echo $this->wpseo_admin_pages->textinput( 'name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );
+		echo WPSEO_News_Wrappers::textinput( 'name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );
 
 		// Default Genre
-		echo $this->wpseo_admin_pages->select( 'default_genre', __( 'Default Genre', 'wordpress-seo-news' ), WPSEO_News::list_genres() );
+		echo WPSEO_News_Wrappers::select( 'default_genre', __( 'Default Genre', 'wordpress-seo-news' ),
+			WPSEO_News::list_genres()
+		);
 
 		// Default keywords
 		$this->default_keywords();
@@ -44,32 +40,19 @@ class WPSEO_News_Admin_Page {
 		$this->editors_pick();
 
 		// Admin footer
-		$this->wpseo_admin_pages->admin_footer( true, false );
-	}
+		WPSEO_News_Wrappers::admin_footer( true, false );
 
-	/**
-	 * Getting the object for the seo admin pages
-	 *
-	 * @return object
-	 */
-	private function get_wpseo_admin_pages() {
-		if ( class_exists( 'Yoast_Form' ) ) {
-			return Yoast_Form::get_instance();
-		}
-
-		global $wpseo_admin_pages;
-		return $wpseo_admin_pages;
 	}
 
 	/**
 	 * Generate HTML for the keywords which will be defaulted
 	 */
 	private function default_keywords() {
-		echo $this->wpseo_admin_pages->textinput( 'default_keywords', __( 'Default Keywords', 'wordpress-seo-news' ) );
+		// Default keywords
+		echo WPSEO_News_Wrappers::textinput( 'default_keywords', __( 'Default Keywords', 'wordpress-seo-news' ) );
 		echo '<p>' . __( 'It might be wise to add some of Google\'s suggested keywords to all of your posts, add them as a comma separated list. Find the list here:', 'wordpress-seo-news' ) . ' ' . make_clickable( 'http://www.google.com/support/news_pub/bin/answer.py?answer=116037' ) . '</p>';
 
-		echo $this->wpseo_admin_pages->checkbox( 'restrict_sitemap_featured_img', __( 'Only use featured image for XML News sitemap, ignore images in post.', 'wordpress-seo-news' ), false );
-
+		echo WPSEO_News_Wrappers::checkbox( 'restrict_sitemap_featured_img', __( 'Only use featured image for XML News sitemap, ignore images in post.', 'wordpress-seo-news' ), false );
 		echo '<br><br>';
 	}
 
@@ -77,9 +60,10 @@ class WPSEO_News_Admin_Page {
 	 * Generate HTML for the post types which should be included in the sitemap
 	 */
 	private function include_post_types() {
-		echo '<h2>' . __( 'Post Types to include in News Sitemap', 'wordpress-seo-news' ) . '</h2>';
-		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $post_type ) {
-			echo $this->wpseo_admin_pages->checkbox( 'newssitemap_include_' . $post_type->name, $post_type->labels->name, false );
+		// Post Types to include in News Sitemap
+		echo '<h2>' . __( 'Post Types to include in News Sitemap and Editors&#39; Pick RSS', 'wordpress-seo-news' ) . '</h2>';
+		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
+			echo WPSEO_News_Wrappers::checkbox( 'newssitemap_include_' . $posttype->name, $posttype->labels->name, false );
 		}
 	}
 
@@ -91,7 +75,7 @@ class WPSEO_News_Admin_Page {
 		if ( isset( $options['newssitemap_include_post'] ) ) {
 			echo '<h2>' . __( 'Post categories to exclude', 'wordpress-seo-news' ) . '</h2>';
 			foreach ( get_categories() as $cat ) {
-				echo $this->wpseo_admin_pages->checkbox( 'catexclude_' . $cat->slug, $cat->name . ' (' . $cat->count . ' posts)', false );
+				echo WPSEO_News_Wrappers::checkbox( 'catexclude_' . $cat->slug, $cat->name . ' (' . $cat->count . ' posts)', false );
 			}
 		}
 	}
@@ -112,6 +96,130 @@ class WPSEO_News_Admin_Page {
 
 		echo '<p>' . sprintf( __( 'You can find your Editors\' Pick RSS feed here: %1$sEditors\' Pick RSS Feed%2$s', 'wordpress-seo-news' ), "<a target='_blank' class='button-secondary' href='" . home_url( 'editors-pick.rss' ) . "'>", '</a>' ) . '</p>';
 		echo '<p>' . sprintf( __( 'You can submit your Editors\' Pick RSS feed here: %1$sSubmit Editors\' Pick RSS Feed%2$s', 'wordpress-seo-news' ), "<a class='button-secondary' href='https://support.google.com/news/publisher/contact/editors_picks' target='_blank'>", '</a>' ) . '</p>';
+	}
+
+}
+
+class WPSEO_News_Wrappers {
+
+	/**
+	 * Fallback for admin_header
+	 *
+	 * @param bool   $form
+	 * @param string $option_long_name
+	 * @param string $option
+	 * @param bool   $contains_files
+	 *
+	 * @return mixed
+	 */
+	public static function admin_header( $form = true, $option_long_name = 'yoast_wpseo_options', $option = 'wpseo', $contains_files = false ) {
+
+		if ( method_exists( 'Yoast_Form', 'admin_header' ) ) {
+			Yoast_Form::get_instance()->admin_header( $form, $option, $contains_files, $option_long_name );
+
+			return;
+		}
+
+		return self::admin_pages()->admin_header( true, 'yoast_wpseo_news_options', 'wpseo_news' );
+	}
+
+	/**
+	 * Fallback for admin_footer
+	 *
+	 * @param bool $submit
+	 * @param bool $show_sidebar
+	 *
+	 * @return mixed
+	 */
+	public static function admin_footer( $submit = true, $show_sidebar = true ) {
+
+		if ( method_exists( 'Yoast_Form', 'admin_footer' ) ) {
+			Yoast_Form::get_instance()->admin_footer( $submit, $show_sidebar );
+
+			return;
+		}
+
+		return self::admin_pages()->admin_footer( $submit, $show_sidebar );
+	}
+
+	/**
+	 * Fallback for the textinput method
+	 *
+	 * @param string $var
+	 * @param string $label
+	 * @param string $option
+	 *
+	 * @return mixed
+	 */
+	public static function textinput($var, $label, $option = '') {
+		if ( method_exists( 'Yoast_Form', 'textinput' ) ) {
+			if ( $option !== '' ) {
+				Yoast_Form::get_instance()->set_option( $option );
+			}
+
+			Yoast_Form::get_instance()->textinput( $var, $label );
+
+			return;
+		}
+
+		return self::admin_pages()->textinput( $var, $label, $option );
+	}
+
+	/**
+	 * Wrapper for select method.
+	 *
+	 * @param string $var
+	 * @param string $label
+	 * @param array  $values
+	 * @param string $option
+	 *
+	 * @return mixed
+	 */
+	public static function select( $var, $label, $values, $option = '' ) {
+		if ( method_exists( 'Yoast_Form', 'select' ) ) {
+			if ( $option !== '' ) {
+				Yoast_Form::get_instance()->set_option( $option );
+			}
+
+			Yoast_Form::get_instance()->select( $var, $label, $values );
+			return;
+		}
+
+		return self::admin_pages()->select( $var, $label, $option );
+	}
+
+	/**
+	 * Wrapper for checkbox method
+	 *
+	 * @param        $var
+	 * @param        $label
+	 * @param bool   $label_left
+	 * @param string $option
+	 *
+	 * @return mixed
+	 */
+	public static function checkbox( $var, $label, $label_left = false, $option = '' ) {
+		if ( method_exists( 'Yoast_Form', 'checkbox' ) ) {
+			if ( $option !== '' ) {
+				Yoast_Form::get_instance()->set_option( $option );
+			}
+
+			Yoast_Form::get_instance()->checkbox( $var, $label, $label_left );
+			return;
+		}
+
+		return self::admin_pages()->checkbox( $var, $label, $label_left, $option );
+	}
+
+	/**
+	 * Returns the wpseo_admin pages global variable
+	 *
+	 * @return mixed
+	 */
+	private static function admin_pages() {
+		global $wpseo_admin_pages;
+
+		return $wpseo_admin_pages;
 	}
 
 }
