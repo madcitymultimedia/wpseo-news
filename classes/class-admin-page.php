@@ -1,9 +1,5 @@
 <?php
 
-if ( ! defined( 'ABSPATH' ) ) {
-	exit;
-} // Exit if accessed directly
-
 class WPSEO_News_Admin_Page {
 
 	/**
@@ -32,44 +28,74 @@ class WPSEO_News_Admin_Page {
 		);
 
 		// Default keywords
+		$this->default_keywords();
+
+		// Post Types to include in News Sitemap
+		$this->include_post_types();
+
+		// Post categories to exclude
+		$this->excluded_post_categories( );
+
+		// Editors' Pick
+		$this->editors_pick();
+
+		// Admin footer
+		WPSEO_News_Wrappers::admin_footer( true, false );
+
+	}
+
+	/**
+	 * Generate HTML for the keywords which will be defaulted
+	 */
+	private function default_keywords() {
+		// Default keywords
 		echo WPSEO_News_Wrappers::textinput( 'default_keywords', __( 'Default Keywords', 'wordpress-seo-news' ) );
 		echo '<p>' . __( 'It might be wise to add some of Google\'s suggested keywords to all of your posts, add them as a comma separated list. Find the list here:', 'wordpress-seo-news' ) . ' ' . make_clickable( 'http://www.google.com/support/news_pub/bin/answer.py?answer=116037' ) . '</p>';
 
 		echo WPSEO_News_Wrappers::checkbox( 'restrict_sitemap_featured_img', __( 'Only use featured image for XML News sitemap, ignore images in post.', 'wordpress-seo-news' ), false );
-
 		echo '<br><br>';
+	}
 
+	/**
+	 * Generate HTML for the post types which should be included in the sitemap
+	 */
+	private function include_post_types() {
 		// Post Types to include in News Sitemap
 		echo '<h2>' . __( 'Post Types to include in News Sitemap and Editors&#39; Pick RSS', 'wordpress-seo-news' ) . '</h2>';
 		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
 			echo WPSEO_News_Wrappers::checkbox( 'newssitemap_include_' . $posttype->name, $posttype->labels->name, false );
 		}
+	}
 
-		// Post categories to exclude
+	/**
+	 * Generate HTML for excluding post categories
+	 */
+	private function excluded_post_categories( ) {
+		$options = WPSEO_News::get_options();
 		if ( isset( $options['newssitemap_include_post'] ) ) {
 			echo '<h2>' . __( 'Post categories to exclude', 'wordpress-seo-news' ) . '</h2>';
 			foreach ( get_categories() as $cat ) {
 				echo WPSEO_News_Wrappers::checkbox( 'catexclude_' . $cat->slug, $cat->name . ' (' . $cat->count . ' posts)', false );
 			}
 		}
+	}
 
-		// Post Types to include in News Sitemap
+	/**
+	 * Part with HTML for editors pick
+	 */
+	private function editors_pick() {
 		echo '<h2>' . __( "Editors' Pick", 'wordpress-seo-news' ) . '</h2>';
 
 		$esc_form_key = 'ep_image_src';
-		$option       = WPSEO_News::get_options();
-		$meta_value   = $option[ $esc_form_key ];
+		$options      = WPSEO_News::get_options();
 
 		echo '<label class="select" for="' . $esc_form_key . '">' . __( "Editors' Pick Image", 'wordpress-seo-news' ) . ':</label>';
-		echo '<input id="' . $esc_form_key . '" type="text" size="36" name="wpseo_news[' . $esc_form_key . ']" value="' . esc_attr( $meta_value ) . '" />';
+		echo '<input id="' . $esc_form_key . '" type="text" size="36" name="wpseo_news[' . $esc_form_key . ']" value="' . esc_attr( $options[ $esc_form_key ] ) . '" />';
 		echo '<input id="' . $esc_form_key . '_button" class="wpseo_image_upload_button button" type="button" value="' . __( 'Upload Image', 'wordpress-seo-news' ) . '" />';
 		echo '<br class="clear"/>';
 
 		echo '<p>' . sprintf( __( 'You can find your Editors\' Pick RSS feed here: %1$sEditors\' Pick RSS Feed%2$s', 'wordpress-seo-news' ), "<a target='_blank' class='button-secondary' href='" . home_url( 'editors-pick.rss' ) . "'>", '</a>' ) . '</p>';
 		echo '<p>' . sprintf( __( 'You can submit your Editors\' Pick RSS feed here: %1$sSubmit Editors\' Pick RSS Feed%2$s', 'wordpress-seo-news' ), "<a class='button-secondary' href='https://support.google.com/news/publisher/contact/editors_picks' target='_blank'>", '</a>' ) . '</p>';
-
-		// Admin footer
-		WPSEO_News_Wrappers::admin_footer( true, false );
 	}
 
 }

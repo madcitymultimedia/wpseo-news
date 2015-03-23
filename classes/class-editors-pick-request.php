@@ -5,9 +5,16 @@ class WPSEO_News_Editors_Pick_Request {
 	const REWRITE_RULE = '^editors-pick.rss$';
 
 	/**
+	 * Setup this class
+	 */
+	public function __construct() {
+		$this->setup();
+	}
+
+	/**
 	 * Setup the Rewrite Rule Hooks
 	 */
-	public function setup() {
+	private function setup() {
 		add_filter( 'rewrite_rules_array', array( $this, 'add_rewrite_rule' ) );
 		add_filter( 'query_vars', array( $this, 'add_query_vars' ) );
 		add_action( 'wp_loaded', array( $this, 'flush_rules' ) );

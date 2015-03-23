@@ -55,7 +55,6 @@ class WPSEO_News {
 	}
 
 	public function __construct() {
-
 		// Check if module can work
 		if ( false === $this->check_dependencies() ) {
 			return false;
@@ -63,37 +62,19 @@ class WPSEO_News {
 
 		$this->set_autoloader();
 
-		// Add plugin links
-		add_filter( 'plugin_action_links', array( $this, 'plugin_links' ), 10, 2 );
-
-		// Add subitem to menu
-		add_filter( 'wpseo_submenu_pages', array( $this, 'add_submenu_pages' ) );
-
-		// Add Redirect page as admin page
-		add_filter( 'wpseo_admin_pages', array( $this, 'add_admin_pages' ) );
-
-		// Register settings
-		add_action( 'admin_init', array( $this, 'register_settings' ) );
+		$this->set_hooks();
 
 		// Meta box
-		$meta_box = new WPSEO_News_Meta_Box();
-		add_filter( 'wpseo_save_metaboxes', array( $meta_box, 'save' ), 10, 1 );
-		add_action( 'wpseo_tab_header', array( $meta_box, 'header' ) );
-		add_action( 'wpseo_tab_content', array( $meta_box, 'content' ) );
-		add_filter( 'add_extra_wpseo_meta_fields', array( $meta_box, 'add_meta_fields_to_wpseo_meta' ) );
+		new WPSEO_News_Meta_Box();
 
 		// Sitemap
-		$sitemap = new WPSEO_News_Sitemap();
-		add_action( 'init', array( $sitemap, 'init' ), 10 );
-		add_filter( 'wpseo_sitemap_index', array( $sitemap, 'add_to_index' ) );
+		new WPSEO_News_Sitemap();
 
 		// Rewrite Rules
-		$rewrite_rules = new WPSEO_News_Editors_Pick_Request();
-		$rewrite_rules->setup();
+		new WPSEO_News_Editors_Pick_Request();
 
 		// Head
-		$head = new WPSEO_News_Head();
-		add_action( 'wpseo_head', array( $head, 'add_head_tags' ) );
+		new WPSEO_News_Head();
 
 		if ( is_admin() ) {
 			$this->init_admin();
@@ -105,11 +86,27 @@ class WPSEO_News {
 	 * Setting up the autoloader
 	 */
 	private function set_autoloader() {
-
 		// Setup autoloader
 		require_once( dirname( __FILE__ ) . '/classes/class-autoloader.php' );
 		$autoloader = new WPSEO_News_Autoloader();
 		spl_autoload_register( array( $autoloader, 'load' ) );
+	}
+
+	/**
+	 * Loading the hooks, which will be lead to methods withing this class
+	 */
+	private function set_hooks() {
+		// Add plugin links
+		add_filter( 'plugin_action_links', array( $this, 'plugin_links' ), 10, 2 );
+
+		// Add subitem to menu
+		add_filter( 'wpseo_submenu_pages', array( $this, 'add_submenu_pages' ) );
+
+		// Add Redirect page as admin page
+		add_filter( 'wpseo_admin_pages', array( $this, 'add_admin_pages' ) );
+
+		// Register settings
+		add_action( 'admin_init', array( $this, 'register_settings' ) );
 	}
 
 	/**
@@ -365,4 +362,4 @@ function __wpseo_news_main() {
 }
 
 // Load WPSEO News
-add_action( 'after_setup_theme', '__wpseo_news_main' );
+add_action( 'plugins_loaded', '__wpseo_news_main' );

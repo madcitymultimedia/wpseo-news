@@ -6,8 +6,10 @@ class WPSEO_News_Sitemap {
 
 	public function __construct() {
 		$this->options = WPSEO_News::get_options();
-	}
 
+		add_action( 'init', array( $this, 'init' ), 10 );
+		add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
+	}
 
 	/**
 	 * Register the XML News sitemap with the main sitemap class.
@@ -27,7 +29,7 @@ class WPSEO_News_Sitemap {
 	 */
 	public function add_to_index( $str ) {
 
-		$date = new DateTime( get_lastpostdate( 'gmt' ), new DateTimeZone( $this->wp_get_timezone_string() ) );
+		$date = new DateTime( get_lastpostdate( 'gmt' ), new DateTimeZone( new WPSEO_News_Sitemap_Timezone() ) );
 
 		/**
 		 * Filter: 'wpseo_news_sitemap_url' - Allow filtering the news sitemap XML URL
@@ -48,87 +50,89 @@ class WPSEO_News_Sitemap {
 	 * Build the sitemap and push it to the XML Sitemaps Class instance for display.
 	 */
 	public function build() {
+		$GLOBALS['wpseo_sitemaps']->set_stylesheet( '<?xml-stylesheet type="text/xsl" href="' . preg_replace( '/^http[s]?:/', '', plugin_dir_url( WPSEO_News::get_file() ) ) . 'assets/xml-news-sitemap.xsl"?>' );
 
-		$post_types = $this->get_post_types();
-		$items      = $this->get_items( $post_types );
+		$GLOBALS['wpseo_sitemaps']->set_sitemap( $this->build_sitemap() );
+	}
 
+	/**
+	 * Building the XML for the sitemap
+	 *
+	 * @return string
+	 */
+	public function build_sitemap() {
 		$output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
+
+		$items = $this->get_items();
 
 		// Loop through items
 		if ( ! empty( $items ) ) {
-
-			$publication_name = ! empty( $this->options['name'] ) ? $this->options['name'] : get_bloginfo( 'name' );
-			$publication_lang = $this->get_publication_lang();
-
-			foreach ( $items as $item ) {
-				$item->post_status = 'publish';
-
-				if ( WPSEO_Meta::get_value( 'newssitemap-exclude', $item->ID ) == 'on' ) {
-					continue;
-				}
-
-				if ( false != WPSEO_Meta::get_value( 'meta-robots', $item->ID ) && strpos( WPSEO_Meta::get_value( 'meta-robots', $item->ID ), 'noindex' ) !== false ) {
-					continue;
-				}
-
-				if ( 'post' == $item->post_type ) {
-
-					$cats    = get_the_terms( $item->ID, 'category' );
-					$exclude = 0;
-
-					foreach ( $cats as $cat ) {
-						if ( isset( $this->options[ 'catexclude_' . $cat->slug ] ) ) {
-							$exclude ++;
-						}
-					}
-
-					if ( $exclude >= count( $cats ) ) {
-						continue;
-					}
-				}
-
-				$keywords         = new WPSEO_News_Meta_Keywords( $item->ID );
-				$genre            = $this->get_item_genre( $item->ID );
-				$stock_tickers    = $this->get_item_stock_tickers( $item->ID );
-				$publication_date = $this->get_publication_date( $item );
-
-				$output .= '<url>' . "\n";
-				$output .= "\t<loc>" . get_permalink( $item ) . '</loc>' . "\n";
-				$output .= "\t<news:news>\n";
-				$output .= "\t\t<news:publication>" . "\n";
-				$output .= "\t\t\t<news:name><![CDATA[" . htmlspecialchars( $publication_name ) . ']]></news:name>' . "\n";
-				$output .= "\t\t\t<news:language>" . htmlspecialchars( $publication_lang ) . '</news:language>' . "\n";
-				$output .= "\t\t</news:publication>\n";
-
-				if ( ! empty( $genre ) ) {
-					$output .= "\t\t<news:genres><![CDATA[" . htmlspecialchars( $genre ) . ']]></news:genres>' . "\n";
-				}
-
-				$output .= empty( $publication_date ) ? '' : "\t\t<news:publication_date>" . $publication_date . '</news:publication_date>' . "\n";
-				$output .= "\t\t<news:title><![CDATA[" . htmlspecialchars( $item->post_title ) . ']]></news:title>' . "\n";
-
-				if ( ! empty( $keywords ) ) {
-					$output .= "\t\t<news:keywords><![CDATA[" . htmlspecialchars( $keywords ) . ']]></news:keywords>' . "\n";
-				}
-
-				if ( ! empty( $stock_tickers ) ) {
-					$output .= "\t\t<news:stock_tickers><![CDATA[" . htmlspecialchars( $stock_tickers ) . ']]></news:stock_tickers>' . "\n";
-				}
-
-				$output .= "\t</news:news>\n";
-
-				// Get images
-				if ( $image_output = $this->get_item_image_output( $item ) ) {
-					$output .= $image_output;
-				}
-
-				$output .= '</url>' . "\n";
-			}
+			$output .= $this->build_items( $items );
 		}
 
 		$output .= '</urlset>';
-		$GLOBALS['wpseo_sitemaps']->set_stylesheet( '<?xml-stylesheet type="text/xsl" href="' . preg_replace( '/^http[s]?:/', '', plugin_dir_url( WPSEO_News::get_file() ) ) . 'assets/xml-news-sitemap.xsl"?>' );
-		$GLOBALS['wpseo_sitemaps']->set_sitemap( $output );
+
+		return $output;
+	}
+
+	/**
+	 * Getting all the items for the sitemap
+	 *
+	 * @return mixed
+	 */
+	private function get_items() {
+		global $wpdb;
+
+		$post_types = $this->get_post_types();
+
+		// Get posts for the last two days only, credit to Alex Moss for this code.
+		$items = $wpdb->get_results( "SELECT ID, post_content, post_name, post_author, post_parent, post_date_gmt, post_date, post_date_gmt, post_title, post_type
+									FROM $wpdb->posts
+									WHERE post_status='publish'
+									AND (DATEDIFF(CURDATE(), post_date_gmt)<=2)
+									AND post_type IN ($post_types)
+									ORDER BY post_date_gmt DESC
+									LIMIT 0, 1000" );
+
+		return $items;
+	}
+
+	/**
+	 * Loop through all $items and build each one of it
+	 *
+	 * @param array  $items
+	 * @return string $output
+	 */
+	private function build_items( $items ) {
+		$output = '';
+		foreach ( $items as $item ) {
+			$output .= new WPSEO_News_Sitemap_Item( $item, $this->options );
+		}
+		return $output;
+	}
+
+	/**
+	 * Getting the post_types which will be displayed in the sitemap
+	 *
+	 * @return array|string
+	 */
+	private function get_post_types() {
+		// Get supported post types
+		$post_types = WPSEO_News::get_included_post_types();
+
+		if ( count( $post_types ) > 0 ) {
+			$post_types = "'" . implode( "','", $post_types ) . "'";
+		}
+
+		return $post_types;
+	}
+
+}
+
+class WPSEO_News_Sitemap_Timezone {
+
+	public function __toString() {
+		return $this->wp_get_timezone_string();
 	}
 
 	/**
@@ -159,19 +163,210 @@ class WPSEO_News_Sitemap {
 		// last try, guess timezone string manually
 		if ( false === $timezone ) {
 
-			$is_dst = date( 'I' );
-
-			foreach ( timezone_abbreviations_list() as $abbr ) {
-				foreach ( $abbr as $city ) {
-					if ( $city['dst'] == $is_dst && $city['offset'] == $utc_offset ) {
-						return $city['timezone_id'];
-					}
-				}
+			if ( $timezone_id = $this->get_timezone_id( $utc_offset ) ) {
+				return $timezone_id;
 			}
 		}
 
 		// fallback to UTC
 		return 'UTC';
+	}
+
+
+	/**
+	 * Getting the timezone id
+	 *
+	 * @param string $utc_offset
+	 *
+	 * @return mixed
+	 */
+	private function get_timezone_id( $utc_offset ) {
+		$is_dst = date( 'I' );
+
+		foreach ( timezone_abbreviations_list() as $abbr ) {
+			foreach ( $abbr as $city ) {
+				if ( $city['dst'] == $is_dst && $city['offset'] == $utc_offset ) {
+					return $city['timezone_id'];
+				}
+			}
+		}
+	}
+
+}
+
+
+class WPSEO_News_Sitemap_Item {
+
+	/**
+	 * The output which will be return
+	 *
+	 * @var string
+	 */
+	private $output = '';
+
+	/**
+	 * The current item
+	 *
+	 * @var object
+	 */
+	private $item;
+
+	/**
+	 * The options
+	 * @var array
+	 */
+	private $options;
+
+	/**
+	 * Setting properties and build the item
+	 *
+	 * @param object $item
+	 * @param array  $options
+	 */
+	public function __construct( $item, $options ) {
+		$this->item    = $item;
+		$this->options = $options;
+
+
+		// Check if item should be skipped
+		if ( ! $this->skip_build_item() ) {
+			$this->build_item();
+		}
+	}
+
+	/**
+	 * Return the output, because the object is converted to a string
+	 *
+	 * @return string
+	 */
+	public function __toString() {
+		return $this->output;
+	}
+
+	/**
+	 * Determine if item has to be skipped or not
+	 *
+	 * @return bool
+	 */
+	private function skip_build_item() {
+		if ( WPSEO_Meta::get_value( 'newssitemap-exclude', $this->item->ID ) == 'on' ) {
+			return true;
+		}
+
+		if ( false != WPSEO_Meta::get_value( 'meta-robots', $this->item->ID ) && strpos( WPSEO_Meta::get_value( 'meta-robots', $this->item->ID ), 'noindex' ) !== false ) {
+			return true;
+		}
+
+		if ( 'post' == $this->item->post_type && $this->exclude_item_terms() ) {
+			return true;
+		}
+	}
+
+	/**
+	 * Exclude the item when one of his terms is excluded
+	 *x
+	 * @return bool
+	 */
+	private function exclude_item_terms() {
+		$cats    = get_the_terms( $this->item->ID, 'category' );
+		$exclude = 0;
+
+		if ( is_array( $cats ) ) {
+			foreach ( $cats as $cat ) {
+				if ( isset( $this->options[ 'catexclude_' . $cat->slug ] ) ) {
+					$exclude ++;
+				}
+			}
+		}
+
+		if ( $exclude >= count( $cats ) ) {
+			return true;
+		}
+	}
+
+	/**
+	 * Building each sitemap item
+	 *
+	 */
+	private function build_item() {
+		$this->item->post_status = 'publish';
+
+		$this->output .= '<url>' . "\n";
+		$this->output .= "\t<loc>" . get_permalink( $this->item ) . '</loc>' . "\n";
+
+		// Building the news_tag
+		$this->build_news_tag();
+
+		// Getting the images for this item
+		$this->get_item_images();
+
+		$this->output .= '</url>' . "\n";
+	}
+
+	/**
+	 * Building the news tag
+	 *
+	 */
+	private function build_news_tag() {
+
+		$keywords      = new WPSEO_News_Meta_Keywords( $this->item->ID );
+		$genre         = $this->get_item_genre();
+		$stock_tickers = $this->get_item_stock_tickers( $this->item->ID );
+
+		$this->output .= "\t<news:news>\n";
+
+		// Build the publication tag
+		$this->build_publication_tag();
+
+		if ( ! empty( $genre ) ) {
+			$this->output .= "\t\t<news:genres><![CDATA[" . htmlspecialchars( $genre ) . ']]></news:genres>' . "\n";
+		}
+
+		$this->output .= "\t\t<news:publication_date>" . $this->get_publication_date( $this->item ) . '</news:publication_date>' . "\n";
+		$this->output .= "\t\t<news:title><![CDATA[" . htmlspecialchars( $this->item->post_title ) . ']]></news:title>' . "\n";
+
+		if ( ! empty( $keywords ) ) {
+			$this->output .= "\t\t<news:keywords><![CDATA[" . htmlspecialchars( $keywords ) . ']]></news:keywords>' . "\n";
+		}
+
+		if ( ! empty( $stock_tickers ) ) {
+			$this->output .= "\t\t<news:stock_tickers><![CDATA[" . htmlspecialchars( $stock_tickers ) . ']]></news:stock_tickers>' . "\n";
+		}
+
+		$this->output .= "\t</news:news>\n";
+	}
+
+	/**
+	 * Builds the publication tag
+	 */
+	private function build_publication_tag() {
+		$publication_name = ! empty( $this->options['name'] ) ? $this->options['name'] : get_bloginfo( 'name' );
+		$publication_lang = $this->get_publication_lang();
+
+		$this->output .= "\t\t<news:publication>" . "\n";
+		$this->output .= "\t\t\t<news:name><![CDATA[" . htmlspecialchars( $publication_name ) . ']]></news:name>' . "\n";
+		$this->output .= "\t\t\t<news:language>" . htmlspecialchars( $publication_lang ) . '</news:language>' . "\n";
+		$this->output .= "\t\t</news:publication>\n";
+	}
+
+	/**
+	 * Getting the genre for given $item_id
+	 *
+	 * @return string
+	 */
+	private function get_item_genre( ) {
+		$genre = WPSEO_Meta::get_value( 'newssitemap-genre', $this->item->ID );
+		if ( is_array( $genre ) ) {
+			$genre = implode( ',', $genre );
+		}
+
+		if ( $genre === '' && isset( $this->options['default_genre'] ) && $this->options['default_genre'] != '' ) {
+			$genre = is_array( $this->options['default_genre'] ) ? implode( ',', $this->options['default_genre'] ) : $this->options['default_genre'];
+		}
+
+		$genre = trim( preg_replace( '/^none,?/', '', $genre ) );
+
+		return $genre;
 	}
 
 	/**
@@ -193,7 +388,7 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
-	 * Parses the inputted date into xml format
+	 * Parses the $item argument into an xml format
 	 *
 	 * @param string $item
 	 *
@@ -223,108 +418,23 @@ class WPSEO_News_Sitemap {
 	/**
 	 * Format a datestring with a timezone
 	 *
-	 * @param $datetime_string
+	 * @param $item_date
 	 *
 	 * @return string
 	 */
-	private function format_date_with_timezone( $datetime_string ) {
+	private function format_date_with_timezone( $item_date ) {
+
 		static $timezone_string;
 
 		if ( $timezone_string === null ) {
 			// Get the timezone string
-			$timezone_string = $this->wp_get_timezone_string();
+			$timezone_string = new WPSEO_News_Sitemap_Timezone();
 		}
 
-		$datetime = new DateTime( $datetime_string, new DateTimeZone( $timezone_string ) );
+		// Create a DateTime object date in the correct timezone
+		$datetime = new DateTime( $item_date, new DateTimeZone( $timezone_string ) );
 
 		return $datetime->format( 'c' );
-	}
-
-	/**
-	 * Get attachment
-	 *
-	 * @param $attachment_id
-	 *
-	 * @return array
-	 */
-	private function get_attachment( $attachment_id ) {
-		// Get attachment
-		$attachment = get_post( $attachment_id );
-
-		// Check if we've found an attachment
-		if ( null == $attachment ) {
-			return array();
-		}
-
-		// Return props
-		return array(
-			'alt'         => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
-			'caption'     => $attachment->post_excerpt,
-			'description' => $attachment->post_content,
-			'href'        => get_permalink( $attachment->ID ),
-			'src'         => wp_get_attachment_url( $attachment->ID ),
-			'title'       => $attachment->post_title,
-		);
-	}
-
-	/**
-	 * Getting the post_types which will be displayed in the sitemap
-	 *
-	 * @return array|string
-	 */
-	private function get_post_types() {
-
-		// Get supported post types
-		$post_types = WPSEO_News::get_included_post_types();
-
-		if ( count( $post_types ) > 0 ) {
-			$post_types = "'" . implode( "','", $post_types ) . "'";
-		}
-
-		return $post_types;
-	}
-
-	/**
-	 * Getting all the items for the sitemap
-	 *
-	 * @param array $post_types
-	 *
-	 * @return mixed
-	 */
-	private function get_items( $post_types ) {
-		global $wpdb;
-
-		// Get posts for the last two days only, credit to Alex Moss for this code.
-		$items = $wpdb->get_results( "SELECT ID, post_content, post_name, post_author, post_parent, post_date_gmt, post_date, post_date_gmt, post_title, post_type
-									FROM $wpdb->posts
-									WHERE post_status='publish'
-									AND (DATEDIFF(CURDATE(), post_date_gmt)<=2)
-									AND post_type IN ($post_types)
-									ORDER BY post_date_gmt DESC
-									LIMIT 0, 1000" );
-
-		return $items;
-	}
-
-	/**
-	 * Getting the genre for given $item_id
-	 *
-	 * @param integer $item_id
-	 *
-	 * @return string
-	 */
-	private function get_item_genre( $item_id ) {
-		$genre = WPSEO_Meta::get_value( 'newssitemap-genre', $item_id );
-		if ( is_array( $genre ) ) {
-			$genre = implode( ',', $genre );
-		}
-
-		if ( $genre == '' && isset( $this->options['default_genre'] ) && $this->options['default_genre'] != '' ) {
-			$genre = $this->options['default_genre'];
-		}
-		$genre = trim( preg_replace( '/^none,?/', '', $genre ) );
-
-		return $genre;
 	}
 
 	/**
@@ -336,63 +446,123 @@ class WPSEO_News_Sitemap {
 	 */
 	private function get_item_stock_tickers( $item_id ) {
 		$stock_tickers = explode( ',', trim( WPSEO_Meta::get_value( 'newssitemap-stocktickers', $item_id ) ) );
-
 		$stock_tickers = trim( implode( ', ', $stock_tickers ), ', ' );
 
 		return $stock_tickers;
 	}
 
 	/**
-	 * Getting the image output for given $item
+	 * Getting the images for current item
+	 */
+	private function get_item_images() {
+		$this->output .= new WPSEO_News_Sitemap_Images( $this->item, $this->options );
+	}
+
+	/**
+	 * Wrapper function to check if we have a valid datetime (Uses a new util in WPSEO)
+	 *
+	 * @param string $datetime
+	 *
+	 * @return bool
+	 */
+	private function is_valid_datetime( $datetime ) {
+		if ( method_exists( 'WPSEO_Utils', 'is_valid_datetime' ) ) {
+			return WPSEO_Utils::is_valid_datetime( $datetime );
+		}
+		return true;
+	}
+}
+
+class WPSEO_News_Sitemap_Images {
+
+	/**
+	 * The current item
+	 * @var object
+	 */
+	private $item;
+
+	/**
+	 * The out that will be returned
+	 * @var string
+	 */
+	private $output = '';
+
+	/**
+	 * @var array
+	 */
+	private $options;
+
+	/**
+	 * Storage for the images
+	 * @var
+	 */
+	private $images;
+
+	/**
+	 * Setting properties and build the item
 	 *
 	 * @param object $item
+	 * @param array  $options
+	 */
+	public function __construct( $item, $options ) {
+		$this->item    = $item;
+		$this->options = $options;
+
+		$this->parse_item_images();
+	}
+
+	/**
+	 * Return the output, because the object is converted to a string
 	 *
 	 * @return string
 	 */
-	private function get_item_image_output( $item ) {
+	public function __toString() {
+		return $this->output;
+	}
 
-		$images = $this->get_item_images( $item );
+	/**
+	 * Parsing the images from the item
+	 */
+	private function parse_item_images() {
+		$this->get_item_images();
 
-		if ( isset( $images ) && count( $images ) > 0 ) {
-			$output = '';
-			foreach ( $images as $src => $img ) {
-				$output .= $this->parse_item_image( $src, $img, $item );
+		if ( isset( $this->images ) && count( $this->images ) > 0 ) {
+			foreach ( $this->images as $src => $img ) {
+				$this->parse_item_image( $src, $img );
 			}
-
-			return $output;
 		}
 	}
 
 	/**
 	 * Getting the images for the given $item
-	 *
-	 * @param object $item
-	 *
-	 * @return array
 	 */
-	private function get_item_images( $item ) {
-
-		$images = array();
-
-		if ( ( ! isset( $this->options['restrict_sitemap_featured_img'] ) || ! $this->options['restrict_sitemap_featured_img'] ) && preg_match_all( '/<img [^>]+>/', $item->post_content, $matches ) ) {
-			foreach ( $matches[0] as $img ) {
-				if ( preg_match( '/src=("|\')([^"|\']+)("|\')/', $img, $match ) ) {
-					if ( $src = $this->parse_image_source( $match[2] ) ) {
-						$images[ $src ] = $this->parse_image( $img );
-					} else {
-						continue;
-					}
-				}
-			}
+	private function get_item_images() {
+		if ( ( ! isset( $this->options['restrict_sitemap_featured_img'] ) || ! $this->options['restrict_sitemap_featured_img'] ) && preg_match_all( '/<img [^>]+>/', $this->item->post_content, $matches ) ) {
+			$this->get_images_from_content( $matches );
 		}
 
 		// Also check if the featured image value is set.
-		$post_thumbnail_id = get_post_thumbnail_id( $item->ID );
+		$post_thumbnail_id = get_post_thumbnail_id( $this->item->ID );
 		if ( '' != $post_thumbnail_id ) {
-			$images = $this->get_item_featured_image( $post_thumbnail_id, $images );
+			$this->get_item_featured_image( $post_thumbnail_id );
 		}
+	}
 
-		return $images;
+	/**
+	 * Getting the images from the content
+	 *
+	 * @param array $matches
+	 */
+	private function get_images_from_content( $matches ) {
+		foreach ( $matches[0] as $img ) {
+			if ( preg_match( '/src=("|\')([^"|\']+)("|\')/', $img, $match ) ) {
+				if ( $src = $this->parse_image_source( $match[2] ) ) {
+					$this->images[ $src ] = $this->parse_image( $img );
+				} else {
+					continue;
+				}
+			}
+		}
 	}
 
 	/**
@@ -411,7 +581,6 @@ class WPSEO_News_Sitemap {
 		}
 
 		if ( strpos( $src, 'http' ) !== 0 ) {
-
 			if ( $src[0] != '/' ) {
 				return;
 			}
@@ -451,14 +620,45 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
+	 * Parse the XML for given image
+	 *
+	 * @param string $src
+	 * @param string $img
+	 *
+	 * @return string
+	 */
+	private function parse_item_image( $src, $img ) {
+		/**
+		 * Filter: 'wpseo_xml_sitemap_img_src' - Allow changing of sitemap image src
+		 *
+		 * @api string $src The image source
+		 *
+		 * @param object $item The post item
+		 */
+		$src = apply_filters( 'wpseo_xml_sitemap_img_src', $src, $this->item );
+
+		$this->output .= "\t<image:image>\n";
+		$this->output .= "\t\t<image:loc>" . htmlspecialchars( $src ) . "</image:loc>\n";
+
+		if ( isset( $img['title'] ) ) {
+			$this->output .= "\t\t<image:title>" . htmlspecialchars( $img['title'] ) . "</image:title>\n";
+		}
+
+		if ( isset( $img['alt'] ) ) {
+			$this->output .= "\t\t<image:caption>" . htmlspecialchars( $img['alt'] ) . "</image:caption>\n";
+		}
+
+		$this->output .= "\t</image:image>\n";
+	}
+
+	/**
 	 * Getting the featured image
 	 *
 	 * @param integer $post_thumbnail_id
-	 * @param array   $images
 	 *
 	 * @return array
 	 */
-	private function get_item_featured_image( $post_thumbnail_id, $images ) {
+	private function get_item_featured_image( $post_thumbnail_id ) {
 
 		$attachment = $this->get_attachment( $post_thumbnail_id );
 
@@ -474,65 +674,37 @@ class WPSEO_News_Sitemap {
 			}
 
 			if ( '' != $attachment['src'] ) {
-				$images[ $attachment['src'] ] = $image;
+				$this->images[ $attachment['src'] ] = $image;
 			} elseif ( '' != $attachment['href'] ) {
-				$images[ $attachment['href'] ] = $image;
+				$this->images[ $attachment['href'] ] = $image;
 			}
 		}
-
-		return $images;
 	}
 
 	/**
-	 * Parse the XML for given image
+	 * Get attachment
 	 *
-	 * @param string $src
-	 * @param string $img
-	 * @param object $item
+	 * @param $attachment_id
 	 *
-	 * @return string
+	 * @return array
 	 */
-	private function parse_item_image( $src, $img, $item ) {
+	private function get_attachment( $attachment_id ) {
+		// Get attachment
+		$attachment = get_post( $attachment_id );
 
-		$output = '';
-
-		/**
-		 * Filter: 'wpseo_xml_sitemap_img_src' - Allow changing of sitemap image src
-		 *
-		 * @api string $src The image source
-		 *
-		 * @param object $item The post item
-		 */
-		$src = apply_filters( 'wpseo_xml_sitemap_img_src', $src, $item );
-
-		$output .= "\t\t<image:image>\n";
-		$output .= "\t\t\t<image:loc>" . htmlspecialchars( $src ) . "</image:loc>\n";
-
-		if ( isset( $img['title'] ) ) {
-			$output .= "\t\t\t<image:title>" . htmlspecialchars( $img['title'] ) . "</image:title>\n";
+		// Check if we've found an attachment
+		if ( null == $attachment ) {
+			return array();
 		}
 
-		if ( isset( $img['alt'] ) ) {
-			$output .= "\t\t\t<image:caption>" . htmlspecialchars( $img['alt'] ) . "</image:caption>\n";
-		}
-
-		$output .= "\t\t</image:image>\n";
-
-		return $output;
+		// Return props
+		return array(
+			'alt'         => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
+			'caption'     => $attachment->post_excerpt,
+			'description' => $attachment->post_content,
+			'href'        => get_permalink( $attachment->ID ),
+			'src'         => $attachment->guid,
+			'title'       => $attachment->post_title,
+		);
 	}
-
-	/**
-	 * Wrapper function to check if we have a valid datetime (Uses a new util in WPSEO)
-	 *
-	 * @param string $datetime
-	 *
-	 * @return bool
-	 */
-	private function is_valid_datetime( $datetime ) {
-		if ( method_exists( 'WPSEO_Utils', 'is_valid_datetime' ) ) {
-			return WPSEO_Utils::is_valid_datetime( $datetime );
-		}
-		return true;
-	}
-
 }
