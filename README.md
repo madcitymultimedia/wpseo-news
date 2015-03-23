@@ -35,8 +35,9 @@ Changelog
 	* Fixes a bug with duplicate keywords in the news sitemap.
 	* Fixes an issue where the Editor's pick RSS took very long to load, by only fetching the selected post types from the database.
 	* Fixes a bug where the default keywords and the meta news keywords weren't added to the sitemap.
-* Enhancement
+* Enhancements
 	* Introduces a few string improvements.
+	* Added 9 new languages: en_GB, es_ES, es_MX, fr_FR, he_IL, it_IT, nl_NL, ro_RO and tr_TR.
 
 ### 2.2.2: December 17th, 2014
 
