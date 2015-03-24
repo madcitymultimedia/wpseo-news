@@ -1,116 +1,88 @@
-# Copyright (C) 2014 Team Yoast
+# Copyright (C) 2015 Team Yoast
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPress SEO News 2.2\n"
-"Report-Msgid-Bugs-To: https://yoast.com/wordpress/plugins/news-seo/\n"
-"POT-Creation-Date: 2014-11-04 13:53:33+00:00\n"
+"Project-Id-Version: WordPress SEO News 2.3\n"
+"Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
+"POT-Creation-Date: 2015-03-23 23:47:13+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2014-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Yoast Translate Team <translations@yoast.com>\n"
 "Language-Team: Yoast Translate <translations@yoast.com>\n"
-"X-Generator: grunt-wp-i18n 0.4.4\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Poedit-Basepath: .\n"
-"X-Poedit-Language: English\n"
-"X-Poedit-Country: UNITED STATES\n"
-"X-Poedit-SourceCharset: utf-8\n"
-"X-Poedit-KeywordsList: __;_e;_x:1,2c;_ex:1,2c;_n:1,2; "
-"_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_attr__; esc_html__;esc_attr_e; "
-"esc_html_e;esc_attr_x:1,2c; esc_html_x:1,2c;\n"
-"X-Poedit-Bookmarks: \n"
+"X-Generator: grunt-wp-i18n 0.4.9\n"
+"X-Poedit-KeywordsList: "
+"__;_e;_x:1,2c;_ex:1,2c;_n:1,2;_nx:1,2,4c;_n_noop:1,2;_nx_noop:1,2,3c;esc_"
+"attr__;esc_html__;esc_attr_e;esc_html_e;esc_attr_x:1,2c;esc_html_x:1,2c;\n"
+"Language: en\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Poedit-Country: United States\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-Basepath: ../\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
 
-#: classes/class-admin-page.php:25
+#: classes/class-admin-page.php:16
 msgid ""
 "You will generally only need XML News sitemap when your website is included "
 "in Google News."
 msgstr ""
 
-#: classes/class-admin-page.php:26
+#: classes/class-admin-page.php:17
 msgid "You can find your news sitemap here: %1$sXML News sitemap%2$s"
 msgstr ""
 
-#: classes/class-admin-page.php:29
+#: classes/class-admin-page.php:20
 msgid "Google News Publication Name"
 msgstr ""
 
-#: classes/class-admin-page.php:32
+#: classes/class-admin-page.php:23
 msgid "Default Genre"
 msgstr ""
 
-#: classes/class-admin-page.php:34 classes/class-meta-box.php:41
-msgid "None"
-msgstr ""
-
-#: classes/class-admin-page.php:35 classes/class-meta-box.php:42
-msgid "Press Release"
-msgstr ""
-
-#: classes/class-admin-page.php:36 classes/class-meta-box.php:43
-msgid "Satire"
-msgstr ""
-
-#: classes/class-admin-page.php:37 classes/class-meta-box.php:44
-msgid "Blog"
-msgstr ""
-
-#: classes/class-admin-page.php:38 classes/class-meta-box.php:45
-msgid "Op-Ed"
-msgstr ""
-
-#: classes/class-admin-page.php:39 classes/class-meta-box.php:46
-msgid "Opinion"
-msgstr ""
-
-#: classes/class-admin-page.php:40 classes/class-meta-box.php:47
-msgid "User Generated"
-msgstr ""
-
-#: classes/class-admin-page.php:44
+#: classes/class-admin-page.php:49
 msgid "Default Keywords"
 msgstr ""
 
-#: classes/class-admin-page.php:45
+#: classes/class-admin-page.php:50
 msgid ""
 "It might be wise to add some of Google's suggested keywords to all of your "
 "posts, add them as a comma separated list. Find the list here:"
 msgstr ""
 
-#: classes/class-admin-page.php:47
+#: classes/class-admin-page.php:52
 msgid "Only use featured image for XML News sitemap, ignore images in post."
 msgstr ""
 
-#: classes/class-admin-page.php:52
-msgid "Post Types to include in News Sitemap"
+#: classes/class-admin-page.php:61
+msgid "Post Types to include in News Sitemap and Editors&#39; Pick RSS"
 msgstr ""
 
-#: classes/class-admin-page.php:59
+#: classes/class-admin-page.php:73
 msgid "Post categories to exclude"
 msgstr ""
 
-#: classes/class-admin-page.php:66 classes/class-meta-box.php:107
+#: classes/class-admin-page.php:84 classes/class-meta-box.php:77
 msgid "Editors' Pick"
 msgstr ""
 
-#: classes/class-admin-page.php:72
+#: classes/class-admin-page.php:89
 msgid "Editors' Pick Image"
 msgstr ""
 
-#: classes/class-admin-page.php:74
+#: classes/class-admin-page.php:91
 msgid "Upload Image"
 msgstr ""
 
-#: classes/class-admin-page.php:77
+#: classes/class-admin-page.php:94
 msgid ""
 "You can find your Editors' Pick RSS feed here: %1$sEditors' Pick RSS "
 "Feed%2$s"
 msgstr ""
 
-#: classes/class-admin-page.php:78
+#: classes/class-admin-page.php:95
 msgid ""
 "You can submit your Editors' Pick RSS feed here: %1$sSubmit Editors' Pick "
 "RSS Feed%2$s"
@@ -120,44 +92,44 @@ msgstr ""
 msgid "Choose image."
 msgstr ""
 
-#: classes/class-meta-box.php:25
+#: classes/class-meta-box.php:34
 msgid "Exclude from News Sitemap"
 msgstr ""
 
-#: classes/class-meta-box.php:31
+#: classes/class-meta-box.php:40
 msgid "Meta News Keywords"
 msgstr ""
 
-#: classes/class-meta-box.php:32
+#: classes/class-meta-box.php:41
 msgid ""
 "Comma separated list of the keywords this article aims at, use a maximum of "
 "10 keywords."
 msgstr ""
 
-#: classes/class-meta-box.php:38
+#: classes/class-meta-box.php:47
 msgid "Google News Genre"
 msgstr ""
 
-#: classes/class-meta-box.php:39
+#: classes/class-meta-box.php:48
 msgid "Genre to show in Google News Sitemap."
 msgstr ""
 
-#: classes/class-meta-box.php:55
+#: classes/class-meta-box.php:56
 msgid "Original Source"
 msgstr ""
 
-#: classes/class-meta-box.php:56
+#: classes/class-meta-box.php:57
 msgid ""
 "Is this article the original source of this news? If not, please enter the "
 "URL of the original source here. If there are multiple sources, please "
 "separate them by a pipe symbol: | ."
 msgstr ""
 
-#: classes/class-meta-box.php:62
+#: classes/class-meta-box.php:63
 msgid "Stock Tickers"
 msgstr ""
 
-#: classes/class-meta-box.php:63
+#: classes/class-meta-box.php:64
 msgid ""
 "A comma-separated list of up to 5 stock tickers of the companies, mutual "
 "funds, or other financial entities that are the main subject of the "
@@ -166,15 +138,11 @@ msgid ""
 "(but not \"NASD:AMAT\"), or \"BOM:500325\" (but not \"BOM:RIL\")."
 msgstr ""
 
-#: classes/class-meta-box.php:91
-msgid "You've used %s/%s standout tags."
-msgstr ""
-
-#: classes/class-meta-box.php:99
+#: classes/class-meta-box.php:70
 msgid "Standout"
 msgstr ""
 
-#: classes/class-meta-box.php:108
+#: classes/class-meta-box.php:78
 msgid ""
 "Editors' Picks enables you to provide up to five links to original news "
 "content you believe represents your organization’s best journalistic work "
@@ -182,40 +150,85 @@ msgid ""
 "homepage or select section pages."
 msgstr ""
 
-#: classes/class-meta-box.php:160 classes/class-meta-box.php:166
-#: classes/class-meta-box.php:203
+#: classes/class-meta-box.php:118 classes/class-meta-box.php:135
 msgid "Google News"
 msgstr ""
 
-#: wpseo-news.php:175
+#: classes/class-meta-box.php:200
+msgid ""
+"If your news organization breaks a big story, or publishes an extraordinary "
+"work of journalism, you can indicate this by using the standout tag."
+msgstr ""
+
+#: classes/class-meta-box.php:204
+msgid ""
+"Note: Google has a limit of %d stand out tags per seven days. Using more "
+"tags can cause removal from Google news. See for more information <a "
+"href=\"https://support.google.com/news/publisher/answer/191283?hl=en\">this "
+"Google page</a>."
+msgstr ""
+
+#: classes/class-meta-box.php:216
+msgid "You've used %s/%s standout tags in the last 7 days."
+msgstr ""
+
+#: wpseo-news.php:186
 msgid "Settings"
 msgstr ""
 
-#: wpseo-news.php:214
+#: wpseo-news.php:225
 msgid "Yoast WordPress SEO:"
 msgstr ""
 
-#: wpseo-news.php:214 wpseo-news.php:215
+#: wpseo-news.php:225 wpseo-news.php:226
 msgid "News SEO"
 msgstr ""
 
-#: wpseo-news.php:267
+#: wpseo-news.php:278
 msgid ""
 "Please %sinstall &amp; activate WordPress SEO by Yoast%s and then enable "
 "its XML sitemap functionality to allow the WordPress SEO News module to "
 "work."
 msgstr ""
 
-#: wpseo-news.php:276
+#: wpseo-news.php:287
 msgid ""
 "Please upgrade WordPress to the latest version to allow WordPress and the "
 "WordPress SEO News module to work properly."
 msgstr ""
 
-#: wpseo-news.php:285
+#: wpseo-news.php:296
 msgid ""
 "Please upgrade the WordPress SEO plugin to the latest version to allow the "
 "WordPress SEO News module to work."
+msgstr ""
+
+#: wpseo-news.php:339
+msgid "None"
+msgstr ""
+
+#: wpseo-news.php:340
+msgid "Press Release"
+msgstr ""
+
+#: wpseo-news.php:341
+msgid "Satire"
+msgstr ""
+
+#: wpseo-news.php:342
+msgid "Blog"
+msgstr ""
+
+#: wpseo-news.php:343
+msgid "Op-Ed"
+msgstr ""
+
+#: wpseo-news.php:344
+msgid "Opinion"
+msgstr ""
+
+#: wpseo-news.php:345
+msgid "User Generated"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
