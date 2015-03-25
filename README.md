@@ -2,7 +2,7 @@ News SEO for WordPress SEO
 ==========================
 Requires at least: 3.8  
 Tested up to: 4.2
-Stable tag: 2.3
+Stable tag: 2.2.3
 Depends: wordpress-seo
 
 
@@ -24,7 +24,7 @@ Installation
 Changelog
 =========
 
-### 2.3: March 24th, 2014
+### 2.2.3: March 24th, 2014
 
 * Bugfixes
 	* Fixes a bug where an invalid argument error could be raised when visiting the sitemap.
