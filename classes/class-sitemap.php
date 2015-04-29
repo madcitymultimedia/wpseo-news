@@ -355,18 +355,18 @@ class WPSEO_News_Sitemap_Item {
 		$this->build_publication_tag();
 
 		if ( ! empty( $genre ) ) {
-			$this->output .= "\t\t<news:genres><![CDATA[" . htmlspecialchars( $genre ) . ']]></news:genres>' . "\n";
+			$this->output .= "\t\t<news:genres><![CDATA[" . $genre . ']]></news:genres>' . "\n";
 		}
 
 		$this->output .= "\t\t<news:publication_date>" . $this->get_publication_date( $this->item ) . '</news:publication_date>' . "\n";
-		$this->output .= "\t\t<news:title><![CDATA[" . htmlspecialchars( $this->item->post_title ) . ']]></news:title>' . "\n";
+		$this->output .= "\t\t<news:title><![CDATA[" . $this->item->post_title . ']]></news:title>' . "\n";
 
 		if ( ! empty( $keywords ) ) {
-			$this->output .= "\t\t<news:keywords><![CDATA[" . htmlspecialchars( $keywords ) . ']]></news:keywords>' . "\n";
+			$this->output .= "\t\t<news:keywords><![CDATA[" . $keywords . ']]></news:keywords>' . "\n";
 		}
 
 		if ( ! empty( $stock_tickers ) ) {
-			$this->output .= "\t\t<news:stock_tickers><![CDATA[" . htmlspecialchars( $stock_tickers ) . ']]></news:stock_tickers>' . "\n";
+			$this->output .= "\t\t<news:stock_tickers><![CDATA[" . $stock_tickers . ']]></news:stock_tickers>' . "\n";
 		}
 
 		$this->output .= "\t</news:news>\n";
@@ -380,7 +380,7 @@ class WPSEO_News_Sitemap_Item {
 		$publication_lang = $this->get_publication_lang();
 
 		$this->output .= "\t\t<news:publication>" . "\n";
-		$this->output .= "\t\t\t<news:name><![CDATA[" . htmlspecialchars( $publication_name ) . ']]></news:name>' . "\n";
+		$this->output .= "\t\t\t<news:name><![CDATA[" . $publication_name . ']]></news:name>' . "\n";
 		$this->output .= "\t\t\t<news:language>" . htmlspecialchars( $publication_lang ) . '</news:language>' . "\n";
 		$this->output .= "\t\t</news:publication>\n";
 	}
