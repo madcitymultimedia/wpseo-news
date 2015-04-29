@@ -9,15 +9,10 @@ class WPSEO_News_Sitemap {
 
 		add_action( 'init', array( $this, 'init' ), 10 );
 		add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
-	}
+		add_action( 'save_post', array(  $this, 'invalidate_sitemap') );
 
-	/**
-	 * Register the XML News sitemap with the main sitemap class.
-	 */
-	public function init() {
-		if ( isset( $GLOBALS['wpseo_sitemaps'] ) ) {
-			$GLOBALS['wpseo_sitemaps']->register_sitemap( WPSEO_News::get_sitemap_name( false ), array( $this, 'build' ) );
-		}
+		// Setting stylesheet for cached sitemap
+		add_action( 'wpseo_sitemap_stylesheet_cache_news', array( $this, 'set_stylesheet_cache' ) );
 	}
 
 	/**
@@ -47,10 +42,47 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
+	 * Register the XML News sitemap with the main sitemap class.
+	 */
+	public function init() {
+		if ( isset( $GLOBALS['wpseo_sitemaps'] ) ) {
+			$GLOBALS['wpseo_sitemaps']->register_sitemap( WPSEO_News::get_sitemap_name( false ), array( $this, 'build' ) );
+		}
+	}
+
+	/**
+	 * Method to invalidate the sitemap
+	 *
+	 * @param integer $post_id
+	 */
+	public function invalidate_sitemap( $post_id ) {
+		// If this is just a revision, don't invalidate the sitemap cache yet.
+		if ( wp_is_post_revision( $post_id ) ) {
+			return;
+		}
+
+		wpseo_invalidate_sitemap_cache( 'news' );
+	}
+
+	/**
+	 * When sitemap is coming out of the cache there is no stylesheet. Normally it will take the default stylesheet.
+	 *
+	 * This method is called by a filter that will set the video stylesheet.
+	 *
+	 * @param object $target_object
+	 *
+	 * @return object
+	 */
+	public function set_stylesheet_cache( $target_object ) {
+		$target_object->set_stylesheet( "\n" . '<?xml-stylesheet type="text/xsl" href="' . $this->get_sitemap_stylesheet() . '"?>' );
+		return $target_object;
+	}
+
+	/**
 	 * Build the sitemap and push it to the XML Sitemaps Class instance for display.
 	 */
 	public function build() {
-		$GLOBALS['wpseo_sitemaps']->set_stylesheet( '<?xml-stylesheet type="text/xsl" href="' . preg_replace( '/^http[s]?:/', '', plugin_dir_url( WPSEO_News::get_file() ) ) . 'assets/xml-news-sitemap.xsl"?>' );
+		$GLOBALS['wpseo_sitemaps']->set_stylesheet( '<?xml-stylesheet type="text/xsl" href="' .  $this->get_sitemap_stylesheet() .' "?>' );
 
 		$GLOBALS['wpseo_sitemaps']->set_sitemap( $this->build_sitemap() );
 	}
@@ -73,6 +105,10 @@ class WPSEO_News_Sitemap {
 		$output .= '</urlset>';
 
 		return $output;
+	}
+
+	private function get_sitemap_stylesheet() {
+		return preg_replace( '/^http[s]?:/', '', plugin_dir_url( WPSEO_News::get_file() ) ) . 'assets/xml-news-sitemap.xsl';
 	}
 
 	/**
