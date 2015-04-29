@@ -1,8 +1,8 @@
 News SEO for WordPress SEO
 ==========================
-Requires at least: 3.8  
+Requires at least: 3.8
 Tested up to: 4.2
-Stable tag: 2.2.3
+Stable tag: 2.2.4
 Depends: wordpress-seo
 
 
@@ -24,7 +24,14 @@ Installation
 Changelog
 =========
 
-### 2.2.3: March 24th, 2014
+### 2.2.4: April 29th, 2015
+
+* Bugfixes
+	* Fixes a bug where the news sitemap cache was not cleared when a news item was edited or added.
+	* Fixes a bug where the stylesheets for the news sitemap were not included when the sitemap was served from cache.
+	* Fixes a bug where specialchars were escaped in the news sitemap.
+
+### 2.2.3: March 24th, 2015
 
 * Bugfixes
 	* Fixes a bug where an invalid argument error could be raised when visiting the sitemap.
