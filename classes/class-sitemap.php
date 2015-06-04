@@ -9,7 +9,7 @@ class WPSEO_News_Sitemap {
 
 		add_action( 'init', array( $this, 'init' ), 10 );
 		add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
-		add_action( 'save_post', array(  $this, 'invalidate_sitemap') );
+		add_action( 'save_post', array(  $this, 'invalidate_sitemap' ) );
 
 		// Setting stylesheet for cached sitemap
 		add_action( 'wpseo_sitemap_stylesheet_cache_news', array( $this, 'set_stylesheet_cache' ) );

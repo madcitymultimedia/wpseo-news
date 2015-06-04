@@ -129,7 +129,7 @@ class WPSEO_News {
 		$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
 		$license_manager->setup_hooks();
 		add_action( 'wpseo_licenses_forms', array( $license_manager, 'show_license_form' ) );
-		
+
 		// Setting action for removing the transient on update options
 		if ( method_exists( 'WPSEO_Utils', 'register_cache_clear_option' ) ) {
 			WPSEO_Utils::register_cache_clear_option( 'wpseo_news', $this->get_sitemap_name() );
