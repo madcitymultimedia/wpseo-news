@@ -31,7 +31,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				'name'  => 'newssitemap-exclude',
 				'type'  => 'checkbox',
 				'std'   => 'on',
-				'title' => __( 'Exclude from News Sitemap', 'wordpress-seo-news' )
+				'title' => __( 'Exclude from News Sitemap', 'wordpress-seo-news' ),
 			),
 			'newssitemap-keywords'     => array(
 				'name'        => 'newssitemap-keywords',
