@@ -39,7 +39,7 @@ class WPSEO_News_Upgrade_Manager {
 
 			// Remove unused option
 			$news_options = WPSEO_News::get_options();
-			unset($news_options['ep_image_title']);
+			unset( $news_options['ep_image_title'] );
 
 			// Update options
 			update_option( 'wpseo_news', $news_options );

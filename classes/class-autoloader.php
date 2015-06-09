@@ -32,5 +32,4 @@ class WPSEO_News_Autoloader {
 
 	}
 
-
 }
