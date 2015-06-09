@@ -132,7 +132,8 @@ class WPSEO_News {
 
 		// Setting action for removing the transient on update options
 		if ( method_exists( 'WPSEO_Utils', 'register_cache_clear_option' ) ) {
-			WPSEO_Utils::register_cache_clear_option( 'wpseo_news', $this->get_sitemap_name() );
+
+			WPSEO_Utils::register_cache_clear_option( 'wpseo_news', $this->get_sitemap_name( false ) );
 		}
 	}
 
