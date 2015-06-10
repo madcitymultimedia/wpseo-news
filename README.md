@@ -28,7 +28,7 @@ Changelog
 
 * Bugfixes
 	* Fixes a bug where the news sitemap cache was not cleared when the News SEO settings were updated.
-	* Added 1 new language: en_AU.
+	* Added 1 new translation: en_AU.
 
 ### 2.2.4: April 29th, 2015
 
