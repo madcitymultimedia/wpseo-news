@@ -2,9 +2,9 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPress SEO News 2.2.4\n"
+"Project-Id-Version: WordPress SEO News 2.2.5\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
-"POT-Creation-Date: 2015-04-29 11:01:12+00:00\n"
+"POT-Creation-Date: 2015-06-10 10:17:10+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -172,62 +172,62 @@ msgstr ""
 msgid "You've used %s/%s standout tags in the last 7 days."
 msgstr ""
 
-#: wpseo-news.php:186
+#: wpseo-news.php:191
 msgid "Settings"
 msgstr ""
 
-#: wpseo-news.php:225
+#: wpseo-news.php:230
 msgid "Yoast WordPress SEO:"
 msgstr ""
 
-#: wpseo-news.php:225 wpseo-news.php:226
+#: wpseo-news.php:230 wpseo-news.php:231
 msgid "News SEO"
 msgstr ""
 
-#: wpseo-news.php:278
+#: wpseo-news.php:283
 msgid ""
 "Please %sinstall &amp; activate WordPress SEO by Yoast%s and then enable "
 "its XML sitemap functionality to allow the WordPress SEO News module to "
 "work."
 msgstr ""
 
-#: wpseo-news.php:287
+#: wpseo-news.php:292
 msgid ""
 "Please upgrade WordPress to the latest version to allow WordPress and the "
 "WordPress SEO News module to work properly."
 msgstr ""
 
-#: wpseo-news.php:296
+#: wpseo-news.php:301
 msgid ""
 "Please upgrade the WordPress SEO plugin to the latest version to allow the "
 "WordPress SEO News module to work."
 msgstr ""
 
-#: wpseo-news.php:339
+#: wpseo-news.php:344
 msgid "None"
 msgstr ""
 
-#: wpseo-news.php:340
+#: wpseo-news.php:345
 msgid "Press Release"
 msgstr ""
 
-#: wpseo-news.php:341
+#: wpseo-news.php:346
 msgid "Satire"
 msgstr ""
 
-#: wpseo-news.php:342
+#: wpseo-news.php:347
 msgid "Blog"
 msgstr ""
 
-#: wpseo-news.php:343
+#: wpseo-news.php:348
 msgid "Op-Ed"
 msgstr ""
 
-#: wpseo-news.php:344
+#: wpseo-news.php:349
 msgid "Opinion"
 msgstr ""
 
-#: wpseo-news.php:345
+#: wpseo-news.php:350
 msgid "User Generated"
 msgstr ""
 
