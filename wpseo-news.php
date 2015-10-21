@@ -364,7 +364,7 @@ class WPSEO_News {
 
 		// When $full_path is true, it will generate a full path
 		if ( $full_path ) {
-			return home_url( $sitemap_name . '-sitemap.xml' );
+			return wpseo_xml_sitemaps_base_url( $sitemap_name . '-sitemap.xml' );
 		}
 
 		return $sitemap_name;
