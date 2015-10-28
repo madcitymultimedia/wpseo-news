@@ -32,7 +32,7 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 	public function test_generate_rss() {
 		// The date in XML format
 		$date_in_rss = get_the_date( DATE_RFC822, $this->post_id );
-
+		
 		// Start buffering to get the output of display method
 		ob_start();
 
@@ -40,6 +40,7 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 
 		$output = ob_get_contents();
 		ob_end_clean();
+
 
 		// We expect this part in the generated HTML
 		$expected_output  = '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
@@ -53,7 +54,7 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= '<title><![CDATA[generate rss]]></title>' . PHP_EOL;
 		$expected_output .= '<guid isPermaLink="true">' . get_permalink( $this->post_id ) . '</guid>' . PHP_EOL;
 		$expected_output .= '<link>' . get_permalink( $this->post_id ) . '</link>' . PHP_EOL;
-		$expected_output .= '<description><![CDATA[Post excerpt ' . $this->post_id . ']]></description>' . PHP_EOL;
+		$expected_output .= '<description><![CDATA[Post excerpt 1]]></description>' . PHP_EOL;
 		$expected_output .= '<dc:creator><![CDATA[]]></dc:creator>' . PHP_EOL;
 		$expected_output .= '<pubDate>' . $date_in_rss . '</pubDate>' . PHP_EOL;
 		$expected_output .= '</item>' . PHP_EOL;
