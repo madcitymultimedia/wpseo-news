@@ -122,8 +122,9 @@ class WPSEO_News_Sitemap {
 		$post_types = $this->get_post_types();
 
 		// Get posts for the last two days only, credit to Alex Moss for this code.
+		// @codingStandardsIgnoreStart
 		$sql_query = "
-			SELECT ID, post_content, post_name, post_author, post_parent, post_date_gmt, post_date, post_date_gmt, post_title, post_type
+			 SELECT ID, post_content, post_name, post_author, post_parent, post_date_gmt, post_date, post_date_gmt, post_title, post_type
 			 FROM {$wpdb->posts}
 			 WHERE post_status=%s
 			 AND (DATEDIFF(CURDATE(), post_date_gmt)<=2)
@@ -131,7 +132,8 @@ class WPSEO_News_Sitemap {
 			 ORDER BY post_date_gmt DESC
 			 LIMIT 0, 1000
 		 ";
-		
+		// @codingStandardsIgnoreEnd
+
 		$items = $wpdb->get_results( $wpdb->prepare( $sql_query, 'publish' ) );
 
 		return $items;
