@@ -13,8 +13,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		$this->options = WPSEO_News::get_options();
 
 		add_filter( 'wpseo_save_metaboxes', array( $this, 'save' ), 10, 1 );
-		add_action( 'wpseo_tab_header', array( $this, 'header' ) );
-		add_action( 'wpseo_tab_content', array( $this, 'content' ) );
+		add_action( 'admin_init', array( $this, 'add_tab_hooks' ) );
 		add_filter( 'add_extra_wpseo_meta_fields', array( $this, 'add_meta_fields_to_wpseo_meta' ) );
 	}
 
@@ -110,23 +109,24 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		return $meta_fields;
 	}
 
+	public function add_tab_hooks() {
+		if ( $this->is_post_type_supported() ) {
+			add_action( 'wpseo_tab_header', array( $this, 'header' ) );
+			add_action( 'wpseo_tab_content', array( $this, 'content' ) );
+		}
+	}
+
 	/**
 	 * The tab header
 	 */
 	public function header() {
-		if ( $this->is_post_type_supported() ) {
-			echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . __( 'Google News', 'wordpress-seo-news' ) . '</a></li>';
-		}
+		echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . __( 'Google News', 'wordpress-seo-news' ) . '</a></li>';
 	}
 
 	/**
 	 * The tab content
 	 */
 	public function content() {
-		if ( ! $this->is_post_type_supported() ) {
-			return;
-		}
-
 		// Build tab content
 		$content = '';
 		foreach ( $this->get_meta_boxes() as $meta_key => $meta_box ) {
@@ -144,7 +144,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		static $is_supported;
 
 		if ( $is_supported === null ) {
-			global $post;
+			$post = $this->get_metabox_post();
 
 			// Default is false
 			$is_supported = false;
