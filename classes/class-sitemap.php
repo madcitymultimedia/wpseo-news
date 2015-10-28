@@ -132,9 +132,9 @@ class WPSEO_News_Sitemap {
 			 ORDER BY post_date_gmt DESC
 			 LIMIT 0, 1000
 		 ";
-		// @codingStandardsIgnoreEnd
 
 		$items = $wpdb->get_results( $wpdb->prepare( $sql_query, 'publish' ) );
+		// @codingStandardsIgnoreEnd
 
 		return $items;
 	}
