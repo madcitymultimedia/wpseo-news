@@ -109,6 +109,9 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		return $meta_fields;
 	}
 
+	/**
+	 * Only add the tab header and content actions when the post is supported
+	 */
 	public function add_tab_hooks() {
 		if ( $this->is_post_type_supported() ) {
 			add_action( 'wpseo_tab_header', array( $this, 'header' ) );
