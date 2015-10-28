@@ -19,7 +19,6 @@ if ( ! class_exists( 'WPSEO_News_Product' ) ) {
 				'Yoast'
 			);
 		}
-
 	}
 
 }
