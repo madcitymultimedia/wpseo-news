@@ -67,7 +67,7 @@ class WPSEO_News_Admin_Page {
 	/**
 	 * Generate HTML for excluding post categories
 	 */
-	private function excluded_post_categories( ) {
+	private function excluded_post_categories() {
 		$options = WPSEO_News::get_options();
 		if ( isset( $options['newssitemap_include_post'] ) ) {
 			echo '<h2>' . __( 'Post categories to exclude', 'wordpress-seo-news' ) . '</h2>';
