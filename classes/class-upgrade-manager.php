@@ -77,5 +77,4 @@ class WPSEO_News_Upgrade_Manager {
 		$options['version'] = WPSEO_News::VERSION;
 		update_option( 'wpseo_news', $options );
 	}
-
 }

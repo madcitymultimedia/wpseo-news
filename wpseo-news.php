@@ -370,7 +370,6 @@ class WPSEO_News {
 		return $sitemap_name;
 
 	}
-
 }
 
 // Load text domain

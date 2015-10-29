@@ -56,7 +56,7 @@ class WPSEO_News_Head {
 	 * Displays the original-source as link-tag in head
 	 *
 	 */
-	private function display_original_source ( ) {
+	private function display_original_source() {
 		/**
 		 * Filter: 'wpseo_news_head_display_keywords' - Allow preventing of outputting original source tag
 		 *
@@ -96,5 +96,4 @@ class WPSEO_News_Head {
 			}
 		}
 	}
-
 }
