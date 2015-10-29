@@ -232,7 +232,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 * @returns WP_Post
 	 */
 	protected function get_metabox_post() {
-		if( is_callable( 'parent:get_metabox_post' ) ) {
+		if ( is_callable( 'parent:get_metabox_post' ) ) {
 			return parent::get_metabox_post();
 		}
 
