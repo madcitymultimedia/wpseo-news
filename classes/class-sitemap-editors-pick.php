@@ -166,5 +166,4 @@ class WPSEO_News_Sitemap_Editors_Pick {
 		echo '<link>' . get_site_url() . '</link>' . PHP_EOL;
 		echo '</image>' . PHP_EOL;
 	}
-
 }

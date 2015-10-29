@@ -139,5 +139,4 @@ class WPSEO_News_Meta_Keywords {
 	private function keywords_as_string() {
 		return trim( implode( ', ', $this->keywords ), ', ' );
 	}
-
 }
