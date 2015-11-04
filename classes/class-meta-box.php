@@ -147,17 +147,19 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		static $is_supported;
 
 		if ( $is_supported === null ) {
-			$post = $this->get_metabox_post();
-
-			// Default is false
+			// Default is false.
 			$is_supported = false;
 
-			// Get supported post types
-			$post_types = WPSEO_News::get_included_post_types();
+			$post = $this->get_metabox_post();
 
-			// Display content if post type is supported
-			if ( ! empty( $post_types ) && in_array( $post->post_type, $post_types ) ) {
-				$is_supported = true;
+			if ( is_a( $post, 'WP_Post' ) ) {
+				// Get supported post types.
+				$post_types = WPSEO_News::get_included_post_types();
+
+				// Display content if post type is supported.
+				if ( ! empty( $post_types ) && in_array( $post->post_type, $post_types ) ) {
+					$is_supported = true;
+				}
 			}
 		}
 
