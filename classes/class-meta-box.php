@@ -13,8 +13,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		$this->options = WPSEO_News::get_options();
 
 		add_filter( 'wpseo_save_metaboxes', array( $this, 'save' ), 10, 1 );
-		add_action( 'wpseo_tab_header', array( $this, 'header' ) );
-		add_action( 'wpseo_tab_content', array( $this, 'content' ) );
+		add_action( 'add_meta_boxes', array( $this, 'add_tab_hooks' ) );
 		add_filter( 'add_extra_wpseo_meta_fields', array( $this, 'add_meta_fields_to_wpseo_meta' ) );
 	}
 
@@ -111,22 +110,26 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	}
 
 	/**
+	 * Only add the tab header and content actions when the post is supported
+	 */
+	public function add_tab_hooks() {
+		if ( $this->is_post_type_supported() ) {
+			add_action( 'wpseo_tab_header', array( $this, 'header' ) );
+			add_action( 'wpseo_tab_content', array( $this, 'content' ) );
+		}
+	}
+
+	/**
 	 * The tab header
 	 */
 	public function header() {
-		if ( $this->is_post_type_supported() ) {
-			echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . __( 'Google News', 'wordpress-seo-news' ) . '</a></li>';
-		}
+		echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . __( 'Google News', 'wordpress-seo-news' ) . '</a></li>';
 	}
 
 	/**
 	 * The tab content
 	 */
 	public function content() {
-		if ( ! $this->is_post_type_supported() ) {
-			return;
-		}
-
 		// Build tab content
 		$content = '';
 		foreach ( $this->get_meta_boxes() as $meta_key => $meta_box ) {
@@ -144,17 +147,19 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		static $is_supported;
 
 		if ( $is_supported === null ) {
-			global $post;
-
-			// Default is false
+			// Default is false.
 			$is_supported = false;
 
-			// Get supported post types
-			$post_types = WPSEO_News::get_included_post_types();
+			$post = $this->get_metabox_post();
 
-			// Display content if post type is supported
-			if ( ! empty( $post_types ) && in_array( $post->post_type, $post_types ) ) {
-				$is_supported = true;
+			if ( is_a( $post, 'WP_Post' ) ) {
+				// Get supported post types.
+				$post_types = WPSEO_News::get_included_post_types();
+
+				// Display content if post type is supported.
+				if ( ! empty( $post_types ) && in_array( $post->post_type, $post_types ) ) {
+					$is_supported = true;
+				}
 			}
 		}
 
@@ -223,4 +228,25 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		return $standout_desc;
 	}
 
+	/**
+	 * Returns post in metabox context - fallback for Yoast SEO < 3.0 and News SEO > 2.2.5
+	 *
+	 * @returns WP_Post
+	 */
+	protected function get_metabox_post() {
+		if ( is_callable( 'parent:get_metabox_post' ) ) {
+			return parent::get_metabox_post();
+		}
+
+		if ( $post = filter_input( INPUT_GET, 'post' ) ) {
+			$post_id = (int) WPSEO_Utils::validate_int( $post );
+			return get_post( $post_id );
+		}
+
+		if ( isset( $GLOBALS['post'] ) ) {
+			return $GLOBALS['post'];
+		}
+
+		return array();
+	}
 }

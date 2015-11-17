@@ -122,13 +122,19 @@ class WPSEO_News_Sitemap {
 		$post_types = $this->get_post_types();
 
 		// Get posts for the last two days only, credit to Alex Moss for this code.
-		$items = $wpdb->get_results( "SELECT ID, post_content, post_name, post_author, post_parent, post_date_gmt, post_date, post_date_gmt, post_title, post_type
-									FROM $wpdb->posts
-									WHERE post_status='publish'
-									AND (DATEDIFF(CURDATE(), post_date_gmt)<=2)
-									AND post_type IN ($post_types)
-									ORDER BY post_date_gmt DESC
-									LIMIT 0, 1000" );
+		// @codingStandardsIgnoreStart
+		$sql_query = "
+			 SELECT ID, post_content, post_name, post_author, post_parent, post_date_gmt, post_date, post_date_gmt, post_title, post_type
+			 FROM {$wpdb->posts}
+			 WHERE post_status=%s
+			 AND (DATEDIFF(CURDATE(), post_date_gmt)<=2)
+			 AND post_type IN ({$post_types})
+			 ORDER BY post_date_gmt DESC
+			 LIMIT 0, 1000
+		 ";
+
+		$items = $wpdb->get_results( $wpdb->prepare( $sql_query, 'publish' ) );
+		// @codingStandardsIgnoreEnd
 
 		return $items;
 	}
@@ -162,7 +168,6 @@ class WPSEO_News_Sitemap {
 
 		return $post_types;
 	}
-
 }
 
 class WPSEO_News_Sitemap_Timezone {
@@ -227,7 +232,6 @@ class WPSEO_News_Sitemap_Timezone {
 			}
 		}
 	}
-
 }
 
 
@@ -390,7 +394,7 @@ class WPSEO_News_Sitemap_Item {
 	 *
 	 * @return string
 	 */
-	private function get_item_genre( ) {
+	private function get_item_genre() {
 		$genre = WPSEO_Meta::get_value( 'newssitemap-genre', $this->item->ID );
 		if ( is_array( $genre ) ) {
 			$genre = implode( ',', $genre );

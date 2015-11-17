@@ -2,6 +2,9 @@
 
 class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 
+	/**
+	 * @var WPSEO_News_Sitemap_Editors_Pick
+	 */
 	private $instance;
 
 	private $post_id;
@@ -14,7 +17,8 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 
 		$this->post_id = $this->factory->post->create(
 			array(
-				'post_title' => 'generate rss'
+				'post_title'   => 'generate rss',
+				'post_excerpt' => 'Post excerpt 1'
 			)
 		);
 		// Set post as editors pick
@@ -37,6 +41,7 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 
 		$output = ob_get_contents();
 		ob_end_clean();
+
 
 		// We expect this part in the generated HTML
 		$expected_output  = '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;

@@ -75,5 +75,4 @@ class WPSEO_News_Editors_Pick_Request {
 
 		}
 	}
-
 }

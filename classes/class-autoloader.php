@@ -29,7 +29,5 @@ class WPSEO_News_Autoloader {
 				require_once( $full_path );
 			}
 		}
-
 	}
-
 }

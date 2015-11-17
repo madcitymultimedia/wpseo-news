@@ -67,7 +67,7 @@ class WPSEO_News_Admin_Page {
 	/**
 	 * Generate HTML for excluding post categories
 	 */
-	private function excluded_post_categories( ) {
+	private function excluded_post_categories() {
 		$options = WPSEO_News::get_options();
 		if ( isset( $options['newssitemap_include_post'] ) ) {
 			echo '<h2>' . __( 'Post categories to exclude', 'wordpress-seo-news' ) . '</h2>';
@@ -94,7 +94,6 @@ class WPSEO_News_Admin_Page {
 		echo '<p>' . sprintf( __( 'You can find your Editors\' Pick RSS feed here: %1$sEditors\' Pick RSS Feed%2$s', 'wordpress-seo-news' ), "<a target='_blank' class='button-secondary' href='" . home_url( 'editors-pick.rss' ) . "'>", '</a>' ) . '</p>';
 		echo '<p>' . sprintf( __( 'You can submit your Editors\' Pick RSS feed here: %1$sSubmit Editors\' Pick RSS Feed%2$s', 'wordpress-seo-news' ), "<a class='button-secondary' href='https://support.google.com/news/publisher/contact/editors_picks' target='_blank'>", '</a>' ) . '</p>';
 	}
-
 }
 
 class WPSEO_News_Wrappers {
@@ -148,7 +147,7 @@ class WPSEO_News_Wrappers {
 	 *
 	 * @return mixed
 	 */
-	public static function textinput($var, $label, $option = '') {
+	public static function textinput( $var, $label, $option = '' ) {
 		if ( method_exists( 'Yoast_Form', 'textinput' ) ) {
 			if ( $option !== '' ) {
 				Yoast_Form::get_instance()->set_option( $option );
@@ -218,5 +217,4 @@ class WPSEO_News_Wrappers {
 
 		return $wpseo_admin_pages;
 	}
-
 }
