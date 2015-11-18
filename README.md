@@ -1,8 +1,8 @@
 News SEO for WordPress SEO
 ==========================
-Requires at least: 3.8
-Tested up to: 4.2
-Stable tag: 2.2.5
+Requires at least: 4.0
+Tested up to: 4.4
+Stable tag: 3.0
 Depends: wordpress-seo
 
 
@@ -23,6 +23,15 @@ Installation
 
 Changelog
 =========
+
+### 3.0: November 18th, 2015
+
+* Synchronized plugin version with all other Yoast SEO plugins for WordPress.
+
+* Bug fixes
+	* Fixes a bug where the links in the sitemap would 'randomly' change from https to http or the other way around (in very rare circumstances).
+	* Fixes the news metabox that was broken in combination with Yoast SEO 3.0.
+	* Fixes deprecation warnings for filters that have been removed in Yoast SEO 3.0
 
 ### 2.2.5: June 10th, 2015
 
