@@ -28,7 +28,7 @@ Changelog
 
 * Synchronized plugin version with all other Yoast SEO plugins for WordPress.
 
-* Bug fixes
+* Bugfixes
 	* Fixes a bug where the links in the sitemap would 'randomly' change from https to http or the other way around (in very rare circumstances).
 	* Fixes the news metabox that was broken in combination with Yoast SEO 3.0.
 	* Fixes deprecation warnings for filters that have been removed in Yoast SEO 3.0
