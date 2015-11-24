@@ -1,15 +1,14 @@
 {
 	"requireSpacesInConditionalExpression": true,
 	"requireSpacesInFunctionExpression": {
-        "beforeOpeningCurlyBrace": true
-    },
+		"beforeOpeningCurlyBrace": true
+	},
 	"disallowSpacesInFunctionExpression": {
-        "beforeOpeningRoundBrace": true
-    },
-    "requireMultipleVarDecl": "onevar",
-    "requireSpacesInsideObjectBrackets": "all",
-    "disallowSpaceAfterObjectKeys": true,
-    "requireSpaceAfterBinaryOperators": [
+		"beforeOpeningRoundBrace": true
+	},
+	"requireSpacesInsideObjectBrackets": "all",
+	"disallowSpaceAfterObjectKeys": true,
+	"requireSpaceAfterBinaryOperators": [
 		"=", "+=", "-=", "*=", "/=", "%=", "<<=", ">>=", ">>>=",
 		"&=", "|=", "^=", "+=",
 
@@ -25,17 +24,16 @@
 		"|", "^", "&&", "||", "===", "==", ">=",
 		"<=", "<", ">", "!=", "!=="
 	],
-    "disallowKeywords": ["with"],
-    "disallowMultipleLineBreaks": true,
-    "validateLineBreaks": "LF",
-    "disallowMixedSpacesAndTabs": "smart",
+	"disallowKeywords": ["with"],
+	"disallowMultipleLineBreaks": true,
+	"validateLineBreaks": "LF",
+	"disallowMixedSpacesAndTabs": "smart",
 	"disallowTrailingWhitespace": true,
 
 	"requireCurlyBraces": [ "if", "else", "for", "while", "do", "try", "catch" ],
 	"requireSpaceBeforeBlockStatements": true,
 	"requireParenthesesAroundIIFE": true,
 	"requireBlocksOnNewline": true,
-	"requireRightStickedOperators": [],
 	"requireOperatorBeforeLineBreak": [
 		"?",
 		"=",
@@ -52,43 +50,8 @@
 		"<",
 		"<="
 	],
-	"disallowLeftStickedOperators": [
-		"?",
-		"=",
-		"+",
-		"-",
-		"/",
-		"*",
-		"==",
-		"===",
-		"!=",
-		"!==",
-		">",
-		">=",
-		"<",
-		"<="
-	],
-	"disallowRightStickedOperators": [
-		"?",
-		"=",
-		"+",
-		"/",
-		"*",
-		":",
-		"==",
-		"===",
-		"!=",
-		"!==",
-		">",
-		">=",
-		"<",
-		"<="
-	],
-	"requireLeftStickedOperators": [","],
 	"disallowSpaceAfterPrefixUnaryOperators": ["++", "--", "+", "-", "~"],
-	"requireSpaceAfterPrefixUnaryOperators": ["!"],
 	"disallowSpaceBeforePostfixUnaryOperators": ["++", "--"],
-	"requireCamelCaseOrUpperCaseIdentifiers": true,
 	"disallowMultipleLineStrings": true,
 	"validateQuoteMarks": "'",
 	"validateIndentation": "\t",
@@ -99,9 +62,7 @@
 	"disallowPaddingNewlinesInBlocks": true,
 	"disallowEmptyBlocks": true,
 	"disallowQuotedKeysInObjects": "allButReserved",
-	"disallowDanglingUnderscores": true,
 	"requireCommaBeforeLineBreak": true,
-	"disallowKeywordsOnNewLine": ["else"],
 	"requireCapitalizedConstructors": true,
 	"safeContextKeyword": [ "that" ],
 	"validateJSDoc": {
