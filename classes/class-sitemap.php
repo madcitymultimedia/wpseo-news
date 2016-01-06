@@ -70,16 +70,6 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
-	 * Getter for stylesheet url
-	 *
-	 * @return string
-	 */
-	public function get_stylesheet_line() {
-		$stylesheet_url = "\n" . '<?xml-stylesheet type="text/xsl" href="' . home_url( 'news-sitemap.xsl' ) . '"?>';
-		return $stylesheet_url;
-	}
-
-	/**
 	 * When sitemap is coming out of the cache there is no stylesheet. Normally it will take the default stylesheet.
 	 *
 	 * This method is called by a filter that will set the video stylesheet.
@@ -126,8 +116,8 @@ class WPSEO_News_Sitemap {
 	 */
 	public function build_news_sitemap_xsl() {
 		$protocol = 'HTTP/1.1';
-		if ( isset( $_SERVER['SERVER_PROTOCOL'] ) && $_SERVER['SERVER_PROTOCOL'] !== '' ) {
-			$protocol = sanitize_text_field( $_SERVER['SERVER_PROTOCOL'] );
+		if ( filter_input( INPUT_SERVER, 'SERVER_PROTOCOL' ) !== '' ) {
+			$protocol = sanitize_text_field( filter_input( INPUT_SERVER, 'SERVER_PROTOCOL' ) );
 		}
 		// Force a 200 header and replace other status codes.
 		header( $protocol . ' 200 OK', true, 200 );
@@ -141,6 +131,16 @@ class WPSEO_News_Sitemap {
 		header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', ( time() + YEAR_IN_SECONDS ) ) . ' GMT' );
 		require dirname( WPSEO_NEWS_FILE ) . '/assets/xml-news-sitemap-xsl.php';
 		die();
+	}
+
+	/**
+	 * Getter for stylesheet url
+	 *
+	 * @return string
+	 */
+	private function get_stylesheet_line() {
+		$stylesheet_url = "\n" . '<?xml-stylesheet type="text/xsl" href="' . home_url( 'news-sitemap.xsl' ) . '"?>';
+		return $stylesheet_url;
 	}
 
 	/**
