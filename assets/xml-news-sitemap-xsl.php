@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?php echo '<?xml version="1.0" encoding="UTF-8"?>'?>
 <xsl:stylesheet version="2.0"
                 xmlns:html="http://www.w3.org/TR/REC-html40"
 				xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
@@ -12,7 +12,8 @@
 				<title>XML News Sitemap</title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 				<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-				<script type="text/javascript" src="//cdn.jsdelivr.net/tablesorter/2.17.4/js/jquery.tablesorter.min.js"></script>
+
+				<script type="text/javascript" src="<?php echo plugins_url( 'js/jquery.tablesorter.min.js', WPSEO_FILE ) ?>"></script>
 				<script	type="text/javascript"><![CDATA[
 					jQuery(document).ready(function() {
 				        jQuery("#sitemap").tablesorter( { widgets: ['zebra'] } );
