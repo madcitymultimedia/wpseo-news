@@ -26,6 +26,9 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+if ( ! defined( 'WPSEO_NEWS_FILE' ) ) {
+	define( 'WPSEO_NEWS_FILE', __FILE__ );
+}
 
 class WPSEO_News {
 
