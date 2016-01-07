@@ -31,6 +31,11 @@ matrix:
     - php: 'hhvm'
       env: WP_VERSION=4.1 WP_MULTISITE=1
 
+cache:
+  directories:
+    - vendor
+    - $HOME/.composer/cache
+
 before_script:
 - PLUGIN_SLUG=$(basename $(pwd))
 - export WP_DEVELOP_DIR=/tmp/wordpress/
