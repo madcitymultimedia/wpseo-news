@@ -34,7 +34,7 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload_52.php' ) ) {
 	require dirname( __FILE__ ) . '/vendor/autoload_52.php';
 }
 
-if ( !file_exists( dirname( __FILE__ ) . '/vendor/autoload_52.php' ) ) {
+if ( ! file_exists( dirname( __FILE__ ) . '/vendor/autoload_52.php' ) ) {
 	// Setup autoloader
 	require_once( dirname( __FILE__ ) . '/classes/class-autoloader.php' );
 	$autoloader = new WPSEO_News_Autoloader();
