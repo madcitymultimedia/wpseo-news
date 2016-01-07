@@ -68,6 +68,7 @@ before_script:
 - cd phpcs
 - scripts/phpcs --config-set installed_paths ../wpcs
 - cd "$WP_DEVELOP_DIR/src/wp-content/plugins/$PLUGIN_SLUG"
+- composer install --no-interaction
 - phpenv rehash
 
 script:
