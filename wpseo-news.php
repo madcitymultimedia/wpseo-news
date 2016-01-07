@@ -26,6 +26,10 @@ You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
 */
 
+if ( ! defined( 'WPSEO_NEWS_FILE' ) ) {
+	define( 'WPSEO_NEWS_FILE', __FILE__ );
+}
+
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload_52.php' ) ) {
 	require dirname( __FILE__ ) . '/vendor/autoload_52.php';
 }
