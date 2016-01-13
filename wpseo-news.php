@@ -271,11 +271,7 @@ class WPSEO_News {
 	 */
 	public function enqueue_admin_page() {
 		wp_enqueue_media(); // enqueue files needed for upload functionality
-		wp_enqueue_script( 'wpseo-news-admin-page', plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), self::get_file() ), array(
-				'jquery',
-				'jquery-ui-core',
-				'jquery-ui-autocomplete',
-			), self::VERSION, true );
+		wp_enqueue_script( 'wpseo-news-admin-page', plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), self::get_file() ), array( 'jquery', 'jquery-ui-core', 'jquery-ui-autocomplete', ), self::VERSION, true );
 		wp_localize_script( 'wpseo-news-admin-page', 'wpseonews', WPSEO_News_Javascript_Strings::strings() );
 	}
 
