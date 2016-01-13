@@ -4,11 +4,23 @@ class WPSEO_News_Sitemap {
 
 	private $options;
 
+	/**
+	 * Holds all the items from the sitemap.
+	 *
+	 * @var mixed
+	 */
+	private $items;
+
 	public function __construct() {
 		$this->options = WPSEO_News::get_options();
+		$this->items = $this->get_items();
 
 		add_action( 'init', array( $this, 'init' ), 10 );
-		add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
+
+		if ( ! empty($this->items) ) {
+			add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
+		}
+
 		add_action( 'save_post', array( $this, 'invalidate_sitemap' ) );
 
 		// Setting stylesheet for cached sitemap
@@ -37,6 +49,8 @@ class WPSEO_News_Sitemap {
 		$str .= '<loc>' . $news_sitemap_xml . '</loc>' . "\n";
 		$str .= '<lastmod>' . htmlspecialchars( $date->format( 'c' ) ) . '</lastmod>' . "\n";
 		$str .= '</sitemap>' . "\n";
+
+		echo $str;
 
 		return $str;
 	}
@@ -99,11 +113,9 @@ class WPSEO_News_Sitemap {
 	public function build_sitemap() {
 		$output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
 
-		$items = $this->get_items();
-
 		// Loop through items
-		if ( ! empty( $items ) ) {
-			$output .= $this->build_items( $items );
+		if ( ! empty( $this->items ) ) {
+			$output .= $this->build_items( $this->items );
 		}
 
 		$output .= '</urlset>';
