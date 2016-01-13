@@ -112,9 +112,6 @@ class WPSEO_News {
 		// Add subitem to menu
 		add_filter( 'wpseo_submenu_pages', array( $this, 'add_submenu_pages' ) );
 
-		// Add Redirect page as admin page
-		add_filter( 'wpseo_admin_pages', array( $this, 'add_admin_pages' ) );
-
 		// Register settings
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 	}
@@ -259,10 +256,11 @@ class WPSEO_News {
 	 * @param $admin_pages
 	 *
 	 * @return array
+	 *
+	 * @deprecated 3.1
 	 */
 	public function add_admin_pages( $admin_pages ) {
-		$admin_pages[] = 'wpseo_news';
-
+		_deprecated_function( 'WPSEO_News::add_admin_pages', 'WPSEO 3.1' );
 		return $admin_pages;
 	}
 
