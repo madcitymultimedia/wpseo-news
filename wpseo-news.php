@@ -68,8 +68,6 @@ class WPSEO_News {
 			return false;
 		}
 
-		$this->set_autoloader();
-
 		$this->set_hooks();
 
 		// Meta box
@@ -88,16 +86,6 @@ class WPSEO_News {
 			$this->init_admin();
 		}
 
-	}
-
-	/**
-	 * Setting up the autoloader
-	 */
-	private function set_autoloader() {
-		// Setup autoloader
-		require_once( dirname( __FILE__ ) . '/classes/class-autoloader.php' );
-		$autoloader = new WPSEO_News_Autoloader();
-		spl_autoload_register( array( $autoloader, 'load' ) );
 	}
 
 	/**
