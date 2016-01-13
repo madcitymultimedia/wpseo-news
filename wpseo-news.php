@@ -33,6 +33,7 @@ if ( ! defined( 'WPSEO_NEWS_FILE' ) ) {
 class WPSEO_News {
 
 	const VERSION = '3.0';
+
 	/**
 	 * Get WPSEO News options
 	 *
@@ -45,7 +46,13 @@ class WPSEO_News {
 		 * @api array $wpseo_news_options The WordPress SEO News options
 		 *
 		 */
-		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array( 'name' => '', 'default_genre' => array(), 'default_keywords' => '', 'ep_image_src' => '', 'version' => '0' ) ) );
+		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array(
+			'name'             => '',
+			'default_genre'    => array(),
+			'default_keywords' => '',
+			'ep_image_src'     => '',
+			'version'          => '0',
+		) ) );
 	}
 
 	/**
@@ -148,14 +155,17 @@ class WPSEO_News {
 
 		if ( ! version_compare( $wp_version, '3.5', '>=' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wp' ) );
-		} else {
+		}
+		else {
 			if ( defined( 'WPSEO_VERSION' ) ) {
 				if ( version_compare( WPSEO_VERSION, '1.5', '>=' ) ) {
 					return true;
-				} else {
+				}
+				else {
 					add_action( 'all_admin_notices', array( $this, 'error_upgrade_wpseo' ) );
 				}
-			} else {
+			}
+			else {
 				add_action( 'all_admin_notices', array( $this, 'error_missing_wpseo' ) );
 			}
 		}
@@ -174,6 +184,7 @@ class WPSEO_News {
 		if ( ! defined( 'SCRIPT_DEBUG' ) || ! SCRIPT_DEBUG ) {
 			$ext = '.min' . $ext;
 		}
+
 		return $ext;
 	}
 
@@ -191,7 +202,8 @@ class WPSEO_News {
 			$this_plugin = plugin_basename( __FILE__ );
 		}
 		if ( $file == $this_plugin ) {
-			$settings_link = '<a href="' . admin_url( 'admin.php?page=wpseo_news' ) . '">' . __( 'Settings', 'wordpress-seo-news' ) . '</a>';
+			$settings_link = '<a href="' . admin_url( 'admin.php?page=wpseo_news' ) . '">' . __( 'Settings',
+					'wordpress-seo-news' ) . '</a>';
 			array_unshift( $links, $settings_link );
 		}
 
@@ -214,6 +226,7 @@ class WPSEO_News {
 	 */
 	public function sanitize_options( $options ) {
 		$options['version'] = self::VERSION;
+
 		return $options;
 	}
 
@@ -229,13 +242,13 @@ class WPSEO_News {
 		$admin_page = new WPSEO_News_Admin_Page();
 
 		$submenu_pages[] = array(
-				'wpseo_dashboard',
-				__( 'Yoast WordPress SEO:', 'wordpress-seo-news' ) . ' ' . __( 'News SEO', 'wordpress-seo-news' ),
-				__( 'News SEO', 'wordpress-seo-news' ),
-				'manage_options',
-				'wpseo_news',
-				array( $admin_page, 'display' ),
-				array( array( $this, 'enqueue_admin_page' ) ),
+			'wpseo_dashboard',
+			__( 'Yoast WordPress SEO:', 'wordpress-seo-news' ) . ' ' . __( 'News SEO', 'wordpress-seo-news' ),
+			__( 'News SEO', 'wordpress-seo-news' ),
+			'manage_options',
+			'wpseo_news',
+			array( $admin_page, 'display' ),
+			array( array( $this, 'enqueue_admin_page' ) ),
 		);
 
 		return $submenu_pages;
@@ -259,7 +272,9 @@ class WPSEO_News {
 	 */
 	public function enqueue_admin_page() {
 		wp_enqueue_media(); // enqueue files needed for upload functionality
-		wp_enqueue_script( 'wpseo-news-admin-page', plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), self::get_file() ), array( 'jquery', 'jquery-ui-core', 'jquery-ui-autocomplete' ), self::VERSION, true );
+		wp_enqueue_script( 'wpseo-news-admin-page',
+			plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), self::get_file() ),
+			array( 'jquery', 'jquery-ui-core', 'jquery-ui-autocomplete' ), self::VERSION, true );
 		wp_localize_script( 'wpseo-news-admin-page', 'wpseonews', WPSEO_News_Javascript_Strings::strings() );
 	}
 
@@ -267,7 +282,9 @@ class WPSEO_News {
 	 * Enqueue edit post JS
 	 */
 	public function enqueue_edit_post() {
-		wp_enqueue_script( 'wpseo-news-edit-post', plugins_url( 'assets/post-edit' . $this->file_ext( '.js' ), self::get_file() ), array( 'jquery' ), self::VERSION, true );
+		wp_enqueue_script( 'wpseo-news-edit-post',
+			plugins_url( 'assets/post-edit' . $this->file_ext( '.js' ), self::get_file() ), array( 'jquery' ),
+			self::VERSION, true );
 	}
 
 	/**
@@ -283,7 +300,10 @@ class WPSEO_News {
 	 * @since 2.0.0
 	 */
 	public function error_missing_wpseo() {
-		echo '<div class="error"><p>' . sprintf( __( 'Please %sinstall &amp; activate WordPress SEO by Yoast%s and then enable its XML sitemap functionality to allow the WordPress SEO News module to work.', 'wordpress-seo-news' ), '<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=wordpress+seo&plugin-search-input=Search+Plugins' ) ) . '">', '</a>' ) . '</p></div>';
+		echo '<div class="error"><p>' . sprintf( __( 'Please %sinstall &amp; activate WordPress SEO by Yoast%s and then enable its XML sitemap functionality to allow the WordPress SEO News module to work.',
+				'wordpress-seo-news' ),
+				'<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=wordpress+seo&plugin-search-input=Search+Plugins' ) ) . '">',
+				'</a>' ) . '</p></div>';
 	}
 
 	/**
@@ -292,7 +312,8 @@ class WPSEO_News {
 	 * @since 2.0.0
 	 */
 	public function error_upgrade_wp() {
-		echo '<div class="error"><p>' . __( 'Please upgrade WordPress to the latest version to allow WordPress and the WordPress SEO News module to work properly.', 'wordpress-seo-news' ) . '</p></div>';
+		echo '<div class="error"><p>' . __( 'Please upgrade WordPress to the latest version to allow WordPress and the WordPress SEO News module to work properly.',
+				'wordpress-seo-news' ) . '</p></div>';
 	}
 
 	/**
@@ -301,7 +322,8 @@ class WPSEO_News {
 	 * @since 2.0.0
 	 */
 	public function error_upgrade_wpseo() {
-		echo '<div class="error"><p>' . __( 'Please upgrade the WordPress SEO plugin to the latest version to allow the WordPress SEO News module to work.', 'wordpress-seo-news' ) . '</p></div>';
+		echo '<div class="error"><p>' . __( 'Please upgrade the WordPress SEO plugin to the latest version to allow the WordPress SEO News module to work.',
+				'wordpress-seo-news' ) . '</p></div>';
 	}
 
 	// HELPERS
@@ -363,7 +385,7 @@ class WPSEO_News {
 	 */
 	public static function get_sitemap_name( $full_path = true ) {
 		// This filter is documented in classes/class-sitemap.php
-		$sitemap_name = apply_filters( 'wpseo_news_sitemap_name', 'news' );
+		$sitemap_name = apply_filters( 'wpseo_news_sitemap_name', self::news_sitemap_basename() );
 
 		// When $full_path is true, it will generate a full path
 		if ( $full_path ) {
@@ -372,6 +394,29 @@ class WPSEO_News {
 
 		return $sitemap_name;
 
+	}
+
+	/**
+	 * Returns the basename of the news-sitemap, the first portion of the name of the sitemap "file".
+	 *
+	 * Defaults to news, but it's possible to override it by using the YOAST_VIDEO_SITEMAP_BASENAME constant.
+	 *
+	 * @since 3.1
+	 *
+	 * @return string $basename
+	 */
+	public static function news_sitemap_basename() {
+		$basename = 'news';
+
+		if ( post_type_exists( 'news' ) ) {
+			$basename = 'yoast-news';
+		}
+
+		if ( defined( 'YOAST_NEWS_SITEMAP_BASENAME' ) ) {
+			$basename = YOAST_NEWS_SITEMAP_BASENAME;
+		}
+
+		return $basename;
 	}
 }
 
