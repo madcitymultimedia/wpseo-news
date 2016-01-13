@@ -31,7 +31,7 @@ class WPSEO_News_Sitemap {
 		 *
 		 * @api string $news_sitemap_xml The news sitemap XML URL
 		 */
-		$news_sitemap_xml = WPSEO_News::get_sitemap_name( );
+		$news_sitemap_xml = self::get_sitemap_name();
 
 		$str .= '<sitemap>' . "\n";
 		$str .= '<loc>' . $news_sitemap_xml . '</loc>' . "\n";
@@ -46,7 +46,7 @@ class WPSEO_News_Sitemap {
 	 */
 	public function init() {
 		if ( isset( $GLOBALS['wpseo_sitemaps'] ) ) {
-			$basename = WPSEO_News::get_sitemap_name( false );
+			$basename = self::get_sitemap_name( false );
 
 			$GLOBALS['wpseo_sitemaps']->register_sitemap( $basename, array( $this, 'build' ) );
 			if ( method_exists( $GLOBALS['wpseo_sitemaps'], 'register_xsl' ) ) {
@@ -80,6 +80,7 @@ class WPSEO_News_Sitemap {
 	 */
 	public function set_stylesheet_cache( $target_object ) {
 		$target_object->set_stylesheet( $this->get_stylesheet_line() );
+
 		return $target_object;
 	}
 
@@ -140,6 +141,7 @@ class WPSEO_News_Sitemap {
 	 */
 	private function get_stylesheet_line() {
 		$stylesheet_url = "\n" . '<?xml-stylesheet type="text/xsl" href="' . home_url( 'news-sitemap.xsl' ) . '"?>';
+
 		return $stylesheet_url;
 	}
 
@@ -166,6 +168,7 @@ class WPSEO_News_Sitemap {
 		 ";
 
 		$items = $wpdb->get_results( $wpdb->prepare( $sql_query, 'publish' ) );
+
 		// @codingStandardsIgnoreEnd
 
 		return $items;
@@ -174,7 +177,8 @@ class WPSEO_News_Sitemap {
 	/**
 	 * Loop through all $items and build each one of it
 	 *
-	 * @param array  $items
+	 * @param array $items
+	 *
 	 * @return string $output
 	 */
 	private function build_items( $items ) {
@@ -182,6 +186,7 @@ class WPSEO_News_Sitemap {
 		foreach ( $items as $item ) {
 			$output .= new WPSEO_News_Sitemap_Item( $item, $this->options );
 		}
+
 		return $output;
 	}
 
@@ -199,6 +204,49 @@ class WPSEO_News_Sitemap {
 		}
 
 		return $post_types;
+	}
+
+	/**
+	 * Getting the name for the sitemap, if $full_path is true, it will return the full path
+	 *
+	 * @param bool $full_path
+	 *
+	 * @return string mixed
+	 */
+	public static function get_sitemap_name( $full_path = true ) {
+		// This filter is documented in classes/class-sitemap.php
+		$sitemap_name = apply_filters( 'wpseo_news_sitemap_name', self::news_sitemap_basename() );
+
+		// When $full_path is true, it will generate a full path
+		if ( $full_path ) {
+			return wpseo_xml_sitemaps_base_url( $sitemap_name . '-sitemap.xml' );
+		}
+
+		return $sitemap_name;
+
+	}
+
+	/**
+	 * Returns the basename of the news-sitemap, the first portion of the name of the sitemap "file".
+	 *
+	 * Defaults to news, but it's possible to override it by using the YOAST_VIDEO_SITEMAP_BASENAME constant.
+	 *
+	 * @since 3.1
+	 *
+	 * @return string $basename
+	 */
+	public static function news_sitemap_basename() {
+		$basename = 'news';
+
+		if ( post_type_exists( 'news' ) ) {
+			$basename = 'yoast-news';
+		}
+
+		if ( defined( 'YOAST_NEWS_SITEMAP_BASENAME' ) ) {
+			$basename = YOAST_NEWS_SITEMAP_BASENAME;
+		}
+
+		return $basename;
 	}
 }
 
@@ -541,6 +589,7 @@ class WPSEO_News_Sitemap_Item {
 		if ( method_exists( 'WPSEO_Utils', 'is_valid_datetime' ) ) {
 			return WPSEO_Utils::is_valid_datetime( $datetime );
 		}
+
 		return true;
 	}
 }
@@ -630,7 +679,8 @@ class WPSEO_News_Sitemap_Images {
 			if ( preg_match( '/src=("|\')([^"|\']+)("|\')/', $img, $match ) ) {
 				if ( $src = $this->parse_image_source( $match[2] ) ) {
 					$this->images[ $src ] = $this->parse_image( $img );
-				} else {
+				}
+				else {
 					continue;
 				}
 			}
@@ -747,7 +797,8 @@ class WPSEO_News_Sitemap_Images {
 
 			if ( '' != $attachment['src'] ) {
 				$this->images[ $attachment['src'] ] = $image;
-			} elseif ( '' != $attachment['href'] ) {
+			}
+			elseif ( '' != $attachment['href'] ) {
 				$this->images[ $attachment['href'] ] = $image;
 			}
 		}

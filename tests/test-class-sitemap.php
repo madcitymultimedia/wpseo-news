@@ -406,7 +406,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	 * @covers WPSEO_News::news_sitemap_basename
 	 */
 	public function test_sitemap_default_name() {
-		$this->assertEquals( 'news', WPSEO_News::news_sitemap_basename() );
+		$this->assertEquals( 'news', WPSEO_News_Sitemap::news_sitemap_basename() );
 	}
 
 	/**
@@ -417,7 +417,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	public function test_sitemap_name_on_post_type() {
 		register_post_type( 'news' );
 
-		$this->assertEquals( 'yoast-news', WPSEO_News::news_sitemap_basename() );
+		$this->assertEquals( 'yoast-news', WPSEO_News_Sitemap::news_sitemap_basename() );
 	}
 
 	/**
@@ -428,7 +428,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	public function test_sitemap_name_on_constant() {
 		define( 'YOAST_NEWS_SITEMAP_BASENAME', 'unit-test-news' );
 
-		$this->assertEquals( 'unit-test-news', WPSEO_News::news_sitemap_basename() );
+		$this->assertEquals( 'unit-test-news', WPSEO_News_Sitemap::news_sitemap_basename() );
 	}
 
 

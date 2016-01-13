@@ -139,8 +139,7 @@ class WPSEO_News {
 
 		// Setting action for removing the transient on update options
 		if ( method_exists( 'WPSEO_Utils', 'register_cache_clear_option' ) ) {
-
-			WPSEO_Utils::register_cache_clear_option( 'wpseo_news', $this->get_sitemap_name( false ) );
+			WPSEO_Utils::register_cache_clear_option( 'wpseo_news', WPSEO_News_Sitemap::get_sitemap_name( false ) );
 		}
 	}
 
@@ -261,6 +260,7 @@ class WPSEO_News {
 	 */
 	public function add_admin_pages( $admin_pages ) {
 		_deprecated_function( 'WPSEO_News::add_admin_pages', 'WPSEO 3.1' );
+
 		return $admin_pages;
 	}
 
@@ -362,49 +362,6 @@ class WPSEO_News {
 			'opinion'       => __( 'Opinion', 'wordpress-seo-news' ),
 			'usergenerated' => __( 'User Generated', 'wordpress-seo-news' ),
 		);
-	}
-
-	/**
-	 * Getting the name for the sitemap, if $full_path is true, it will return the full path
-	 *
-	 * @param bool $full_path
-	 *
-	 * @return string mixed
-	 */
-	public static function get_sitemap_name( $full_path = true ) {
-		// This filter is documented in classes/class-sitemap.php
-		$sitemap_name = apply_filters( 'wpseo_news_sitemap_name', self::news_sitemap_basename() );
-
-		// When $full_path is true, it will generate a full path
-		if ( $full_path ) {
-			return wpseo_xml_sitemaps_base_url( $sitemap_name . '-sitemap.xml' );
-		}
-
-		return $sitemap_name;
-
-	}
-
-	/**
-	 * Returns the basename of the news-sitemap, the first portion of the name of the sitemap "file".
-	 *
-	 * Defaults to news, but it's possible to override it by using the YOAST_VIDEO_SITEMAP_BASENAME constant.
-	 *
-	 * @since 3.1
-	 *
-	 * @return string $basename
-	 */
-	public static function news_sitemap_basename() {
-		$basename = 'news';
-
-		if ( post_type_exists( 'news' ) ) {
-			$basename = 'yoast-news';
-		}
-
-		if ( defined( 'YOAST_NEWS_SITEMAP_BASENAME' ) ) {
-			$basename = YOAST_NEWS_SITEMAP_BASENAME;
-		}
-
-		return $basename;
 	}
 }
 
