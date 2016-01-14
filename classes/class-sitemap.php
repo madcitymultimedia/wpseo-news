@@ -35,7 +35,7 @@ class WPSEO_News_Sitemap {
 		 *
 		 * @api string $news_sitemap_xml The news sitemap XML URL
 		 */
-		$news_sitemap_xml = WPSEO_News::get_sitemap_name( );
+		$news_sitemap_xml = WPSEO_News::get_sitemap_name();
 
 		$str .= '<sitemap>' . "\n";
 		$str .= '<loc>' . $news_sitemap_xml . '</loc>' . "\n";
@@ -84,6 +84,7 @@ class WPSEO_News_Sitemap {
 	 */
 	public function set_stylesheet_cache( $target_object ) {
 		$target_object->set_stylesheet( $this->get_stylesheet_line() );
+
 		return $target_object;
 	}
 
@@ -144,6 +145,7 @@ class WPSEO_News_Sitemap {
 	 */
 	private function get_stylesheet_line() {
 		$stylesheet_url = "\n" . '<?xml-stylesheet type="text/xsl" href="' . home_url( 'news-sitemap.xsl' ) . '"?>';
+
 		return $stylesheet_url;
 	}
 
@@ -170,6 +172,7 @@ class WPSEO_News_Sitemap {
 		 ";
 
 		$items = $wpdb->get_results( $wpdb->prepare( $sql_query, 'publish' ) );
+
 		// @codingStandardsIgnoreEnd
 
 		return $items;
@@ -178,7 +181,8 @@ class WPSEO_News_Sitemap {
 	/**
 	 * Loop through all $items and build each one of it
 	 *
-	 * @param array  $items
+	 * @param array $items
+	 *
 	 * @return string $output
 	 */
 	private function build_items( $items ) {
@@ -186,6 +190,7 @@ class WPSEO_News_Sitemap {
 		foreach ( $items as $item ) {
 			$output .= new WPSEO_News_Sitemap_Item( $item, $this->options );
 		}
+
 		return $output;
 	}
 
@@ -474,16 +479,13 @@ class WPSEO_News_Sitemap_Item {
 		if ( $this->is_valid_datetime( $item->post_date_gmt ) ) {
 			// Create a DateTime object date in the correct timezone
 			return $this->format_date_with_timezone( $item->post_date_gmt );
-		}
-		elseif ( $this->is_valid_datetime( $item->post_modified_gmt ) ) {
+		} elseif ( $this->is_valid_datetime( $item->post_modified_gmt ) ) {
 			// Fallback 1: post_modified_gmt
 			return $this->format_date_with_timezone( $item->post_modified_gmt );
-		}
-		elseif ( $this->is_valid_datetime( $item->post_modified ) ) {
+		} elseif ( $this->is_valid_datetime( $item->post_modified ) ) {
 			// Fallback 2: post_modified
 			return $this->format_date_with_timezone( $item->post_modified );
-		}
-		elseif ( $this->is_valid_datetime( $item->post_date ) ) {
+		} elseif ( $this->is_valid_datetime( $item->post_date ) ) {
 			// Fallback 3: post_date
 			return $this->format_date_with_timezone( $item->post_date );
 		}
@@ -545,6 +547,7 @@ class WPSEO_News_Sitemap_Item {
 		if ( method_exists( 'WPSEO_Utils', 'is_valid_datetime' ) ) {
 			return WPSEO_Utils::is_valid_datetime( $datetime );
 		}
+
 		return true;
 	}
 }
