@@ -6,7 +6,6 @@ class WPSEO_News_Sitemap {
 
 	public function __construct() {
 		$this->options = WPSEO_News::get_options();
-		
 		add_action( 'init', array( $this, 'init' ), 10 );
 
 		$items = $this->get_items();
@@ -70,7 +69,6 @@ class WPSEO_News_Sitemap {
 		if ( wp_is_post_revision( $post_id ) ) {
 			return;
 		}
-
 
 		wpseo_invalidate_sitemap_cache( 'news' );
 	}
