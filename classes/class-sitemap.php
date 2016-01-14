@@ -4,20 +4,14 @@ class WPSEO_News_Sitemap {
 
 	private $options;
 
-	/**
-	 * Holds all the items from the sitemap.
-	 *
-	 * @var mixed
-	 */
-	private $items;
-
 	public function __construct() {
 		$this->options = WPSEO_News::get_options();
-		$this->items = $this->get_items();
-
+		
 		add_action( 'init', array( $this, 'init' ), 10 );
 
-		if ( ! empty( $this->items ) ) {
+		$items = $this->get_items();
+
+		if ( ! empty( $items ) ) {
 			add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
 		}
 
@@ -111,9 +105,11 @@ class WPSEO_News_Sitemap {
 	public function build_sitemap() {
 		$output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
 
+		$items = $this->get_items();
+
 		// Loop through items
-		if ( ! empty( $this->items ) ) {
-			$output .= $this->build_items( $this->items );
+		if ( ! empty( $items ) ) {
+			$output .= $this->build_items( $items );
 		}
 
 		$output .= '</urlset>';
