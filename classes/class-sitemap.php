@@ -12,12 +12,14 @@ class WPSEO_News_Sitemap {
 	private $items;
 
 	public function __construct() {
+		WPSEO_Utils::clear_sitemap_cache();
+
 		$this->options = WPSEO_News::get_options();
 		$this->items = $this->get_items();
 
 		add_action( 'init', array( $this, 'init' ), 10 );
 
-		if ( ! empty($this->items) ) {
+		if ( ! empty( $this->items ) ) {
 			add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
 		}
 
@@ -35,7 +37,6 @@ class WPSEO_News_Sitemap {
 	 * @return string
 	 */
 	public function add_to_index( $str ) {
-
 		$date = new DateTime( get_lastpostdate( 'gmt' ), new DateTimeZone( new WPSEO_News_Sitemap_Timezone() ) );
 
 		/**
@@ -79,6 +80,7 @@ class WPSEO_News_Sitemap {
 		if ( wp_is_post_revision( $post_id ) ) {
 			return;
 		}
+
 
 		wpseo_invalidate_sitemap_cache( 'news' );
 	}
