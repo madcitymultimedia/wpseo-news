@@ -12,8 +12,6 @@ class WPSEO_News_Sitemap {
 	private $items;
 
 	public function __construct() {
-		WPSEO_Utils::clear_sitemap_cache();
-
 		$this->options = WPSEO_News::get_options();
 		$this->items = $this->get_items();
 
@@ -50,8 +48,6 @@ class WPSEO_News_Sitemap {
 		$str .= '<loc>' . $news_sitemap_xml . '</loc>' . "\n";
 		$str .= '<lastmod>' . htmlspecialchars( $date->format( 'c' ) ) . '</lastmod>' . "\n";
 		$str .= '</sitemap>' . "\n";
-
-		echo $str;
 
 		return $str;
 	}
