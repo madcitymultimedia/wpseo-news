@@ -50,3 +50,30 @@ function __wpseo_news_main() {
 
 // Load WPSEO News
 add_action( 'plugins_loaded', '__wpseo_news_main' );
+
+/**
+ * Clear the news sitemap.
+ */
+function yoast_wpseo_news_clear_sitemap_cache() {
+	if ( method_exists( 'WPSEO_Utils', 'clear_sitemap_cache' ) ) {
+		WPSEO_Utils::clear_sitemap_cache( array( WPSEO_News::get_sitemap_name() ) );
+	}
+}
+
+/**
+ * Clear the news sitemap when we activate the plugin.
+ */
+function yoast_wpseo_news_activate() {
+	yoast_wpseo_news_clear_sitemap_cache();
+}
+
+/**
+ * Clear the news sitemap when we activate the plugin.
+ */
+function yoast_wpseo_news_deactivate() {
+	yoast_wpseo_news_clear_sitemap_cache();
+}
+
+register_activation_hook( __FILE__, 'yoast_wpseo_news_activate' );
+
+register_deactivation_hook( __FILE__, 'yoast_wpseo_news_deactivate' );
