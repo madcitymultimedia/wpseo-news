@@ -17,21 +17,6 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
-	 * Determine whether to show or hide the sitemap.
-	 */
-	public function yoast_wpseo_news_show_or_hide_sitemap() {
-		$items = $this->get_items();
-
-		if ( ! empty( $items ) ) {
-			add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
-		}
-
-		if ( method_exists( 'WPSEO_Utils', 'clear_sitemap_cache' ) ) {
-			WPSEO_Utils::clear_sitemap_cache( array( WPSEO_News::get_sitemap_name( false ) ) );
-		}
-	}
-
-	/**
 	 * Add the XML News Sitemap to the Sitemap Index.
 	 *
 	 * @param string $str String with Index sitemap content.
@@ -147,6 +132,21 @@ class WPSEO_News_Sitemap {
 		header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', ( time() + YEAR_IN_SECONDS ) ) . ' GMT' );
 		require dirname( WPSEO_NEWS_FILE ) . '/assets/xml-news-sitemap-xsl.php';
 		die();
+	}
+
+	/**
+	 * Determine whether to show or hide the sitemap.
+	 */
+	protected function yoast_wpseo_news_show_or_hide_sitemap() {
+		$items = $this->get_items();
+
+		if ( ! empty( $items ) ) {
+			add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
+		}
+
+		if ( method_exists( 'WPSEO_Utils', 'clear_sitemap_cache' ) ) {
+			WPSEO_Utils::clear_sitemap_cache( array( WPSEO_News::get_sitemap_name( false ) ) );
+		}
 	}
 
 	/**
