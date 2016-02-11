@@ -8,16 +8,27 @@ class WPSEO_News_Sitemap {
 		$this->options = WPSEO_News::get_options();
 		add_action( 'init', array( $this, 'init' ), 10 );
 
-		$items = $this->get_items();
-
-		if ( ! empty( $items ) ) {
-			add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
-		}
+		$this->yoast_wpseo_news_show_or_hide_sitemap();
 
 		add_action( 'save_post', array( $this, 'invalidate_sitemap' ) );
 
 		// Setting stylesheet for cached sitemap
 		add_action( 'wpseo_sitemap_stylesheet_cache_news', array( $this, 'set_stylesheet_cache' ) );
+	}
+
+	/**
+	 * Determine whether to show or hide the sitemap.
+	 */
+	public function yoast_wpseo_news_show_or_hide_sitemap() {
+		$items = $this->get_items();
+
+		if ( ! empty ( $items ) ) {
+			add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
+		}
+
+		if ( method_exists( 'WPSEO_Utils', 'clear_sitemap_cache' ) ) {
+			WPSEO_Utils::clear_sitemap_cache( array( WPSEO_News::get_sitemap_name( false ) ) );
+		}
 	}
 
 	/**
