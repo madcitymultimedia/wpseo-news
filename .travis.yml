@@ -50,7 +50,6 @@ before_script:
 - phpenv local 5.6
 - composer selfupdate --no-interaction
 - composer install --no-interaction
-- composer config-yoastcs
 - phpenv local --unset
 - cd -
 
@@ -66,6 +65,7 @@ before_script:
 - cd "$WP_DEVELOP_DIR/src/wp-content/plugins/$PLUGIN_SLUG"
 - phpenv local 5.6
 - composer install --no-interaction
+- composer config-yoastcs
 - phpenv local --unset
 - phpenv rehash
 
