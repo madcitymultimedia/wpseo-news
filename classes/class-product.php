@@ -9,7 +9,7 @@ if ( ! class_exists( 'WPSEO_News_Product' ) ) {
 
 		public function __construct() {
 			parent::__construct(
-				'https://yoast.com/edd-sl-api',
+				'http://yoast.com/edd-sl-api',
 				'News SEO',
 				plugin_basename( WPSEO_News::get_file() ),
 				WPSEO_News::VERSION,
