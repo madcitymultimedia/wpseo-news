@@ -11,7 +11,6 @@
 	stopOnFailure="false"
 	stopOnIncomplete="false"
 	stopOnSkipped="false"
-	strict="false"
 	syntaxCheck="false"
 	verbose="true"
 	>
@@ -20,4 +19,9 @@
 			<directory prefix="test-" suffix=".php">./tests/</directory>
 		</testsuite>
 	</testsuites>
+	<filter>
+		<whitelist>
+			<directory>./classes</directory>
+		</whitelist>
+	</filter>
 </phpunit>
