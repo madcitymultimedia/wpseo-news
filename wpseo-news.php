@@ -52,7 +52,7 @@ function __wpseo_news_main() {
 add_action( 'plugins_loaded', '__wpseo_news_main' );
 
 /**
- * Instantia the the plugin license manager for the current plugin and activate it's license.
+ * Instantiate the plugin license manager for the current plugin and activate it's license.
  */
 function activate_license( ) {
 	$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
