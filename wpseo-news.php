@@ -54,7 +54,7 @@ add_action( 'plugins_loaded', '__wpseo_news_main' );
 /**
  * Instantiate the plugin license manager for the current plugin and activate it's license.
  */
-function activate_license( ) {
+function wpseo_news_activate_license( ) {
 	$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
 	$license_manager->activate_license();
 }
@@ -64,4 +64,4 @@ function activate_license( ) {
  * during a update of the plugin. To solve this, we hook into the activation process by calling a method that will
  * activate the license.
  */
-register_activation_hook( WPSEO_NEWS_FILE, 'activate_license' );
+register_activation_hook( WPSEO_NEWS_FILE, 'wpseo_news_activate_license' );
