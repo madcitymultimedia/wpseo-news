@@ -271,8 +271,12 @@ class WPSEO_News {
 		// Only add the helpscout beacon on Yoast SEO pages.
 		if ( substr( $query_var, 0, 5 ) === 'wpseo' ) {
 			$beacon = yoast_get_helpscout_beacon( $query_var );
-			$beacon->add_setting( new WPSEO_News_Beacon_Setting() );
-			$beacon->register_hooks();
+
+			// For BC with Yoast SEO Premium <=3.0.7.
+			if ( method_exists( $beacon, 'add_setting' ) ) {
+				$beacon->add_setting( new WPSEO_Premium_Beacon_Setting() );
+				$beacon->register_hooks();
+			}
 		}
 	}
 
