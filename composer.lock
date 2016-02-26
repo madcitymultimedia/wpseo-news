@@ -45,12 +45,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wp-helpscout.git",
-                "reference": "624be69461b091eb19229787f1ce103668c87762"
+                "reference": "61d402a7f89ea4d55bbb477c739151d69840e5ee"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wp-helpscout/zipball/624be69461b091eb19229787f1ce103668c87762",
-                "reference": "624be69461b091eb19229787f1ce103668c87762",
+                "url": "https://api.github.com/repos/Yoast/wp-helpscout/zipball/61d402a7f89ea4d55bbb477c739151d69840e5ee",
+                "reference": "61d402a7f89ea4d55bbb477c739151d69840e5ee",
                 "shasum": ""
             },
             "type": "library",
@@ -77,7 +77,7 @@
                 "source": "https://github.com/Yoast/wp-helpscout/tree/master",
                 "issues": "https://github.com/Yoast/wp-helpscout/issues"
             },
-            "time": "2016-02-26 07:41:53"
+            "time": "2016-02-26 13:11:02"
         }
     ],
     "packages-dev": [
