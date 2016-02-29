@@ -158,8 +158,6 @@ class WPSEO_News_Sitemap {
 	 *
 	 */
 	private function yoast_wpseo_news_schedule_clear() {
-		wpseo_news_schedule_sitemap_clear();
-
 		$schedule = wp_get_schedule( 'wpseo_news_schedule_sitemap_clear' );
 
 		if ( empty( $schedule ) ) {
