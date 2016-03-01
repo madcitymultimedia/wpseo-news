@@ -4,32 +4,28 @@ sudo: false
 
 matrix:
   include:
-    - php: '5.6'
-      env: WP_VERSION=master WP_MULTISITE=0 PHPLINT=1
-    - php: '5.2'
-      env: WP_VERSION=master WP_MULTISITE=1 PHPLINT=1
-    - php: '5.6'
-      env: WP_VERSION=4.1 WP_MULTISITE=1
-    - php: '5.5'
-      env: WP_VERSION=master WP_MULTISITE=0
-    - php: '5.5'
-      env: WP_VERSION=4.1 WP_MULTISITE=1
-    - php: '5.4'
-      env: WP_VERSION=4.1 WP_MULTISITE=0
-    - php: '5.4'
-      env: WP_VERSION=4.1 WP_MULTISITE=1
-    - php: '5.5'
-      env: WP_VERSION=4.1 WP_MULTISITE=0
-    - php: '5.5'
-      env: WP_VERSION=4.0 WP_MULTISITE=1
-    - php: '5.3'
-      env: WP_VERSION=4.0 WP_MULTISITE=0
-    - php: '5.4'
-      env: WP_VERSION=3.9 WP_MULTISITE=0
-    - php: 'hhvm'
-      env: WP_VERSION=4.1 WP_MULTISITE=0
-    - php: 'hhvm'
-      env: WP_VERSION=4.1 WP_MULTISITE=1
+    - php: 5.6
+      env: WP_VERSION=master WP_MULTISITE=1 PHPLINT=1 CHECKS=1
+    - php: 5.2
+      env: WP_VERSION=4.3 WP_MULTISITE=1 PHPLINT=1
+    - php: 5.6
+      env: WP_VERSION=4.3
+    - php: 5.6
+      env: WP_VERSION=4.2
+    - php: 5.6
+      env: WP_VERSION=4.1
+    - php: 5.6
+      env: WP_VERSION=4.0
+    - php: 5.5
+      env: WP_VERSION=4.3
+    - php: 5.4
+      env: WP_VERSION=4.3
+    - php: 5.3
+      env: WP_VERSION=4.3
+    - php: 7.0
+      env: WP_VERSION=4.3 COVERAGE=1
+    - php: hhvm
+      env: WP_VERSION=4.3
 
 cache:
   directories:
@@ -63,17 +59,17 @@ before_script:
 - sed -i "s/yourusernamehere/travis/" wp-tests-config.php
 - sed -i "s/yourpasswordhere//" wp-tests-config.php
 - mysql -e "CREATE DATABASE wordpress_tests;" -uroot
-- git clone https://github.com/squizlabs/PHP_CodeSniffer.git phpcs
-- git clone https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards.git wpcs
-- cd phpcs
-- scripts/phpcs --config-set installed_paths ../wpcs
 - cd "$WP_DEVELOP_DIR/src/wp-content/plugins/$PLUGIN_SLUG"
 - phpenv local 5.6
 - composer install --no-interaction
+- composer config-yoastcs
 - phpenv local --unset
 - phpenv rehash
 
 script:
 - if [[ "$PHPLINT" == "1" ]]; then find -L . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l; fi
-- if [[ "$PHPLINT" == "1" ]]; then /tmp/wordpress/phpcs/scripts/phpcs -p -s -v -n . --standard=./codesniffer.xml --extensions=php; fi
+- if [[ "$PHPLINT" == "1" ]]; then vendor/bin/phpcs -p -s -v -n . --standard=./codesniffer.xml --extensions=php; fi
+- if [[ "$CHECKS" == "1" ]]; then npm install -g grunt-cli && npm install --no-optional && grunt check:js; fi
+- if [[ "$COVERAGE" == "1" ]]; then phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml; else phpunit -c phpunit.xml; fi
+- if [[ "$COVERAGE" == "1" ]]; then vendor/bin/test-reporter; fi
 - phpunit -c phpunit.xml

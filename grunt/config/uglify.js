@@ -1,6 +1,6 @@
 // https://github.com/gruntjs/grunt-contrib-uglify
 module.exports = {
-	'js': {
+	js: {
 		options: {
 			preserveComments: 'some',
 			report: 'gzip'
