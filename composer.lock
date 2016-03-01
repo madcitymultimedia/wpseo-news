@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "ad71bbd712a6cfc263eebb30792b4513",
-    "content-hash": "d3de816142d355e9951f42113545a036",
+    "hash": "1ea96a35d44bc894e6b4aff82bd464ec",
+    "content-hash": "7189088e60364fed1338478086bce5bf",
     "packages": [
         {
             "name": "xrstf/composer-php52",
@@ -41,7 +41,7 @@
         },
         {
             "name": "yoast/wp-helpscout",
-            "version": "dev-master",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wp-helpscout.git",
@@ -62,6 +62,7 @@
                     "src/functions.php"
                 ]
             },
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "GPL-3.0+"
             ],
@@ -73,10 +74,6 @@
                 }
             ],
             "description": "A package to integrate the helpscout beacon into WordPress",
-            "support": {
-                "source": "https://github.com/Yoast/wp-helpscout/tree/master",
-                "issues": "https://github.com/Yoast/wp-helpscout/issues"
-            },
             "time": "2016-02-26 13:11:02"
         }
     ],
@@ -1087,7 +1084,6 @@
     "aliases": [],
     "minimum-stability": "dev",
     "stability-flags": {
-        "yoast/wp-helpscout": 20,
         "yoast/yoastcs": 20,
         "codeclimate/php-test-reporter": 20
     },
