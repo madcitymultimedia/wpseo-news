@@ -9,6 +9,9 @@ class WPSEO_News_Sitemap {
 	 */
 	private $basename;
 
+	/**
+	 * Constructor. Set options, basename and add actions.
+	 */
 	public function __construct() {
 		$this->options = WPSEO_News::get_options();
 		$this->basename = WPSEO_News::get_sitemap_name( false );
@@ -33,11 +36,6 @@ class WPSEO_News_Sitemap {
 	public function add_to_index( $str ) {
 		$date = new DateTime( get_lastpostdate( 'gmt' ), new DateTimeZone( new WPSEO_News_Sitemap_Timezone() ) );
 
-		/**
-		 * Filter: 'wpseo_news_sitemap_name' - Allow filtering the news sitemap XML URL
-		 *
-		 * @api string $news_sitemap_xml The news sitemap XML URL
-		 */
 		$news_sitemap_xml = WPSEO_News::get_sitemap_name();
 
 		$str .= '<sitemap>' . "\n";
@@ -155,7 +153,7 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
-	 *
+	 * Clear the sitemap  and sitemap index every hour to make sure the sitemap is hidden or shown when it needs to be.
 	 */
 	private function yoast_wpseo_news_schedule_clear() {
 		$schedule = wp_get_schedule( 'wpseo_news_schedule_sitemap_clear' );
@@ -181,7 +179,7 @@ class WPSEO_News_Sitemap {
 	 *
 	 * @param int $limit the limit for the query, default is 1000 items.
 	 *
-	 * @return mixed
+	 * @return array|null|object
 	 */
 	private function get_items( $limit = 1000 ) {
 		global $wpdb;
@@ -510,13 +508,16 @@ class WPSEO_News_Sitemap_Item {
 		if ( $this->is_valid_datetime( $item->post_date_gmt ) ) {
 			// Create a DateTime object date in the correct timezone
 			return $this->format_date_with_timezone( $item->post_date_gmt );
-		} elseif ( $this->is_valid_datetime( $item->post_modified_gmt ) ) {
+		}
+		if ( $this->is_valid_datetime( $item->post_modified_gmt ) ) {
 			// Fallback 1: post_modified_gmt
 			return $this->format_date_with_timezone( $item->post_modified_gmt );
-		} elseif ( $this->is_valid_datetime( $item->post_modified ) ) {
+		}
+		if ( $this->is_valid_datetime( $item->post_modified ) ) {
 			// Fallback 2: post_modified
 			return $this->format_date_with_timezone( $item->post_modified );
-		} elseif ( $this->is_valid_datetime( $item->post_date ) ) {
+		}
+		if ( $this->is_valid_datetime( $item->post_date ) ) {
 			// Fallback 3: post_date
 			return $this->format_date_with_timezone( $item->post_date );
 		}
