@@ -3,6 +3,7 @@
 class WPSEO_News {
 
 	const VERSION = '3.0';
+
 	/**
 	 * Get WPSEO News options
 	 *
@@ -15,16 +16,26 @@ class WPSEO_News {
 		 * @api array $wpseo_news_options The WordPress SEO News options
 		 *
 		 */
-		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array( 'name' => '', 'default_genre' => array(), 'default_keywords' => '', 'ep_image_src' => '', 'version' => '0' ) ) );
+		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array(
+			'name'             => '',
+			'default_genre'    => array(),
+			'default_keywords' => '',
+			'ep_image_src'     => '',
+			'version'          => '0',
+		) ) );
 	}
 
-	/**
+	/**§
 	 * Get plugin file
+	 *
+	 * @deprecated since 3.1. Use WPSEO_NEWS_FILE instead
 	 *
 	 * @return string
 	 */
 	public static function get_file() {
-		return __FILE__;
+		_deprecated_function( __FUNCTION__, '3.1', 'WPSEO_NEWS_FILE' );
+
+		return WPSEO_NEWS_FILE;
 	}
 
 	public function __construct() {
@@ -106,14 +117,17 @@ class WPSEO_News {
 
 		if ( ! version_compare( $wp_version, '3.5', '>=' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wp' ) );
-		} else {
+		}
+		else {
 			if ( defined( 'WPSEO_VERSION' ) ) {
 				if ( version_compare( WPSEO_VERSION, '1.5', '>=' ) ) {
 					return true;
-				} else {
+				}
+				else {
 					add_action( 'all_admin_notices', array( $this, 'error_upgrade_wpseo' ) );
 				}
-			} else {
+			}
+			else {
 				add_action( 'all_admin_notices', array( $this, 'error_missing_wpseo' ) );
 			}
 		}
@@ -132,6 +146,7 @@ class WPSEO_News {
 		if ( ! defined( 'SCRIPT_DEBUG' ) || ! SCRIPT_DEBUG ) {
 			$ext = '.min' . $ext;
 		}
+
 		return $ext;
 	}
 
@@ -172,6 +187,7 @@ class WPSEO_News {
 	 */
 	public function sanitize_options( $options ) {
 		$options['version'] = self::VERSION;
+
 		return $options;
 	}
 
@@ -216,8 +232,13 @@ class WPSEO_News {
 	 * Enqueue admin page JS
 	 */
 	public function enqueue_admin_page() {
+
 		wp_enqueue_media(); // enqueue files needed for upload functionality
-		wp_enqueue_script( 'wpseo-news-admin-page', plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), self::get_file() ), array( 'jquery', 'jquery-ui-core', 'jquery-ui-autocomplete' ), self::VERSION, true );
+		wp_enqueue_script( 'wpseo-news-admin-page', plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ), array(
+			'jquery',
+			'jquery-ui-core',
+			'jquery-ui-autocomplete',
+		), self::VERSION, true );
 		wp_localize_script( 'wpseo-news-admin-page', 'wpseonews', WPSEO_News_Javascript_Strings::strings() );
 	}
 
@@ -225,7 +246,7 @@ class WPSEO_News {
 	 * Enqueue edit post JS
 	 */
 	public function enqueue_edit_post() {
-		wp_enqueue_script( 'wpseo-news-edit-post', plugins_url( 'assets/post-edit' . $this->file_ext( '.js' ), self::get_file() ), array( 'jquery' ), self::VERSION, true );
+		wp_enqueue_script( 'wpseo-news-edit-post', plugins_url( 'assets/post-edit' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ), array( 'jquery' ), self::VERSION, true );
 	}
 
 	/**
