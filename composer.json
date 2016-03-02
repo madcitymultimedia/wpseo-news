@@ -1,6 +1,6 @@
 {
     "name": "yoast/yoast-news-seo",
-    "description": "Google News plugin for the WordPress SEO plugin",
+    "description": "Google News plugin for the Yoast SEO plugin",
     "type": "wordpress-plugin",
     "license": "GPL-2.0+",
     "authors": [

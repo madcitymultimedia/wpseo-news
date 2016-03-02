@@ -10,9 +10,9 @@ class WPSEO_News {
 	 */
 	public static function get_options() {
 		/**
-		 * Filter: 'wpseo_news_options' - Allow modifying op WordPress SEO News filters
+		 * Filter: 'wpseo_news_options' - Allow modifying of Yoast News SEO options
 		 *
-		 * @api array $wpseo_news_options The WordPress SEO News options
+		 * @api array $wpseo_news_options The Yoast News SEO options
 		 *
 		 */
 		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array( 'name' => '', 'default_genre' => array(), 'default_keywords' => '', 'ep_image_src' => '', 'version' => '0' ) ) );
@@ -185,10 +185,9 @@ class WPSEO_News {
 	public function add_submenu_pages( $submenu_pages ) {
 
 		$admin_page = new WPSEO_News_Admin_Page();
-
-		$submenu_pages[] = array(
+;		$submenu_pages[] = array(
 			'wpseo_dashboard',
-			__( 'Yoast WordPress SEO:', 'wordpress-seo-news' ) . ' ' . __( 'News SEO', 'wordpress-seo-news' ),
+			__( 'Yoast SEO:', 'wordpress-seo-news' ) . ' ' . __( 'News SEO', 'wordpress-seo-news' ),
 			__( 'News SEO', 'wordpress-seo-news' ),
 			'manage_options',
 			'wpseo_news',
@@ -236,12 +235,12 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Throw an error if WordPress SEO is not installed.
+	 * Throw an error if Yoast SEO is not installed.
 	 *
 	 * @since 2.0.0
 	 */
 	public function error_missing_wpseo() {
-		echo '<div class="error"><p>' . sprintf( __( 'Please %sinstall &amp; activate WordPress SEO by Yoast%s and then enable its XML sitemap functionality to allow the WordPress SEO News module to work.', 'wordpress-seo-news' ), '<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=wordpress+seo&plugin-search-input=Search+Plugins' ) ) . '">', '</a>' ) . '</p></div>';
+		echo '<div class="error"><p>' . sprintf( __( 'Please %sinstall &amp; activate Yoast SEO%s and then enable its XML sitemap functionality to allow the Yoast News SEO module to work.', 'wordpress-seo-news' ), '<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=wordpress+seo&plugin-search-input=Search+Plugins' ) ) . '">', '</a>' ) . '</p></div>';
 	}
 
 	/**
@@ -250,16 +249,16 @@ class WPSEO_News {
 	 * @since 2.0.0
 	 */
 	public function error_upgrade_wp() {
-		echo '<div class="error"><p>' . __( 'Please upgrade WordPress to the latest version to allow WordPress and the WordPress SEO News module to work properly.', 'wordpress-seo-news' ) . '</p></div>';
+		echo '<div class="error"><p>' . __( 'Please upgrade WordPress to the latest version to allow WordPress and the Yoast News SEO module to work properly.', 'wordpress-seo-news' ) . '</p></div>';
 	}
 
 	/**
-	 * Throw an error if WordPress SEO is out of date.
+	 * Throw an error if Yoast SEO is out of date.
 	 *
 	 * @since 2.0.0
 	 */
 	public function error_upgrade_wpseo() {
-		echo '<div class="error"><p>' . __( 'Please upgrade the WordPress SEO plugin to the latest version to allow the WordPress SEO News module to work.', 'wordpress-seo-news' ) . '</p></div>';
+		echo '<div class="error"><p>' . __( 'Please upgrade the Yoast SEO plugin to the latest version to allow the Yoast News SEO module to work.', 'wordpress-seo-news' ) . '</p></div>';
 	}
 
 	// HELPERS

@@ -3,13 +3,13 @@
 Plugin Name: WordPress SEO News
 Version: 3.0
 Plugin URI: https://yoast.com/wordpress/plugins/news-seo/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=wpseonewsplugin
-Description: Google News plugin for the WordPress SEO plugin
+Description: Google News plugin for the Yoast SEO plugin
 Author: Team Yoast
 Author URI: http://yoast.com/
 Text Domain: wpseo_news
 License: GPL v3
 
-WordPress SEO Plugin
+Yoast SEO Plugin
 Copyright (C) 2008-2014, Team Yoast
 
 This program is free software: you can redistribute it and/or modify
