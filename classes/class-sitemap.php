@@ -4,15 +4,26 @@ class WPSEO_News_Sitemap {
 
 	private $options;
 
+	/**
+	 * @var string The sitemap basename.
+	 */
+	private $basename;
+
+	/**
+	 * Constructor. Set options, basename and add actions.
+	 */
 	public function __construct() {
 		$this->options = WPSEO_News::get_options();
+		$this->basename = WPSEO_News::get_sitemap_name( false );
 
 		add_action( 'init', array( $this, 'init' ), 10 );
-		add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
+
 		add_action( 'save_post', array( $this, 'invalidate_sitemap' ) );
 
 		// Setting stylesheet for cached sitemap
 		add_action( 'wpseo_sitemap_stylesheet_cache_news', array( $this, 'set_stylesheet_cache' ) );
+
+		add_action( 'wpseo_news_schedule_sitemap_clear', 'yoast_wpseo_news_clear_sitemap_cache' );
 	}
 
 	/**
@@ -23,15 +34,9 @@ class WPSEO_News_Sitemap {
 	 * @return string
 	 */
 	public function add_to_index( $str ) {
-
 		$date = new DateTime( get_lastpostdate( 'gmt' ), new DateTimeZone( new WPSEO_News_Sitemap_Timezone() ) );
 
-		/**
-		 * Filter: 'wpseo_news_sitemap_name' - Allow filtering the news sitemap XML URL
-		 *
-		 * @api string $news_sitemap_xml The news sitemap XML URL
-		 */
-		$news_sitemap_xml = WPSEO_News::get_sitemap_name( );
+		$news_sitemap_xml = WPSEO_News::get_sitemap_name();
 
 		$str .= '<sitemap>' . "\n";
 		$str .= '<loc>' . $news_sitemap_xml . '</loc>' . "\n";
@@ -46,11 +51,12 @@ class WPSEO_News_Sitemap {
 	 */
 	public function init() {
 		if ( isset( $GLOBALS['wpseo_sitemaps'] ) ) {
-			$basename = WPSEO_News::get_sitemap_name( false );
+			$this->yoast_wpseo_news_show_or_hide_sitemap();
+			$this->yoast_wpseo_news_schedule_clear();
 
-			$GLOBALS['wpseo_sitemaps']->register_sitemap( $basename, array( $this, 'build' ) );
+			$GLOBALS['wpseo_sitemaps']->register_sitemap( $this->basename, array( $this, 'build' ) );
 			if ( method_exists( $GLOBALS['wpseo_sitemaps'], 'register_xsl' ) ) {
-				$GLOBALS['wpseo_sitemaps']->register_xsl( $basename, array( $this, 'build_news_sitemap_xsl' ) );
+				$GLOBALS['wpseo_sitemaps']->register_xsl( $this->basename, array( $this, 'build_news_sitemap_xsl' ) );
 			}
 		}
 	}
@@ -66,7 +72,7 @@ class WPSEO_News_Sitemap {
 			return;
 		}
 
-		wpseo_invalidate_sitemap_cache( 'news' );
+		wpseo_invalidate_sitemap_cache( $this->basename );
 	}
 
 	/**
@@ -80,6 +86,7 @@ class WPSEO_News_Sitemap {
 	 */
 	public function set_stylesheet_cache( $target_object ) {
 		$target_object->set_stylesheet( $this->get_stylesheet_line() );
+
 		return $target_object;
 	}
 
@@ -134,22 +141,50 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
+	 * Determine whether to show or hide the sitemap.
+	 */
+	protected function yoast_wpseo_news_show_or_hide_sitemap() {
+		// As we only need to know if there are items and we don't need to get all items, we give a limit of 1.
+		$items = $this->get_items( 1 );
+
+		if ( ! empty( $items ) ) {
+			add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
+		}
+	}
+
+	/**
+	 * Clear the sitemap  and sitemap index every hour to make sure the sitemap is hidden or shown when it needs to be.
+	 */
+	private function yoast_wpseo_news_schedule_clear() {
+		$schedule = wp_get_schedule( 'wpseo_news_schedule_sitemap_clear' );
+
+		if ( empty( $schedule ) ) {
+			wp_schedule_event( time(), 'hourly', 'wpseo_news_schedule_sitemap_clear' );
+		}
+	}
+
+	/**
 	 * Getter for stylesheet url
 	 *
 	 * @return string
 	 */
 	private function get_stylesheet_line() {
 		$stylesheet_url = "\n" . '<?xml-stylesheet type="text/xsl" href="' . home_url( 'news-sitemap.xsl' ) . '"?>';
+
 		return $stylesheet_url;
 	}
 
 	/**
 	 * Getting all the items for the sitemap
 	 *
-	 * @return mixed
+	 * @param int $limit the limit for the query, default is 1000 items.
+	 *
+	 * @return array|null|object
 	 */
-	private function get_items() {
+	private function get_items( $limit = 1000 ) {
 		global $wpdb;
+
+		$limit = max( 1, min( 1000, $limit ) );
 
 		$post_types = $this->get_post_types();
 
@@ -162,10 +197,11 @@ class WPSEO_News_Sitemap {
 			 AND (DATEDIFF(CURDATE(), post_date_gmt)<=2)
 			 AND post_type IN ({$post_types})
 			 ORDER BY post_date_gmt DESC
-			 LIMIT 0, 1000
+			 LIMIT 0, {$limit}
 		 ";
 
 		$items = $wpdb->get_results( $wpdb->prepare( $sql_query, 'publish' ) );
+
 		// @codingStandardsIgnoreEnd
 
 		return $items;
@@ -174,7 +210,8 @@ class WPSEO_News_Sitemap {
 	/**
 	 * Loop through all $items and build each one of it
 	 *
-	 * @param array  $items
+	 * @param array $items
+	 *
 	 * @return string $output
 	 */
 	private function build_items( $items ) {
@@ -182,6 +219,7 @@ class WPSEO_News_Sitemap {
 		foreach ( $items as $item ) {
 			$output .= new WPSEO_News_Sitemap_Item( $item, $this->options );
 		}
+
 		return $output;
 	}
 
@@ -471,15 +509,15 @@ class WPSEO_News_Sitemap_Item {
 			// Create a DateTime object date in the correct timezone
 			return $this->format_date_with_timezone( $item->post_date_gmt );
 		}
-		elseif ( $this->is_valid_datetime( $item->post_modified_gmt ) ) {
+		if ( $this->is_valid_datetime( $item->post_modified_gmt ) ) {
 			// Fallback 1: post_modified_gmt
 			return $this->format_date_with_timezone( $item->post_modified_gmt );
 		}
-		elseif ( $this->is_valid_datetime( $item->post_modified ) ) {
+		if ( $this->is_valid_datetime( $item->post_modified ) ) {
 			// Fallback 2: post_modified
 			return $this->format_date_with_timezone( $item->post_modified );
 		}
-		elseif ( $this->is_valid_datetime( $item->post_date ) ) {
+		if ( $this->is_valid_datetime( $item->post_date ) ) {
 			// Fallback 3: post_date
 			return $this->format_date_with_timezone( $item->post_date );
 		}
@@ -541,6 +579,7 @@ class WPSEO_News_Sitemap_Item {
 		if ( method_exists( 'WPSEO_Utils', 'is_valid_datetime' ) ) {
 			return WPSEO_Utils::is_valid_datetime( $datetime );
 		}
+
 		return true;
 	}
 }

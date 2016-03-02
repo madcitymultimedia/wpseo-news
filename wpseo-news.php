@@ -52,16 +52,44 @@ function __wpseo_news_main() {
 add_action( 'plugins_loaded', '__wpseo_news_main' );
 
 /**
- * Instantiate the plugin license manager for the current plugin and activate it's license.
+<<<<<<< HEAD
+ * Clear the news sitemap.
+ */
+function yoast_wpseo_news_clear_sitemap_cache() {
+	if ( method_exists( 'WPSEO_Utils', 'clear_sitemap_cache' ) ) {
+		WPSEO_Utils::clear_sitemap_cache( array( WPSEO_News::get_sitemap_name() ) );
+	}
+}
+
+/**
+ * Clear the news sitemap when we activate the plugin.
+ */
+function yoast_wpseo_news_activate() {
+	yoast_wpseo_news_clear_sitemap_cache();
+}
+
+/**
+ * Clear the news sitemap when we activate the plugin.
+ */
+function yoast_wpseo_news_deactivate() {
+	yoast_wpseo_news_clear_sitemap_cache();
+}
+
+/**
+ * Activate the license automatically.
  */
 function wpseo_news_activate_license( ) {
 	$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
 	$license_manager->activate_license();
 }
 
+register_activation_hook( __FILE__, 'yoast_wpseo_news_activate' );
+
+register_deactivation_hook( __FILE__, 'yoast_wpseo_news_deactivate' );
+
 /*
- * When the plugin is deactivated and activated again, the license have to be activated. This is mostly the case
- * during a update of the plugin. To solve this, we hook into the activation process by calling a method that will
+ * When the plugin is deactivated and activated again, the license has to be activated. This is mostly the case
+ * during an update of the plugin. To solve this, we hook into the activation process by calling a method that will
  * activate the license.
  */
 register_activation_hook( WPSEO_NEWS_FILE, 'wpseo_news_activate_license' );
