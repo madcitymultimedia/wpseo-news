@@ -21,10 +21,13 @@ class WPSEO_News {
 	/**
 	 * Get plugin file
 	 *
+	 * @deprecated since 3.1. Use WPSEO_NEWS_FILE instead
+	 *
 	 * @return string
 	 */
 	public static function get_file() {
-		return __FILE__;
+		_deprecated_function(__FUNCTION__, "3.1", "WPSEO_NEWS_FILE");
+		return WPSEO_NEWS_FILE;
 	}
 
 	public function __construct() {
@@ -216,6 +219,7 @@ class WPSEO_News {
 	 * Enqueue admin page JS
 	 */
 	public function enqueue_admin_page() {
+		
 		wp_enqueue_media(); // enqueue files needed for upload functionality
 		wp_enqueue_script( 'wpseo-news-admin-page', plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ), array( 'jquery', 'jquery-ui-core', 'jquery-ui-autocomplete' ), self::VERSION, true );
 		wp_localize_script( 'wpseo-news-admin-page', 'wpseonews', WPSEO_News_Javascript_Strings::strings() );
