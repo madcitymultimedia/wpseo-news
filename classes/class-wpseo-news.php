@@ -21,7 +21,7 @@ class WPSEO_News {
 			'default_genre'    => array(),
 			'default_keywords' => '',
 			'ep_image_src'     => '',
-			'version'          => '0'
+			'version'          => '0',
 		) ) );
 	}
 
@@ -33,7 +33,7 @@ class WPSEO_News {
 	 * @return string
 	 */
 	public static function get_file() {
-		_deprecated_function( __FUNCTION__, "3.1", "WPSEO_NEWS_FILE" );
+		_deprecated_function( __FUNCTION__, '3.1', 'WPSEO_NEWS_FILE' );
 
 		return WPSEO_NEWS_FILE;
 	}
@@ -237,7 +237,7 @@ class WPSEO_News {
 		wp_enqueue_script( 'wpseo-news-admin-page', plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ), array(
 			'jquery',
 			'jquery-ui-core',
-			'jquery-ui-autocomplete'
+			'jquery-ui-autocomplete',
 		), self::VERSION, true );
 		wp_localize_script( 'wpseo-news-admin-page', 'wpseonews', WPSEO_News_Javascript_Strings::strings() );
 	}
