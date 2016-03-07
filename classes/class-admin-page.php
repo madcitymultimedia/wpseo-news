@@ -9,6 +9,8 @@ class WPSEO_News_Admin_Page {
 		// Load options
 		$options = WPSEO_News::get_options();
 
+		$this->register_i18n_promo_class();
+
 		// Admin header
 		WPSEO_News_Wrappers::admin_header( true, 'yoast_wpseo_news_options', 'wpseo_news' );
 
@@ -35,6 +37,10 @@ class WPSEO_News_Admin_Page {
 
 		// Editors' Pick
 		$this->editors_pick();
+
+		remove_all_actions( 'wpseo_admin_footer' );
+
+		do_action( 'yoast_news_seo_admin_footer' );
 
 		// Admin footer
 		WPSEO_News_Wrappers::admin_footer( true, false );
@@ -93,6 +99,21 @@ class WPSEO_News_Admin_Page {
 
 		echo '<p>' . sprintf( __( 'You can find your Editors\' Pick RSS feed here: %1$sEditors\' Pick RSS Feed%2$s', 'wordpress-seo-news' ), "<a target='_blank' class='button-secondary' href='" . home_url( 'editors-pick.rss' ) . "'>", '</a>' ) . '</p>';
 		echo '<p>' . sprintf( __( 'You can submit your Editors\' Pick RSS feed here: %1$sSubmit Editors\' Pick RSS Feed%2$s', 'wordpress-seo-news' ), "<a class='button-secondary' href='https://support.google.com/news/publisher/contact/editors_picks' target='_blank'>", '</a>' ) . '</p>';
+	}
+
+	private function register_i18n_promo_class() {
+		new yoast_i18n(
+			array(
+				'textdomain'     => 'yoast-video-seo',
+				'project_slug'   => 'yoast-video-seo',
+				'plugin_name'    => 'WordPress SEO News',
+				'hook'           => 'yoast_news_seo_admin_footer',
+				'glotpress_url'  => 'http://translate.yoast.com/gp/',
+				'glotpress_name' => 'Yoast Translate',
+				'glotpress_logo' => 'http://translate.yoast.com/gp-templates/images/Yoast_Translate.svg',
+				'register_url'   => 'http://translate.yoast.com/gp/projects#utm_source=plugin&utm_medium=promo-box&utm_campaign=wpseo-news-i18n-promo',
+			)
+		);
 	}
 }
 
