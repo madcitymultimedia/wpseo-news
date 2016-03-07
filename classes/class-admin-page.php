@@ -62,8 +62,8 @@ class WPSEO_News_Admin_Page {
 	protected function register_i18n_promo_class() {
 		new yoast_i18n(
 			array(
-				'textdomain'     => 'yoast-video-seo',
-				'project_slug'   => 'yoast-video-seo',
+				'textdomain'     => 'wordpress_seo_news',
+				'project_slug'   => 'news-seo',
 				'plugin_name'    => 'WordPress SEO News',
 				'hook'           => 'yoast_news_seo_admin_footer',
 				'glotpress_url'  => 'http://translate.yoast.com/gp/',
