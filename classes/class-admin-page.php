@@ -38,13 +38,14 @@ class WPSEO_News_Admin_Page {
 		// Editors' Pick
 		$this->editors_pick();
 
+		// By removing the action 'wpseo_admin_footer' we make sure the Yoast SEO i18n module isn't loaded.
 		remove_all_actions( 'wpseo_admin_footer' );
 
+		// Load the i18n module for News SEO.
 		do_action( 'yoast_news_seo_admin_footer' );
 
 		// Admin footer
 		WPSEO_News_Wrappers::admin_footer( true, false );
-
 	}
 
 	/**
@@ -101,6 +102,11 @@ class WPSEO_News_Admin_Page {
 		echo '<p>' . sprintf( __( 'You can submit your Editors\' Pick RSS feed here: %1$sSubmit Editors\' Pick RSS Feed%2$s', 'wordpress-seo-news' ), "<a class='button-secondary' href='https://support.google.com/news/publisher/contact/editors_picks' target='_blank'>", '</a>' ) . '</p>';
 	}
 
+	/**
+	 * Register the promotion class for our GlotPress instance.
+	 *
+	 * @link https://github.com/Yoast/i18n-module
+	 */
 	private function register_i18n_promo_class() {
 		new yoast_i18n(
 			array(
