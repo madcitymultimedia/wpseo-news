@@ -185,7 +185,7 @@ class WPSEO_News {
 	public function add_submenu_pages( $submenu_pages ) {
 
 		$admin_page = new WPSEO_News_Admin_Page();
-		
+
 		$submenu_pages[] = array(
 			'wpseo_dashboard',
 			__( 'Yoast SEO:', 'wordpress-seo-news' ) . ' ' . __( 'News SEO', 'wordpress-seo-news' ),
