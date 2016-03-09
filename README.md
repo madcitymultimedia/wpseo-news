@@ -1,4 +1,4 @@
-News SEO for WordPress SEO
+Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 4.0
 Tested up to: 4.4
@@ -6,7 +6,7 @@ Stable tag: 3.0
 Depends: wordpress-seo
 
 
-News SEO module for the WordPress SEO plugin.
+Yoast News SEO module for the Yoast SEO plugin.
 
 [![Code Climate](https://codeclimate.com/repos/54523c37e30ba0670f0016b8/badges/373c97133cba47d9822b/gpa.svg)](https://codeclimate.com/repos/54523c37e30ba0670f0016b8/feed)
 
@@ -19,7 +19,7 @@ Installation
 4. Activate the plugin.
 5. Go to SEO -> Extensions -> Licenses, enter your license key and Save.
 6. Your license key will be validated.
-7. You can now use News SEO. See also https://yoast.com/wordpress/plugins/news-seo/news-seo-configuration-guide/
+7. You can now use Yoast News SEO. See also https://yoast.com/wordpress/plugins/news-seo/news-seo-configuration-guide/
 
 Changelog
 =========
