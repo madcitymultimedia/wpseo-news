@@ -78,7 +78,6 @@ class WPSEO_News {
 		global $pagenow;
 
 		if ( 'post.php' == $pagenow || 'post-new.php' == $pagenow ) {
-			add_action( 'admin_head', array( $this, 'edit_post_css' ) );
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_edit_post' ) );
 		}
 
@@ -226,13 +225,6 @@ class WPSEO_News {
 	 */
 	public function enqueue_edit_post() {
 		wp_enqueue_script( 'wpseo-news-edit-post', plugins_url( 'assets/post-edit' . $this->file_ext( '.js' ), self::get_file() ), array( 'jquery' ), self::VERSION, true );
-	}
-
-	/**
-	 * Print the edit post CSS
-	 */
-	public function edit_post_css() {
-		echo "<style type='text/css'>.wpseo-news-input-error{border:1px solid #ff0000 !important;}</style>" . PHP_EOL;
 	}
 
 	/**

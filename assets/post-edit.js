@@ -1,13 +1,17 @@
 /* jshint unused:false */
-jQuery ( document ).ready( function( $ ) {
+jQuery( document ).ready( function( $ ) {
 	'use strict';
-	$('#yoast_wpseo_newssitemap-keywords').on('keyup', function() {
-		if ($(this).val().split(',').length > 9) {
-			$(this).addClass('wpseo-news-input-error');
-			$(this).parent().find('div:first').css('font-weight', 'bold').css('color', '#ff0000');
+	$( '#yoast_wpseo_newssitemap-keywords' ).on( 'keyup', function() {
+		var $keywordsField = $( this ),
+			$keywordsFieldParent = $keywordsField.parent(),
+			$keywordsFieldDesc = $keywordsFieldParent.find( 'div:first' );
+
+		if ( $keywordsField.val().split( ',' ).length > 10 ) {
+			$keywordsFieldParent.addClass( 'form-invalid' );
+			$keywordsFieldDesc.addClass( 'error-message' );
 		} else {
-			$(this).removeClass('wpseo-news-input-error');
-			$(this).parent().find('div:first').css('font-weight', 'normal').css('color', '#000');
+			$keywordsFieldParent.removeClass( 'form-invalid' );
+			$keywordsFieldDesc.removeClass( 'error-message' );
 		}
 	});
 });
