@@ -52,7 +52,6 @@ function __wpseo_news_main() {
 add_action( 'plugins_loaded', '__wpseo_news_main' );
 
 /**
-<<<<<<< HEAD
  * Clear the news sitemap.
  */
 function yoast_wpseo_news_clear_sitemap_cache() {
