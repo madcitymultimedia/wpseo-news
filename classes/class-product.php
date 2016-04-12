@@ -9,7 +9,7 @@ class WPSEO_News_Product extends Yoast_Product {
 		parent::__construct(
 			'http://yoast.com/edd-sl-api',
 			'News SEO',
-			plugin_basename( WPSEO_News::get_file() ),
+			plugin_basename( WPSEO_NEWS_FILE ),
 			WPSEO_News::VERSION,
 			'https://yoast.com/wordpress/plugins/news-seo/',
 			'admin.php?page=wpseo_licenses#top#licenses',

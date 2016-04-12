@@ -2,7 +2,8 @@
 
 class WPSEO_News {
 
-	const VERSION = '3.0';
+	const VERSION = '3.1';
+
 	/**
 	 * Get WPSEO News options
 	 *
@@ -15,16 +16,26 @@ class WPSEO_News {
 		 * @api array $wpseo_news_options The Yoast News SEO options
 		 *
 		 */
-		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array( 'name' => '', 'default_genre' => array(), 'default_keywords' => '', 'ep_image_src' => '', 'version' => '0' ) ) );
+		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array(
+			'name'             => '',
+			'default_genre'    => array(),
+			'default_keywords' => '',
+			'ep_image_src'     => '',
+			'version'          => '0',
+		) ) );
 	}
 
-	/**
+	/**§
 	 * Get plugin file
+	 *
+	 * @deprecated since 3.1. Use WPSEO_NEWS_FILE instead
 	 *
 	 * @return string
 	 */
 	public static function get_file() {
-		return __FILE__;
+		_deprecated_function( __FUNCTION__, '3.1', 'WPSEO_NEWS_FILE' );
+
+		return WPSEO_NEWS_FILE;
 	}
 
 	public function __construct() {
@@ -50,7 +61,6 @@ class WPSEO_News {
 		if ( is_admin() ) {
 			$this->init_admin();
 		}
-
 	}
 
 	/**
@@ -66,6 +76,7 @@ class WPSEO_News {
 
 		// Register settings
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
+		add_action( 'admin_init', array( $this, 'init_helpscout_beacon' ) );
 	}
 
 	/**
@@ -104,14 +115,17 @@ class WPSEO_News {
 
 		if ( ! version_compare( $wp_version, '3.5', '>=' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wp' ) );
-		} else {
+		}
+		else {
 			if ( defined( 'WPSEO_VERSION' ) ) {
 				if ( version_compare( WPSEO_VERSION, '1.5', '>=' ) ) {
 					return true;
-				} else {
+				}
+				else {
 					add_action( 'all_admin_notices', array( $this, 'error_upgrade_wpseo' ) );
 				}
-			} else {
+			}
+			else {
 				add_action( 'all_admin_notices', array( $this, 'error_missing_wpseo' ) );
 			}
 		}
@@ -130,6 +144,7 @@ class WPSEO_News {
 		if ( ! defined( 'SCRIPT_DEBUG' ) || ! SCRIPT_DEBUG ) {
 			$ext = '.min' . $ext;
 		}
+
 		return $ext;
 	}
 
@@ -170,6 +185,7 @@ class WPSEO_News {
 	 */
 	public function sanitize_options( $options ) {
 		$options['version'] = self::VERSION;
+
 		return $options;
 	}
 
@@ -202,8 +218,13 @@ class WPSEO_News {
 	 * Enqueue admin page JS
 	 */
 	public function enqueue_admin_page() {
+
 		wp_enqueue_media(); // enqueue files needed for upload functionality
-		wp_enqueue_script( 'wpseo-news-admin-page', plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), self::get_file() ), array( 'jquery', 'jquery-ui-core', 'jquery-ui-autocomplete' ), self::VERSION, true );
+		wp_enqueue_script( 'wpseo-news-admin-page', plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ), array(
+			'jquery',
+			'jquery-ui-core',
+			'jquery-ui-autocomplete',
+		), self::VERSION, true );
 		wp_localize_script( 'wpseo-news-admin-page', 'wpseonews', WPSEO_News_Javascript_Strings::strings() );
 	}
 
@@ -211,7 +232,7 @@ class WPSEO_News {
 	 * Enqueue edit post JS
 	 */
 	public function enqueue_edit_post() {
-		wp_enqueue_script( 'wpseo-news-edit-post', plugins_url( 'assets/post-edit' . $this->file_ext( '.js' ), self::get_file() ), array( 'jquery' ), self::VERSION, true );
+		wp_enqueue_script( 'wpseo-news-edit-post', plugins_url( 'assets/post-edit' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ), array( 'jquery' ), self::VERSION, true );
 	}
 
 	/**
@@ -246,6 +267,20 @@ class WPSEO_News {
 	 */
 	public function error_upgrade_wpseo() {
 		echo '<div class="error"><p>' . __( 'Please upgrade the Yoast SEO plugin to the latest version to allow the Yoast News SEO module to work.', 'wordpress-seo-news' ) . '</p></div>';
+	}
+
+	/**
+	 * Initializes the helpscout beacon
+	 */
+	public function init_helpscout_beacon() {
+		$query_var = ( $page = filter_input( INPUT_GET, 'page' ) ) ? $page : '';
+
+		// Only add the helpscout beacon on Yoast SEO pages.
+		if ( substr( $query_var, 0, 5 ) === 'wpseo' ) {
+			$beacon = yoast_get_helpscout_beacon( $query_var );
+			$beacon->add_setting( new WPSEO_News_Beacon_Setting() );
+			$beacon->register_hooks();
+		}
 	}
 
 	// HELPERS
