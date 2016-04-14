@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "1ea96a35d44bc894e6b4aff82bd464ec",
+    "hash": "9d53b7952697ca50113fa07ec2d30dd2",
     "content-hash": "7189088e60364fed1338478086bce5bf",
     "packages": [
         {
@@ -41,16 +41,16 @@
         },
         {
             "name": "yoast/wp-helpscout",
-            "version": "1.0.0",
+            "version": "1.0.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wp-helpscout.git",
-                "reference": "61d402a7f89ea4d55bbb477c739151d69840e5ee"
+                "reference": "a9f7d19180dd2d53699c528646c2595a3112b4a7"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wp-helpscout/zipball/61d402a7f89ea4d55bbb477c739151d69840e5ee",
-                "reference": "61d402a7f89ea4d55bbb477c739151d69840e5ee",
+                "url": "https://api.github.com/repos/Yoast/wp-helpscout/zipball/a9f7d19180dd2d53699c528646c2595a3112b4a7",
+                "reference": "a9f7d19180dd2d53699c528646c2595a3112b4a7",
                 "shasum": ""
             },
             "type": "library",
@@ -74,7 +74,7 @@
                 }
             ],
             "description": "A package to integrate the helpscout beacon into WordPress",
-            "time": "2016-02-26 13:11:02"
+            "time": "2016-04-14 11:59:20"
         }
     ],
     "packages-dev": [
@@ -88,7 +88,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeclimate/php-test-reporter/zipball/9ec2098c9e9839840176c46d9cdab3a57c26ca1c",
+                "url": "https://api.github.com/repos/codeclimate/php-test-reporter/zipball/a026a4bc86867129e760b95dca44b8cd10819333",
                 "reference": "02790d733f9eb43d0a5981962c41846092fb387f",
                 "shasum": ""
             },
@@ -529,7 +529,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/config/zipball/17d4b2e64ce1c6ba7caa040f14469b3c44d7f7d2",
+                "url": "https://api.github.com/repos/symfony/config/zipball/a5d5d25c994ed8e55668b2562cb0c0320469f1f4",
                 "reference": "17d4b2e64ce1c6ba7caa040f14469b3c44d7f7d2",
                 "shasum": ""
             },
@@ -1048,7 +1048,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/yoastcs/zipball/0b4b41f321fdc1777b818d010aca73bd39b0749f",
+                "url": "https://api.github.com/repos/Yoast/yoastcs/zipball/ea0a13df8283af9d4af3db05bdd754e49ed0f298",
                 "reference": "0b4b41f321fdc1777b818d010aca73bd39b0749f",
                 "shasum": ""
             },
