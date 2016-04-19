@@ -11,7 +11,7 @@
         }
     ],
     "require": {
-        "xrstf/composer-php52": "^1.0",
+        "xrstf/composer-php52": "^1.0.20",
         "yoast/wp-helpscout": "^1.0"
     },
     "require-dev": {

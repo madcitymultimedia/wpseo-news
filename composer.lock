@@ -4,21 +4,21 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "9d53b7952697ca50113fa07ec2d30dd2",
-    "content-hash": "7189088e60364fed1338478086bce5bf",
+    "hash": "d8ded4d5e62ea4a7d987f79a5b00da44",
+    "content-hash": "27a9cff2de2a06e34800e0e750bf0a63",
     "packages": [
         {
             "name": "xrstf/composer-php52",
-            "version": "v1.0.19",
+            "version": "v1.0.20",
             "source": {
-                "type": "hg",
-                "url": "https://bitbucket.org/xrstf/composer-php52",
-                "reference": "9a4a9c46d0347b39bf9159815301dc66fc25324e"
+                "type": "git",
+                "url": "https://github.com/composer-php52/composer-php52.git",
+                "reference": "bd41459d5e27df8d33057842b32377c39e97a5a8"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://bitbucket.org/xrstf/composer-php52/get/9a4a9c46d0347b39bf9159815301dc66fc25324e.zip",
-                "reference": "9a4a9c46d0347b39bf9159815301dc66fc25324e",
+                "url": "https://api.github.com/repos/composer-php52/composer-php52/zipball/bd41459d5e27df8d33057842b32377c39e97a5a8",
+                "reference": "bd41459d5e27df8d33057842b32377c39e97a5a8",
                 "shasum": ""
             },
             "type": "library",
@@ -36,8 +36,7 @@
             "license": [
                 "MIT"
             ],
-            "homepage": "http://www.xrstf.de/",
-            "time": "2015-10-01 14:11:58"
+            "time": "2016-04-16 21:52:24"
         },
         {
             "name": "yoast/wp-helpscout",
@@ -84,12 +83,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/codeclimate/php-test-reporter.git",
-                "reference": "02790d733f9eb43d0a5981962c41846092fb387f"
+                "reference": "3a2d3ebdc1df5acf372458c15041af240a6fc016"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/codeclimate/php-test-reporter/zipball/a026a4bc86867129e760b95dca44b8cd10819333",
-                "reference": "02790d733f9eb43d0a5981962c41846092fb387f",
+                "url": "https://api.github.com/repos/codeclimate/php-test-reporter/zipball/3a2d3ebdc1df5acf372458c15041af240a6fc016",
+                "reference": "3a2d3ebdc1df5acf372458c15041af240a6fc016",
                 "shasum": ""
             },
             "require": {
@@ -525,12 +524,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/config.git",
-                "reference": "17d4b2e64ce1c6ba7caa040f14469b3c44d7f7d2"
+                "reference": "a5d5d25c994ed8e55668b2562cb0c0320469f1f4"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/symfony/config/zipball/a5d5d25c994ed8e55668b2562cb0c0320469f1f4",
-                "reference": "17d4b2e64ce1c6ba7caa040f14469b3c44d7f7d2",
+                "reference": "a5d5d25c994ed8e55668b2562cb0c0320469f1f4",
                 "shasum": ""
             },
             "require": {
@@ -1044,12 +1043,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/yoastcs.git",
-                "reference": "0b4b41f321fdc1777b818d010aca73bd39b0749f"
+                "reference": "ea0a13df8283af9d4af3db05bdd754e49ed0f298"
             },
             "dist": {
                 "type": "zip",
                 "url": "https://api.github.com/repos/Yoast/yoastcs/zipball/ea0a13df8283af9d4af3db05bdd754e49ed0f298",
-                "reference": "0b4b41f321fdc1777b818d010aca73bd39b0749f",
+                "reference": "ea0a13df8283af9d4af3db05bdd754e49ed0f298",
                 "shasum": ""
             },
             "require": {
