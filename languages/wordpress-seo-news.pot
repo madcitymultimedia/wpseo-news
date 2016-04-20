@@ -2,9 +2,9 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPress SEO News 3.1\n"
+"Project-Id-Version: WordPress SEO News 3.2\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
-"POT-Creation-Date: 2016-03-02 11:12:38+00:00\n"
+"POT-Creation-Date: 2016-04-20 12:18:09+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -172,63 +172,316 @@ msgstr ""
 msgid "You've used %s/%s standout tags in the last 7 days."
 msgstr ""
 
-#: classes/class-wpseo-news.php:167
+#: classes/class-wpseo-news.php:165
 msgid "Settings"
 msgstr ""
 
-#: classes/class-wpseo-news.php:207
-msgid "Yoast WordPress SEO:"
+#: classes/class-wpseo-news.php:205
+msgid "Yoast SEO:"
 msgstr ""
 
-#: classes/class-wpseo-news.php:207 classes/class-wpseo-news.php:208
+#: classes/class-wpseo-news.php:205 classes/class-wpseo-news.php:206
 msgid "News SEO"
 msgstr ""
 
-#: classes/class-wpseo-news.php:265
+#: classes/class-wpseo-news.php:251
 msgid ""
-"Please %sinstall &amp; activate WordPress SEO by Yoast%s and then enable "
-"its XML sitemap functionality to allow the WordPress SEO News module to "
-"work."
+"Please %sinstall &amp; activate Yoast SEO%s and then enable its XML sitemap "
+"functionality to allow the Yoast News SEO module to work."
 msgstr ""
 
-#: classes/class-wpseo-news.php:274
+#: classes/class-wpseo-news.php:260
 msgid ""
 "Please upgrade WordPress to the latest version to allow WordPress and the "
-"WordPress SEO News module to work properly."
+"Yoast News SEO module to work properly."
 msgstr ""
 
-#: classes/class-wpseo-news.php:283
+#: classes/class-wpseo-news.php:269
 msgid ""
-"Please upgrade the WordPress SEO plugin to the latest version to allow the "
-"WordPress SEO News module to work."
+"Please upgrade the Yoast SEO plugin to the latest version to allow the "
+"Yoast News SEO module to work."
 msgstr ""
 
-#: classes/class-wpseo-news.php:340
+#: classes/class-wpseo-news.php:326
 msgid "None"
 msgstr ""
 
-#: classes/class-wpseo-news.php:341
+#: classes/class-wpseo-news.php:327
 msgid "Press Release"
 msgstr ""
 
-#: classes/class-wpseo-news.php:342
+#: classes/class-wpseo-news.php:328
 msgid "Satire"
 msgstr ""
 
-#: classes/class-wpseo-news.php:343
+#: classes/class-wpseo-news.php:329
 msgid "Blog"
 msgstr ""
 
-#: classes/class-wpseo-news.php:344
+#: classes/class-wpseo-news.php:330
 msgid "Op-Ed"
 msgstr ""
 
-#: classes/class-wpseo-news.php:345
+#: classes/class-wpseo-news.php:331
 msgid "Opinion"
 msgstr ""
 
-#: classes/class-wpseo-news.php:346
+#: classes/class-wpseo-news.php:332
 msgid "User Generated"
+msgstr ""
+
+#: vendor/yoast/license-manager/class-license-manager.php:138
+msgid ""
+"<b>Warning!</b> You're blocking external requests which means you won't be "
+"able to get %s updates. Please add %s to %s."
+msgstr ""
+
+#: vendor/yoast/license-manager/class-license-manager.php:179
+msgid "Your %s license has been activated. "
+msgstr ""
+
+#: vendor/yoast/license-manager/class-license-manager.php:183
+msgid "You have an unlimited license. "
+msgstr ""
+
+#: vendor/yoast/license-manager/class-license-manager.php:185
+msgid "You have used %d/%d activations. "
+msgstr ""
+
+#: vendor/yoast/license-manager/class-license-manager.php:190
+msgid "<a href=\"%s\">Did you know you can upgrade your license?</a>"
+msgstr ""
+
+#: vendor/yoast/license-manager/class-license-manager.php:194
+msgid ""
+"<a href=\"%s\">Your license is expiring in %d days, would you like to "
+"extend it?</a>"
+msgstr ""
+
+#: vendor/yoast/license-manager/class-license-manager.php:203
+msgid ""
+"You've reached your activation limit. You must <a href=\"%s\">upgrade your "
+"license</a> to use it on this site."
+msgstr ""
+
+#: vendor/yoast/license-manager/class-license-manager.php:206
+msgid ""
+"Your license has expired. You must <a href=\"%s\">extend your license</a> "
+"in order to use it again."
+msgstr ""
+
+#: vendor/yoast/license-manager/class-license-manager.php:209
+msgid "Failed to activate your license, your license key seems to be invalid."
+msgstr ""
+
+#: vendor/yoast/license-manager/class-license-manager.php:233
+msgid "Your %s license has been deactivated."
+msgstr ""
+
+#: vendor/yoast/license-manager/class-license-manager.php:235
+msgid "Failed to deactivate your %s license."
+msgstr ""
+
+#: vendor/yoast/license-manager/class-license-manager.php:271
+msgid "Request error: \"%s\" (%scommon license notices%s)"
+msgstr ""
+
+#: vendor/yoast/license-manager/class-license-manager.php:430
+msgid "%s: License Settings"
+msgstr ""
+
+#: vendor/yoast/license-manager/class-plugin-license-manager.php:73
+msgid ""
+"%s is network activated, you can manage your license in the <a "
+"href=\"%s\">network admin license page</a>."
+msgstr ""
+
+#: vendor/yoast/license-manager/class-plugin-license-manager.php:75
+msgid ""
+"%s is network activated, please contact your site administrator to manage "
+"the license."
+msgstr ""
+
+#: vendor/yoast/license-manager/class-theme-license-manager.php:34
+#: vendor/yoast/license-manager/samples/sample-plugin.php:53
+msgid "%s License"
+msgstr ""
+
+#: vendor/yoast/license-manager/class-theme-license-manager.php:34
+msgid "Theme License"
+msgstr ""
+
+#: vendor/yoast/license-manager/class-theme-update-manager.php:96
+msgid ""
+"Updating this theme will lose any customizations you have made. 'Cancel' to "
+"stop, 'OK' to update."
+msgstr ""
+
+#: vendor/yoast/license-manager/class-theme-update-manager.php:101
+msgid ""
+"<strong>%s version %s</strong> is available. <a href=\"%s\" "
+"class=\"thickbox\" title=\"%s\">Check out what's new</a> or <a href=\"%s\" "
+"%s>update now</a>."
+msgstr ""
+
+#: vendor/yoast/license-manager/class-update-manager.php:83
+msgid "%s failed to check for updates because of the following error: <em>%s</em>"
+msgstr ""
+
+#: vendor/yoast/license-manager/class-update-manager.php:153
+msgid ""
+"This site has not been activated properly on yoast.com and thus cannot "
+"check for future updates. Please activate your site with a valid license "
+"key."
+msgstr ""
+
+#: vendor/yoast/license-manager/views/form.php:15
+msgid ""
+"We couldn't create a connection to our API to verify your license key(s). "
+"Please ask your hosting company to allow outgoing connections from your "
+"server to %s."
+msgstr ""
+
+#: vendor/yoast/license-manager/views/form.php:19
+msgid ""
+"Your server has an outdated version of the PHP module cURL (Version: %s). "
+"Please ask your hosting company to update this to a recent version of cURL. "
+"You can read more about that in our %sKnowledge base%s."
+msgstr ""
+
+#: vendor/yoast/license-manager/views/form.php:31
+msgid "License status"
+msgstr ""
+
+#: vendor/yoast/license-manager/views/form.php:41
+msgid "Toggle license status"
+msgstr ""
+
+#: vendor/yoast/license-manager/views/form.php:45
+msgid "Deactivate License"
+msgstr ""
+
+#: vendor/yoast/license-manager/views/form.php:46
+msgid "(deactivate your license so you can activate it on another WordPress site)"
+msgstr ""
+
+#: vendor/yoast/license-manager/views/form.php:50
+msgid "Activate License"
+msgstr ""
+
+#: vendor/yoast/license-manager/views/form.php:52
+msgid "Please enter a license key in the field below first."
+msgstr ""
+
+#: vendor/yoast/license-manager/views/form.php:60
+msgid "License Key"
+msgstr ""
+
+#: vendor/yoast/license-manager/views/form.php:62
+msgid "Paste your %s license key here.."
+msgstr ""
+
+#: vendor/yoast/license-manager/views/form.php:64
+msgid "You defined your license key using the %s PHP constant."
+msgstr ""
+
+#: vendor/yoast/license-manager/views/form.php:81
+msgid "Your %s license will expire on %s."
+msgstr ""
+
+#: vendor/yoast/license-manager/views/form.php:84
+msgid "%sRenew your license now%s."
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:89
+msgid ""
+"Please explain what you're trying to find or do. If something isn't "
+"working, please explain what you expect to happen. If you can make a "
+"screenshot, please attach it."
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:91
+msgid "Note: submitting this form also sends us debug info about your server."
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:103
+msgid "What can we help you with?"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:104
+msgid ""
+"Your search timed out. Please double-check your internet connection and try "
+"again."
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:105
+msgid "No results found for"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:106
+msgid "Send a Message"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:107
+msgid "Attach a file"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:108
+msgid "The maximum file size is 10mb"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:109
+msgid "Your Name"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:110
+msgid "Please enter your name"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:111
+msgid "Email address"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:112
+msgid "Please enter a valid email address"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:113
+msgid "Select a topic"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:114
+msgid "Please select a topic from the list"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:115
+msgid "Subject"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:116
+msgid "Please enter a subject"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:117
+msgid "How can we help you?"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:118
+msgid "Please enter a message"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:119
+msgid "Send"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:120
+msgid "Message sent, thank you!"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:121
+msgid ""
+"Someone from Team Yoast will get back to you soon, normally within a couple "
+"of hours."
 msgstr ""
 
 #. Plugin Name of the plugin/theme
@@ -242,7 +495,7 @@ msgid ""
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "Google News plugin for the WordPress SEO plugin"
+msgid "Google News plugin for the Yoast SEO plugin"
 msgstr ""
 
 #. Author of the plugin/theme
