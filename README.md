@@ -1,8 +1,8 @@
 Yoast News SEO for Yoast SEO
 ==========================
-Requires at least: 4.0
-Tested up to: 4.4
-Stable tag: 3.1
+Requires at least: 4.3
+Tested up to: 4.5
+Stable tag: 3.2
 Depends: wordpress-seo
 
 
@@ -23,6 +23,12 @@ Installation
 
 Changelog
 =========
+
+### 3.2: April 20th, 2016
+
+* Bugfixes
+    * Fixes a bug where the news sitemap would be shown in the index even if the sitemap itself was empty.
+    * Fixes a bug where clicking the 'Update now' button on the plugin page didn't update correctly.
 
 ### 3.1: March 2nd, 2016
 
