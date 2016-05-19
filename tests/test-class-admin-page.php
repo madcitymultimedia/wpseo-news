@@ -43,4 +43,19 @@ EOT;
 
 	}
 
+	/**
+	 * Make sure 'register_i18n_promo_class' function is called.
+	 *
+	 * @covers WPSEO_News_Admin_Page::__construct
+	 */
+	public function test_call_i18n_module() {
+		$class_instance = $this->getMock( 'WPSEO_News_Admin_Page', array( 'register_i18n_promo_class' ) );
+
+		$class_instance->expects( $this->once() )
+			->method( 'register_i18n_promo_class' );
+
+		$class_instance->__construct();
+
+	}
+
 }

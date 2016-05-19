@@ -2,13 +2,21 @@
 
 class WPSEO_News_Admin_Page {
 
+	private $options;
+
+	/**
+	 * Constructor
+	 */
+	public function __construct() {
+		$this->options = WPSEO_News::get_options();
+
+		$this->register_i18n_promo_class();
+	}
+
 	/**
 	 * Display admin page
 	 */
 	public function display() {
-		// Load options
-		$options = WPSEO_News::get_options();
-
 		// Admin header
 		WPSEO_News_Wrappers::admin_header( true, 'yoast_wpseo_news_options', 'wpseo_news' );
 
@@ -36,9 +44,34 @@ class WPSEO_News_Admin_Page {
 		// Editors' Pick
 		$this->editors_pick();
 
+		// By removing the action 'wpseo_admin_footer' we make sure the Yoast SEO i18n module isn't loaded.
+		remove_all_actions( 'wpseo_admin_footer' );
+
+		// Load the i18n module for News SEO.
+		do_action( 'yoast_news_seo_admin_footer' );
+
 		// Admin footer
 		WPSEO_News_Wrappers::admin_footer( true, false );
+	}
 
+	/**
+	 * Register the promotion class for our GlotPress instance.
+	 *
+	 * @link https://github.com/Yoast/i18n-module
+	 */
+	protected function register_i18n_promo_class() {
+		new yoast_i18n(
+			array(
+				'textdomain'     => 'wordpress_seo_news',
+				'project_slug'   => 'news-seo',
+				'plugin_name'    => 'WordPress SEO News',
+				'hook'           => 'yoast_news_seo_admin_footer',
+				'glotpress_url'  => 'http://translate.yoast.com/gp/',
+				'glotpress_name' => 'Yoast Translate',
+				'glotpress_logo' => 'http://translate.yoast.com/gp-templates/images/Yoast_Translate.svg',
+				'register_url'   => 'http://translate.yoast.com/gp/projects#utm_source=plugin&utm_medium=promo-box&utm_campaign=wpseo-news-i18n-promo',
+			)
+		);
 	}
 
 	/**
@@ -68,8 +101,7 @@ class WPSEO_News_Admin_Page {
 	 * Generate HTML for excluding post categories
 	 */
 	private function excluded_post_categories() {
-		$options = WPSEO_News::get_options();
-		if ( isset( $options['newssitemap_include_post'] ) ) {
+		if ( isset( $this->options['newssitemap_include_post'] ) ) {
 			echo '<h2>' . __( 'Post categories to exclude', 'wordpress-seo-news' ) . '</h2>';
 			foreach ( get_categories() as $cat ) {
 				echo WPSEO_News_Wrappers::checkbox( 'catexclude_' . $cat->slug, $cat->name . ' (' . $cat->count . ' posts)', false );
@@ -84,10 +116,9 @@ class WPSEO_News_Admin_Page {
 		echo '<h2>' . __( "Editors' Pick", 'wordpress-seo-news' ) . '</h2>';
 
 		$esc_form_key = 'ep_image_src';
-		$options      = WPSEO_News::get_options();
 
 		echo '<label class="select" for="' . $esc_form_key . '">' . __( "Editors' Pick Image", 'wordpress-seo-news' ) . ':</label>';
-		echo '<input id="' . $esc_form_key . '" type="text" size="36" name="wpseo_news[' . $esc_form_key . ']" value="' . esc_attr( $options[ $esc_form_key ] ) . '" />';
+		echo '<input id="' . $esc_form_key . '" type="text" size="36" name="wpseo_news[' . $esc_form_key . ']" value="' . esc_attr( $this->options[ $esc_form_key ] ) . '" />';
 		echo '<input id="' . $esc_form_key . '_button" class="wpseo_image_upload_button button" type="button" value="' . __( 'Upload Image', 'wordpress-seo-news' ) . '" />';
 		echo '<br class="clear"/>';
 
