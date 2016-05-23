@@ -61,7 +61,7 @@ class WPSEO_News_Admin_Page {
 				'textdomain'     => 'wordpress_seo_news',
 				'project_slug'   => 'news-seo',
 				'plugin_name'    => 'WordPress SEO News',
-				'hook'           => 'wpseo_admin_promo-footer',
+				'hook'           => 'wpseo_admin_promo_footer',
 				'glotpress_url'  => 'http://translate.yoast.com/gp/',
 				'glotpress_name' => 'Yoast Translate',
 				'glotpress_logo' => 'http://translate.yoast.com/gp-templates/images/Yoast_Translate.svg',
