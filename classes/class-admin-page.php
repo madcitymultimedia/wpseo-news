@@ -10,7 +10,9 @@ class WPSEO_News_Admin_Page {
 	public function __construct() {
 		$this->options = WPSEO_News::get_options();
 
-		$this->register_i18n_promo_class();
+		if ( $this->is_news_page( filter_input( INPUT_GET, 'page' ) ) ) {
+			$this->register_i18n_promo_class();
+		}
 	}
 
 	/**
@@ -44,12 +46,6 @@ class WPSEO_News_Admin_Page {
 		// Editors' Pick
 		$this->editors_pick();
 
-		// By removing the action 'wpseo_admin_footer' we make sure the Yoast SEO i18n module isn't loaded.
-		remove_all_actions( 'wpseo_admin_footer' );
-
-		// Load the i18n module for News SEO.
-		do_action( 'yoast_news_seo_admin_footer' );
-
 		// Admin footer
 		WPSEO_News_Wrappers::admin_footer( true, false );
 	}
@@ -65,7 +61,7 @@ class WPSEO_News_Admin_Page {
 				'textdomain'     => 'wordpress_seo_news',
 				'project_slug'   => 'news-seo',
 				'plugin_name'    => 'WordPress SEO News',
-				'hook'           => 'yoast_news_seo_admin_footer',
+				'hook'           => 'wpseo_admin_promo_footer',
 				'glotpress_url'  => 'http://translate.yoast.com/gp/',
 				'glotpress_name' => 'Yoast Translate',
 				'glotpress_logo' => 'http://translate.yoast.com/gp-templates/images/Yoast_Translate.svg',
@@ -125,6 +121,20 @@ class WPSEO_News_Admin_Page {
 		echo '<p>' . sprintf( __( 'You can find your Editors\' Pick RSS feed here: %1$sEditors\' Pick RSS Feed%2$s', 'wordpress-seo-news' ), "<a target='_blank' class='button-secondary' href='" . home_url( 'editors-pick.rss' ) . "'>", '</a>' ) . '</p>';
 		echo '<p>' . sprintf( __( 'You can submit your Editors\' Pick RSS feed here: %1$sSubmit Editors\' Pick RSS Feed%2$s', 'wordpress-seo-news' ), "<a class='button-secondary' href='https://support.google.com/news/publisher/contact/editors_picks' target='_blank'>", '</a>' ) . '</p>';
 	}
+
+	/**
+	 * Checks if the current page is a news seo plugin page.
+	 *
+	 * @param string $page
+	 *
+	 * @return bool
+	 */
+	protected function is_news_page( $page ) {
+		$news_pages = array( 'wpseo_news' );
+
+		return in_array( $page, $news_pages );
+	}
+
 }
 
 class WPSEO_News_Wrappers {
