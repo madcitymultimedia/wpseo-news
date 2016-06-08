@@ -378,4 +378,3 @@ class WPSEO_News {
 		return $license_manager;
 	}
 }
-D
