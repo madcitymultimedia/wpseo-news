@@ -96,9 +96,10 @@ class WPSEO_News {
 		$upgrade_manager->check_update();
 
 		// License Manager
-		$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
-		$license_manager->setup_hooks();
-		add_action( 'wpseo_licenses_forms', array( $license_manager, 'show_license_form' ) );
+		$license_manager = $this->get_license_manager();
+		if ( $license_manager ) {
+			add_action( 'wpseo_licenses_forms', array( $license_manager, 'show_license_form' ) );
+		}
 
 		// Setting action for removing the transient on update options
 		if ( method_exists( 'WPSEO_Utils', 'register_cache_clear_option' ) ) {
@@ -248,7 +249,7 @@ class WPSEO_News {
 	 * @since 2.0.0
 	 */
 	public function error_missing_wpseo() {
-		echo '<div class="error"><p>' . sprintf( __( 'Please %sinstall &amp; activate Yoast SEO%s and then enable its XML sitemap functionality to allow the Yoast News SEO module to work.', 'wordpress-seo-news' ), '<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=wordpress+seo&plugin-search-input=Search+Plugins' ) ) . '">', '</a>' ) . '</p></div>';
+		echo '<div class="error"><p>' . sprintf( __( 'Please %sinstall &amp; activate Yoast SEO%s and then enable its XML sitemap functionality to allow the News SEO module to work.', 'wordpress-seo-news' ), '<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=wordpress+seo&plugin-search-input=Search+Plugins' ) ) . '">', '</a>' ) . '</p></div>';
 	}
 
 	/**
@@ -257,7 +258,7 @@ class WPSEO_News {
 	 * @since 2.0.0
 	 */
 	public function error_upgrade_wp() {
-		echo '<div class="error"><p>' . __( 'Please upgrade WordPress to the latest version to allow WordPress and the Yoast News SEO module to work properly.', 'wordpress-seo-news' ) . '</p></div>';
+		echo '<div class="error"><p>' . __( 'Please upgrade WordPress to the latest version to allow WordPress and the News SEO module to work properly.', 'wordpress-seo-news' ) . '</p></div>';
 	}
 
 	/**
@@ -266,7 +267,7 @@ class WPSEO_News {
 	 * @since 2.0.0
 	 */
 	public function error_upgrade_wpseo() {
-		echo '<div class="error"><p>' . __( 'Please upgrade the Yoast SEO plugin to the latest version to allow the Yoast News SEO module to work.', 'wordpress-seo-news' ) . '</p></div>';
+		echo '<div class="error"><p>' . __( 'Please upgrade the Yoast SEO plugin to the latest version to allow the News SEO module to work.', 'wordpress-seo-news' ) . '</p></div>';
 	}
 
 	/**
@@ -351,5 +352,26 @@ class WPSEO_News {
 
 		return $sitemap_name;
 
+	}
+
+	/**
+	 * @return Yoast_Plugin_License_Manager
+	 */
+	private function get_license_manager() {
+		if ( class_exists( 'Yoast_Plugin_License_Manager_v2' ) ) {
+			$license_manager = new Yoast_Plugin_License_Manager_v2( new WPSEO_News_Product_v2() );
+		}
+
+		if ( ! isset( $license_manager ) && class_exists( 'Yoast_Plugin_License_Manager' ) ) {
+			$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );	
+		}
+		
+		if ( $license_manager ) {
+			$license_manager->setup_hooks();
+
+			return $license_manager;	
+		}
+		
+		return null;
 	}
 }
