@@ -364,15 +364,15 @@ class WPSEO_News {
 		}
 
 		if ( ! isset( $license_manager ) && class_exists( 'Yoast_Plugin_License_Manager' ) ) {
-			$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );	
+			$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
 		}
-		
-		if ( $license_manager ) {
-			$license_manager->setup_hooks();
 
-			return $license_manager;	
+		if ( ! isset( $license_manager ) ) {
+			return null;
 		}
-		
-		return null;
+
+		$license_manager->setup_hooks();
+
+		return $license_manager;
 	}
 }
