@@ -356,7 +356,9 @@ class WPSEO_News {
 	}
 
 	/**
-	 * @return Yoast_Plugin_License_Manager
+	 * Get the newest License Manager available
+	 *
+	 * @return Yoast_Plugin_License_Manager|Yoast_Plugin_License_Manager_v2
 	 */
 	private function get_license_manager() {
 		if ( class_exists( 'Yoast_Plugin_License_Manager_v2' ) ) {
@@ -376,3 +378,4 @@ class WPSEO_News {
 		return $license_manager;
 	}
 }
+D
