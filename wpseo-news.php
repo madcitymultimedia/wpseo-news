@@ -78,10 +78,12 @@ function yoast_wpseo_news_deactivate() {
  * Activate the license automatically.
  */
 function wpseo_news_activate_license() {
-	if ( class_exists( 'Yoast_Plugin_License_Manager' ) ) {
-		$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
-		$license_manager->activate_license();
+	if ( ! class_exists( 'Yoast_Plugin_License_Manager' ) ) {
+		return;
 	}
+
+	$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
+	$license_manager->activate_license();
 }
 
 register_activation_hook( __FILE__, 'yoast_wpseo_news_activate' );
