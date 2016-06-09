@@ -75,7 +75,7 @@ class WPSEO_News {
 
 		// Register settings
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
-		
+
 		// Only initialize Helpscout Beacon when the License Manager is present.
 		if ( class_exists( 'Yoast_Plugin_License_Manager' ) ) {
 			add_action( 'admin_init', array( $this, 'init_helpscout_beacon' ) );
