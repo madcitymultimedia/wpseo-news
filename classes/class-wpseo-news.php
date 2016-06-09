@@ -73,10 +73,13 @@ class WPSEO_News {
 		// Add subitem to menu
 		add_filter( 'wpseo_submenu_pages', array( $this, 'add_submenu_pages' ) );
 
-
 		// Register settings
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
-		add_action( 'admin_init', array( $this, 'init_helpscout_beacon' ) );
+		
+		// Only initialize Helpscout Beacon when the License Manager is present.
+		if ( class_exists( 'Yoast_Plugin_License_Manager' ) ) {
+			add_action( 'admin_init', array( $this, 'init_helpscout_beacon' ) );
+		}
 	}
 
 	/**
@@ -358,21 +361,15 @@ class WPSEO_News {
 	/**
 	 * Get the newest License Manager available
 	 *
-	 * @return Yoast_Plugin_License_Manager|Yoast_Plugin_License_Manager_v2
+	 * @return Yoast_Plugin_License_Manager
 	 */
 	private function get_license_manager() {
-		if ( class_exists( 'Yoast_Plugin_License_Manager_v2' ) ) {
-			$license_manager = new Yoast_Plugin_License_Manager_v2( new WPSEO_News_Product_v2() );
-		}
 
-		if ( ! isset( $license_manager ) && class_exists( 'Yoast_Plugin_License_Manager' ) ) {
-			$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
-		}
-
-		if ( ! isset( $license_manager ) ) {
+		if ( ! class_exists( 'Yoast_Plugin_License_Manager' ) ) {
 			return null;
 		}
 
+		$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
 		$license_manager->setup_hooks();
 
 		return $license_manager;
