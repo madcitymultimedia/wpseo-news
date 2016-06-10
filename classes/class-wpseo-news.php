@@ -259,8 +259,7 @@ class WPSEO_News {
 				'<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=yoast+seo&plugin-search-input=Search+Plugins' ) ) . '">',
 				'</a>',
 				'Yoast SEO'
-			),
-		'</p></div>';
+			), '</p></div>';
 	}
 
 	/**

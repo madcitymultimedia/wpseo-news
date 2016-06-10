@@ -72,4 +72,3 @@ script:
 - if [[ "$CHECKS" == "1" ]]; then npm install -g grunt-cli && npm install --no-optional && grunt check:js; fi
 - if [[ "$COVERAGE" == "1" ]]; then phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml; else phpunit -c phpunit.xml; fi
 - if [[ "$COVERAGE" == "1" ]]; then vendor/bin/test-reporter; fi
-- phpunit -c phpunit.xml
