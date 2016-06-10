@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: WordPress SEO News
+Plugin Name: Yoast SEO: News
 Version: 3.2
 Plugin URI: https://yoast.com/wordpress/plugins/news-seo/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=wpseonewsplugin
 Description: Google News plugin for the Yoast SEO plugin
@@ -77,7 +77,11 @@ function yoast_wpseo_news_deactivate() {
 /**
  * Activate the license automatically.
  */
-function wpseo_news_activate_license( ) {
+function wpseo_news_activate_license() {
+	if ( ! class_exists( 'Yoast_Plugin_License_Manager' ) ) {
+		return;
+	}
+
 	$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
 	$license_manager->activate_license();
 }

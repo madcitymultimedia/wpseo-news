@@ -993,51 +993,6 @@
             "time": "2015-06-30 21:54:21"
         },
         {
-            "name": "yoast/license-manager",
-            "version": "1.2",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Yoast/License-Manager.git",
-                "reference": "8caf52202bf51011686e31c9a43b18731047f1be"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/License-Manager/zipball/8caf52202bf51011686e31c9a43b18731047f1be",
-                "reference": "8caf52202bf51011686e31c9a43b18731047f1be",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "class-api-request.php",
-                    "class-license-manager.php",
-                    "class-plugin-license-manager.php",
-                    "class-plugin-update-manager.php",
-                    "class-product.php",
-                    "class-theme-license-manager.php",
-                    "class-theme-update-manager.php",
-                    "class-update-manager.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Team Yoast",
-                    "email": "support@yoast.com",
-                    "homepage": "https://yoast.com"
-                }
-            ],
-            "description": "Yoast License Manager.",
-            "homepage": "https://github.com/Yoast/License-Manager",
-            "keywords": [
-                "wordpress"
-            ],
-            "time": "2015-03-16 11:51:33"
-        },
-        {
             "name": "yoast/yoastcs",
             "version": "dev-master",
             "source": {
