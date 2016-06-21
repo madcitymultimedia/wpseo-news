@@ -1,6 +1,6 @@
 <?php
 
-// disable xdebug backtrace
+// Disable xdebug backtrace.
 if ( function_exists( 'xdebug_disable' ) ) {
 	xdebug_disable();
 }
@@ -23,5 +23,5 @@ else {
 	require '../../../../tests/phpunit/includes/bootstrap.php';
 }
 
-// include unit test base class
+// Include unit test base class.
 require_once dirname( __FILE__ ) . '/framework/class-wpseo-news-unit-test-case.php';
