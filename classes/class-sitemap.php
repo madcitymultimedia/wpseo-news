@@ -1,7 +1,14 @@
 <?php
+/**
+ * @package WPSEO\XML_Sitemaps
+ */
 
+/**
+ * Class WPSEO_News_Sitemap
+ */
 class WPSEO_News_Sitemap {
 
+	/** @var array Options */
 	private $options;
 
 	/**
@@ -20,7 +27,7 @@ class WPSEO_News_Sitemap {
 
 		add_action( 'save_post', array( $this, 'invalidate_sitemap' ) );
 
-		// Setting stylesheet for cached sitemap
+		// Setting stylesheet for cached sitemap.
 		add_action( 'wpseo_sitemap_stylesheet_cache_news', array( $this, 'set_stylesheet_cache' ) );
 
 		add_action( 'wpseo_news_schedule_sitemap_clear', 'yoast_wpseo_news_clear_sitemap_cache' );
@@ -34,6 +41,13 @@ class WPSEO_News_Sitemap {
 	 * @return string
 	 */
 	public function add_to_index( $str ) {
+
+		// Only add when we have items.
+		$items = $this->get_items( 1 );
+		if ( empty( $items ) ) {
+			return $str;
+		}
+
 		$date = new DateTime( get_lastpostdate( 'gmt' ), new DateTimeZone( new WPSEO_News_Sitemap_Timezone() ) );
 
 		$news_sitemap_xml = WPSEO_News::get_sitemap_name();
@@ -51,7 +65,8 @@ class WPSEO_News_Sitemap {
 	 */
 	public function init() {
 		if ( isset( $GLOBALS['wpseo_sitemaps'] ) ) {
-			$this->yoast_wpseo_news_show_or_hide_sitemap();
+			add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
+
 			$this->yoast_wpseo_news_schedule_clear();
 
 			$GLOBALS['wpseo_sitemaps']->register_sitemap( $this->basename, array( $this, 'build' ) );
@@ -64,7 +79,7 @@ class WPSEO_News_Sitemap {
 	/**
 	 * Method to invalidate the sitemap
 	 *
-	 * @param integer $post_id
+	 * @param integer $post_id Post ID to invalidate for.
 	 */
 	public function invalidate_sitemap( $post_id ) {
 		// If this is just a revision, don't invalidate the sitemap cache yet.
@@ -80,7 +95,7 @@ class WPSEO_News_Sitemap {
 	 *
 	 * This method is called by a filter that will set the video stylesheet.
 	 *
-	 * @param object $target_object
+	 * @param object $target_object Target Object to set cache from.
 	 *
 	 * @return object
 	 */
@@ -108,7 +123,7 @@ class WPSEO_News_Sitemap {
 
 		$items = $this->get_items();
 
-		// Loop through items
+		// Loop through items.
 		if ( ! empty( $items ) ) {
 			$output .= $this->build_items( $items );
 		}
@@ -128,7 +143,7 @@ class WPSEO_News_Sitemap {
 		}
 		// Force a 200 header and replace other status codes.
 		header( $protocol . ' 200 OK', true, 200 );
-		// Set the right content / mime type
+		// Set the right content / mime type.
 		header( 'Content-Type: text/xml' );
 		// Prevent the search engines from indexing the XML Sitemap.
 		header( 'X-Robots-Tag: noindex, follow', true );
@@ -138,18 +153,6 @@ class WPSEO_News_Sitemap {
 		header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', ( time() + YEAR_IN_SECONDS ) ) . ' GMT' );
 		require dirname( WPSEO_NEWS_FILE ) . '/assets/xml-news-sitemap-xsl.php';
 		die();
-	}
-
-	/**
-	 * Determine whether to show or hide the sitemap.
-	 */
-	protected function yoast_wpseo_news_show_or_hide_sitemap() {
-		// As we only need to know if there are items and we don't need to get all items, we give a limit of 1.
-		$items = $this->get_items( 1 );
-
-		if ( ! empty( $items ) ) {
-			add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
-		}
 	}
 
 	/**
@@ -210,7 +213,7 @@ class WPSEO_News_Sitemap {
 	/**
 	 * Loop through all $items and build each one of it
 	 *
-	 * @param array $items
+	 * @param array $items Items to convert to sitemap output.
 	 *
 	 * @return string $output
 	 */
@@ -229,7 +232,7 @@ class WPSEO_News_Sitemap {
 	 * @return array|string
 	 */
 	private function get_post_types() {
-		// Get supported post types
+		// Get supported post types.
 		$post_types = WPSEO_News::get_included_post_types();
 
 		if ( count( $post_types ) > 0 ) {
@@ -240,8 +243,14 @@ class WPSEO_News_Sitemap {
 	}
 }
 
+/**
+ * Class WPSEO_News_Sitemap_Timezone
+ */
 class WPSEO_News_Sitemap_Timezone {
 
+	/**
+	 * @return string
+	 */
 	public function __toString() {
 		return $this->wp_get_timezone_string();
 	}
@@ -255,23 +264,23 @@ class WPSEO_News_Sitemap_Timezone {
 	 */
 	private function wp_get_timezone_string() {
 
-		// if site timezone string exists, return it
+		// If site timezone string exists, return it.
 		if ( $timezone = get_option( 'timezone_string' ) ) {
 			return $timezone;
 		}
 
-		// get UTC offset, if it isn't set then return UTC
+		// Get UTC offset, if it isn't set then return UTC.
 		if ( 0 === ( $utc_offset = get_option( 'gmt_offset', 0 ) ) ) {
 			return 'UTC';
 		}
 
-		// adjust UTC offset from hours to seconds
+		// Adjust UTC offset from hours to seconds.
 		$utc_offset *= 3600;
 
-		// attempt to guess the timezone string from the UTC offset
+		// Attempt to guess the timezone string from the UTC offset.
 		$timezone = timezone_name_from_abbr( '', $utc_offset );
 
-		// last try, guess timezone string manually
+		// Last try, guess timezone string manually.
 		if ( false === $timezone ) {
 
 			if ( $timezone_id = $this->get_timezone_id( $utc_offset ) ) {
@@ -279,7 +288,7 @@ class WPSEO_News_Sitemap_Timezone {
 			}
 		}
 
-		// fallback to UTC
+		// Fallback to UTC.
 		return 'UTC';
 	}
 
@@ -287,7 +296,7 @@ class WPSEO_News_Sitemap_Timezone {
 	/**
 	 * Getting the timezone id
 	 *
-	 * @param string $utc_offset
+	 * @param string $utc_offset Offset to use.
 	 *
 	 * @return mixed
 	 */
@@ -304,7 +313,9 @@ class WPSEO_News_Sitemap_Timezone {
 	}
 }
 
-
+/**
+ * Class WPSEO_News_Sitemap_Item
+ */
 class WPSEO_News_Sitemap_Item {
 
 	/**
@@ -321,24 +332,21 @@ class WPSEO_News_Sitemap_Item {
 	 */
 	private $item;
 
-	/**
-	 * The options
-	 * @var array
-	 */
+	/** @var array The options */
 	private $options;
 
 	/**
 	 * Setting properties and build the item
 	 *
-	 * @param object $item
-	 * @param array  $options
+	 * @param object $item    This item.
+	 * @param array  $options The options.
 	 */
 	public function __construct( $item, $options ) {
 		$this->item    = $item;
 		$this->options = $options;
 
 
-		// Check if item should be skipped
+		// Check if item should be skipped.
 		if ( ! $this->skip_build_item() ) {
 			$this->build_item();
 		}
@@ -359,22 +367,24 @@ class WPSEO_News_Sitemap_Item {
 	 * @return bool
 	 */
 	private function skip_build_item() {
-		if ( WPSEO_Meta::get_value( 'newssitemap-exclude', $this->item->ID ) == 'on' ) {
+		if ( WPSEO_Meta::get_value( 'newssitemap-exclude', $this->item->ID ) === 'on' ) {
 			return true;
 		}
 
-		if ( false != WPSEO_Meta::get_value( 'meta-robots', $this->item->ID ) && strpos( WPSEO_Meta::get_value( 'meta-robots', $this->item->ID ), 'noindex' ) !== false ) {
+		if ( false !== WPSEO_Meta::get_value( 'meta-robots', $this->item->ID ) && strpos( WPSEO_Meta::get_value( 'meta-robots', $this->item->ID ), 'noindex' ) !== false ) {
 			return true;
 		}
 
-		if ( 'post' == $this->item->post_type && $this->exclude_item_terms() ) {
+		if ( 'post' === $this->item->post_type && $this->exclude_item_terms() ) {
 			return true;
 		}
+
+		return false;
 	}
 
 	/**
 	 * Exclude the item when one of his terms is excluded
-	 *x
+	 *
 	 * @return bool
 	 */
 	private function exclude_item_terms() {
@@ -396,7 +406,6 @@ class WPSEO_News_Sitemap_Item {
 
 	/**
 	 * Building each sitemap item
-	 *
 	 */
 	private function build_item() {
 		$this->item->post_status = 'publish';
@@ -404,10 +413,10 @@ class WPSEO_News_Sitemap_Item {
 		$this->output .= '<url>' . "\n";
 		$this->output .= "\t<loc>" . get_permalink( $this->item ) . '</loc>' . "\n";
 
-		// Building the news_tag
+		// Building the news_tag.
 		$this->build_news_tag();
 
-		// Getting the images for this item
+		// Getting the images for this item.
 		$this->get_item_images();
 
 		$this->output .= '</url>' . "\n";
@@ -415,7 +424,6 @@ class WPSEO_News_Sitemap_Item {
 
 	/**
 	 * Building the news tag
-	 *
 	 */
 	private function build_news_tag() {
 
@@ -425,7 +433,7 @@ class WPSEO_News_Sitemap_Item {
 
 		$this->output .= "\t<news:news>\n";
 
-		// Build the publication tag
+		// Build the publication tag.
 		$this->build_publication_tag();
 
 		if ( ! empty( $genre ) ) {
@@ -470,7 +478,7 @@ class WPSEO_News_Sitemap_Item {
 			$genre = implode( ',', $genre );
 		}
 
-		if ( $genre === '' && isset( $this->options['default_genre'] ) && $this->options['default_genre'] != '' ) {
+		if ( $genre === '' && isset( $this->options['default_genre'] ) && $this->options['default_genre'] !== '' ) {
 			$genre = is_array( $this->options['default_genre'] ) ? implode( ',', $this->options['default_genre'] ) : $this->options['default_genre'];
 		}
 
@@ -487,7 +495,7 @@ class WPSEO_News_Sitemap_Item {
 	private function get_publication_lang() {
 		$locale = apply_filters( 'wpseo_locale', get_locale() );
 
-		// fallback to 'en', if the length of the locale is less than 2 characters
+		// Fallback to 'en', if the length of the locale is less than 2 characters.
 		if ( strlen( $locale ) < 2 ) {
 			$locale = 'en';
 		}
@@ -500,25 +508,25 @@ class WPSEO_News_Sitemap_Item {
 	/**
 	 * Parses the $item argument into an xml format
 	 *
-	 * @param string $item
+	 * @param WP_Post $item Object to get data from.
 	 *
 	 * @return string
 	 */
 	private function get_publication_date( $item ) {
 		if ( $this->is_valid_datetime( $item->post_date_gmt ) ) {
-			// Create a DateTime object date in the correct timezone
+			// Create a DateTime object date in the correct timezone.
 			return $this->format_date_with_timezone( $item->post_date_gmt );
 		}
 		if ( $this->is_valid_datetime( $item->post_modified_gmt ) ) {
-			// Fallback 1: post_modified_gmt
+			// Fallback 1: post_modified_gmt.
 			return $this->format_date_with_timezone( $item->post_modified_gmt );
 		}
 		if ( $this->is_valid_datetime( $item->post_modified ) ) {
-			// Fallback 2: post_modified
+			// Fallback 2: post_modified.
 			return $this->format_date_with_timezone( $item->post_modified );
 		}
 		if ( $this->is_valid_datetime( $item->post_date ) ) {
-			// Fallback 3: post_date
+			// Fallback 3: post_date.
 			return $this->format_date_with_timezone( $item->post_date );
 		}
 
@@ -528,7 +536,7 @@ class WPSEO_News_Sitemap_Item {
 	/**
 	 * Format a datestring with a timezone
 	 *
-	 * @param $item_date
+	 * @param string $item_date Date to parse.
 	 *
 	 * @return string
 	 */
@@ -537,11 +545,11 @@ class WPSEO_News_Sitemap_Item {
 		static $timezone_string;
 
 		if ( $timezone_string === null ) {
-			// Get the timezone string
+			// Get the timezone string.
 			$timezone_string = new WPSEO_News_Sitemap_Timezone();
 		}
 
-		// Create a DateTime object date in the correct timezone
+		// Create a DateTime object date in the correct timezone.
 		$datetime = new DateTime( $item_date, new DateTimeZone( $timezone_string ) );
 
 		return $datetime->format( 'c' );
@@ -550,7 +558,7 @@ class WPSEO_News_Sitemap_Item {
 	/**
 	 * Getting the stock_tickers for given $item_id
 	 *
-	 * @param integer $item_id
+	 * @param integer $item_id Item to get ticker from.
 	 *
 	 * @return string
 	 */
@@ -571,7 +579,7 @@ class WPSEO_News_Sitemap_Item {
 	/**
 	 * Wrapper function to check if we have a valid datetime (Uses a new util in WPSEO)
 	 *
-	 * @param string $datetime
+	 * @param string $datetime Datetime to check.
 	 *
 	 * @return bool
 	 */
@@ -584,36 +592,28 @@ class WPSEO_News_Sitemap_Item {
 	}
 }
 
+/**
+ * Class WPSEO_News_Sitemap_Images
+ */
 class WPSEO_News_Sitemap_Images {
 
-	/**
-	 * The current item
-	 * @var object
-	 */
+	/** @var object The current item */
 	private $item;
 
-	/**
-	 * The out that will be returned
-	 * @var string
-	 */
+	/** @var string The out that will be returned */
 	private $output = '';
 
-	/**
-	 * @var array
-	 */
+	/** @var array The options */
 	private $options;
 
-	/**
-	 * Storage for the images
-	 * @var
-	 */
+	/** @var array Storage for the images */
 	private $images;
 
 	/**
 	 * Setting properties and build the item
 	 *
-	 * @param object $item
-	 * @param array  $options
+	 * @param object $item    This item.
+	 * @param array  $options The options.
 	 */
 	public function __construct( $item, $options ) {
 		$this->item    = $item;
@@ -654,7 +654,7 @@ class WPSEO_News_Sitemap_Images {
 
 		// Also check if the featured image value is set.
 		$post_thumbnail_id = get_post_thumbnail_id( $this->item->ID );
-		if ( '' != $post_thumbnail_id ) {
+		if ( '' !== $post_thumbnail_id ) {
 			$this->get_item_featured_image( $post_thumbnail_id );
 		}
 	}
@@ -662,14 +662,15 @@ class WPSEO_News_Sitemap_Images {
 	/**
 	 * Getting the images from the content
 	 *
-	 * @param array $matches
+	 * @param array $matches Images found in the content.
 	 */
 	private function get_images_from_content( $matches ) {
 		foreach ( $matches[0] as $img ) {
 			if ( preg_match( '/src=("|\')([^"|\']+)("|\')/', $img, $match ) ) {
 				if ( $src = $this->parse_image_source( $match[2] ) ) {
 					$this->images[ $src ] = $this->parse_image( $img );
-				} else {
+				}
+				else {
 					continue;
 				}
 			}
@@ -679,7 +680,7 @@ class WPSEO_News_Sitemap_Images {
 	/**
 	 * Parsing the image source
 	 *
-	 * @param string $src
+	 * @param string $src Image Source.
 	 *
 	 * @return string|void
 	 */
@@ -687,24 +688,24 @@ class WPSEO_News_Sitemap_Images {
 
 		static $home_url;
 
-		if ( $home_url == null ) {
+		if ( is_null( $home_url ) ) {
 			$home_url = home_url();
 		}
 
 		if ( strpos( $src, 'http' ) !== 0 ) {
-			if ( $src[0] != '/' ) {
-				return;
+			if ( $src[0] !== '/' ) {
+				return null;
 			}
 
 			$src = $home_url . $src;
 		}
 
-		if ( $src != esc_url( $src ) ) {
-			return;
+		if ( $src !== esc_url( $src ) ) {
+			return null;
 		}
 
 		if ( isset( $url['images'][ $src ] ) ) {
-			return;
+			return null;
 		}
 
 		return $src;
@@ -713,7 +714,7 @@ class WPSEO_News_Sitemap_Images {
 	/**
 	 * Setting title and alt for image and returns them in an array
 	 *
-	 * @param string $img
+	 * @param string $img Image HTML.
 	 *
 	 * @return array
 	 */
@@ -733,10 +734,10 @@ class WPSEO_News_Sitemap_Images {
 	/**
 	 * Parse the XML for given image
 	 *
-	 * @param string $src
-	 * @param string $img
+	 * @param string $src Image source.
+	 * @param array  $img Image array.
 	 *
-	 * @return string
+	 * @return void
 	 */
 	private function parse_item_image( $src, $img ) {
 		/**
@@ -765,9 +766,9 @@ class WPSEO_News_Sitemap_Images {
 	/**
 	 * Getting the featured image
 	 *
-	 * @param integer $post_thumbnail_id
+	 * @param integer $post_thumbnail_id Thumbnail ID.
 	 *
-	 * @return array
+	 * @return void
 	 */
 	private function get_item_featured_image( $post_thumbnail_id ) {
 
@@ -786,7 +787,8 @@ class WPSEO_News_Sitemap_Images {
 
 			if ( '' != $attachment['src'] ) {
 				$this->images[ $attachment['src'] ] = $image;
-			} elseif ( '' != $attachment['href'] ) {
+			}
+			elseif ( '' != $attachment['href'] ) {
 				$this->images[ $attachment['href'] ] = $image;
 			}
 		}
@@ -795,20 +797,20 @@ class WPSEO_News_Sitemap_Images {
 	/**
 	 * Get attachment
 	 *
-	 * @param $attachment_id
+	 * @param int $attachment_id Attachment ID.
 	 *
 	 * @return array
 	 */
 	private function get_attachment( $attachment_id ) {
-		// Get attachment
+		// Get attachment.
 		$attachment = get_post( $attachment_id );
 
-		// Check if we've found an attachment
-		if ( null == $attachment ) {
+		// Check if we've found an attachment.
+		if ( is_null( $attachment ) ) {
 			return array();
 		}
 
-		// Return props
+		// Return properties.
 		return array(
 			'alt'         => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
 			'caption'     => $attachment->post_excerpt,
