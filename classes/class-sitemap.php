@@ -1,10 +1,10 @@
 <?php
 /**
- * @package WPSEO\XML_Sitemaps
+ * @package WPSEO_News\XML_Sitemaps
  */
 
 /**
- * Class WPSEO_News_Sitemap
+ * Handling the generation of the News Sitemap
  */
 class WPSEO_News_Sitemap {
 
@@ -190,6 +190,9 @@ class WPSEO_News_Sitemap {
 		$limit = max( 1, min( 1000, $limit ) );
 
 		$post_types = $this->get_post_types();
+		if ( empty( $post_types ) ) {
+			return array();
+		}
 
 		// Get posts for the last two days only, credit to Alex Moss for this code.
 		// @codingStandardsIgnoreStart
@@ -235,7 +238,7 @@ class WPSEO_News_Sitemap {
 		// Get supported post types.
 		$post_types = WPSEO_News::get_included_post_types();
 
-		if ( count( $post_types ) > 0 ) {
+		if ( ! empty( $post_types ) ) {
 			$post_types = "'" . implode( "','", $post_types ) . "'";
 		}
 
@@ -244,11 +247,13 @@ class WPSEO_News_Sitemap {
 }
 
 /**
- * Class WPSEO_News_Sitemap_Timezone
+ * Convert the sitemap dates to the correct timezone
  */
 class WPSEO_News_Sitemap_Timezone {
 
 	/**
+	 * Returns the timezone string for a site, even if it's set to a UTC offset
+	 *
 	 * @return string
 	 */
 	public function __toString() {
@@ -277,6 +282,7 @@ class WPSEO_News_Sitemap_Timezone {
 		// Adjust UTC offset from hours to seconds.
 		$utc_offset *= 3600;
 
+		// @todo $timezone not being used when not false? JM
 		// Attempt to guess the timezone string from the UTC offset.
 		$timezone = timezone_name_from_abbr( '', $utc_offset );
 
@@ -305,7 +311,7 @@ class WPSEO_News_Sitemap_Timezone {
 
 		foreach ( timezone_abbreviations_list() as $abbr ) {
 			foreach ( $abbr as $city ) {
-				if ( $city['dst'] == $is_dst && $city['offset'] == $utc_offset ) {
+				if ( $city['dst'] === $is_dst && $city['offset'] === $utc_offset ) {
 					return $city['timezone_id'];
 				}
 			}
@@ -314,22 +320,14 @@ class WPSEO_News_Sitemap_Timezone {
 }
 
 /**
- * Class WPSEO_News_Sitemap_Item
+ * The News Sitemap entry
  */
 class WPSEO_News_Sitemap_Item {
 
-	/**
-	 * The output which will be return
-	 *
-	 * @var string
-	 */
+	/** @var string The output which will be returned */
 	private $output = '';
 
-	/**
-	 * The current item
-	 *
-	 * @var object
-	 */
+	/** @var object The current item */
 	private $item;
 
 	/** @var array The options */
@@ -338,7 +336,7 @@ class WPSEO_News_Sitemap_Item {
 	/**
 	 * Setting properties and build the item
 	 *
-	 * @param object $item    This item.
+	 * @param object $item    The post.
 	 * @param array  $options The options.
 	 */
 	public function __construct( $item, $options ) {
@@ -593,7 +591,7 @@ class WPSEO_News_Sitemap_Item {
 }
 
 /**
- * Class WPSEO_News_Sitemap_Images
+ * Handle images used in News
  */
 class WPSEO_News_Sitemap_Images {
 
@@ -612,7 +610,7 @@ class WPSEO_News_Sitemap_Images {
 	/**
 	 * Setting properties and build the item
 	 *
-	 * @param object $item    This item.
+	 * @param object $item    News post object.
 	 * @param array  $options The options.
 	 */
 	public function __construct( $item, $options ) {
@@ -637,7 +635,7 @@ class WPSEO_News_Sitemap_Images {
 	private function parse_item_images() {
 		$this->get_item_images();
 
-		if ( isset( $this->images ) && count( $this->images ) > 0 ) {
+		if ( ! empty( $this->images ) ) {
 			foreach ( $this->images as $src => $img ) {
 				$this->parse_item_image( $src, $img );
 			}
@@ -648,7 +646,8 @@ class WPSEO_News_Sitemap_Images {
 	 * Getting the images for the given $item
 	 */
 	private function get_item_images() {
-		if ( ( ! isset( $this->options['restrict_sitemap_featured_img'] ) || ! $this->options['restrict_sitemap_featured_img'] ) && preg_match_all( '/<img [^>]+>/', $this->item->post_content, $matches ) ) {
+		$restrict_sitemap_featured_img = isset( $this->options['restrict_sitemap_featured_img'] ) ? $this->options['restrict_sitemap_featured_img'] : false;
+		if ( ! $restrict_sitemap_featured_img && preg_match_all( '/<img [^>]+>/', $this->item->post_content, $matches ) ) {
 			$this->get_images_from_content( $matches );
 		}
 
@@ -666,13 +665,13 @@ class WPSEO_News_Sitemap_Images {
 	 */
 	private function get_images_from_content( $matches ) {
 		foreach ( $matches[0] as $img ) {
-			if ( preg_match( '/src=("|\')([^"|\']+)("|\')/', $img, $match ) ) {
-				if ( $src = $this->parse_image_source( $match[2] ) ) {
-					$this->images[ $src ] = $this->parse_image( $img );
-				}
-				else {
-					continue;
-				}
+			if ( ! preg_match( '/src=("|\')([^"|\']+)("|\')/', $img, $match ) ) {
+				continue;
+			}
+
+			$src = $this->parse_image_source( $match[2] );
+			if ( ! empty( $src ) && ! isset( $this->images[ $src ] ) ) {
+				$this->images[ $src ] = $this->parse_image( $img );
 			}
 		}
 	}
@@ -701,10 +700,6 @@ class WPSEO_News_Sitemap_Images {
 		}
 
 		if ( $src !== esc_url( $src ) ) {
-			return null;
-		}
-
-		if ( isset( $url['images'][ $src ] ) ) {
 			return null;
 		}
 
@@ -752,11 +747,11 @@ class WPSEO_News_Sitemap_Images {
 		$this->output .= "\t<image:image>\n";
 		$this->output .= "\t\t<image:loc>" . htmlspecialchars( $src ) . "</image:loc>\n";
 
-		if ( isset( $img['title'] ) ) {
+		if ( ! empty( $img['title'] ) ) {
 			$this->output .= "\t\t<image:title>" . htmlspecialchars( $img['title'] ) . "</image:title>\n";
 		}
 
-		if ( isset( $img['alt'] ) ) {
+		if ( ! empty( $img['alt'] ) ) {
 			$this->output .= "\t\t<image:caption>" . htmlspecialchars( $img['alt'] ) . "</image:caption>\n";
 		}
 
@@ -774,23 +769,25 @@ class WPSEO_News_Sitemap_Images {
 
 		$attachment = $this->get_attachment( $post_thumbnail_id );
 
-		if ( count( $attachment ) > 0 ) {
-			$image = array();
+		if ( empty( $attachment ) ) {
+			return;
+		}
 
-			if ( '' != $attachment['title'] ) {
-				$image['title'] = $attachment['title'];
-			}
+		$image = array();
 
-			if ( '' != $attachment['alt'] ) {
-				$image['alt'] = $attachment['alt'];
-			}
+		if ( ! empty( $attachment['title'] ) ) {
+			$image['title'] = $attachment['title'];
+		}
 
-			if ( '' != $attachment['src'] ) {
-				$this->images[ $attachment['src'] ] = $image;
-			}
-			elseif ( '' != $attachment['href'] ) {
-				$this->images[ $attachment['href'] ] = $image;
-			}
+		if ( ! empty( $attachment['alt'] ) ) {
+			$image['alt'] = $attachment['alt'];
+		}
+
+		if ( ! empty( $attachment['src'] ) ) {
+			$this->images[ $attachment['src'] ] = $image;
+		}
+		elseif ( ! empty( $attachment['href'] ) ) {
+			$this->images[ $attachment['href'] ] = $image;
 		}
 	}
 
@@ -812,12 +809,10 @@ class WPSEO_News_Sitemap_Images {
 
 		// Return properties.
 		return array(
+			'title'       => $attachment->post_title,
 			'alt'         => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
-			'caption'     => $attachment->post_excerpt,
-			'description' => $attachment->post_content,
 			'href'        => get_permalink( $attachment->ID ),
 			'src'         => $attachment->guid,
-			'title'       => $attachment->post_title,
 		);
 	}
 }
