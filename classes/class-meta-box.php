@@ -219,7 +219,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
 		$standout_desc .= '<span style="font-weight:bold;';
 		if ( $used_standouts > $this->max_standouts ) {
-			$standout_desc .= 'color:#ff0000';
+			$standout_desc .= 'color:#dc3232';
 		}
 		$standout_desc .= '">';
 		$standout_desc .= sprintf(

@@ -243,7 +243,7 @@ class WPSEO_News {
 	 * Print the edit post CSS
 	 */
 	public function edit_post_css() {
-		echo "<style type='text/css'>.wpseo-news-input-error{border:1px solid #ff0000 !important;}</style>" . PHP_EOL;
+		echo "<style type='text/css'>.wpseo-news-input-error{border:1px solid #dc3232 !important;}.wpseo-news-error-message{color:#dc3232;font-weight:bold;}</style>" . PHP_EOL;
 	}
 
 	/**
