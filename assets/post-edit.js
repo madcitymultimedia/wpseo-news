@@ -1,13 +1,20 @@
 /* jshint unused:false */
 jQuery ( document ).ready( function( $ ) {
 	'use strict';
-	$( '#yoast_wpseo_newssitemap-keywords' ).on( 'keyup', function() {
+
+	var keywordsField = $( '#yoast_wpseo_newssitemap-keywords' );
+	var keywordsFieldParent = keywordsField.parent();
+	var keywordsFieldParentFirstDiv = keywordsFieldParent.find( 'div:first' );
+
+	keywordsField.on( 'keyup', function() {
 		if ($(this).val().split(',').length > 9) {
-			$( this ).addClass( 'wpseo-news-input-error' );
-			$( this ).parent().find( 'div:first' ).addClass( 'wpseo-news-error-message' );
+			// The 'form-invalid' CSS class comes from WordPress and is in `/wp-admin/css/forms.css`.
+			keywordsFieldParent.addClass( 'form-invalid' );
+			// The 'error-message' CSS class comes from WordPress and is in `/wp-admin/css/common.css`.
+			keywordsFieldParentFirstDiv.addClass( 'error-message' );
 		} else {
-			$( this ).removeClass( 'wpseo-news-input-error' );
-			$( this ).parent().find( 'div:first' ).removeClass( 'wpseo-news-error-message' );
+			keywordsFieldParent.removeClass( 'form-invalid' );
+			keywordsFieldParentFirstDiv.removeClass( 'error-message' );
 		}
 	});
 });
