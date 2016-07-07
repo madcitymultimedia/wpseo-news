@@ -14,7 +14,6 @@ class WPSEO_News {
 		 * Filter: 'wpseo_news_options' - Allow modifying of Yoast News SEO options
 		 *
 		 * @api array $wpseo_news_options The Yoast News SEO options
-		 *
 		 */
 		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array(
 			'name'             => '',
@@ -25,7 +24,7 @@ class WPSEO_News {
 		) ) );
 	}
 
-	/**§
+	/**
 	 * Get plugin file
 	 *
 	 * @deprecated since 3.1. Use WPSEO_NEWS_FILE instead
@@ -290,8 +289,6 @@ class WPSEO_News {
 			$beacon->register_hooks();
 		}
 	}
-
-	// HELPERS
 
 	/**
 	 * Getting the post_types based on the included post_types option.

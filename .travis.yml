@@ -5,7 +5,7 @@ sudo: false
 matrix:
   include:
     - php: 7.0
-      env: WP_VERSION=master WP_MULTISITE=1 PHPLINT=1
+      env: WP_VERSION=master WP_MULTISITE=1 PHPLINT=1 PHPCS=1
     - php: 5.2
       env: WP_VERSION=4.5 WP_MULTISITE=1 PHPLINT=1
     - php: 7.0
@@ -45,7 +45,7 @@ before_script:
 - git clone --depth=50 --branch="trunk" https://github.com/Yoast/wordpress-seo.git $WP_DEVELOP_DIR/src/wp-content/plugins/wordpress-seo
 - cd /tmp/wordpress/src/wp-content/plugins/wordpress-seo
 - phpenv local 5.6
-- composer selfupdate --no-interaction
+- composer selfupdate 1.0.0 --no-interaction
 - composer install --no-interaction
 - phpenv local --unset
 - cd -
@@ -68,7 +68,7 @@ before_script:
 
 script:
 - if [[ "$PHPLINT" == "1" ]]; then find -L . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l; fi
-- if [[ "$PHPLINT" == "1" ]]; then vendor/bin/phpcs -p -s -v -n . --standard=./codesniffer.xml --extensions=php; fi
+- if [[ "$PHPCS" == "1" ]]; then vendor/bin/phpcs -p -s -v -n . --standard=./codesniffer.xml --extensions=php; fi
 - if [[ "$CHECKS" == "1" ]]; then npm install -g grunt-cli && npm install --no-optional && grunt check:js; fi
 - if [[ "$COVERAGE" == "1" ]]; then phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml; else phpunit -c phpunit.xml; fi
 - if [[ "$COVERAGE" == "1" ]]; then vendor/bin/test-reporter; fi

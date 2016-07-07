@@ -134,7 +134,6 @@ class WPSEO_News_Admin_Page {
 
 		return in_array( $page, $news_pages );
 	}
-
 }
 
 class WPSEO_News_Wrappers {

@@ -15,7 +15,7 @@
         "yoast/wp-helpscout": "^1.0"
     },
     "require-dev": {
-        "yoast/yoastcs": "dev-master",
+        "yoast/yoastcs": "0.3",
         "codeclimate/php-test-reporter": "dev-master"
     },
     "minimum-stability": "dev",
