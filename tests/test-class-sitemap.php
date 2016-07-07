@@ -19,7 +19,25 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	/**
 	 * @covers WPSEO_News_Sitemap::add_to_index
 	 */
+	public function test_add_to_index_no_items() {
+		$input = '';
+		$output = $this->instance->add_to_index( $input );
+		$this->assertEquals( $input, $output );
+	}
+
+	/**
+	 * @covers WPSEO_News_Sitemap::add_to_index
+	 */
 	public function test_add_to_index() {
+
+		/**
+		 * We need an item to be present to get output.
+		 */
+		$this->factory->post->create(
+			array(
+				'post_title' => 'generate rss',
+			)
+		);
 
 		$output = $this->instance->add_to_index( '' );
 

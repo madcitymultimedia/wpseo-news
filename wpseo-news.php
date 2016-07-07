@@ -1,5 +1,9 @@
 <?php
-/*
+/**
+ * @package WPSEO_News
+ */
+
+/**
 Plugin Name: Yoast SEO: News
 Version: 3.3
 Plugin URI: https://yoast.com/wordpress/plugins/news-seo/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=wpseonewsplugin
@@ -24,7 +28,7 @@ GNU General Public License for more details.
 
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.
-*/
+ */
 
 if ( ! defined( 'WPSEO_NEWS_FILE' ) ) {
 	define( 'WPSEO_NEWS_FILE', __FILE__ );
@@ -35,20 +39,20 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload_52.php' ) ) {
 }
 
 
-// Load text domain
-add_action( 'init', 'wpseo_news_load_textdomain' );
+/**
+ * Load text domain.
+ */
 function wpseo_news_load_textdomain() {
 	load_plugin_textdomain( 'wordpress-seo-news', false, dirname( plugin_basename( __FILE__ ) ) . '/languages' );
 }
+add_action( 'init', 'wpseo_news_load_textdomain' );
 
 /**
- * WPSEO News __main method
+ * Load Yoast SEO: News.
  */
 function __wpseo_news_main() {
 	new WPSEO_News();
 }
-
-// Load WPSEO News
 add_action( 'plugins_loaded', '__wpseo_news_main' );
 
 /**

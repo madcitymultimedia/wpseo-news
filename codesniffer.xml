@@ -6,6 +6,9 @@
 	<exclude-pattern>admin/license-manager/*</exclude-pattern>
 	<exclude-pattern>admin/includes/i18n-module/*</exclude-pattern>
 	<exclude-pattern>vendor/*</exclude-pattern>
+	<exclude-pattern>node_modules/*</exclude-pattern>
+
+	<arg name="extensions" value="php" />
 
 	<rule ref="WordPress-VIP">
 		<exclude name="Generic.Files.LineEndings.InvalidEOLChar" />
