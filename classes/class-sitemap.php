@@ -560,7 +560,7 @@ class WPSEO_News_Sitemap_Item {
 	private function get_date_format() {
 		static $timezone_option;
 
-		if( $timezone_option === null ) {
+		if ( $timezone_option === null ) {
 			// When there isn't a timezone set
 			$timezone_option = get_option( 'timezone_string' );
 		}

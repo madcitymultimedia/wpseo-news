@@ -15,7 +15,7 @@ class WPSEO_News_Admin_Page {
 		}
 
 		// When the timezone is an empty string.
-		if( get_option( 'timezone_string' ) === '' ) {
+		if ( get_option( 'timezone_string' ) === '' ) {
 			$this->add_timezone_notice();
 		}
 
@@ -157,7 +157,6 @@ class WPSEO_News_Admin_Page {
 		$notification_center = Yoast_Notification_Center::get();
 		$notification_center->add_notification( $timezone_notification );
 	}
-
 }
 
 class WPSEO_News_Wrappers {
