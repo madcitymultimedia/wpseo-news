@@ -539,7 +539,6 @@ class WPSEO_News_Sitemap_Item {
 	 * @return string
 	 */
 	private function format_date_with_timezone( $item_date ) {
-
 		static $timezone_string;
 
 		if ( $timezone_string === null ) {
@@ -550,7 +549,28 @@ class WPSEO_News_Sitemap_Item {
 		// Create a DateTime object date in the correct timezone.
 		$datetime = new DateTime( $item_date, new DateTimeZone( $timezone_string ) );
 
-		return $datetime->format( 'c' );
+		return $datetime->format( $this->get_date_format() );
+	}
+
+	/**
+	 * When the timezone string option in WordPress is empty, just return YYYY-MM-DD as format.
+	 *
+	 * @return string
+	 */
+	private function get_date_format() {
+		static $timezone_option;
+
+		if( $timezone_option === null ) {
+			// When there isn't a timezone set
+			$timezone_option = get_option( 'timezone_string' );
+		}
+
+		// Is there a timezone option and does it exists in the list of 'valid' timezone.
+		if ( $timezone_option !== '' && in_array( $timezone_option, DateTimeZone::listIdentifiers() ) ) {
+			return DateTime::W3C;
+		}
+
+		return 'Y-m-d';
 	}
 
 	/**
