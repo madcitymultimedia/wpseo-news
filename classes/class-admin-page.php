@@ -13,6 +13,12 @@ class WPSEO_News_Admin_Page {
 		if ( $this->is_news_page( filter_input( INPUT_GET, 'page' ) ) ) {
 			$this->register_i18n_promo_class();
 		}
+
+		// When the timezone is an empty string.
+		if( get_option( 'timezone_string' ) === '' ) {
+			$this->add_timezone_notice();
+		}
+
 	}
 
 	/**
@@ -134,6 +140,24 @@ class WPSEO_News_Admin_Page {
 
 		return in_array( $page, $news_pages );
 	}
+
+	/**
+	 * Shows a notice when the timezone is in UTC format.
+	 */
+	private function add_timezone_notice() {
+		$notification         = __( 'Your timezone settings should reflect your real timezone, not a UTC offset, please change this.', 'wpseo-news' );
+		$notification_options = array(
+			'type'         => Yoast_Notification::ERROR,
+			'id'           => 'wpseo-dismiss-news_timezone-notice',
+			'capabilities' => 'manage_options',
+		);
+
+		$timezone_notification = new Yoast_Notification( $notification, $notification_options );
+
+		$notification_center = Yoast_Notification_Center::get();
+		$notification_center->add_notification( $timezone_notification );
+	}
+
 }
 
 class WPSEO_News_Wrappers {
