@@ -27,7 +27,6 @@ class WPSEO_News_Sitemap {
 		add_action( 'save_post', array( $this, 'invalidate_sitemap' ) );
 
 		add_action( 'wpseo_news_schedule_sitemap_clear', 'yoast_wpseo_news_clear_sitemap_cache' );
-
 	}
 
 	/**
