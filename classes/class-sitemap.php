@@ -251,10 +251,10 @@ class WPSEO_News_Sitemap {
 	 * @return string mixed
 	 */
 	public static function get_sitemap_name( $full_path = true ) {
-		// This filter is documented in classes/class-sitemap.php
+		// This filter is documented in classes/class-sitemap.php.
 		$sitemap_name = apply_filters( 'wpseo_news_sitemap_name', self::news_sitemap_basename() );
 
-		// When $full_path is true, it will generate a full path
+		// When $full_path is true, it will generate a full path.
 		if ( $full_path ) {
 			return WPSEO_Sitemaps_Router::get_base_url( $sitemap_name . '-sitemap.xml' );
 		}
