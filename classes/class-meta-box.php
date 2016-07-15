@@ -10,11 +10,16 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	private $max_standouts = 7;
 
 	public function __construct() {
+		global $pagenow;
+
 		$this->options = WPSEO_News::get_options();
 
 		add_filter( 'wpseo_save_metaboxes', array( $this, 'save' ), 10, 1 );
 		add_action( 'add_meta_boxes', array( $this, 'add_tab_hooks' ) );
-		add_filter( 'add_extra_wpseo_meta_fields', array( $this, 'add_meta_fields_to_wpseo_meta' ) );
+
+		if ( $pagenow === 'post.php' || $pagenow === 'post-new.php' ) {
+			add_filter( 'add_extra_wpseo_meta_fields', array( $this, 'add_meta_fields_to_wpseo_meta' ) );
+		}
 	}
 
 	/**
@@ -214,7 +219,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
 		$standout_desc .= '<span style="font-weight:bold;';
 		if ( $used_standouts > $this->max_standouts ) {
-			$standout_desc .= 'color:#ff0000';
+			$standout_desc .= 'color:#dc3232';
 		}
 		$standout_desc .= '">';
 		$standout_desc .= sprintf(

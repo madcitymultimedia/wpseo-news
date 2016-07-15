@@ -1,12 +1,12 @@
-News SEO for WordPress SEO
+Yoast News SEO for Yoast SEO
 ==========================
-Requires at least: 4.0
-Tested up to: 4.4
-Stable tag: 3.0
+Requires at least: 4.3
+Tested up to: 4.5
+Stable tag: 3.3
 Depends: wordpress-seo
 
 
-News SEO module for the WordPress SEO plugin.
+Yoast News SEO module for the Yoast SEO plugin.
 
 [![Code Climate](https://codeclimate.com/repos/54523c37e30ba0670f0016b8/badges/373c97133cba47d9822b/gpa.svg)](https://codeclimate.com/repos/54523c37e30ba0670f0016b8/feed)
 
@@ -19,10 +19,35 @@ Installation
 4. Activate the plugin.
 5. Go to SEO -> Extensions -> Licenses, enter your license key and Save.
 6. Your license key will be validated.
-7. You can now use News SEO. See also https://yoast.com/wordpress/plugins/news-seo/news-seo-configuration-guide/
+7. You can now use Yoast News SEO. See also https://yoast.com/wordpress/plugins/news-seo/news-seo-configuration-guide/
 
 Changelog
 =========
+
+### 3.3: June 14th, 2016
+
+* Enhancements
+	* Adds the Yoast i18n module to the Yoast SEO News settings page, which informs users the plugin isn't available in their language and what they can do about it.
+
+* Bugfixes
+    * Fixes a bug where the support beacon for Yoast SEO News was added to all Yoast SEO settings pages.
+    * Fixes a bug where updates were not working reliably when multiple paid Yoast plugins were active.
+
+### 3.2: April 20th, 2016
+
+* Bugfixes
+    * Fixes a bug where the news sitemap would be shown in the index even if the sitemap itself was empty.
+    * Fixes a bug where clicking the 'Update now' button on the plugin page didn't update correctly.
+
+### 3.1: March 2nd, 2016
+
+* Bugfixes
+	* Fixes a bug where our license manager could sometimes not reach our licensing system due to problems with ssl.
+
+* Enhancements
+	* Makes sure users don't have to reactivate their license after updating or disabling/enabling the plugin.
+	* Adds a support beacon on the News SEO settings page enabling users to ask for support from the WordPress backend.
+	* Contains a few performance optimizations.
 
 ### 3.0: November 18th, 2015
 

@@ -1,14 +1,14 @@
-# Copyright (C) 2015 Team Yoast
+# Copyright (C) 2016 Team Yoast
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: WordPress SEO News 3.0\n"
+"Project-Id-Version: Yoast SEO: News 3.3\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
-"POT-Creation-Date: 2015-11-18 12:50:46+00:00\n"
+"POT-Creation-Date: 2016-07-14 08:52:15+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2015-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2016-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Yoast Translate Team <translations@yoast.com>\n"
 "Language-Team: Yoast Translate <translations@yoast.com>\n"
 "X-Generator: grunt-wp-i18n 0.4.9\n"
@@ -24,65 +24,65 @@ msgstr ""
 "X-Poedit-Bookmarks: \n"
 "X-Textdomain-Support: yes\n"
 
-#: classes/class-admin-page.php:16
+#: classes/class-admin-page.php:26
 msgid ""
 "You will generally only need XML News sitemap when your website is included "
 "in Google News."
 msgstr ""
 
-#: classes/class-admin-page.php:17
+#: classes/class-admin-page.php:27
 msgid "You can find your news sitemap here: %1$sXML News sitemap%2$s"
 msgstr ""
 
-#: classes/class-admin-page.php:20
+#: classes/class-admin-page.php:30
 msgid "Google News Publication Name"
 msgstr ""
 
-#: classes/class-admin-page.php:23
+#: classes/class-admin-page.php:33
 msgid "Default Genre"
 msgstr ""
 
-#: classes/class-admin-page.php:49
+#: classes/class-admin-page.php:78
 msgid "Default Keywords"
 msgstr ""
 
-#: classes/class-admin-page.php:50
+#: classes/class-admin-page.php:79
 msgid ""
 "It might be wise to add some of Google's suggested keywords to all of your "
 "posts, add them as a comma separated list. Find the list here:"
 msgstr ""
 
-#: classes/class-admin-page.php:52
+#: classes/class-admin-page.php:81
 msgid "Only use featured image for XML News sitemap, ignore images in post."
 msgstr ""
 
-#: classes/class-admin-page.php:61
+#: classes/class-admin-page.php:90
 msgid "Post Types to include in News Sitemap and Editors&#39; Pick RSS"
 msgstr ""
 
-#: classes/class-admin-page.php:73
+#: classes/class-admin-page.php:101
 msgid "Post categories to exclude"
 msgstr ""
 
-#: classes/class-admin-page.php:84 classes/class-meta-box.php:76
+#: classes/class-admin-page.php:112 classes/class-meta-box.php:81
 msgid "Editors' Pick"
 msgstr ""
 
-#: classes/class-admin-page.php:89
+#: classes/class-admin-page.php:116
 msgid "Editors' Pick Image"
 msgstr ""
 
-#: classes/class-admin-page.php:91
+#: classes/class-admin-page.php:118
 msgid "Upload Image"
 msgstr ""
 
-#: classes/class-admin-page.php:94
+#: classes/class-admin-page.php:121
 msgid ""
 "You can find your Editors' Pick RSS feed here: %1$sEditors' Pick RSS "
 "Feed%2$s"
 msgstr ""
 
-#: classes/class-admin-page.php:95
+#: classes/class-admin-page.php:122
 msgid ""
 "You can submit your Editors' Pick RSS feed here: %1$sSubmit Editors' Pick "
 "RSS Feed%2$s"
@@ -92,44 +92,44 @@ msgstr ""
 msgid "Choose image."
 msgstr ""
 
-#: classes/class-meta-box.php:33
+#: classes/class-meta-box.php:38
 msgid "Exclude from News Sitemap"
 msgstr ""
 
-#: classes/class-meta-box.php:39
+#: classes/class-meta-box.php:44
 msgid "Meta News Keywords"
 msgstr ""
 
-#: classes/class-meta-box.php:40
+#: classes/class-meta-box.php:45
 msgid ""
 "Comma separated list of the keywords this article aims at, use a maximum of "
 "10 keywords."
 msgstr ""
 
-#: classes/class-meta-box.php:46
+#: classes/class-meta-box.php:51
 msgid "Google News Genre"
 msgstr ""
 
-#: classes/class-meta-box.php:47
+#: classes/class-meta-box.php:52
 msgid "Genre to show in Google News Sitemap."
 msgstr ""
 
-#: classes/class-meta-box.php:55
+#: classes/class-meta-box.php:60
 msgid "Original Source"
 msgstr ""
 
-#: classes/class-meta-box.php:56
+#: classes/class-meta-box.php:61
 msgid ""
 "Is this article the original source of this news? If not, please enter the "
 "URL of the original source here. If there are multiple sources, please "
 "separate them by a pipe symbol: | ."
 msgstr ""
 
-#: classes/class-meta-box.php:62
+#: classes/class-meta-box.php:67
 msgid "Stock Tickers"
 msgstr ""
 
-#: classes/class-meta-box.php:63
+#: classes/class-meta-box.php:68
 msgid ""
 "A comma-separated list of up to 5 stock tickers of the companies, mutual "
 "funds, or other financial entities that are the main subject of the "
@@ -138,11 +138,11 @@ msgid ""
 "(but not \"NASD:AMAT\"), or \"BOM:500325\" (but not \"BOM:RIL\")."
 msgstr ""
 
-#: classes/class-meta-box.php:69
+#: classes/class-meta-box.php:74
 msgid "Standout"
 msgstr ""
 
-#: classes/class-meta-box.php:77
+#: classes/class-meta-box.php:82
 msgid ""
 "Editors' Picks enables you to provide up to five links to original news "
 "content you believe represents your organization’s best journalistic work "
@@ -150,17 +150,17 @@ msgid ""
 "homepage or select section pages."
 msgstr ""
 
-#: classes/class-meta-box.php:126 classes/class-meta-box.php:138
+#: classes/class-meta-box.php:131 classes/class-meta-box.php:143
 msgid "Google News"
 msgstr ""
 
-#: classes/class-meta-box.php:205
+#: classes/class-meta-box.php:210
 msgid ""
 "If your news organization breaks a big story, or publishes an extraordinary "
 "work of journalism, you can indicate this by using the standout tag."
 msgstr ""
 
-#: classes/class-meta-box.php:209
+#: classes/class-meta-box.php:214
 msgid ""
 "Note: Google has a limit of %d stand out tags per seven days. Using more "
 "tags can cause removal from Google news. See for more information <a "
@@ -168,71 +168,160 @@ msgid ""
 "Google page</a>."
 msgstr ""
 
-#: classes/class-meta-box.php:221
+#: classes/class-meta-box.php:226
 msgid "You've used %s/%s standout tags in the last 7 days."
 msgstr ""
 
-#: wpseo-news.php:191
+#: classes/class-wpseo-news.php:167
 msgid "Settings"
 msgstr ""
 
-#: wpseo-news.php:230
-msgid "Yoast WordPress SEO:"
-msgstr ""
-
-#: wpseo-news.php:230 wpseo-news.php:231
+#: classes/class-wpseo-news.php:207 classes/class-wpseo-news.php:208
 msgid "News SEO"
 msgstr ""
 
-#: wpseo-news.php:283
+#: classes/class-wpseo-news.php:249
+#. translators: %1$s resolves to the link to search for Yoast SEO, %2$s
+#. resolves to the closing tag for this link, %3%s resolves to Yoast SEO
 msgid ""
-"Please %sinstall &amp; activate WordPress SEO by Yoast%s and then enable "
-"its XML sitemap functionality to allow the WordPress SEO News module to "
-"work."
+"Please %1$sinstall &amp; activate %3$s%2$s and then enable its XML sitemap "
+"functionality to allow the News SEO module to work."
 msgstr ""
 
-#: wpseo-news.php:292
+#: classes/class-wpseo-news.php:262
 msgid ""
 "Please upgrade WordPress to the latest version to allow WordPress and the "
-"WordPress SEO News module to work properly."
+"News SEO module to work properly."
 msgstr ""
 
-#: wpseo-news.php:301
+#: classes/class-wpseo-news.php:274
+#. translators: %1$s resolves to Yoast SEO
 msgid ""
-"Please upgrade the WordPress SEO plugin to the latest version to allow the "
-"WordPress SEO News module to work."
+"Please upgrade the %1$s plugin to the latest version to allow the News SEO "
+"module to work."
 msgstr ""
 
-#: wpseo-news.php:344
+#: classes/class-wpseo-news.php:331
 msgid "None"
 msgstr ""
 
-#: wpseo-news.php:345
+#: classes/class-wpseo-news.php:332
 msgid "Press Release"
 msgstr ""
 
-#: wpseo-news.php:346
+#: classes/class-wpseo-news.php:333
 msgid "Satire"
 msgstr ""
 
-#: wpseo-news.php:347
+#: classes/class-wpseo-news.php:334
 msgid "Blog"
 msgstr ""
 
-#: wpseo-news.php:348
+#: classes/class-wpseo-news.php:335
 msgid "Op-Ed"
 msgstr ""
 
-#: wpseo-news.php:349
+#: classes/class-wpseo-news.php:336
 msgid "Opinion"
 msgstr ""
 
-#: wpseo-news.php:350
+#: classes/class-wpseo-news.php:337
 msgid "User Generated"
 msgstr ""
 
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:89
+msgid ""
+"Please explain what you're trying to find or do. If something isn't "
+"working, please explain what you expect to happen. If you can make a "
+"screenshot, please attach it."
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:91
+msgid "Note: submitting this form also sends us debug info about your server."
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:103
+msgid "What can we help you with?"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:104
+msgid ""
+"Your search timed out. Please double-check your internet connection and try "
+"again."
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:105
+msgid "No results found for"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:106
+msgid "Send a Message"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:107
+msgid "Attach a file"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:108
+msgid "The maximum file size is 10mb"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:109
+msgid "Your Name"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:110
+msgid "Please enter your name"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:111
+msgid "Email address"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:112
+msgid "Please enter a valid email address"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:113
+msgid "Select a topic"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:114
+msgid "Please select a topic from the list"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:115
+msgid "Subject"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:116
+msgid "Please enter a subject"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:117
+msgid "How can we help you?"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:118
+msgid "Please enter a message"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:119
+msgid "Send"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:120
+msgid "Message sent, thank you!"
+msgstr ""
+
+#: vendor/yoast/wp-helpscout/src/class-helpscout-beacon.php:121
+msgid ""
+"Someone from Team Yoast will get back to you soon, normally within a couple "
+"of hours."
+msgstr ""
+
 #. Plugin Name of the plugin/theme
-msgid "WordPress SEO News"
+msgid "Yoast SEO: News"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
@@ -242,7 +331,7 @@ msgid ""
 msgstr ""
 
 #. Description of the plugin/theme
-msgid "Google News plugin for the WordPress SEO plugin"
+msgid "Google News plugin for the Yoast SEO plugin"
 msgstr ""
 
 #. Author of the plugin/theme
