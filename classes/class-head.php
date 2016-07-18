@@ -28,6 +28,7 @@ class WPSEO_News_Head {
 			$this->display_keywords();
 			$this->display_original_source();
 			$this->display_standout();
+			$this->display_noindex_nofollow();
 		}
 	}
 
@@ -94,6 +95,19 @@ class WPSEO_News_Head {
 			if ( 'on' == $meta_standout && strtotime( $this->post->post_date ) >= strtotime( '-7 days' ) ) {
 				echo '<meta name="standout" content="' . get_permalink( $this->post->ID ) . '"/>' . "\n";
 			}
+		}
+	}
+
+	/**
+	 * Shows the meta-tag with noindex when there is decided to exclude the post from Google News.
+	 *
+	 * @see: https://support.google.com/news/publisher/answer/93977?hl=en
+	 */
+	private function display_noindex_nofollow() {
+		$robots_index = WPSEO_Meta::get_value( 'newssitemap-robots-index', $this->post->ID );
+		if ( ! empty( $robots_index ) ) {
+			echo '<meta name="Googlebot-News" content="noindex">';
+			echo "\n";
 		}
 	}
 }
