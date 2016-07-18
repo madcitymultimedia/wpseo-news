@@ -17,7 +17,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		add_filter( 'wpseo_save_metaboxes', array( $this, 'save' ), 10, 1 );
 		add_action( 'add_meta_boxes', array( $this, 'add_tab_hooks' ) );
 
-		if ( $pagenow === 'post.php' || $pagenow === 'post-new.php' ) {
+		if ( $pagenow === 'post.php' || $pagenow === 'post-new.php' || stristr( $_SERVER['REQUEST_URI'], '/news-sitemap.xml' ) ) {
 			add_filter( 'add_extra_wpseo_meta_fields', array( $this, 'add_meta_fields_to_wpseo_meta' ) );
 		}
 	}
