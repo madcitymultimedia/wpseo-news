@@ -88,8 +88,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= "\t\t\t<news:name><![CDATA[Test Blog]]></news:name>\n";
 		$expected_output .= "\t\t\t<news:language>en</news:language>\n";
 		$expected_output .= "\t\t</news:publication>\n";
-		$expected_output .= "\t\t<news:publication_date>" . get_the_date( 'c',
-				$post_id ) . "</news:publication_date>\n";
+		$expected_output .= "\t\t<news:publication_date>" . get_the_date( 'Y-m-d', $post_id ) . "</news:publication_date>\n";
 		$expected_output .= "\t\t<news:title><![CDATA[generate rss]]></news:title>\n";
 		$expected_output .= "\t\t<news:keywords><![CDATA[]]></news:keywords>\n";
 		$expected_output .= "\t</news:news>\n";
