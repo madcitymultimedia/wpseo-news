@@ -99,7 +99,7 @@ class WPSEO_News_Head {
 	}
 
 	/**
-	 * Shows the meta-tag with noindex when there is decided to exclude the post from Google News.
+	 * Shows the meta-tag with noindex when it has been decided to exclude the post from Google News.
 	 *
 	 * @see: https://support.google.com/news/publisher/answer/93977?hl=en
 	 */

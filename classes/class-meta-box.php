@@ -83,7 +83,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 			),
 			'newssitemap-robots-index' => array(
 				'type'          => 'radio',
-				'default_value' => '0', // = index.
+				'default_value' => '0', // = The default value will be 'index'; See the list of options.
 				'std'           => '',
 				'options'       => array(
 					'0' => __( 'index', 'wordpress-seo-news' ),
