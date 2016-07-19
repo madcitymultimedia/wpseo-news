@@ -90,7 +90,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 					'1' => __( 'noindex', 'wordpress-seo-news' ),
 				),
 				'title'         => __( 'Googlebot-News index', 'wordpress-seo-news' ),
-				'description'   => __( 'With noindex you will prevent this article from appearing in Google News.', 'wordpress-seo-news' ),
+				'description'   => __( 'Using noindex allows you to prevent articles from appearing in Google News.', 'wordpress-seo-news' ),
 			),
 		);
 
