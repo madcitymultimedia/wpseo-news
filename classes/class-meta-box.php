@@ -81,6 +81,17 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				'title'       => __( "Editors' Pick", 'wordpress-seo-news' ),
 				'description' => __( "Editors' Picks enables you to provide up to five links to original news content you believe represents your organization’s best journalistic work at any given moment, and potentially have it displayed on the Google News homepage or select section pages.", 'wordpress-seo-news' ),
 			),
+			'newssitemap-robots-index' => array(
+				'type'          => 'radio',
+				'default_value' => '0', // = The default value will be 'index'; See the list of options.
+				'std'           => '',
+				'options'       => array(
+					'0' => __( 'index', 'wordpress-seo-news' ),
+					'1' => __( 'noindex', 'wordpress-seo-news' ),
+				),
+				'title'         => __( 'Googlebot-News index', 'wordpress-seo-news' ),
+				'description'   => __( 'Using noindex allows you to prevent articles from appearing in Google News.', 'wordpress-seo-news' ),
+			),
 		);
 
 		return $mbs;
