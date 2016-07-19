@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 4.3
 Tested up to: 4.5
-Stable tag: 3.3
+Stable tag: 3.4
 Depends: wordpress-seo
 
 
@@ -19,10 +19,25 @@ Installation
 4. Activate the plugin.
 5. Go to SEO -> Extensions -> Licenses, enter your license key and Save.
 6. Your license key will be validated.
-7. You can now use Yoast News SEO. See also https://yoast.com/wordpress/plugins/news-seo/news-seo-configuration-guide/
+7. You can now use Yoast News SEO. See also https://kb.yoast.com/kb/configuration-guide-for-news-seo/
+
+Frequently Asked Questions
+--------------------------
+
+You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/) in our knowledge base.
 
 Changelog
 =========
+
+### 3.4: July 19th, 2016
+
+* Enhancements
+	* Introduced noindex meta tag for the Google News bot.
+
+* Bugfixes
+	* Sitemaps need a real timezone instead of a UTC timezone because daylight saving time is not included in UTC.
+	* Google News Genre global default could not be overridden by page setting.
+	* The news keyword counting, for a maximum of 10 keywords, no longer counts empty keywords 
 
 ### 3.3: June 14th, 2016
 
@@ -30,14 +45,14 @@ Changelog
 	* Adds the Yoast i18n module to the Yoast SEO News settings page, which informs users the plugin isn't available in their language and what they can do about it.
 
 * Bugfixes
-    * Fixes a bug where the support beacon for Yoast SEO News was added to all Yoast SEO settings pages.
-    * Fixes a bug where updates were not working reliably when multiple paid Yoast plugins were active.
+	* Fixes a bug where the support beacon for Yoast SEO News was added to all Yoast SEO settings pages.
+	* Fixes a bug where updates were not working reliably when multiple paid Yoast plugins were active.
 
 ### 3.2: April 20th, 2016
 
 * Bugfixes
-    * Fixes a bug where the news sitemap would be shown in the index even if the sitemap itself was empty.
-    * Fixes a bug where clicking the 'Update now' button on the plugin page didn't update correctly.
+	* Fixes a bug where the news sitemap would be shown in the index even if the sitemap itself was empty.
+	* Fixes a bug where clicking the 'Update now' button on the plugin page didn't update correctly.
 
 ### 3.1: March 2nd, 2016
 
