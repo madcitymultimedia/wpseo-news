@@ -1,6 +1,7 @@
 {
   "name": "wpseo-news",
   "description": "Development files for the Yoast News SEO plugin",
+  "license": "GPL-2.0+",
   "plugin": {
     "glotpress": "https://translate.yoast.com",
     "slug": "news-seo",
