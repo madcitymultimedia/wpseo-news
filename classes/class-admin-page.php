@@ -146,13 +146,19 @@ class WPSEO_News_Admin_Page {
 			return;
 		}
 
-		$notification         = __( 'Your timezone settings should reflect your real timezone, not a UTC offset, please change this.', 'wpseo-news' );
+		$notification_message = sprintf(
+			/* translators: %1$s resolves to the opening tag of the link to the general settings page, %1$s resolves to the closing tag for the link */
+			__( 'Your timezone settings should reflect your real timezone, not a UTC offset, please change this on the %1$sGeneral Settings page%2$s.', 'wordpress-seo' ),
+			'<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">',
+			'</a>'
+		);
+
 		$notification_options = array(
 			'type'         => Yoast_Notification::ERROR,
 			'id'           => 'wpseo-news_timezone_format_empty',
 		);
 
-		$timezone_notification = new Yoast_Notification( $notification, $notification_options );
+		$timezone_notification = new Yoast_Notification( $notification_message, $notification_options );
 
 		$notification_center = Yoast_Notification_Center::get();
 
