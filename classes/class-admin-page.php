@@ -5,7 +5,7 @@ class WPSEO_News_Admin_Page {
 	private $options;
 
 	/**
-	 * Constructor
+	 * Constructor.
 	 */
 	public function __construct() {
 		$this->options = WPSEO_News::get_options();
@@ -19,37 +19,49 @@ class WPSEO_News_Admin_Page {
 	}
 
 	/**
-	 * Display admin page
+	 * Display admin page.
 	 */
 	public function display() {
-		// Admin header
+		// Admin header.
 		WPSEO_News_Wrappers::admin_header( true, 'yoast_wpseo_news_options', 'wpseo_news' );
 
-		// Introducten
-		echo '<p>' . __( 'You will generally only need XML News sitemap when your website is included in Google News.', 'wordpress-seo-news' ) . '</p>';
-		echo '<p>' . sprintf( __( 'You can find your news sitemap here: %1$sXML News sitemap%2$s', 'wordpress-seo-news' ), "<a target='_blank' href='" . WPSEO_News::get_sitemap_name() . "'>", '</a>' ) . '</p>';
+		// Introduction.
+		echo '<p>' . __( 'You will generally only need a News Sitemap when your website is included in Google News.', 'wordpress-seo-news' ) . '</p>';
+		echo '<p>',
+			sprintf(
+				/* translators: %1$s opening tag of the link to the News Sitemap, %2$s closing tag for the link. */
+				__( '%1$sView your News Sitemap%2$s.', 'wordpress-seo-news' ),
+				'<a target="_blank" href="' . WPSEO_News::get_sitemap_name() . '">',
+				'</a>'
+			), '</p>';
 
-		// Google News Publication Name
+		echo '<h2>' . __( 'General settings', 'wordpress-seo-news' ) . '</h2>';
+
+		echo '<fieldset><legend class="screen-reader-text">' . __( 'News Sitemap settings', 'wordpress-seo-news' ) . '</legend>';
+
+		// Google News Publication Name.
 		echo WPSEO_News_Wrappers::textinput( 'name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );
 
-		// Default Genre
+		// Default Genre.
 		echo WPSEO_News_Wrappers::select( 'default_genre', __( 'Default Genre', 'wordpress-seo-news' ),
 			WPSEO_News::list_genres()
 		);
 
-		// Default keywords
+		// Default keywords.
 		$this->default_keywords();
 
-		// Post Types to include in News Sitemap
+		echo '</fieldset>';
+
+		// Post Types to include in News Sitemap.
 		$this->include_post_types();
 
-		// Post categories to exclude
+		// Post categories to exclude.
 		$this->excluded_post_categories( );
 
-		// Editors' Pick
+		// Editors' Picks.
 		$this->editors_pick();
 
-		// Admin footer
+		// Admin footer.
 		WPSEO_News_Wrappers::admin_footer( true, false );
 	}
 
@@ -74,57 +86,78 @@ class WPSEO_News_Admin_Page {
 	}
 
 	/**
-	 * Generate HTML for the keywords which will be defaulted
+	 * Generate HTML for the keywords which will be defaulted.
 	 */
 	private function default_keywords() {
-		// Default keywords
+		// Default keywords.
 		echo WPSEO_News_Wrappers::textinput( 'default_keywords', __( 'Default Keywords', 'wordpress-seo-news' ) );
-		echo '<p>' . __( 'It might be wise to add some of Google\'s suggested keywords to all of your posts, add them as a comma separated list. Find the keywords list here:', 'wordpress-seo-news' ) . ' ' . make_clickable( 'http://www.google.com/support/news_pub/bin/answer.py?answer=116037' ) . '</p>';
+		echo '<p class="desc label">',
+			sprintf(
+				/* translators: %1$s opening tag of the link to the Google suggested keywords page, %2$s closing tag for the link. */
+				__( 'It might be wise to add some of the %1$sGoogle\'s suggested keywords%2$s to all of your posts. Add them as a comma separated list.', 'wordpress-seo-news' ),
+				'<a target="_blank" href="http://www.google.com/support/news_pub/bin/answer.py?answer=116037">',
+				'</a>'
+			), '</p>';
 
-		echo WPSEO_News_Wrappers::checkbox( 'restrict_sitemap_featured_img', __( 'Only use featured image for XML News sitemap, ignore images in post.', 'wordpress-seo-news' ), false );
+		echo WPSEO_News_Wrappers::checkbox( 'restrict_sitemap_featured_img', __( 'Only use the featured image for your News Sitemap, ignore images in post.', 'wordpress-seo-news' ), false );
 		echo '<br>';
 	}
 
 	/**
-	 * Generate HTML for the post types which should be included in the sitemap
+	 * Generate HTML for the post types which should be included in the sitemap.
 	 */
 	private function include_post_types() {
-		// Post Types to include in News Sitemap
-		echo '<h2>' . __( 'Post Types to include in News Sitemap and Editors&#39; Pick RSS', 'wordpress-seo-news' ) . '</h2>';
+		// Post Types to include in News Sitemap.
+		echo '<h2>' . __( 'Post Types to include in News Sitemap and Editors&#39; Picks RSS', 'wordpress-seo-news' ) . '</h2>';
+		echo '<fieldset><legend class="screen-reader-text">' . __( 'Post Types to include:', 'wordpress-seo-news' ) . '</legend>';
 		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
 			echo WPSEO_News_Wrappers::checkbox( 'newssitemap_include_' . $posttype->name, $posttype->labels->name, false );
 		}
-		echo '<br>';
+		echo '</fieldset><br>';
 	}
 
 	/**
-	 * Generate HTML for excluding post categories
+	 * Generate HTML for excluding post categories.
 	 */
 	private function excluded_post_categories() {
 		if ( isset( $this->options['newssitemap_include_post'] ) ) {
 			echo '<h2>' . __( 'Post categories to exclude', 'wordpress-seo-news' ) . '</h2>';
+			echo '<fieldset><legend class="screen-reader-text">' . __( 'Post categories to exclude', 'wordpress-seo-news' ) . '</legend>';
 			foreach ( get_categories() as $cat ) {
 				echo WPSEO_News_Wrappers::checkbox( 'catexclude_' . $cat->slug, $cat->name . ' (' . $cat->count . ' posts)', false );
 			}
-			echo '<br>';
+			echo '</fieldset><br>';
 		}
 	}
 
 	/**
-	 * Part with HTML for editors pick
+	 * Part with HTML for editors picks.
 	 */
 	private function editors_pick() {
-		echo '<h2>' . __( "Editors' Pick", 'wordpress-seo-news' ) . '</h2>';
+		echo '<h2>' . __( "Editors' Picks", 'wordpress-seo-news' ) . '</h2>';
 
 		$esc_form_key = 'ep_image_src';
 
-		echo '<label class="select" for="' . $esc_form_key . '">' . __( "Editors' Pick Image", 'wordpress-seo-news' ) . ':</label>';
+		echo '<label class="select" for="' . $esc_form_key . '">' . __( "Editors' Picks Image", 'wordpress-seo-news' ) . ':</label>';
 		echo '<input id="' . $esc_form_key . '" type="text" size="36" name="wpseo_news[' . $esc_form_key . ']" value="' . esc_attr( $this->options[ $esc_form_key ] ) . '" />';
 		echo '<input id="' . $esc_form_key . '_button" class="wpseo_image_upload_button button" type="button" value="' . __( 'Upload Image', 'wordpress-seo-news' ) . '" />';
 		echo '<br class="clear"/>';
 
-		echo '<p>' . sprintf( __( 'You can find your Editors\' Pick RSS feed here: %1$sEditors\' Pick RSS Feed%2$s', 'wordpress-seo-news' ), "<a target='_blank' href='" . home_url( 'editors-pick.rss' ) . "'>", '</a>' ) . '</p>';
-		echo '<p>' . sprintf( __( 'You can submit your Editors\' Pick RSS feed here: %1$sSubmit Editors\' Pick RSS Feed%2$s', 'wordpress-seo-news' ), "<a href='https://support.google.com/news/publisher/contact/editors_picks' target='_blank'>", '</a>' ) . '</p>';
+		echo '<p>',
+			sprintf(
+				/* translators: %1$s opening tag of the link to the Editors Picks RSS, %2$s closing tag for the link. */
+				__( '%1$sView your Editors\' Picks RSS Feed%2$s.', 'wordpress-seo-news' ),
+				'<a target="_blank" href="' . home_url( 'editors-pick.rss' ) . '">',
+				'</a>'
+			), '</p>';
+
+		echo '<p>',
+			sprintf(
+				/* translators: %1$s opening tag of the link to the Google Editors Picks submit page, %2$s closing tag for the link. */
+				__( '%1$sSubmit your Editors\' Picks RSS Feed to Google News%2$s.', 'wordpress-seo-news' ),
+				'<a href="https://support.google.com/news/publisher/contact/editors_picks" target="_blank">',
+				'</a>'
+			), '</p>';
 	}
 
 	/**
@@ -149,7 +182,7 @@ class WPSEO_News_Admin_Page {
 		}
 
 		$notification_message = sprintf(
-			/* translators: %1$s resolves to the opening tag of the link to the general settings page, %1$s resolves to the closing tag for the link */
+			/* translators: %1$s opening tag of the link to the general settings page, %2$s closing tag for the link. */
 			__( 'Your timezone settings should reflect your real timezone, not a UTC offset, please change this on the %1$sGeneral Settings page%2$s.', 'wordpress-seo' ),
 			'<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">',
 			'</a>'
@@ -176,7 +209,7 @@ class WPSEO_News_Admin_Page {
 class WPSEO_News_Wrappers {
 
 	/**
-	 * Fallback for admin_header
+	 * Fallback for admin_header.
 	 *
 	 * @param bool   $form
 	 * @param string $option_long_name
@@ -197,7 +230,7 @@ class WPSEO_News_Wrappers {
 	}
 
 	/**
-	 * Fallback for admin_footer
+	 * Fallback for admin_footer.
 	 *
 	 * @param bool $submit
 	 * @param bool $show_sidebar
@@ -216,7 +249,7 @@ class WPSEO_News_Wrappers {
 	}
 
 	/**
-	 * Fallback for the textinput method
+	 * Fallback for the textinput method.
 	 *
 	 * @param string $var
 	 * @param string $label
@@ -262,7 +295,7 @@ class WPSEO_News_Wrappers {
 	}
 
 	/**
-	 * Wrapper for checkbox method
+	 * Wrapper for checkbox method.
 	 *
 	 * @param        $var
 	 * @param        $label
@@ -285,7 +318,7 @@ class WPSEO_News_Wrappers {
 	}
 
 	/**
-	 * Returns the wpseo_admin pages global variable
+	 * Returns the wpseo_admin pages global variable.
 	 *
 	 * @return mixed
 	 */

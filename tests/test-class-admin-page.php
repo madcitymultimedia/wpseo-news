@@ -35,7 +35,7 @@ class WPSEO_News_Admin_Page_Test extends WPSEO_News_UnitTestCase {
 
 		// We expect this part in the generated HTML
 		$expected_output = <<<EOT
-<p>You will generally only need XML News sitemap when your website is included in Google News.</p><p>You can find your news sitemap here: <a target='_blank' href='http://example.org/news-sitemap.xml'>XML News sitemap</a></p>
+<p>You will generally only need a News Sitemap when your website is included in Google News.</p><p><a target='_blank' href='http://example.org/news-sitemap.xml'>View your News Sitemap</a></p>
 EOT;
 
 		// Check if the $output contains the $expected_output
