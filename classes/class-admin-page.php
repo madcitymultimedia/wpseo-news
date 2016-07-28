@@ -27,7 +27,7 @@ class WPSEO_News_Admin_Page {
 
 		// Introducten
 		echo '<p>' . __( 'You will generally only need XML News sitemap when your website is included in Google News.', 'wordpress-seo-news' ) . '</p>';
-		echo '<p>' . sprintf( __( 'You can find your news sitemap here: %1$sXML News sitemap%2$s', 'wordpress-seo-news' ), "<a target='_blank' class='button-secondary' href='" . WPSEO_News::get_sitemap_name(). "'>", '</a>' ) . '</p>';
+		echo '<p>' . sprintf( __( 'You can find your news sitemap here: %1$sXML News sitemap%2$s', 'wordpress-seo-news' ), "<a target='_blank' class='button-secondary' href='" . WPSEO_News_Sitemap::get_sitemap_name() . "'>", '</a>' ) . '</p>';
 
 		// Google News Publication Name
 		echo WPSEO_News_Wrappers::textinput( 'name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );
@@ -44,7 +44,7 @@ class WPSEO_News_Admin_Page {
 		$this->include_post_types();
 
 		// Post categories to exclude
-		$this->excluded_post_categories( );
+		$this->excluded_post_categories();
 
 		// Editors' Pick
 		$this->editors_pick();
@@ -253,6 +253,7 @@ class WPSEO_News_Wrappers {
 			}
 
 			Yoast_Form::get_instance()->select( $var, $label, $values );
+
 			return;
 		}
 
@@ -276,6 +277,7 @@ class WPSEO_News_Wrappers {
 			}
 
 			Yoast_Form::get_instance()->checkbox( $var, $label, $label_left );
+
 			return;
 		}
 
