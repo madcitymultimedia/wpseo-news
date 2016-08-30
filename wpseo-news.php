@@ -59,8 +59,8 @@ add_action( 'plugins_loaded', '__wpseo_news_main' );
  * Clear the news sitemap.
  */
 function yoast_wpseo_news_clear_sitemap_cache() {
-	if ( method_exists( 'WPSEO_Utils', 'clear_sitemap_cache' ) ) {
-		WPSEO_Utils::clear_sitemap_cache( array( WPSEO_News::get_sitemap_name() ) );
+	if ( class_exists( 'WPSEO_Sitemaps_Cache' ) && method_exists( 'WPSEO_Sitemaps_Cache', 'clear' ) ) {
+		WPSEO_Sitemaps_Cache::clear( array( WPSEO_News_Sitemap::get_sitemap_name() ) );
 	}
 }
 

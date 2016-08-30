@@ -20,15 +20,11 @@ class WPSEO_News_Sitemap {
 	 * Constructor. Set options, basename and add actions.
 	 */
 	public function __construct() {
-		$this->options = WPSEO_News::get_options();
-		$this->basename = WPSEO_News::get_sitemap_name( false );
+		$this->options  = WPSEO_News::get_options();
 
 		add_action( 'init', array( $this, 'init' ), 10 );
 
 		add_action( 'save_post', array( $this, 'invalidate_sitemap' ) );
-
-		// Setting stylesheet for cached sitemap.
-		add_action( 'wpseo_sitemap_stylesheet_cache_news', array( $this, 'set_stylesheet_cache' ) );
 
 		add_action( 'wpseo_news_schedule_sitemap_clear', 'yoast_wpseo_news_clear_sitemap_cache' );
 	}
@@ -50,10 +46,8 @@ class WPSEO_News_Sitemap {
 
 		$date = new DateTime( get_lastpostdate( 'gmt' ), new DateTimeZone( new WPSEO_News_Sitemap_Timezone() ) );
 
-		$news_sitemap_xml = WPSEO_News::get_sitemap_name();
-
 		$str .= '<sitemap>' . "\n";
-		$str .= '<loc>' . $news_sitemap_xml . '</loc>' . "\n";
+		$str .= '<loc>' . self::get_sitemap_name() . '</loc>' . "\n";
 		$str .= '<lastmod>' . htmlspecialchars( $date->format( 'c' ) ) . '</lastmod>' . "\n";
 		$str .= '</sitemap>' . "\n";
 
@@ -64,6 +58,12 @@ class WPSEO_News_Sitemap {
 	 * Register the XML News sitemap with the main sitemap class.
 	 */
 	public function init() {
+
+		$this->basename = WPSEO_News_Sitemap::get_sitemap_name( false );
+
+		// Setting stylesheet for cached sitemap.
+		add_action( 'wpseo_sitemap_stylesheet_cache_' . $this->basename, array( $this, 'set_stylesheet_cache' ) );
+
 		if ( isset( $GLOBALS['wpseo_sitemaps'] ) ) {
 			add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
 
@@ -71,7 +71,7 @@ class WPSEO_News_Sitemap {
 
 			$GLOBALS['wpseo_sitemaps']->register_sitemap( $this->basename, array( $this, 'build' ) );
 			if ( method_exists( $GLOBALS['wpseo_sitemaps'], 'register_xsl' ) ) {
-				$GLOBALS['wpseo_sitemaps']->register_xsl( $this->basename, array( $this, 'build_news_sitemap_xsl' ) );
+				$GLOBALS['wpseo_sitemaps']->register_xsl( $this->basename, array( $this, 'build_news_sitemap_xsl' ), $this->basename );
 			}
 		}
 	}
@@ -172,7 +172,7 @@ class WPSEO_News_Sitemap {
 	 * @return string
 	 */
 	private function get_stylesheet_line() {
-		$stylesheet_url = "\n" . '<?xml-stylesheet type="text/xsl" href="' . home_url( 'news-sitemap.xsl' ) . '"?>';
+		$stylesheet_url = "\n" . '<?xml-stylesheet type="text/xsl" href="' . home_url( $this->basename . '-sitemap.xsl' ) . '"?>';
 
 		return $stylesheet_url;
 	}
@@ -243,6 +243,48 @@ class WPSEO_News_Sitemap {
 		}
 
 		return $post_types;
+	}
+
+	/**
+	 * Getting the name for the sitemap, if $full_path is true, it will return the full path
+	 *
+	 * @param bool $full_path
+	 *
+	 * @return string mixed
+	 */
+	public static function get_sitemap_name( $full_path = true ) {
+		// This filter is documented in classes/class-sitemap.php.
+		$sitemap_name = apply_filters( 'wpseo_news_sitemap_name', self::news_sitemap_basename() );
+
+		// When $full_path is true, it will generate a full path.
+		if ( $full_path ) {
+			return WPSEO_Sitemaps_Router::get_base_url( $sitemap_name . '-sitemap.xml' );
+		}
+
+		return $sitemap_name;
+	}
+
+	/**
+	 * Returns the basename of the news-sitemap, the first portion of the name of the sitemap "file".
+	 *
+	 * Defaults to news, but it's possible to override it by using the YOAST_VIDEO_SITEMAP_BASENAME constant.
+	 *
+	 * @since 3.1
+	 *
+	 * @return string $basename
+	 */
+	public static function news_sitemap_basename() {
+		$basename = 'news';
+
+		if ( post_type_exists( 'news' ) ) {
+			$basename = 'yoast-news';
+		}
+
+		if ( defined( 'YOAST_NEWS_SITEMAP_BASENAME' ) ) {
+			$basename = YOAST_NEWS_SITEMAP_BASENAME;
+		}
+
+		return $basename;
 	}
 }
 

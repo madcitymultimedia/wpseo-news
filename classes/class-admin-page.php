@@ -31,7 +31,7 @@ class WPSEO_News_Admin_Page {
 			sprintf(
 				/* translators: %1$s opening tag of the link to the News Sitemap, %2$s closing tag for the link. */
 				__( '%1$sView your News Sitemap%2$s.', 'wordpress-seo-news' ),
-				'<a target="_blank" href="' . WPSEO_News::get_sitemap_name() . '">',
+				'<a target="_blank" href="' . WPSEO_News_Sitemap::get_sitemap_name() . '">',
 				'</a>'
 			), '</p>';
 
@@ -56,7 +56,7 @@ class WPSEO_News_Admin_Page {
 		$this->include_post_types();
 
 		// Post categories to exclude.
-		$this->excluded_post_categories( );
+		$this->excluded_post_categories();
 
 		// Editors' Picks.
 		$this->editors_pick();
@@ -288,6 +288,7 @@ class WPSEO_News_Wrappers {
 			}
 
 			Yoast_Form::get_instance()->select( $var, $label, $values );
+
 			return;
 		}
 
@@ -311,6 +312,7 @@ class WPSEO_News_Wrappers {
 			}
 
 			Yoast_Form::get_instance()->checkbox( $var, $label, $label_left );
+
 			return;
 		}
 
