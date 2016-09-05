@@ -148,7 +148,7 @@ class WPSEO_News_Admin_Page {
 
 		$notification_message = sprintf(
 			/* translators: %1$s resolves to the opening tag of the link to the general settings page, %1$s resolves to the closing tag for the link */
-			__( 'Your timezone settings should reflect your real timezone, not a UTC offset, please change this on the %1$sGeneral Settings page%2$s.', 'wordpress-seo' ),
+			__( 'Your timezone settings should reflect your real timezone, not a UTC offset, please change this on the %1$sGeneral Settings page%2$s.', 'wordpress-seo-news' ),
 			'<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">',
 			'</a>'
 		);
