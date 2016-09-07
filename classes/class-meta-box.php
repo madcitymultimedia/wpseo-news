@@ -89,8 +89,8 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				'default_value' => '0', // = The default value will be 'index'; See the list of options.
 				'std'           => '',
 				'options'       => array(
-					'0' => __( 'index', 'wordpress-seo-news' ),
-					'1' => __( 'noindex', 'wordpress-seo-news' ),
+					'0' => 'index',
+					'1' => 'noindex',
 				),
 				'title'         => __( 'Googlebot-News index', 'wordpress-seo-news' ),
 				'description'   => __( 'Using noindex allows you to prevent articles from appearing in Google News.', 'wordpress-seo-news' ),
