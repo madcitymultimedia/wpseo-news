@@ -29,6 +29,11 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 3.5:
+
+* Bugfixes
+    * Fixes a bug where sitemaps would not be generated if a post with the same name existed.
+
 ### 3.4: July 19th, 2016
 
 * Enhancements
