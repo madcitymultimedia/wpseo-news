@@ -3,7 +3,7 @@
 class WPSEO_News_Sitemap_Editors_Pick {
 
 	/**
-	 * Store the editors pick
+	 * Store the editors picks.
 	 *
 	 * @var array
 	 */
@@ -11,14 +11,14 @@ class WPSEO_News_Sitemap_Editors_Pick {
 
 	/**
 	 * Construct the Class-Sitemap-Editors-Pick rss feed generator. We set the WP Seo options and we
-	 * find the editors pick items and store them in the $items var
+	 * find the editors picks items and store them in the $items var
 	 */
 	public function __construct() {
 		$this->prepare_items();
 	}
 
 	/**
-	 * Generate the Editors' Pick URL
+	 * Generate the Editors' Picks URL.
 	 *
 	 * @param boolean $show_headers
 	 */
@@ -101,7 +101,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	}
 
 	/**
-	 * Setting the items for the editors pick
+	 * Setting the items for the editors picks.
 	 *
 	 * @param $ep_query
 	 */

@@ -35,7 +35,7 @@ class WPSEO_News_Editors_Pick_Request {
 	}
 
 	/**
-	 * Add Editors' Pick rewrite rules to WordPress rewrite rules
+	 * Add Editors' Picks rewrite rules to WordPress rewrite rules.
 	 *
 	 * @param $rules
 	 *
@@ -61,7 +61,7 @@ class WPSEO_News_Editors_Pick_Request {
 	}
 
 	/**
-	 * Catch the Editors' Pick request
+	 * Catch the Editors' Picks request.
 	 */
 	public function catch_request() {
 		global $wp_query;

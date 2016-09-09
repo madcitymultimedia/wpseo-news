@@ -35,7 +35,8 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				'name'  => 'newssitemap-exclude',
 				'type'  => 'checkbox',
 				'std'   => 'on',
-				'title' => __( 'Exclude from News Sitemap', 'wordpress-seo-news' ),
+				'title' => __( 'News Sitemap', 'wordpress-seo-news' ),
+				'expl'  => __( 'Exclude from News Sitemap', 'wordpress-seo-news' ),
 			),
 			'newssitemap-keywords'     => array(
 				'name'        => 'newssitemap-keywords',
@@ -72,13 +73,15 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				'std'         => '',
 				'type'        => 'checkbox',
 				'title'       => __( 'Standout', 'wordpress-seo-news' ),
+				'expl'        => __( 'Use the standout tag', 'wordpress-seo-news' ),
 				'description' => $this->standout_description(),
 			),
 			'newssitemap-editors-pick' => array(
 				'name'        => 'newssitemap-editors-pick',
 				'std'         => '',
 				'type'        => 'checkbox',
-				'title'       => __( "Editors' Pick", 'wordpress-seo-news' ),
+				'title'       => __( "Editors' Picks", 'wordpress-seo-news' ),
+				'expl'        => __( "Include in Editors' Picks", 'wordpress-seo-news' ),
 				'description' => __( "Editors' Picks enables you to provide up to five links to original news content you believe represents your organization’s best journalistic work at any given moment, and potentially have it displayed on the Google News homepage or select section pages.", 'wordpress-seo-news' ),
 			),
 			'newssitemap-robots-index' => array(
@@ -222,8 +225,11 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		$standout_desc .= '<br />';
 
 		$standout_desc .= sprintf(
-			__( 'Note: Google has a limit of %d stand out tags per seven days. Using more tags can cause removal from Google news. See for more information <a href="https://support.google.com/news/publisher/answer/191283?hl=en">this Google page</a>.', 'wordpress-seo-news' ),
-			$this->max_standouts
+			/* translators: %1$d: number of standout tags, %2$s resolves to the opening tag of the link to the Google help page, %3$s resolves to the closing tag for the link. */
+			__( 'Note: Google has a limit of %1$d standout tags per seven days. Using more tags can cause removal from Google news. See the %2$sGoogle Help page  tag%3$s.', 'wordpress-seo-news' ),
+			$this->max_standouts,
+			'<a target="_blank" href="https://support.google.com/news/publisher/answer/191283?hl=en">',
+			'</a>'
 		);
 
 		$standout_desc .= '<br />';
@@ -234,7 +240,8 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		}
 		$standout_desc .= '">';
 		$standout_desc .= sprintf(
-			__( "You've used %s/%s standout tags in the last 7 days.", 'wordpress-seo-news' ),
+			/* translators: %1$d number of used standout tags, %2$d number of maximum standout tags allowed. */
+			__( 'You have used %1$d/%2$d standout tags in the last 7 days.', 'wordpress-seo-news' ),
 			$used_standouts,
 			$this->max_standouts
 		);
