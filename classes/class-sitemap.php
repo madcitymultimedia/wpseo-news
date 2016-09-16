@@ -71,7 +71,9 @@ class WPSEO_News_Sitemap {
 
 			$GLOBALS['wpseo_sitemaps']->register_sitemap( $this->basename, array( $this, 'build' ) );
 			if ( method_exists( $GLOBALS['wpseo_sitemaps'], 'register_xsl' ) ) {
-				$GLOBALS['wpseo_sitemaps']->register_xsl( $this->basename, array( $this, 'build_news_sitemap_xsl' ), $this->basename );
+				$xsl_rewrite_rule = sprintf( '^%s-sitemap.xsl$', $this->basename );
+
+				$GLOBALS['wpseo_sitemaps']->register_xsl( $this->basename, array( $this, 'build_news_sitemap_xsl' ), $xsl_rewrite_rule );
 			}
 		}
 	}
