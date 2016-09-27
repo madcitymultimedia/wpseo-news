@@ -32,7 +32,7 @@ Changelog
 ### 3.5.1: September 16th, 2016
 
 * Bugfixes
-	* Fixes an issue where a page or post type with the slug news would be inaccessible.
+	* Fixes a bug where a page or post type with the slug news would be inaccessible.
 
 ### 3.5: September 7th, 2016
 
