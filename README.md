@@ -29,6 +29,11 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 3.6: September 27th, 2016
+
+* Enhancements
+    * [General accessibility improvements](https://github.com/Yoast/wpseo-news/pull/238)
+
 ### 3.5.1: September 16th, 2016
 
 * Bugfixes
