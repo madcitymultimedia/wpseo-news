@@ -2,9 +2,9 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yoast SEO: News 3.4\n"
+"Project-Id-Version: Yoast SEO: News 3.6\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
-"POT-Creation-Date: 2016-09-07 11:40:38+00:00\n"
+"POT-Creation-Date: 2016-10-10 16:19:00+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -26,69 +26,85 @@ msgstr ""
 
 #: classes/class-admin-page.php:29
 msgid ""
-"You will generally only need XML News sitemap when your website is included "
+"You will generally only need a News Sitemap when your website is included "
 "in Google News."
 msgstr ""
 
-#: classes/class-admin-page.php:30
-msgid "You can find your news sitemap here: %1$sXML News sitemap%2$s"
+#: classes/class-admin-page.php:33
+#. translators: %1$s opening tag of the link to the News Sitemap, %2$s closing
+#. tag for the link.
+msgid "%1$sView your News Sitemap%2$s."
 msgstr ""
 
-#: classes/class-admin-page.php:33
+#: classes/class-admin-page.php:38
+msgid "General settings"
+msgstr ""
+
+#: classes/class-admin-page.php:40
+msgid "News Sitemap settings"
+msgstr ""
+
+#: classes/class-admin-page.php:43
 msgid "Google News Publication Name"
 msgstr ""
 
-#: classes/class-admin-page.php:36
+#: classes/class-admin-page.php:46
 msgid "Default Genre"
 msgstr ""
 
-#: classes/class-admin-page.php:81
+#: classes/class-admin-page.php:93
 msgid "Default Keywords"
 msgstr ""
 
-#: classes/class-admin-page.php:82
+#: classes/class-admin-page.php:97
+#. translators: %1$s opening tag of the link to the Google suggested keywords
+#. page, %2$s closing tag for the link.
 msgid ""
-"It might be wise to add some of Google's suggested keywords to all of your "
-"posts, add them as a comma separated list. Find the list here:"
+"It might be wise to add some of the %1$sGoogle's suggested keywords%2$s to "
+"all of your posts. Add them as a comma separated list."
 msgstr ""
 
-#: classes/class-admin-page.php:84
-msgid "Only use featured image for XML News sitemap, ignore images in post."
+#: classes/class-admin-page.php:102
+msgid "Only use the featured image for your News Sitemap, ignore images in post."
 msgstr ""
 
-#: classes/class-admin-page.php:93
-msgid "Post Types to include in News Sitemap and Editors&#39; Pick RSS"
+#: classes/class-admin-page.php:111
+msgid "Post Types to include in News Sitemap and Editors&#39; Picks RSS"
 msgstr ""
 
-#: classes/class-admin-page.php:104
+#: classes/class-admin-page.php:112
+msgid "Post Types to include:"
+msgstr ""
+
+#: classes/class-admin-page.php:124 classes/class-admin-page.php:125
 msgid "Post categories to exclude"
 msgstr ""
 
-#: classes/class-admin-page.php:115 classes/class-meta-box.php:81
-msgid "Editors' Pick"
+#: classes/class-admin-page.php:137 classes/class-meta-box.php:83
+msgid "Editors' Picks"
 msgstr ""
 
-#: classes/class-admin-page.php:119
-msgid "Editors' Pick Image"
+#: classes/class-admin-page.php:141
+msgid "Editors' Picks Image"
 msgstr ""
 
-#: classes/class-admin-page.php:121
+#: classes/class-admin-page.php:143
 msgid "Upload Image"
 msgstr ""
 
-#: classes/class-admin-page.php:124
-msgid ""
-"You can find your Editors' Pick RSS feed here: %1$sEditors' Pick RSS "
-"Feed%2$s"
+#: classes/class-admin-page.php:149
+#. translators: %1$s opening tag of the link to the Editors Picks RSS, %2$s
+#. closing tag for the link.
+msgid "%1$sView your Editors' Picks RSS Feed%2$s."
 msgstr ""
 
-#: classes/class-admin-page.php:125
-msgid ""
-"You can submit your Editors' Pick RSS feed here: %1$sSubmit Editors' Pick "
-"RSS Feed%2$s"
+#: classes/class-admin-page.php:157
+#. translators: %1$s opening tag of the link to the Google Editors Picks submit
+#. page, %2$s closing tag for the link.
+msgid "%1$sSubmit your Editors' Picks RSS Feed to Google News%2$s."
 msgstr ""
 
-#: classes/class-admin-page.php:151
+#: classes/class-admin-page.php:186
 #. translators: %1$s resolves to the opening tag of the link to the general
 #. settings page, %1$s resolves to the closing tag for the link
 msgid ""
@@ -101,43 +117,47 @@ msgid "Choose image."
 msgstr ""
 
 #: classes/class-meta-box.php:38
+msgid "News Sitemap"
+msgstr ""
+
+#: classes/class-meta-box.php:39
 msgid "Exclude from News Sitemap"
 msgstr ""
 
-#: classes/class-meta-box.php:44
+#: classes/class-meta-box.php:45
 msgid "Meta News Keywords"
 msgstr ""
 
-#: classes/class-meta-box.php:45
+#: classes/class-meta-box.php:46
 msgid ""
 "Comma separated list of the keywords this article aims at, use a maximum of "
 "10 keywords."
 msgstr ""
 
-#: classes/class-meta-box.php:51
+#: classes/class-meta-box.php:52
 msgid "Google News Genre"
 msgstr ""
 
-#: classes/class-meta-box.php:52
+#: classes/class-meta-box.php:53
 msgid "Genre to show in Google News Sitemap."
 msgstr ""
 
-#: classes/class-meta-box.php:60
+#: classes/class-meta-box.php:61
 msgid "Original Source"
 msgstr ""
 
-#: classes/class-meta-box.php:61
+#: classes/class-meta-box.php:62
 msgid ""
 "Is this article the original source of this news? If not, please enter the "
 "URL of the original source here. If there are multiple sources, please "
 "separate them by a pipe symbol: | ."
 msgstr ""
 
-#: classes/class-meta-box.php:67
+#: classes/class-meta-box.php:68
 msgid "Stock Tickers"
 msgstr ""
 
-#: classes/class-meta-box.php:68
+#: classes/class-meta-box.php:69
 msgid ""
 "A comma-separated list of up to 5 stock tickers of the companies, mutual "
 "funds, or other financial entities that are the main subject of the "
@@ -146,11 +166,19 @@ msgid ""
 "(but not \"NASD:AMAT\"), or \"BOM:500325\" (but not \"BOM:RIL\")."
 msgstr ""
 
-#: classes/class-meta-box.php:74
+#: classes/class-meta-box.php:75
 msgid "Standout"
 msgstr ""
 
-#: classes/class-meta-box.php:82
+#: classes/class-meta-box.php:76
+msgid "Use the standout tag"
+msgstr ""
+
+#: classes/class-meta-box.php:84
+msgid "Include in Editors' Picks"
+msgstr ""
+
+#: classes/class-meta-box.php:85
 msgid ""
 "Editors' Picks enables you to provide up to five links to original news "
 "content you believe represents your organization’s best journalistic work "
@@ -158,34 +186,38 @@ msgid ""
 "homepage or select section pages."
 msgstr ""
 
-#: classes/class-meta-box.php:92
+#: classes/class-meta-box.php:95
 msgid "Googlebot-News index"
 msgstr ""
 
-#: classes/class-meta-box.php:93
+#: classes/class-meta-box.php:96
 msgid "Using noindex allows you to prevent articles from appearing in Google News."
 msgstr ""
 
-#: classes/class-meta-box.php:142 classes/class-meta-box.php:154
+#: classes/class-meta-box.php:145 classes/class-meta-box.php:157
 msgid "Google News"
 msgstr ""
 
-#: classes/class-meta-box.php:221
+#: classes/class-meta-box.php:224
 msgid ""
 "If your news organization breaks a big story, or publishes an extraordinary "
 "work of journalism, you can indicate this by using the standout tag."
 msgstr ""
 
-#: classes/class-meta-box.php:225
+#: classes/class-meta-box.php:229
+#. translators: %1$d: number of standout tags, %2$s resolves to the opening tag
+#. of the link to the Google help page, %3$s resolves to the closing tag for
+#. the link.
 msgid ""
-"Note: Google has a limit of %d stand out tags per seven days. Using more "
-"tags can cause removal from Google news. See for more information <a "
-"href=\"https://support.google.com/news/publisher/answer/191283?hl=en\">this "
-"Google page</a>."
+"Note: Google has a limit of %1$d standout tags per seven days. Using more "
+"tags can cause removal from Google news. See the %2$sGoogle Help page  "
+"tag%3$s."
 msgstr ""
 
-#: classes/class-meta-box.php:237
-msgid "You've used %s/%s standout tags in the last 7 days."
+#: classes/class-meta-box.php:244
+#. translators: %1$d number of used standout tags, %2$d number of maximum
+#. standout tags allowed.
+msgid "You have used %1$d/%2$d standout tags in the last 7 days."
 msgstr ""
 
 #: classes/class-wpseo-news.php:167
