@@ -2,7 +2,7 @@
 
 class WPSEO_News {
 
-	const VERSION = '3.6';
+	const VERSION = '3.7.0';
 
 	/**
 	 * Get WPSEO News options
