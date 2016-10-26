@@ -27,13 +27,12 @@ class WPSEO_News_Admin_Page {
 
 		// Introduction.
 		echo '<p>' . __( 'You will generally only need a News Sitemap when your website is included in Google News.', 'wordpress-seo-news' ) . '</p>';
-		echo '<p>',
-			sprintf(
+		echo '<p>' . sprintf(
 				/* translators: %1$s opening tag of the link to the News Sitemap, %2$s closing tag for the link. */
 				__( '%1$sView your News Sitemap%2$s.', 'wordpress-seo-news' ),
 				'<a target="_blank" href="' . WPSEO_News_Sitemap::get_sitemap_name() . '">',
 				'</a>'
-			), '</p>';
+			) . '</p>';
 
 		echo '<h2>' . __( 'General settings', 'wordpress-seo-news' ) . '</h2>';
 
