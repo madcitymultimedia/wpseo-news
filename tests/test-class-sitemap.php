@@ -85,7 +85,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= "\t<loc>" . get_permalink( $post_id ) . "</loc>\n";
 		$expected_output .= "\t<news:news>\n";
 		$expected_output .= "\t\t<news:publication>\n";
-		$expected_output .= "\t\t\t<news:name><![CDATA[Test Blog]]></news:name>\n";
+		$expected_output .= "\t\t\t<news:name>Test Blog</news:name>\n";
 		$expected_output .= "\t\t\t<news:language>en</news:language>\n";
 		$expected_output .= "\t\t</news:publication>\n";
 		$expected_output .= "\t\t<news:publication_date>" . get_the_date( 'Y-m-d', $post_id ) . "</news:publication_date>\n";
