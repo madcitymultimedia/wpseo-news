@@ -28,11 +28,11 @@ class WPSEO_News_Admin_Page {
 		// Introduction.
 		echo '<p>' . __( 'You will generally only need a News Sitemap when your website is included in Google News.', 'wordpress-seo-news' ) . '</p>';
 		echo '<p>' . sprintf(
-				/* translators: %1$s opening tag of the link to the News Sitemap, %2$s closing tag for the link. */
-				__( '%1$sView your News Sitemap%2$s.', 'wordpress-seo-news' ),
-				'<a target="_blank" href="' . WPSEO_News_Sitemap::get_sitemap_name() . '">',
-				'</a>'
-			) . '</p>';
+			/* translators: %1$s opening tag of the link to the News Sitemap, %2$s closing tag for the link. */
+			__( '%1$sView your News Sitemap%2$s.', 'wordpress-seo-news' ),
+			'<a target="_blank" href="' . WPSEO_News_Sitemap::get_sitemap_name() . '">',
+			'</a>'
+		) . '</p>';
 
 		echo '<h2>' . __( 'General settings', 'wordpress-seo-news' ) . '</h2>';
 
@@ -90,13 +90,12 @@ class WPSEO_News_Admin_Page {
 	private function default_keywords() {
 		// Default keywords.
 		echo WPSEO_News_Wrappers::textinput( 'default_keywords', __( 'Default Keywords', 'wordpress-seo-news' ) );
-		echo '<p class="desc label">',
-			sprintf(
-				/* translators: %1$s opening tag of the link to the Google suggested keywords page, %2$s closing tag for the link. */
-				__( 'It might be wise to add some of the %1$sGoogle\'s suggested keywords%2$s to all of your posts. Add them as a comma separated list.', 'wordpress-seo-news' ),
-				'<a target="_blank" href="http://www.google.com/support/news_pub/bin/answer.py?answer=116037">',
-				'</a>'
-			), '</p>';
+		echo '<p class="desc label">' . sprintf(
+			/* translators: %1$s opening tag of the link to the Google suggested keywords page, %2$s closing tag for the link. */
+			__( 'It might be wise to add some of the %1$sGoogle\'s suggested keywords%2$s to all of your posts. Add them as a comma separated list.', 'wordpress-seo-news' ),
+			'<a target="_blank" href="http://www.google.com/support/news_pub/bin/answer.py?answer=116037">',
+			'</a>'
+		) . '</p>';
 
 		echo WPSEO_News_Wrappers::checkbox( 'restrict_sitemap_featured_img', __( 'Only use the featured image for your News Sitemap, ignore images in post.', 'wordpress-seo-news' ), false );
 		echo '<br>';
@@ -142,21 +141,19 @@ class WPSEO_News_Admin_Page {
 		echo '<input id="' . $esc_form_key . '_button" class="wpseo_image_upload_button button" type="button" value="' . __( 'Upload Image', 'wordpress-seo-news' ) . '" />';
 		echo '<br class="clear"/>';
 
-		echo '<p>',
-			sprintf(
-				/* translators: %1$s opening tag of the link to the Editors Picks RSS, %2$s closing tag for the link. */
-				__( '%1$sView your Editors\' Picks RSS Feed%2$s.', 'wordpress-seo-news' ),
-				'<a target="_blank" href="' . home_url( 'editors-pick.rss' ) . '">',
-				'</a>'
-			), '</p>';
+		echo '<p>' . sprintf(
+			/* translators: %1$s opening tag of the link to the Editors Picks RSS, %2$s closing tag for the link. */
+			__( '%1$sView your Editors\' Picks RSS Feed%2$s.', 'wordpress-seo-news' ),
+			'<a target="_blank" href="' . home_url( 'editors-pick.rss' ) . '">',
+			'</a>'
+		) . '</p>';
 
-		echo '<p>',
-			sprintf(
-				/* translators: %1$s opening tag of the link to the Google Editors Picks submit page, %2$s closing tag for the link. */
-				__( '%1$sSubmit your Editors\' Picks RSS Feed to Google News%2$s.', 'wordpress-seo-news' ),
-				'<a href="https://support.google.com/news/publisher/contact/editors_picks" target="_blank">',
-				'</a>'
-			), '</p>';
+		echo '<p>' . sprintf(
+			/* translators: %1$s opening tag of the link to the Google Editors Picks submit page, %2$s closing tag for the link. */
+			__( '%1$sSubmit your Editors\' Picks RSS Feed to Google News%2$s.', 'wordpress-seo-news' ),
+			'<a href="https://support.google.com/news/publisher/contact/editors_picks" target="_blank">',
+			'</a>'
+		) . '</p>';
 	}
 
 	/**
