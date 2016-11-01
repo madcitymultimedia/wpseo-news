@@ -108,7 +108,10 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 * @return array
 	 */
 	public function save( $meta_boxes ) {
-		$meta_boxes = array_merge( $meta_boxes, $this->get_meta_boxes() );
+		// When action is inline-save there is nothing to save for seo news.
+		if ( filter_input( INPUT_POST, 'action' ) !== 'inline-save' ) {
+			$meta_boxes = array_merge( $meta_boxes, $this->get_meta_boxes() );
+		}
 
 		return $meta_boxes;
 	}
