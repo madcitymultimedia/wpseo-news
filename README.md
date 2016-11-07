@@ -29,9 +29,17 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 3.8:
+
+* Bugfixes
+    * Fixes a bug where the editor's pick would be unset when quick editing. 
+    * Fixes a bug where Google News would report an unexpected publication name in sitemaps.
+
+ * Updates translations.
+
 ### 3.7: October 11th, 2016
 
-* Updates translations
+* Updates translations.
 
 ### 3.6: September 27th, 2016
 
