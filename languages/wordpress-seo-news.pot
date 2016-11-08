@@ -2,9 +2,9 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yoast SEO: News 3.6\n"
+"Project-Id-Version: Yoast SEO: News 3.7.0\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
-"POT-Creation-Date: 2016-10-11 12:22:22+00:00\n"
+"POT-Creation-Date: 2016-11-08 14:11:34+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,33 +30,33 @@ msgid ""
 "in Google News."
 msgstr ""
 
-#: classes/class-admin-page.php:33
+#: classes/class-admin-page.php:32
 #. translators: %1$s opening tag of the link to the News Sitemap, %2$s closing
 #. tag for the link.
 msgid "%1$sView your News Sitemap%2$s."
 msgstr ""
 
-#: classes/class-admin-page.php:38
+#: classes/class-admin-page.php:37
 msgid "General settings"
 msgstr ""
 
-#: classes/class-admin-page.php:40
+#: classes/class-admin-page.php:39
 msgid "News Sitemap settings"
 msgstr ""
 
-#: classes/class-admin-page.php:43
+#: classes/class-admin-page.php:42
 msgid "Google News Publication Name"
 msgstr ""
 
-#: classes/class-admin-page.php:46
+#: classes/class-admin-page.php:45
 msgid "Default Genre"
 msgstr ""
 
-#: classes/class-admin-page.php:93
+#: classes/class-admin-page.php:92
 msgid "Default Keywords"
 msgstr ""
 
-#: classes/class-admin-page.php:97
+#: classes/class-admin-page.php:95
 #. translators: %1$s opening tag of the link to the Google suggested keywords
 #. page, %2$s closing tag for the link.
 msgid ""
@@ -64,47 +64,47 @@ msgid ""
 "all of your posts. Add them as a comma separated list."
 msgstr ""
 
-#: classes/class-admin-page.php:102
+#: classes/class-admin-page.php:100
 msgid "Only use the featured image for your News Sitemap, ignore images in post."
 msgstr ""
 
-#: classes/class-admin-page.php:111
+#: classes/class-admin-page.php:109
 msgid "Post Types to include in News Sitemap and Editors&#39; Picks RSS"
 msgstr ""
 
-#: classes/class-admin-page.php:112
+#: classes/class-admin-page.php:110
 msgid "Post Types to include:"
 msgstr ""
 
-#: classes/class-admin-page.php:124 classes/class-admin-page.php:125
+#: classes/class-admin-page.php:122 classes/class-admin-page.php:123
 msgid "Post categories to exclude"
 msgstr ""
 
-#: classes/class-admin-page.php:137 classes/class-meta-box.php:83
+#: classes/class-admin-page.php:135 classes/class-meta-box.php:83
 msgid "Editors' Picks"
 msgstr ""
 
-#: classes/class-admin-page.php:141
+#: classes/class-admin-page.php:139
 msgid "Editors' Picks Image"
 msgstr ""
 
-#: classes/class-admin-page.php:143
+#: classes/class-admin-page.php:141
 msgid "Upload Image"
 msgstr ""
 
-#: classes/class-admin-page.php:149
+#: classes/class-admin-page.php:146
 #. translators: %1$s opening tag of the link to the Editors Picks RSS, %2$s
 #. closing tag for the link.
 msgid "%1$sView your Editors' Picks RSS Feed%2$s."
 msgstr ""
 
-#: classes/class-admin-page.php:157
+#: classes/class-admin-page.php:153
 #. translators: %1$s opening tag of the link to the Google Editors Picks submit
 #. page, %2$s closing tag for the link.
 msgid "%1$sSubmit your Editors' Picks RSS Feed to Google News%2$s."
 msgstr ""
 
-#: classes/class-admin-page.php:186
+#: classes/class-admin-page.php:182
 #. translators: %1$s resolves to the opening tag of the link to the general
 #. settings page, %1$s resolves to the closing tag for the link
 msgid ""
