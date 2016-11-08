@@ -29,7 +29,7 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
-### 3.8:
+### 3.8: November 8th, 2016
 
 * Bugfixes
     * Fixes a bug where the editor's pick would be unset when quick editing. 
