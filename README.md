@@ -29,6 +29,13 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 3.9: November 29th, 2016
+
+* Bugfixes
+    * Fixes a bug where the editor's pick checkbox was reset after inline editing a post.
+
+* Updates translations.
+
 ### 3.8: November 8th, 2016
 
 * Bugfixes
