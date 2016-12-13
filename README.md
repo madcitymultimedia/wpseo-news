@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 4.3
 Tested up to: 4.7
-Stable tag: 3.9
+Stable tag: 4.0
 Depends: wordpress-seo
 
 
