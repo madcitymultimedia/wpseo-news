@@ -204,8 +204,8 @@ class WPSEO_News {
 
 		$submenu_pages[] = array(
 			'wpseo_dashboard',
-			'Yoast SEO: ' . __( 'News SEO', 'wordpress-seo-news' ),
-			__( 'News SEO', 'wordpress-seo-news' ),
+			'Yoast SEO: News SEO',
+			'News SEO',
 			'manage_options',
 			'wpseo_news',
 			array( $admin_page, 'display' ),
@@ -245,11 +245,12 @@ class WPSEO_News {
 	public function error_missing_wpseo() {
 		echo '<div class="error"><p>',
 			sprintf(
-				/* translators: %1$s resolves to the link to search for Yoast SEO, %2$s resolves to the closing tag for this link, %3%s resolves to Yoast SEO */
-				__( 'Please %1$sinstall &amp; activate %3$s%2$s and then enable its XML sitemap functionality to allow the News SEO module to work.', 'wordpress-seo-news' ),
+				/* translators: %1$s resolves to the link to search for Yoast SEO, %2$s resolves to the closing tag for this link, %3$s resolves to Yoast SEO, %4$s resolves to News SEO */
+				__( 'Please %1$sinstall &amp; activate %3$s%2$s and then enable its XML sitemap functionality to allow the %4$s module to work.', 'wordpress-seo-news' ),
 				'<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=yoast+seo&plugin-search-input=Search+Plugins' ) ) . '">',
 				'</a>',
-				'Yoast SEO'
+				'Yoast SEO',
+				'News SEO'
 			), '</p></div>';
 	}
 
@@ -259,7 +260,12 @@ class WPSEO_News {
 	 * @since 2.0.0
 	 */
 	public function error_upgrade_wp() {
-		echo '<div class="error"><p>' . __( 'Please upgrade WordPress to the latest version to allow WordPress and the News SEO module to work properly.', 'wordpress-seo-news' ) . '</p></div>';
+		echo '<div class="error"><p>',
+		     sprintf(
+		        /* translators: %1$s resolves to News SEO */
+		     	__( 'Please upgrade WordPress to the latest version to allow WordPress and the %1$s module to work properly.', 'wordpress-seo-news' ),
+		     'News SEO'
+		     ), '</p></div>';
 	}
 
 	/**
@@ -270,9 +276,10 @@ class WPSEO_News {
 	public function error_upgrade_wpseo() {
 		echo '<div class="error"><p>',
 			sprintf(
-				/* translators: %1$s resolves to Yoast SEO */
-				__( 'Please upgrade the %1$s plugin to the latest version to allow the News SEO module to work.', 'wordpress-seo-news' ),
-				'Yoast SEO'
+				/* translators: %1$s resolves to Yoast SEO, %2$s resolves to News SEO */
+				__( 'Please upgrade the %1$s plugin to the latest version to allow the %2$s module to work.', 'wordpress-seo-news' ),
+				'Yoast SEO',
+				'News SEO'
 			), '</p></div>';
 	}
 
