@@ -265,7 +265,7 @@ class WPSEO_News {
 		        /* translators: %1$s resolves to News SEO */
 		        __( 'Please upgrade WordPress to the latest version to allow WordPress and the %1$s module to work properly.', 'wordpress-seo-news' ),
 				'News SEO'
-		     ), '</p></div>';
+			), '</p></div>';
 	}
 
 	/**
