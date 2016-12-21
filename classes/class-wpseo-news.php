@@ -262,8 +262,8 @@ class WPSEO_News {
 	public function error_upgrade_wp() {
 		echo '<div class="error"><p>',
 			sprintf(
-		        /* translators: %1$s resolves to News SEO */
-		        __( 'Please upgrade WordPress to the latest version to allow WordPress and the %1$s module to work properly.', 'wordpress-seo-news' ),
+				/* translators: %1$s resolves to News SEO */
+				__( 'Please upgrade WordPress to the latest version to allow WordPress and the %1$s module to work properly.', 'wordpress-seo-news' ),
 				'News SEO'
 			), '</p></div>';
 	}
