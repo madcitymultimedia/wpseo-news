@@ -29,6 +29,7 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 
 	/**
 	 * @covers WPSEO_News_Sitemap_Editors_Pick::generate_rss
+	 * @expectedDeprecated wpseo_invalidate_sitemap_cache
 	 */
 	public function test_generate_rss() {
 		// The date in XML format
