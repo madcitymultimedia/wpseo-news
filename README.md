@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 4.3
 Tested up to: 4.7
-Stable tag: 4.0
+Stable tag: 4.1
 Depends: wordpress-seo
 
 
@@ -29,7 +29,7 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
-### 4.1: January, 2017
+### 4.1: January 17th, 2017
 
 * Bugfixes
     * Fixes W3C validation error on <link attribute 'original-source'.
