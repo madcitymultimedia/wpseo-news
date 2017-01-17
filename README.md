@@ -29,6 +29,12 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 4.1: January, 2017
+
+* Bugfixes
+    * Fixes W3C validation error on <link attribute 'original-source'.
+    * Fixed broken link in news sitemap.
+
 ### 4.0: December 13th, 2016
 
 * Compatibility with Yoast SEO 4.0
