@@ -19,4 +19,8 @@
 			<directory prefix="test-" suffix=".php">./tests/</directory>
 		</testsuite>
 	</testsuites>
+
+	<whitelist>
+		<directory>./classes</directory>
+	</whitelist>
 </phpunit>
