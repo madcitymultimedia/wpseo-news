@@ -102,7 +102,7 @@ class WPSEO_News_Sitemap {
 	 * @return object
 	 */
 	public function set_stylesheet_cache( $target_object ) {
-		$target_object->set_stylesheet( $this->get_stylesheet_line() );
+		$target_object->renderer->set_stylesheet( $this->get_stylesheet_line() );
 
 		return $target_object;
 	}
@@ -112,7 +112,7 @@ class WPSEO_News_Sitemap {
 	 */
 	public function build() {
 		$GLOBALS['wpseo_sitemaps']->set_sitemap( $this->build_sitemap() );
-		$GLOBALS['wpseo_sitemaps']->set_stylesheet( $this->get_stylesheet_line() );
+		$GLOBALS['wpseo_sitemaps']->renderer->set_stylesheet( $this->get_stylesheet_line() );
 	}
 
 	/**
