@@ -103,9 +103,8 @@ class WPSEO_News {
 		}
 
 		// Setting action for removing the transient on update options
-		if ( method_exists( 'WPSEO_Utils', 'register_cache_clear_option' ) ) {
-
-			WPSEO_Utils::register_cache_clear_option( 'wpseo_news', WPSEO_News_Sitemap::get_sitemap_name( false ) );
+		if ( class_exists( 'WPSEO_Sitemaps_Cache' ) && method_exists( 'WPSEO_Sitemaps_Cache', 'register_clear_on_option_update' ) ) {
+			WPSEO_Sitemaps_Cache::register_clear_on_option_update( 'wpseo_news', WPSEO_News_Sitemap::get_sitemap_name( false ) );
 		}
 	}
 
