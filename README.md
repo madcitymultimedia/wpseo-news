@@ -29,6 +29,11 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 4.2: January 31st, 2017
+
+* Bugfixes
+	* Fixes a bug where a deprecated function was being called, resulting in a warning.
+
 ### 4.1: January 17th, 2017
 
 * Bugfixes
