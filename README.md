@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 4.3
 Tested up to: 4.7
-Stable tag: 4.2
+Stable tag: 4.2.1
 Depends: wordpress-seo
 
 
@@ -28,6 +28,11 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+
+### 4.2.1: February 3rd, 2017
+
+* Bugfixes
+	* Fixes "Fatal error: Class 'yoast_i18n' not found". 
 
 ### 4.2: January 31st, 2017
 
