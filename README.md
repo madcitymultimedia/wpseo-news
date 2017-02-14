@@ -29,8 +29,9 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
-### 4.3: February , 2017
-    * Compatibility with Yoast SEO 4.3.
+### 4.3: February 14th, 2017
+
+* Compatibility with Yoast SEO 4.3.
 
 ### 4.2.1: February 3rd, 2017
 
