@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 4.3
 Tested up to: 4.7
-Stable tag: 4.2.1
+Stable tag: 4.3
 Depends: wordpress-seo
 
 
@@ -31,7 +31,8 @@ Changelog
 
 ### 4.3: February 14th, 2017
 
-* Compatibility with Yoast SEO 4.3.
+* Enhancements
+	* Only invalidate sitemap cache when an object in a Post Type that is marked as News is updated.
 
 ### 4.2.1: February 3rd, 2017
 
