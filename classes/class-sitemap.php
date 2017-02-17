@@ -88,7 +88,7 @@ class WPSEO_News_Sitemap {
 		if ( wp_is_post_revision( $post_id ) ) {
 			return;
 		}
-		
+
 		// Only invalidate when we are in a News Post Type object.
 		if ( ! in_array( get_post_type( $post_id ), WPSEO_News::get_included_post_types() ) ) {
 			return;
