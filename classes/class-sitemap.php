@@ -94,7 +94,7 @@ class WPSEO_News_Sitemap {
 			return;
 		}
 
-        WPSEO_Sitemaps_Cache::invalidate( $this->basename );
+		WPSEO_Sitemaps_Cache::invalidate( $this->basename );
 	}
 
 	/**
