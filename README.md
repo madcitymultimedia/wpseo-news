@@ -29,6 +29,9 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 4.8: May 23rd, 2017
+* Compatibility with Yoast SEO 4.8
+
 ### 4.7: May 2nd, 2017
 * Fixes a bug where there were a deprecated function was being called, resulting in a warning.
 
