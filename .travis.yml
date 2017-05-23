@@ -3,6 +3,7 @@ language: php
 sudo: false
 
 matrix:
+  fast_finish: true
   include:
     - php: 7.0
       env: WP_VERSION=master WP_MULTISITE=1 PHPLINT=1 PHPCS=1
@@ -45,6 +46,7 @@ before_script:
 - git clone --depth=50 --branch="trunk" https://github.com/Yoast/wordpress-seo.git $WP_DEVELOP_DIR/src/wp-content/plugins/wordpress-seo
 - cd /tmp/wordpress/src/wp-content/plugins/wordpress-seo
 - phpenv local 5.6
+- if [[ ${TRAVIS_PHP_VERSION:0:1} == "7" || $TRAVIS_PHP_VERSION == "nightly" ]]; then composer require --dev phpunit/phpunit ^5.7; fi
 - composer selfupdate 1.0.0 --no-interaction
 - composer install --no-interaction
 - phpenv local --unset
