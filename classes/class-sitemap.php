@@ -329,17 +329,22 @@ class WPSEO_News_Sitemap_Timezone {
 		}
 
 		// Adjust UTC offset from hours to seconds.
-		$utc_offset *= 3600;
+		$utc_offset *= HOUR_IN_SECONDS;
 
 		// @todo $timezone not being used when not false? JM
 		// Attempt to guess the timezone string from the UTC offset.
 		$timezone = timezone_name_from_abbr( '', $utc_offset );
 
-		// Last try, guess timezone string manually.
-		if ( false === $timezone ) {
+		if ( false !== $timezone ) {
+			return $timezone;
+		}
 
-			if ( $timezone_id = $this->get_timezone_id( $utc_offset ) ) {
-				return $timezone_id;
+		// Last try, guess timezone string manually.
+		foreach ( timezone_abbreviations_list() as $abbr ) {
+			foreach ( $abbr as $city ) {
+				if ( $city['offset'] == $utc_offset ) {
+					return $city['timezone_id'];
+				}
 			}
 		}
 
