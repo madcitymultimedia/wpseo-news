@@ -610,8 +610,9 @@ class WPSEO_News_Sitemap_Item {
 		static $timezone_option;
 
 		if ( $timezone_option === null ) {
-			// When there isn't a timezone set
-			$timezone_option = get_option( 'timezone_string' );
+
+			// Get the timezone string.
+			$timezone_option = new WPSEO_News_Sitemap_Timezone();
 		}
 
 		// Is there a timezone option and does it exists in the list of 'valid' timezone.
