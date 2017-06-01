@@ -88,6 +88,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 			array(
 				'post_type'   => WPSEO_News::get_included_post_types(),
 				'post_status' => 'publish',
+				'ignore_sticky_posts' => 1,
 				'meta_query'  => array(
 					array(
 						'key'   => '_yoast_wpseo_newssitemap-editors-pick',
