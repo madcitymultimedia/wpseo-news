@@ -29,6 +29,10 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 4.9: June 7th, 2017
+* Fixes a bug where sticky posts show up in the editors' pick RSS feed when it was not marked for editors' pick.
+* Fixes a bug where the date format was invalid in the editors' pick RSS feed.
+
 ### 4.8: May 23rd, 2017
 * Compatibility with Yoast SEO 4.8
 
