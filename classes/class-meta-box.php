@@ -74,7 +74,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				'type'        => 'checkbox',
 				'title'       => __( 'Standout', 'wordpress-seo-news' ),
 				'expl'        => __( 'Use the standout tag', 'wordpress-seo-news' ),
-				'description' => $this->standout_description(),
+				'description' => '', // This value is rendered when metabox will be displayed.
 			),
 			'newssitemap-editors-pick' => array(
 				'name'        => 'newssitemap-editors-pick',
@@ -154,7 +154,11 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	public function content() {
 		// Build tab content
 		$content = '';
-		foreach ( $this->get_meta_boxes() as $meta_key => $meta_box ) {
+
+		$metaboxes = $this->get_meta_boxes();
+		$metaboxes['newssitemap-standout']['description'] = $this->standout_description();
+
+		foreach ( $metaboxes as $meta_key => $meta_box ) {
 			$content .= $this->do_meta_box( $meta_box, $meta_key );
 		}
 		$this->do_tab( 'news', __( 'Google News', 'wordpress-seo-news' ), $content );
