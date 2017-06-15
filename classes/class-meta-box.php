@@ -154,14 +154,29 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	public function content() {
 		// Build tab content
 		$content = '';
+		
+		foreach ( $this->get_meta_boxes() as $meta_key => $meta_box ) {
+			$meta_box = $this->before_do_meta_box( $meta_key, $meta_box );
 
-		$metaboxes = $this->get_meta_boxes();
-		$metaboxes['newssitemap-standout']['description'] = $this->standout_description();
-
-		foreach ( $metaboxes as $meta_key => $meta_box ) {
 			$content .= $this->do_meta_box( $meta_box, $meta_key );
 		}
 		$this->do_tab( 'news', __( 'Google News', 'wordpress-seo-news' ), $content );
+	}
+
+	/**
+	 * Alters the metabox values if needed.
+	 *
+	 * @param string      $meta_key The key of the metabox field.
+	 * @param array|mixed $meta_box The values for the metabox.
+	 *
+	 * @return mixed The altered value.
+	 */
+	protected function before_do_meta_box( $meta_key, $meta_box ) {
+		if ( $meta_key === 'newssitemap-standout' ) {
+			$meta_box['description'] = $this->standout_description();
+		}
+
+		return $meta_box;
 	}
 
 	/**
