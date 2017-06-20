@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Yoast SEO: News 4.9\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
-"POT-Creation-Date: 2017-06-07 12:55:57+00:00\n"
+"POT-Creation-Date: 2017-06-20 09:56:17+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -194,17 +194,17 @@ msgstr ""
 msgid "Using noindex allows you to prevent articles from appearing in Google News."
 msgstr ""
 
-#: classes/class-meta-box.php:148 classes/class-meta-box.php:160
+#: classes/class-meta-box.php:148 classes/class-meta-box.php:163
 msgid "Google News"
 msgstr ""
 
-#: classes/class-meta-box.php:227
+#: classes/class-meta-box.php:246
 msgid ""
 "If your news organization breaks a big story, or publishes an extraordinary "
 "work of journalism, you can indicate this by using the standout tag."
 msgstr ""
 
-#: classes/class-meta-box.php:232
+#: classes/class-meta-box.php:251
 #. translators: %1$d: number of standout tags, %2$s resolves to the opening tag
 #. of the link to the Google help page, %3$s resolves to the closing tag for
 #. the link.
@@ -213,7 +213,7 @@ msgid ""
 "can cause removal from Google news. See the %2$sGoogle Help page  tag%3$s."
 msgstr ""
 
-#: classes/class-meta-box.php:247
+#: classes/class-meta-box.php:266
 #. translators: %1$d number of used standout tags, %2$d number of maximum
 #. standout tags allowed.
 msgid "You have used %1$d/%2$d standout tags in the last 7 days."
