@@ -29,6 +29,12 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 5.0: June 27th, 2017
+* Adds post type name (attachment) after the label to clarify the post type.
+* Fixes a fatal error when Piklist and Yoast News SEO are both active.
+* Fixes a fatal error when Liveblog and Yoast News SEO are both active.
+* Fixes a warning in the News sitemap when bbPress and Yoast News SEO are both active.
+
 ### 4.9: June 7th, 2017
 * Fixes a bug where sticky posts show up in the editors' pick RSS feed when it was not marked for editors' pick.
 * Fixes a bug where the date format was invalid in the editors' pick RSS feed.
