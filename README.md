@@ -29,7 +29,7 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
-### 5.0: July 4th, 2017
+### 5.0: July 6th, 2017
 * Adds post type name (attachment) after the label to clarify the post type.
 * Fixes a fatal error when Piklist and Yoast News SEO are both active.
 * Fixes a fatal error when Liveblog and Yoast News SEO are both active.
