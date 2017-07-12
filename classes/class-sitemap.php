@@ -343,7 +343,7 @@ class WPSEO_News_Sitemap_Timezone {
 		if ( $timezone_id ) {
 			return $timezone_id;
 		}
-		
+
 		// Fallback to UTC.
 		return 'UTC';
 	}
