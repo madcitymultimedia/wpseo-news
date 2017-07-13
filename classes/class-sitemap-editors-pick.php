@@ -88,6 +88,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 			array(
 				'post_type'   => WPSEO_News::get_included_post_types(),
 				'post_status' => 'publish',
+				'ignore_sticky_posts' => 1,
 				'meta_query'  => array(
 					array(
 						'key'   => '_yoast_wpseo_newssitemap-editors-pick',
@@ -122,7 +123,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 			'link'         => get_permalink(),
 			'description'  => get_the_excerpt(),
 			'creator'      => get_the_author_meta( 'display_name' ),
-			'published_on' => get_the_date( DATE_RFC822 ),
+			'published_on' => date('D, d M Y H:i:s O', get_the_date('U' ) ),
 		);
 	}
 

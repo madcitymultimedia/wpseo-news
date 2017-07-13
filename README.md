@@ -1,8 +1,8 @@
 Yoast News SEO for Yoast SEO
 ==========================
-Requires at least: 4.3
-Tested up to: 4.7
-Stable tag: 4.7
+Requires at least: 4.5
+Tested up to: 4.8
+Stable tag: 5.0
 Depends: wordpress-seo
 
 
@@ -28,6 +28,19 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+
+### 5.0: July 6th, 2017
+* Adds post type name (attachment) after the label to clarify the post type.
+* Fixes a fatal error when Piklist and Yoast News SEO are both active.
+* Fixes a fatal error when Liveblog and Yoast News SEO are both active.
+* Fixes a warning in the News sitemap when bbPress and Yoast News SEO are both active.
+
+### 4.9: June 7th, 2017
+* Fixes a bug where sticky posts show up in the editors' pick RSS feed when it was not marked for editors' pick.
+* Fixes a bug where the date format was invalid in the editors' pick RSS feed.
+
+### 4.8: May 23rd, 2017
+* Compatibility with Yoast SEO 4.8
 
 ### 4.7: May 2nd, 2017
 * Fixes a bug where there were a deprecated function was being called, resulting in a warning.

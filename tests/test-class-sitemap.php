@@ -420,7 +420,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	/**
 	 * Check that the sitemap uses the default name of news when no news post type is present
 	 *
-	 * @covers WPSEO_News::news_sitemap_basename
+	 * @covers WPSEO_News_Sitemap::news_sitemap_basename
 	 */
 	public function test_sitemap_default_name() {
 		$this->assertEquals( 'news', WPSEO_News_Sitemap::news_sitemap_basename() );
@@ -429,7 +429,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	/**
 	 * Check that the sitemap name uses the fallback name for the sitemap when a post type of News exists
 	 *
-	 * @covers WPSEO_News::news_sitemap_basename
+	 * @covers WPSEO_News_Sitemap::news_sitemap_basename
 	 */
 	public function test_sitemap_name_on_post_type() {
 		register_post_type( 'news' );
@@ -440,7 +440,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	/**
 	 * Check that the sitemap name uses the YOAST_NEWS_SITEMAP_BASENAME constant value
 	 *
-	 * @covers WPSEO_News::news_sitemap_basename
+	 * @covers WPSEO_News_Sitemap::news_sitemap_basename
 	 */
 	public function test_sitemap_name_on_constant() {
 		define( 'YOAST_NEWS_SITEMAP_BASENAME', 'unit-test-news' );

@@ -109,7 +109,7 @@ class WPSEO_News_Admin_Page {
 		echo '<h2>' . __( 'Post Types to include in News Sitemap and Editors&#39; Picks RSS', 'wordpress-seo-news' ) . '</h2>';
 		echo '<fieldset><legend class="screen-reader-text">' . __( 'Post Types to include:', 'wordpress-seo-news' ) . '</legend>';
 		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
-			echo WPSEO_News_Wrappers::checkbox( 'newssitemap_include_' . $posttype->name, $posttype->labels->name, false );
+			echo WPSEO_News_Wrappers::checkbox( 'newssitemap_include_' . $posttype->name, $posttype->labels->name . ' (<code>' . $posttype->name . '</code>)', false );
 		}
 		echo '</fieldset><br>';
 	}
