@@ -2,30 +2,31 @@ language: php
 
 sudo: false
 
+branches:
+  only:
+    - master
+    - trunk
+
 matrix:
+  fast_finish: true
   include:
     - php: 7.0
-      env: WP_VERSION=master WP_MULTISITE=1 PHPLINT=1 PHPCS=1
+      env: WP_VERSION=4.8 WP_MULTISITE=1 PHPLINT=1 PHPCS=1
     - php: 5.2
-      env: WP_VERSION=4.5 WP_MULTISITE=1 PHPLINT=1
-    - php: 7.0
-      env: WP_VERSION=4.5
-    - php: 7.0
-      env: WP_VERSION=4.4
-    - php: 7.0
-      env: WP_VERSION=4.3
-    - php: 7.0
-      env: WP_VERSION=4.2
-    - php: 5.6
-      env: WP_VERSION=4.5
-    - php: 5.5
-      env: WP_VERSION=4.5
-    - php: 5.4
-      env: WP_VERSION=4.5
+      env: WP_VERSION=4.8 WP_MULTISITE=1 PHPLINT=1
     - php: 5.3
-      env: WP_VERSION=4.5
-    - php: hhvm
-      env: WP_VERSION=4.5
+      env: WP_VERSION=4.6
+    - php: 5.6
+      env: WP_VERSION=4.6
+    - php: 7.1
+      env: WP_VERSION=4.8
+    - php: 5.2
+      env: WP_VERSION=master
+    - php: nightly
+      env: WP_VERSION=master
+  allow_failures:
+    # Allow failures for unstable builds.
+    - php: nightly
 
 cache:
   directories:
