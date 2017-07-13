@@ -118,13 +118,13 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	 * Add a single item to $this->items
 	 */
 	private function set_item() {
-		$this->items[] = array(
+		$this->items[] = array( 
 			'title'        => get_the_title(),
 			'link'         => get_permalink(),
 			'description'  => get_the_excerpt(),
 			'creator'      => get_the_author_meta( 'display_name' ),
 			'published_on' => date('D, d M Y H:i:s O', get_the_date('U' ) ),
-		);
+		 );
 	}
 
 	/**
