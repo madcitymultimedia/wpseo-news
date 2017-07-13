@@ -123,7 +123,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 			'description'  => get_the_excerpt(),
 			'creator'      => get_the_author_meta( 'display_name' ),
 			'published_on' => get_the_date( DATE_RFC822 ),
-		 );
+		);
 	}
 
 	/**
