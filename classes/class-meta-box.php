@@ -154,7 +154,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	public function content() {
 		// Build tab content
 		$content = '';
-		
+
 		foreach ( $this->get_meta_boxes() as $meta_key => $meta_box ) {
 			$meta_box = $this->before_do_meta_box( $meta_key, $meta_box );
 
