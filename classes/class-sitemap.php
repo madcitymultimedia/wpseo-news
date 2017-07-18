@@ -329,18 +329,19 @@ class WPSEO_News_Sitemap_Timezone {
 		}
 
 		// Adjust UTC offset from hours to seconds.
-		$utc_offset *= 3600;
+		$utc_offset *= HOUR_IN_SECONDS;
 
-		// @todo $timezone not being used when not false? JM
 		// Attempt to guess the timezone string from the UTC offset.
 		$timezone = timezone_name_from_abbr( '', $utc_offset );
 
-		// Last try, guess timezone string manually.
-		if ( false === $timezone ) {
+		if ( false !== $timezone ) {
+			return $timezone;
+		}
 
-			if ( $timezone_id = $this->get_timezone_id( $utc_offset ) ) {
-				return $timezone_id;
-			}
+		// Last try, guess timezone string manually.
+		$timezone_id = $this->get_timezone_id( $utc_offset );
+		if ( $timezone_id ) {
+			return $timezone_id;
 		}
 
 		// Fallback to UTC.
@@ -365,6 +366,8 @@ class WPSEO_News_Sitemap_Timezone {
 				}
 			}
 		}
+
+		return false;
 	}
 }
 
@@ -610,8 +613,9 @@ class WPSEO_News_Sitemap_Item {
 		static $timezone_option;
 
 		if ( $timezone_option === null ) {
-			// When there isn't a timezone set
-			$timezone_option = get_option( 'timezone_string' );
+
+			// Get the timezone string.
+			$timezone_option = new WPSEO_News_Sitemap_Timezone();
 		}
 
 		// Is there a timezone option and does it exists in the list of 'valid' timezone.
