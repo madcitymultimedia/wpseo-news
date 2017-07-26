@@ -345,21 +345,6 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Getting the name for the sitemap, if $full_path is true, it will return the full path
-	 *
-	 * @deprecated 5.2
-	 *
-	 * @param bool $full_path
-	 *
-	 * @return string mixed
-	 */
-	public static function get_sitemap_name( $full_path = true ) {
-		_deprecated_function( 'WPSEO_News::get_sitemap_name', '5.2', 'WPSEO_News_Sitemap::get_sitemap_name' );
-
-		return WPSEO_News_Sitemap::get_sitemap_name( $full_path );
-	}
-
-	/**
 	 * Get the newest License Manager available
 	 *
 	 * @return Yoast_Plugin_License_Manager
@@ -374,5 +359,20 @@ class WPSEO_News {
 		$license_manager->setup_hooks();
 
 		return $license_manager;
+	}
+
+	/**
+	 * Getting the name for the sitemap, if $full_path is true, it will return the full path
+	 *
+	 * @deprecated 5.2
+	 *
+	 * @param bool $full_path
+	 *
+	 * @return string mixed
+	 */
+	public static function get_sitemap_name( $full_path = true ) {
+		_deprecated_function( 'WPSEO_News::get_sitemap_name', '5.2', 'WPSEO_News_Sitemap::get_sitemap_name' );
+
+		return WPSEO_News_Sitemap::get_sitemap_name( $full_path );
 	}
 }
