@@ -347,20 +347,16 @@ class WPSEO_News {
 	/**
 	 * Getting the name for the sitemap, if $full_path is true, it will return the full path
 	 *
+	 * @deprecated 5.2
+	 *
 	 * @param bool $full_path
 	 *
 	 * @return string mixed
 	 */
 	public static function get_sitemap_name( $full_path = true ) {
-		// This filter is documented in classes/class-sitemap.php
-		$sitemap_name = apply_filters( 'wpseo_news_sitemap_name', 'news' );
+		_deprecated_function( 'WPSEO_News::get_sitemap_name', '5.2', 'WPSEO_News_Sitemap::get_sitemap_name' );
 
-		// When $full_path is true, it will generate a full path
-		if ( $full_path ) {
-			return wpseo_xml_sitemaps_base_url( $sitemap_name . '-sitemap.xml' );
-		}
-
-		return $sitemap_name;
+		return WPSEO_News_Sitemap::get_sitemap_name( $full_path );
 	}
 
 	/**
