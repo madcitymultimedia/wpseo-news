@@ -1,4 +1,7 @@
 <?php
+/**
+ * @package WPSEO_News
+ */
 
 if ( ! class_exists( 'WPSEO_News_Product', false ) && class_exists( 'Yoast_Product' ) ) {
 
@@ -7,6 +10,9 @@ if ( ! class_exists( 'WPSEO_News_Product', false ) && class_exists( 'Yoast_Produ
 	 */
 	class WPSEO_News_Product extends Yoast_Product {
 
+		/**
+		 * Constructor for the product.
+		 */
 		public function __construct() {
 			$file = plugin_basename( WPSEO_NEWS_FILE );
 			$slug = dirname( $file );

@@ -1,5 +1,11 @@
 <?php
+/**
+ * @package WPSEO_News
+ */
 
+/**
+ * Represents the frontend head.
+ */
 class WPSEO_News_Head {
 
 	/**
@@ -34,7 +40,6 @@ class WPSEO_News_Head {
 
 	/**
 	 * Displays the keywords on the head as a meta-tag
-	 *
 	 */
 	private function display_keywords() {
 		/**
@@ -55,7 +60,6 @@ class WPSEO_News_Head {
 
 	/**
 	 * Displays the original-source as link-tag in head
-	 *
 	 */
 	private function display_original_source() {
 		/**
@@ -69,7 +73,8 @@ class WPSEO_News_Head {
 			$original_source = trim( WPSEO_Meta::get_value( 'newssitemap-original', $this->post->ID ) );
 			if ( empty( $original_source ) ) {
 				echo '<meta name="original-source" content="' . get_permalink( $this->post->ID ) . '" />' . "\n";
-			} else {
+			}
+			else {
 				$sources = explode( '|', $original_source );
 				foreach ( $sources as $source ) {
 					echo '<meta name="original-source" content="' . $source . '" />' . "\n";
@@ -80,7 +85,6 @@ class WPSEO_News_Head {
 
 	/**
 	 * Displays the standout as meta tag in head
-	 *
 	 */
 	private function display_standout() {
 		/**
@@ -88,7 +92,7 @@ class WPSEO_News_Head {
 		 *
 		 * @api string $meta_standout The standout tag
 		 *
-		 * @param object $post The post
+		 * @param object $post The post.
 		 */
 		if ( apply_filters( 'wpseo_news_head_display_standout', true, $this->post ) ) {
 			$meta_standout = WPSEO_Meta::get_value( 'newssitemap-standout', $this->post->ID );

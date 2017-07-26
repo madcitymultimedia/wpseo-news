@@ -9,6 +9,8 @@
 class WPSEO_News_Beacon_Setting implements Yoast_HelpScout_Beacon_Setting {
 	/**
 	 * {@inheritdoc}
+	 *
+	 * @param string $page The current page.
 	 */
 	public function get_suggestions( $page ) {
 		switch ( $page ) {

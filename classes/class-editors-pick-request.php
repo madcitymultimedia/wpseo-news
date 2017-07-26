@@ -1,5 +1,11 @@
 <?php
+/**
+ * @package WPSEO_News
+ */
 
+/**
+ * Represents the editors pick.
+ */
 class WPSEO_News_Editors_Pick_Request {
 
 	const REWRITE_RULE = '^editors-pick.rss$';
@@ -24,7 +30,7 @@ class WPSEO_News_Editors_Pick_Request {
 	/**
 	 * Add custom query variables to WordPress query variables
 	 *
-	 * @param $vars
+	 * @param array $vars The current query vars.
 	 *
 	 * @return array query_vars
 	 */
@@ -37,7 +43,7 @@ class WPSEO_News_Editors_Pick_Request {
 	/**
 	 * Add Editors' Picks rewrite rules to WordPress rewrite rules.
 	 *
-	 * @param $rules
+	 * @param array $rules The rules to exted.
 	 *
 	 * @return array rules
 	 */
@@ -45,7 +51,7 @@ class WPSEO_News_Editors_Pick_Request {
 		$newrules                       = array();
 		$newrules[ self::REWRITE_RULE ] = 'index.php?wpseo-news-editors-pick=all';
 
-		return $newrules + $rules;
+		return ( $newrules + $rules );
 	}
 
 	/**
@@ -69,7 +75,7 @@ class WPSEO_News_Editors_Pick_Request {
 		if ( $wp_query->get( 'wpseo-news-editors-pick' ) ) {
 
 			$editors_pick = new WPSEO_News_Sitemap_Editors_Pick();
-			echo $editors_pick->generate_rss();
+			$editors_pick->generate_rss();
 
 			exit;
 

@@ -1,7 +1,14 @@
 <?php
+/**
+ * @package WPSEO_News
+ */
 
+/**
+ * Represents the Yoast SEO: News metabox.
+ */
 class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
+	/** @var array */
 	private $options;
 
 	/**
@@ -9,6 +16,9 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 */
 	private $max_standouts = 7;
 
+	/**
+	 * WPSEO_News_Meta_Box constructor.
+	 */
 	public function __construct() {
 		global $pagenow;
 
@@ -25,7 +35,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	/**
 	 * The metaboxes to display and save for the tab
 	 *
-	 * @param string $post_type
+	 * @param string $post_type The post type to get metaboxes for.
 	 *
 	 * @return array $mbs
 	 */
@@ -103,7 +113,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	/**
 	 * Add the meta boxes to meta box array so they get saved
 	 *
-	 * @param $meta_boxes
+	 * @param array $meta_boxes The metaboxes to save.
 	 *
 	 * @return array
 	 */
@@ -116,11 +126,10 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		return $meta_boxes;
 	}
 
-
 	/**
 	 * Add WordPress SEO meta fields to WPSEO meta class
 	 *
-	 * @param $meta_fields
+	 * @param array $meta_fields The meta fields to extend.
 	 *
 	 * @return mixed
 	 */
@@ -213,7 +222,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 * @return mixed
 	 */
 	private function standouts_used() {
-		// Count standout tags
+		// Count standout tags.
 		$standout_query = new WP_Query(
 			array(
 				'post_type'   => 'any',
@@ -242,7 +251,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
 		$used_standouts = $this->standouts_used();
 
-		// Default standout description
+		// Default standout description.
 		$standout_desc = __( 'If your news organization breaks a big story, or publishes an extraordinary work of journalism, you can indicate this by using the standout tag.', 'wordpress-seo-news' );
 		$standout_desc .= '<br />';
 
@@ -276,7 +285,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	/**
 	 * Returns post in metabox context - fallback for Yoast SEO < 3.0 and News SEO > 2.2.5
 	 *
-	 * @returns WP_Post
+	 * @returns WP_Post|array
 	 */
 	protected function get_metabox_post() {
 		if ( is_callable( 'parent:get_metabox_post' ) ) {
