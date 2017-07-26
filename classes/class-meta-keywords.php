@@ -9,21 +9,21 @@
 class WPSEO_News_Meta_Keywords {
 
 	/**
-	 * The holder for the keywords
+	 * The holder for the keywords.
 	 *
 	 * @var array
 	 */
 	public $keywords = array();
 
 	/**
-	 * The holder for current item_id
+	 * The holder for current item_id.
 	 *
 	 * @var integer
 	 */
 	private $item_id;
 
 	/**
-	 * Getting the keywords for given $item_id
+	 * Getting the keywords for given $item_id.
 	 *
 	 * @param integer $item_id The item id.
 	 *
@@ -47,7 +47,7 @@ class WPSEO_News_Meta_Keywords {
 	}
 
 	/**
-	 * Because of the result of this object will be printed as a string, we need a method that converts the object to a string
+	 * Because of the result of this object will be printed as a string, we need a method that converts the object to a string.
 	 *
 	 * @return string
 	 */
@@ -56,14 +56,14 @@ class WPSEO_News_Meta_Keywords {
 	}
 
 	/**
-	 * Getting the keywords for current item
+	 * Getting the keywords for current item.
 	 */
 	private function item_keywords() {
 		$this->add_keywords( WPSEO_Meta::get_value( 'newssitemap-keywords', $this->item_id ) );
 	}
 
 	/**
-	 * Getting the terms for this->item_id
+	 * Getting the terms for this->item_id.
 	 *
 	 * Each term will be added to this->keywords
 	 */
@@ -77,7 +77,7 @@ class WPSEO_News_Meta_Keywords {
 	}
 
 	/**
-	 * If there are default keywords, use these also in keyword string
+	 * If there are default keywords, use these also in keyword string.
 	 */
 	private function get_default_keywords() {
 		$options = WPSEO_News::get_options();
@@ -89,10 +89,8 @@ class WPSEO_News_Meta_Keywords {
 	}
 
 	/**
-	 * Adding the keywords to this->keywords
+	 * Adding the keywords to this->keywords. If $keywords is not an array, explode the comma.
 	 *
-	 * If $keywords is not an array explode the comma
-
 	 * @param array|string $keywords List with the keywords to add.
 	 */
 	private function add_keywords( $keywords ) {
@@ -104,7 +102,7 @@ class WPSEO_News_Meta_Keywords {
 	}
 
 	/**
-	 * Adding a singe keyword to this->keywords
+	 * Adding a singe keyword to this->keywords.
 	 *
 	 * @param string $keyword The keyword to add.
 	 */
@@ -113,7 +111,7 @@ class WPSEO_News_Meta_Keywords {
 	}
 
 	/**
-	 * Sanitize this->keywords, first make the array unique and then sanitize each keyword of it
+	 * Sanitize this->keywords, first make the array unique and then sanitize each keyword of it.
 	 */
 	private function sanitize_keywords() {
 		// Sanitize each keyword.
@@ -137,7 +135,7 @@ class WPSEO_News_Meta_Keywords {
 	}
 
 	/**
-	 * Convert this->keywords to a string
+	 * Convert this->keywords to a string.
 	 *
 	 * @return string
 	 */

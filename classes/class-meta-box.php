@@ -33,7 +33,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	}
 
 	/**
-	 * The metaboxes to display and save for the tab
+	 * The metaboxes to display and save for the tab.
 	 *
 	 * @param string $post_type The post type to get metaboxes for.
 	 *
@@ -111,7 +111,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	}
 
 	/**
-	 * Add the meta boxes to meta box array so they get saved
+	 * Add the meta boxes to meta box array so they get saved.
 	 *
 	 * @param array $meta_boxes The metaboxes to save.
 	 *
@@ -127,7 +127,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	}
 
 	/**
-	 * Add WordPress SEO meta fields to WPSEO meta class
+	 * Add WordPress SEO meta fields to WPSEO meta class.
 	 *
 	 * @param array $meta_fields The meta fields to extend.
 	 *
@@ -141,7 +141,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	}
 
 	/**
-	 * Only add the tab header and content actions when the post is supported
+	 * Only add the tab header and content actions when the post is supported.
 	 */
 	public function add_tab_hooks() {
 		if ( $this->is_post_type_supported() ) {
@@ -151,14 +151,14 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	}
 
 	/**
-	 * The tab header
+	 * The tab header.
 	 */
 	public function header() {
 		echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . __( 'Google News', 'wordpress-seo-news' ) . '</a></li>';
 	}
 
 	/**
-	 * The tab content
+	 * The tab content.
 	 */
 	public function content() {
 		// Build tab content.
@@ -189,7 +189,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	}
 
 	/**
-	 * Check if current post_type is supported
+	 * Check if current post_type is supported.
 	 *
 	 * @return bool
 	 */
@@ -217,7 +217,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	}
 
 	/**
-	 * Count the total number of used standouts
+	 * Count the total number of used standouts.
 	 *
 	 * @return mixed
 	 */
@@ -243,7 +243,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	}
 
 	/**
-	 * Generates the standout description
+	 * Generates the standout description.
 	 *
 	 * @return string
 	 */
