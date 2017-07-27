@@ -1,18 +1,24 @@
 <?php
+/**
+ * @package WPSEO_News
+ */
 
+/**
+ * Represents the editors pick.
+ */
 class WPSEO_News_Editors_Pick_Request {
 
 	const REWRITE_RULE = '^editors-pick.rss$';
 
 	/**
-	 * Setup this class
+	 * Setup this class.
 	 */
 	public function __construct() {
 		$this->setup();
 	}
 
 	/**
-	 * Setup the Rewrite Rule Hooks
+	 * Setup the Rewrite Rule Hooks.
 	 */
 	private function setup() {
 		add_filter( 'rewrite_rules_array', array( $this, 'add_rewrite_rule' ) );
@@ -22,9 +28,9 @@ class WPSEO_News_Editors_Pick_Request {
 	}
 
 	/**
-	 * Add custom query variables to WordPress query variables
+	 * Add custom query variables to WordPress query variables.
 	 *
-	 * @param $vars
+	 * @param array $vars The current query vars.
 	 *
 	 * @return array query_vars
 	 */
@@ -37,7 +43,7 @@ class WPSEO_News_Editors_Pick_Request {
 	/**
 	 * Add Editors' Picks rewrite rules to WordPress rewrite rules.
 	 *
-	 * @param $rules
+	 * @param array $rules The rules to extend.
 	 *
 	 * @return array rules
 	 */
@@ -45,11 +51,11 @@ class WPSEO_News_Editors_Pick_Request {
 		$newrules                       = array();
 		$newrules[ self::REWRITE_RULE ] = 'index.php?wpseo-news-editors-pick=all';
 
-		return $newrules + $rules;
+		return ( $newrules + $rules );
 	}
 
 	/**
-	 * Flush rules if they're not set yet
+	 * Flush rules if they're not set yet.
 	 */
 	public function flush_rules() {
 		$rules = get_option( 'rewrite_rules' );
@@ -69,7 +75,7 @@ class WPSEO_News_Editors_Pick_Request {
 		if ( $wp_query->get( 'wpseo-news-editors-pick' ) ) {
 
 			$editors_pick = new WPSEO_News_Sitemap_Editors_Pick();
-			echo $editors_pick->generate_rss();
+			$editors_pick->generate_rss();
 
 			exit;
 
