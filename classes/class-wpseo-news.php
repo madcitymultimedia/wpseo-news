@@ -11,15 +11,15 @@ class WPSEO_News {
 	const VERSION = '5.1';
 
 	/**
-	 * Get WPSEO News options
+	 * Get WPSEO News options.
 	 *
 	 * @return array
 	 */
 	public static function get_options() {
 		/**
-		 * Filter: 'wpseo_news_options' - Allow modifying of Yoast News SEO options
+		 * Filter: 'wpseo_news_options' - Allow modifying of Yoast News SEO options.
 		 *
-		 * @api array $wpseo_news_options The Yoast News SEO options
+		 * @api array $wpseo_news_options The Yoast News SEO options.
 		 */
 		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array(
 			'name'             => '',
@@ -31,9 +31,9 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Get plugin file
+	 * Get plugin file.
 	 *
-	 * @deprecated since 3.1. Use WPSEO_NEWS_FILE instead
+	 * @deprecated since 3.1. Use WPSEO_NEWS_FILE instead.
 	 *
 	 * @return string
 	 */
@@ -72,7 +72,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Loading the hooks, which will be lead to methods withing this class
+	 * Loading the hooks, which will be lead to methods withing this class.
 	 */
 	private function set_hooks() {
 		// Add plugin links.
@@ -91,7 +91,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Initialize the admin page
+	 * Initialize the admin page.
 	 */
 	private function init_admin() {
 		// Edit Post JS.
@@ -118,7 +118,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Check the dependencies
+	 * Check the dependencies.
 	 */
 	private function check_dependencies() {
 		global $wp_version;
@@ -144,7 +144,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Check whether we can include the minified version or not
+	 * Check whether we can include the minified version or not.
 	 *
 	 * @param string $ext The file extension.
 	 *
@@ -159,7 +159,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Add plugin links
+	 * Add plugin links.
 	 *
 	 * @param array  $links The plugin links.
 	 * @param string $file  The file name.
@@ -180,14 +180,14 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Register the premium settings
+	 * Register the premium settings.
 	 */
 	public function register_settings() {
 		register_setting( 'yoast_wpseo_news_options', 'wpseo_news', array( $this, 'sanitize_options' ) );
 	}
 
 	/**
-	 * Sanitize options
+	 * Sanitize options.
 	 *
 	 * @param array $options The options to sanitize.
 	 *
@@ -200,7 +200,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Add submenu item
+	 * Add submenu item.
 	 *
 	 * @param array $submenu_pages Array with the sub menu pages.
 	 *
@@ -225,7 +225,7 @@ class WPSEO_News {
 
 
 	/**
-	 * Enqueue admin page JS
+	 * Enqueue admin page JS.
 	 */
 	public function enqueue_admin_page() {
 
@@ -239,7 +239,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Enqueue edit post JS
+	 * Enqueue edit post JS.
 	 */
 	public function enqueue_edit_post() {
 		wp_enqueue_script( 'wpseo-news-edit-post', plugins_url( 'assets/post-edit' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ), array( 'jquery' ), self::VERSION, true );
@@ -292,7 +292,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Initializes the helpscout beacon
+	 * Initializes the helpscout beacon.
 	 */
 	public function init_helpscout_beacon() {
 		$query_var = ( $page = filter_input( INPUT_GET, 'page' ) ) ? $page : '';
@@ -337,7 +337,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Listing the genres
+	 * Listing the genres.
 	 *
 	 * @return array
 	 */
@@ -354,7 +354,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Getting the name for the sitemap, if $full_path is true, it will return the full path
+	 * Getting the name for the sitemap, if $full_path is true, it will return the full path.
 	 *
 	 * @param bool $full_path Generate a full path.
 	 *
@@ -373,7 +373,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Get the newest License Manager available
+	 * Get the newest License Manager available.
 	 *
 	 * @return Yoast_Plugin_License_Manager
 	 */

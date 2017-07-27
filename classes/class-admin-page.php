@@ -168,7 +168,7 @@ class WPSEO_News_Admin_Page {
 	 *
 	 * @param string $page The page to check.
 	 *
-	 * @return bool
+	 * @return bool True when currently on a new page.
 	 */
 	protected function is_news_page( $page ) {
 		$news_pages = array( 'wpseo_news' );

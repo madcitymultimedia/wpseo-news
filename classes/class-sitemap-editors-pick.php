@@ -63,7 +63,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	}
 
 	/**
-	 * Prepare RSS feed data
+	 * Prepare RSS feed data.
 	 */
 	private function prepare_items() {
 		$this->items = array();
@@ -85,7 +85,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	}
 
 	/**
-	 * Create a wp_query object and return this
+	 * Create a wp_query object and return this.
 	 *
 	 * @return WP_Query
 	 */
@@ -121,7 +121,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	}
 
 	/**
-	 * Add a single item to $this->items
+	 * Add a single item to $this->items.
 	 */
 	private function set_item() {
 		$this->items[] = array(
@@ -134,7 +134,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	}
 
 	/**
-	 * Loop through the item to show each item
+	 * Loop through the item to show each item.
 	 */
 	private function show_items() {
 		// Display the items.
@@ -146,7 +146,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	}
 
 	/**
-	 * Showing item as XML
+	 * Showing item as XML.
 	 *
 	 * @param array $item The item to render.
 	 */
@@ -162,7 +162,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	}
 
 	/**
-	 * Showing image as XML
+	 * Showing image as XML.
 	 *
 	 * @param string $image_src The image source.
 	 */

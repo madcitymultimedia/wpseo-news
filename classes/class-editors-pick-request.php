@@ -11,14 +11,14 @@ class WPSEO_News_Editors_Pick_Request {
 	const REWRITE_RULE = '^editors-pick.rss$';
 
 	/**
-	 * Setup this class
+	 * Setup this class.
 	 */
 	public function __construct() {
 		$this->setup();
 	}
 
 	/**
-	 * Setup the Rewrite Rule Hooks
+	 * Setup the Rewrite Rule Hooks.
 	 */
 	private function setup() {
 		add_filter( 'rewrite_rules_array', array( $this, 'add_rewrite_rule' ) );
@@ -28,7 +28,7 @@ class WPSEO_News_Editors_Pick_Request {
 	}
 
 	/**
-	 * Add custom query variables to WordPress query variables
+	 * Add custom query variables to WordPress query variables.
 	 *
 	 * @param array $vars The current query vars.
 	 *
@@ -43,7 +43,7 @@ class WPSEO_News_Editors_Pick_Request {
 	/**
 	 * Add Editors' Picks rewrite rules to WordPress rewrite rules.
 	 *
-	 * @param array $rules The rules to exted.
+	 * @param array $rules The rules to extend.
 	 *
 	 * @return array rules
 	 */
@@ -55,7 +55,7 @@ class WPSEO_News_Editors_Pick_Request {
 	}
 
 	/**
-	 * Flush rules if they're not set yet
+	 * Flush rules if they're not set yet.
 	 */
 	public function flush_rules() {
 		$rules = get_option( 'rewrite_rules' );

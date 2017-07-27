@@ -13,7 +13,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 class WPSEO_News_Upgrade_Manager {
 
 	/**
-	 * Check if there's a plugin update
+	 * Check if there's a plugin update.
 	 */
 	public function check_update() {
 
@@ -34,7 +34,7 @@ class WPSEO_News_Upgrade_Manager {
 	}
 
 	/**
-	 * An update is required, do it
+	 * An update is required, do it.
 	 *
 	 * @param string $current_version The current version.
 	 */
@@ -76,7 +76,7 @@ class WPSEO_News_Upgrade_Manager {
 	}
 
 	/**
-	 * Update the current version code
+	 * Update the current version code.
 	 */
 	private function update_current_version_code() {
 		$options            = WPSEO_News::get_options();
