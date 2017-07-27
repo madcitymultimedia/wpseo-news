@@ -255,7 +255,7 @@ class WPSEO_News_Sitemap {
 	/**
 	 * Getting the name for the sitemap, if $full_path is true, it will return the full path
 	 *
-	 * @param bool $full_path
+	 * @param bool $full_path Generate a full path.
 	 *
 	 * @return string mixed
 	 */

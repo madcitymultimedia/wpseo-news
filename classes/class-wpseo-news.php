@@ -1,19 +1,25 @@
 <?php
+/**
+ * @package WPSEO_News
+ */
 
+/**
+ * Represents the news extension for Yoast SEO
+ */
 class WPSEO_News {
 
 	const VERSION = '5.1';
 
 	/**
-	 * Get WPSEO News options
+	 * Get WPSEO News options.
 	 *
 	 * @return array
 	 */
 	public static function get_options() {
 		/**
-		 * Filter: 'wpseo_news_options' - Allow modifying of Yoast News SEO options
+		 * Filter: 'wpseo_news_options' - Allow modifying of Yoast News SEO options.
 		 *
-		 * @api array $wpseo_news_options The Yoast News SEO options
+		 * @api array $wpseo_news_options The Yoast News SEO options.
 		 */
 		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array(
 			'name'             => '',
@@ -25,9 +31,9 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Get plugin file
+	 * Get plugin file.
 	 *
-	 * @deprecated since 3.1. Use WPSEO_NEWS_FILE instead
+	 * @deprecated since 3.1. Use WPSEO_NEWS_FILE instead.
 	 *
 	 * @return string
 	 */
@@ -37,24 +43,27 @@ class WPSEO_News {
 		return WPSEO_NEWS_FILE;
 	}
 
+	/**
+	 * Initializes the plugin.
+	 */
 	public function __construct() {
-		// Check if module can work
+		// Check if module can work.
 		if ( false === $this->check_dependencies() ) {
 			return false;
 		}
 
 		$this->set_hooks();
 
-		// Meta box
+		// Meta box.
 		new WPSEO_News_Meta_Box();
 
-		// Sitemap
+		// Sitemap.
 		new WPSEO_News_Sitemap();
 
-		// Rewrite Rules
+		// Rewrite Rules.
 		new WPSEO_News_Editors_Pick_Request();
 
-		// Head
+		// Head.
 		new WPSEO_News_Head();
 
 		if ( is_admin() ) {
@@ -63,16 +72,16 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Loading the hooks, which will be lead to methods withing this class
+	 * Loading the hooks, which will be lead to methods withing this class.
 	 */
 	private function set_hooks() {
-		// Add plugin links
+		// Add plugin links.
 		add_filter( 'plugin_action_links', array( $this, 'plugin_links' ), 10, 2 );
 
-		// Add subitem to menu
+		// Add subitem to menu.
 		add_filter( 'wpseo_submenu_pages', array( $this, 'add_submenu_pages' ) );
 
-		// Register settings
+		// Register settings.
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
 
 		// Only initialize Helpscout Beacon when the License Manager is present.
@@ -82,34 +91,34 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Initialize the admin page
+	 * Initialize the admin page.
 	 */
 	private function init_admin() {
-		// Edit Post JS
+		// Edit Post JS.
 		global $pagenow;
 
 		if ( 'post.php' == $pagenow || 'post-new.php' == $pagenow ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_edit_post' ) );
 		}
 
-		// Upgrade Manager
+		// Upgrade Manager.
 		$upgrade_manager = new WPSEO_News_Upgrade_Manager();
 		$upgrade_manager->check_update();
 
-		// License Manager
+		// License Manager.
 		$license_manager = $this->get_license_manager();
 		if ( $license_manager ) {
 			add_action( 'wpseo_licenses_forms', array( $license_manager, 'show_license_form' ) );
 		}
 
-		// Setting action for removing the transient on update options
+		// Setting action for removing the transient on update options.
 		if ( class_exists( 'WPSEO_Sitemaps_Cache' ) && method_exists( 'WPSEO_Sitemaps_Cache', 'register_clear_on_option_update' ) ) {
 			WPSEO_Sitemaps_Cache::register_clear_on_option_update( 'wpseo_news', WPSEO_News_Sitemap::get_sitemap_name( false ) );
 		}
 	}
 
 	/**
-	 * Check the dependencies
+	 * Check the dependencies.
 	 */
 	private function check_dependencies() {
 		global $wp_version;
@@ -135,9 +144,9 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Check whether we can include the minified version or not
+	 * Check whether we can include the minified version or not.
 	 *
-	 * @param string $ext
+	 * @param string $ext The file extension.
 	 *
 	 * @return string
 	 */
@@ -150,10 +159,10 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Add plugin links
+	 * Add plugin links.
 	 *
-	 * @param $links
-	 * @param $file
+	 * @param array  $links The plugin links.
+	 * @param string $file  The file name.
 	 *
 	 * @return mixed
 	 */
@@ -171,16 +180,16 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Register the premium settings
+	 * Register the premium settings.
 	 */
 	public function register_settings() {
 		register_setting( 'yoast_wpseo_news_options', 'wpseo_news', array( $this, 'sanitize_options' ) );
 	}
 
 	/**
-	 * Sanitize options
+	 * Sanitize options.
 	 *
-	 * @param $options
+	 * @param array $options The options to sanitize.
 	 *
 	 * @return mixed
 	 */
@@ -191,9 +200,9 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Add submenu item
+	 * Add submenu item.
 	 *
-	 * @param $submenu_pages
+	 * @param array $submenu_pages Array with the sub menu pages.
 	 *
 	 * @return array
 	 */
@@ -216,11 +225,11 @@ class WPSEO_News {
 
 
 	/**
-	 * Enqueue admin page JS
+	 * Enqueue admin page JS.
 	 */
 	public function enqueue_admin_page() {
 
-		wp_enqueue_media(); // enqueue files needed for upload functionality
+		wp_enqueue_media(); // Enqueue files needed for upload functionality.
 		wp_enqueue_script( 'wpseo-news-admin-page', plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ), array(
 			'jquery',
 			'jquery-ui-core',
@@ -230,7 +239,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Enqueue edit post JS
+	 * Enqueue edit post JS.
 	 */
 	public function enqueue_edit_post() {
 		wp_enqueue_script( 'wpseo-news-edit-post', plugins_url( 'assets/post-edit' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ), array( 'jquery' ), self::VERSION, true );
@@ -283,7 +292,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Initializes the helpscout beacon
+	 * Initializes the helpscout beacon.
 	 */
 	public function init_helpscout_beacon() {
 		$query_var = ( $page = filter_input( INPUT_GET, 'page' ) ) ? $page : '';
@@ -310,7 +319,7 @@ class WPSEO_News {
 		if ( $post_types === null ) {
 			$options = self::get_options();
 
-			// Get supported post types
+			// Get supported post types.
 			$post_types = array();
 			foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $post_type ) {
 				if ( isset( $options[ 'newssitemap_include_' . $post_type->name ] ) && ( 'on' == $options[ 'newssitemap_include_' . $post_type->name ] ) ) {
@@ -318,7 +327,7 @@ class WPSEO_News {
 				}
 			}
 
-			// Support post if no post types are supported
+			// Support post if no post types are supported.
 			if ( empty( $post_types ) ) {
 				$post_types[] = 'post';
 			}
@@ -328,7 +337,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Listing the genres
+	 * Listing the genres.
 	 *
 	 * @return array
 	 */
@@ -345,17 +354,17 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Getting the name for the sitemap, if $full_path is true, it will return the full path
+	 * Getting the name for the sitemap, if $full_path is true, it will return the full path.
 	 *
-	 * @param bool $full_path
+	 * @param bool $full_path Generate a full path.
 	 *
 	 * @return string mixed
 	 */
 	public static function get_sitemap_name( $full_path = true ) {
-		// This filter is documented in classes/class-sitemap.php
+		// This filter is documented in classes/class-sitemap.php.
 		$sitemap_name = apply_filters( 'wpseo_news_sitemap_name', 'news' );
 
-		// When $full_path is true, it will generate a full path
+		// When $full_path is true, it will generate a full path.
 		if ( $full_path ) {
 			return wpseo_xml_sitemaps_base_url( $sitemap_name . '-sitemap.xml' );
 		}
@@ -364,7 +373,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Get the newest License Manager available
+	 * Get the newest License Manager available.
 	 *
 	 * @return Yoast_Plugin_License_Manager
 	 */

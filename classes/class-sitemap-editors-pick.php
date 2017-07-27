@@ -1,5 +1,11 @@
 <?php
+/**
+ * @package WPSEO_News\XML_Sitemaps
+ */
 
+/**
+ * Represents the sitemap for the editors pick.
+ */
 class WPSEO_News_Sitemap_Editors_Pick {
 
 	/**
@@ -20,13 +26,13 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	/**
 	 * Generate the Editors' Picks URL.
 	 *
-	 * @param boolean $show_headers
+	 * @param boolean $show_headers True when headers must be rendered.
 	 */
 	public function generate_rss( $show_headers = true ) {
 
 		$options = WPSEO_News::get_options();
 
-		// Show output as XML
+		// Show output as XML.
 		if ( $show_headers ) {
 			header( 'Content-Type: application/rss+xml; charset=' . get_bloginfo( 'charset' ) );
 		}
@@ -35,20 +41,20 @@ class WPSEO_News_Sitemap_Editors_Pick {
 		echo '<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">' . PHP_EOL;
 		echo '<channel>' . PHP_EOL;
 
-		// Atom channel elements
+		// Atom channel elements.
 		echo '<atom:link href="' . get_site_url() . '/editors-pick.rss" rel="self" type="application/rss+xml" />' . PHP_EOL;
 
-		// Display the main channel tags
+		// Display the main channel tags.
 		echo '<link>' . get_site_url() . '</link>' . PHP_EOL;
 		echo '<description>' . get_bloginfo( 'description' ) . '</description>' . PHP_EOL;
 		echo '<title>' . get_bloginfo( 'name' ) . '</title>' . PHP_EOL;
 
-		// Display the image tag if an image is set
+		// Display the image tag if an image is set.
 		if ( isset( $options['ep_image_src'] ) && $options['ep_image_src'] != '' ) {
 			$this->show_image( $options['ep_image_src'] );
 		}
 
-		// Showing the items
+		// Showing the items.
 		$this->show_items();
 
 		echo '</channel>' . PHP_EOL;
@@ -57,19 +63,19 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	}
 
 	/**
-	 * Prepare RSS feed data
+	 * Prepare RSS feed data.
 	 */
 	private function prepare_items() {
 		$this->items = array();
 
-		// Remove the wptexturize filter
+		// Remove the wptexturize filter.
 		remove_filter( 'the_title', 'wptexturize' );
 		remove_filter( 'the_content', 'wptexturize' );
 
-		// EP Query
+		// EP Query.
 		$ep_query = $this->get_ep_query();
 
-		// The Loop
+		// The Loop.
 		if ( $ep_query->have_posts() ) {
 			$this->set_items( $ep_query );
 		}
@@ -79,7 +85,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	}
 
 	/**
-	 * Create a wp_query object and return this
+	 * Create a wp_query object and return this.
 	 *
 	 * @return WP_Query
 	 */
@@ -104,7 +110,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	/**
 	 * Setting the items for the editors picks.
 	 *
-	 * @param $ep_query
+	 * @param WP_Query $ep_query The editors pick query.
 	 */
 	private function set_items( $ep_query ) {
 		while ( $ep_query->have_posts() ) {
@@ -115,7 +121,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	}
 
 	/**
-	 * Add a single item to $this->items
+	 * Add a single item to $this->items.
 	 */
 	private function set_item() {
 		$this->items[] = array(
@@ -128,10 +134,10 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	}
 
 	/**
-	 * Loop through the item to show each item
+	 * Loop through the item to show each item.
 	 */
 	private function show_items() {
-		// Display the items
+		// Display the items.
 		if ( ! empty( $this->items ) ) {
 			foreach ( $this->items as $item ) {
 				$this->show_item( $item );
@@ -140,9 +146,9 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	}
 
 	/**
-	 * Showing item as XML
+	 * Showing item as XML.
 	 *
-	 * @param array $item
+	 * @param array $item The item to render.
 	 */
 	private function show_item( $item ) {
 		echo '<item>' . PHP_EOL;
@@ -156,9 +162,9 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	}
 
 	/**
-	 * Showing image as XML
+	 * Showing image as XML.
 	 *
-	 * @param string $image_src
+	 * @param string $image_src The image source.
 	 */
 	private function show_image( $image_src ) {
 		echo '<image>' . PHP_EOL;
