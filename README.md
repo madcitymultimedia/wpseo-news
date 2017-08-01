@@ -29,6 +29,9 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 5.2: August 8th, 2017
+* Compatibility with Yoast SEO 5.2
+
 ### 5.1: July 25th, 2017
 * Fixes a bug where the wrong timezone was used in the sitemap.
 
