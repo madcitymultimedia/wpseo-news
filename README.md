@@ -28,7 +28,7 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
-### 5.3: August 8th, 2017
+### 5.3: August 22nd, 2017
 * Compatibility with Yoast SEO 5.3
 
 ### 5.2: August 8th, 2017
