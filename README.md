@@ -28,6 +28,9 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 5.5: September 26th, 2017
+* Compatibility with Yoast SEO 5.5
+
 ### 5.4: September 5th, 2017
 * Updated the internationalization module to version 2.0.
 
