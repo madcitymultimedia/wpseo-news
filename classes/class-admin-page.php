@@ -77,7 +77,7 @@ class WPSEO_News_Admin_Page {
 	 * @link https://github.com/Yoast/i18n-module
 	 */
 	protected function register_i18n_promo_class() {
-		new Yoast_I18n_v2(
+		new Yoast_I18n_v3(
 			array(
 				'textdomain'     => 'wordpress_seo_news',
 				'project_slug'   => 'news-seo',
