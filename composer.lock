@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "content-hash": "5aeff661298189f5ef38accff70588cd",
+    "content-hash": "92379d1986d28e96a5b61f940fcd456e",
     "packages": [
         {
             "name": "xrstf/composer-php52",
@@ -77,16 +77,16 @@
         },
         {
             "name": "yoast/wp-helpscout",
-            "version": "1.0.1",
+            "version": "2.0.3",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wp-helpscout.git",
-                "reference": "a9f7d19180dd2d53699c528646c2595a3112b4a7"
+                "reference": "00c6d777497c935af76ba1b4962823165139bbbc"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wp-helpscout/zipball/a9f7d19180dd2d53699c528646c2595a3112b4a7",
-                "reference": "a9f7d19180dd2d53699c528646c2595a3112b4a7",
+                "url": "https://api.github.com/repos/Yoast/wp-helpscout/zipball/00c6d777497c935af76ba1b4962823165139bbbc",
+                "reference": "00c6d777497c935af76ba1b4962823165139bbbc",
                 "shasum": ""
             },
             "type": "library",
@@ -110,7 +110,7 @@
                 }
             ],
             "description": "A package to integrate the helpscout beacon into WordPress",
-            "time": "2016-04-14T11:59:20+00:00"
+            "time": "2017-08-03T07:48:33+00:00"
         }
     ],
     "packages-dev": [
@@ -171,7 +171,7 @@
                 "codeclimate",
                 "coverage"
             ],
-            "time": "2017-06-01 13:19:55"
+            "time": "2017-06-01T13:19:55+00:00"
         },
         {
             "name": "guzzle/guzzle",
@@ -266,6 +266,7 @@
                 "rest",
                 "web service"
             ],
+            "abandoned": "guzzlehttp/guzzle",
             "time": "2015-03-18T18:23:50+00:00"
         },
         {
