@@ -51,7 +51,7 @@ before_script:
 #
 - git clone --depth=50 --branch="trunk" https://github.com/Yoast/wordpress-seo.git $WP_DEVELOP_DIR/src/wp-content/plugins/wordpress-seo
 - cd /tmp/wordpress/src/wp-content/plugins/wordpress-seo
-- phpenv local 5.6
+- if [[ $TRAVIS_PHP_VERSION == "5.2" || $TRAVIS_PHP_VERSION == "5.3" ]]; then phpenv local 5.6.13; fi
 - composer selfupdate 1.0.0 --no-interaction
 - composer install --no-interaction
 - phpenv local --unset
@@ -67,7 +67,7 @@ before_script:
 - sed -i "s/yourpasswordhere//" wp-tests-config.php
 - mysql -e "CREATE DATABASE wordpress_tests;" -uroot
 - cd "$WP_DEVELOP_DIR/src/wp-content/plugins/$PLUGIN_SLUG"
-- phpenv local 5.6
+- if [[ $TRAVIS_PHP_VERSION == "5.2" || $TRAVIS_PHP_VERSION == "5.3" ]]; then phpenv local 5.6.13; fi
 - composer install --no-interaction
 - composer config-yoastcs
 - phpenv local --unset
