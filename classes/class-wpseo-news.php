@@ -214,7 +214,7 @@ class WPSEO_News {
 			'wpseo_dashboard',
 			'Yoast SEO: News SEO',
 			'News SEO',
-			'manage_options',
+			'wpseo_manage_options',
 			'wpseo_news',
 			array( $admin_page, 'display' ),
 			array( array( $this, 'enqueue_admin_page' ) ),
