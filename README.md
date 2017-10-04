@@ -28,6 +28,13 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 5.6: October 10th, 2017
+Enhancements:
+* Changes the capability on which the submenu is registered to `wpseo_manage_options`
+
+Bugfixes:
+* Fixes a bug where the license check endpoint was using an incorrect URL
+
 ### 5.5: September 26th, 2017
 * Updated the internationalization module to version 3.0.
 
