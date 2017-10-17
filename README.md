@@ -28,6 +28,9 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 5.7: August 24th, 2017
+* Compatibility with Yoast SEO 5.7
+
 ### 5.6: October 10th, 2017
 Enhancements:
 * Changes the capability on which the submenu is registered to `wpseo_manage_options`
