@@ -1,7 +1,7 @@
 Yoast News SEO for Yoast SEO
 ==========================
-Requires at least: 4.6
-Tested up to: 4.8.3
+Requires at least: 4.8
+Tested up to: 4.9
 Stable tag: 5.8
 Depends: wordpress-seo
 
@@ -27,6 +27,9 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+
+### 5.9: December 5th, 2017
+* Compatibility with Yoast SEO 5.8
 
 ### 5.8: November 15th, 2017
 * Compatibility with Yoast SEO 5.8
