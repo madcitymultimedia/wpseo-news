@@ -8,7 +8,7 @@
  */
 class WPSEO_News {
 
-	const VERSION = '5.8';
+	const VERSION = '5.9';
 
 	/**
 	 * Get WPSEO News options.
