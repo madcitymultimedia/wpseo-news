@@ -16,8 +16,8 @@
         "yoast/i18n-module": "^3.0"
     },
     "require-dev": {
-        "yoast/yoastcs": "0.3",
-        "codeclimate/php-test-reporter": "dev-master"
+        "codeclimate/php-test-reporter": "dev-master",
+        "yoast/yoastcs": "^0.4.3"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,

@@ -50,6 +50,7 @@ add_action( 'init', 'wpseo_news_load_textdomain' );
 /**
  * Load Yoast SEO: News.
  */
+// @codingStandardsIgnoreLine
 function __wpseo_news_main() {
 	new WPSEO_News();
 }
