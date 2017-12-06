@@ -52,7 +52,7 @@ class WPSEO_News_Meta_Keywords {
 	 * @return string
 	 */
 	public function __toString() {
-		return $this->keywords_as_string();;
+		return $this->keywords_as_string();
 	}
 
 	/**

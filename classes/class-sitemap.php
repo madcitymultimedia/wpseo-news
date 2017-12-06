@@ -511,7 +511,7 @@ class WPSEO_News_Sitemap_Item {
 		$publication_name = ! empty( $this->options['name'] ) ? $this->options['name'] : get_bloginfo( 'name' );
 		$publication_lang = $this->get_publication_lang();
 
-		$this->output .= "\t\t<news:publication>" . "\n";
+		$this->output .= "\t\t<news:publication>\n";
 		$this->output .= "\t\t\t<news:name>" . $publication_name . '</news:name>' . "\n";
 		$this->output .= "\t\t\t<news:language>" . htmlspecialchars( $publication_lang ) . '</news:language>' . "\n";
 		$this->output .= "\t\t</news:publication>\n";
