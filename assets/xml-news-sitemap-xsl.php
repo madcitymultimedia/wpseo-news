@@ -16,7 +16,7 @@
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 				<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
 
-				<script type="text/javascript" src="<?php echo plugins_url( 'js/jquery.tablesorter.min.js', WPSEO_FILE ) ?>"></script>
+				<script type="text/javascript" src="<?php echo plugins_url( 'js/dist/jquery.tablesorter.min.js', WPSEO_FILE ) ?>"></script>
 				<script	type="text/javascript"><![CDATA[
 					jQuery(document).ready(function() {
 				        jQuery("#sitemap").tablesorter( { widgets: ['zebra'] } );
