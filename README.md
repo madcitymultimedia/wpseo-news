@@ -28,6 +28,11 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 6.0: December 19th, 2017
+Bugfixes:
+
+* Fixes a problem where the sitemap table could not be sorted. 
+
 ### 5.9: December 5th, 2017
 * Compatibility with Yoast SEO 5.9
 
