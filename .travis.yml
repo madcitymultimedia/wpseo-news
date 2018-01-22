@@ -40,7 +40,7 @@ cache:
     - $HOME/.composer/cache
 
 before_install:
-if [[ "$COVERAGE" != "1" ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
+- if [[ "$COVERAGE" != "1" ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
 
 before_script:
 - PLUGIN_SLUG=$(basename $(pwd))
