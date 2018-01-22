@@ -20,7 +20,9 @@
 		</testsuite>
 	</testsuites>
 
-	<whitelist>
-		<directory>./classes</directory>
-	</whitelist>
+	<filter>
+		<whitelist>
+			<directory>./classes</directory>
+		</whitelist>
+	</filter>
 </phpunit>
