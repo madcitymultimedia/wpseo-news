@@ -69,6 +69,7 @@ class WPSEO_News_Sitemap {
 
 			$this->yoast_wpseo_news_schedule_clear();
 
+			// We might consider deprecating/removing this, because we are using a static xsl file.
 			$GLOBALS['wpseo_sitemaps']->register_sitemap( $this->basename, array( $this, 'build' ) );
 			if ( method_exists( $GLOBALS['wpseo_sitemaps'], 'register_xsl' ) ) {
 				$xsl_rewrite_rule = sprintf( '^%s-sitemap.xsl$', $this->basename );
@@ -158,7 +159,8 @@ class WPSEO_News_Sitemap {
 		header( 'Pragma: public' );
 		header( 'Cache-Control: maxage=' . YEAR_IN_SECONDS );
 		header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', ( time() + YEAR_IN_SECONDS ) ) . ' GMT' );
-		require dirname( WPSEO_NEWS_FILE ) . '/assets/xml-news-sitemap-xsl.php';
+
+		echo file_get_contents( dirname( WPSEO_NEWS_FILE ) . '/assets/xml-news-sitemap.xsl' );
 		die();
 	}
 
@@ -179,7 +181,7 @@ class WPSEO_News_Sitemap {
 	 * @return string
 	 */
 	private function get_stylesheet_line() {
-		$stylesheet_url = "\n" . '<?xml-stylesheet type="text/xsl" href="' . home_url( $this->basename . '-sitemap.xsl' ) . '"?>';
+		$stylesheet_url = "\n" . '<?xml-stylesheet type="text/xsl" href="' . esc_url( plugin_dir_url( WPSEO_NEWS_FILE ) . 'assets/xml-news-sitemap.xsl' ) . '"?>';
 
 		return $stylesheet_url;
 	}
