@@ -27,6 +27,9 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 6.3: February 13th, 2018
+* Load the XSL stylesheet from a static file when home and site URL are the same.
+* Compatibility with Yoast SEO 6.3
 
 ### 6.2: January 23th, 2018
 * Compatibility with Yoast SEO 6.2
