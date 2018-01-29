@@ -181,7 +181,7 @@ class WPSEO_News_Sitemap {
 	 * @return string
 	 */
 	private function get_stylesheet_line() {
-		$stylesheet_url = "\n" . '<?xml-stylesheet type="text/xsl" href="' . esc_url( plugin_dir_url( WPSEO_NEWS_FILE ) . 'assets/xml-news-sitemap.xsl' ) . '"?>';
+		$stylesheet_url = "\n" . '<?xml-stylesheet type="text/xsl" href="' . $this->get_xsl_url() . '"?>';
 
 		return $stylesheet_url;
 	}
@@ -294,6 +294,23 @@ class WPSEO_News_Sitemap {
 		}
 
 		return $basename;
+	}
+
+	/**
+	 * Retrieves the XSL URL that should be used in the current environment
+	 *
+	 * When home_url and site_url are not the same, the home_url should be used.
+	 * This is because the XSL needs to be served from the same domain, protocol and port
+	 * as the XML file that is loading it.
+	 *
+	 * @return string The XSL URL that needs to be used.
+	 */
+	protected function get_xsl_url() {
+		if ( home_url() !== site_url() ) {
+			return home_url( $this->basename . '-sitemap.xsl' );
+		}
+
+		return esc_url( plugin_dir_url( WPSEO_NEWS_FILE ) . 'assets/xml-news-sitemap.xsl' );
 	}
 }
 
