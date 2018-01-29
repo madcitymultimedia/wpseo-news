@@ -181,7 +181,7 @@ class WPSEO_News_Sitemap {
 	 * @return string
 	 */
 	private function get_stylesheet_line() {
-		$stylesheet_url = "\n" . '<?xml-stylesheet type="text/xsl" href="' . $this->get_xsl_url() . '"?>';
+		$stylesheet_url = "\n" . '<?xml-stylesheet type="text/xsl" href="' . esc_url( $this->get_xsl_url() ) . '"?>';
 
 		return $stylesheet_url;
 	}
@@ -310,7 +310,7 @@ class WPSEO_News_Sitemap {
 			return home_url( $this->basename . '-sitemap.xsl' );
 		}
 
-		return esc_url( plugin_dir_url( WPSEO_NEWS_FILE ) . 'assets/xml-news-sitemap.xsl' );
+		return plugin_dir_url( WPSEO_NEWS_FILE ) . 'assets/xml-news-sitemap.xsl';
 	}
 }
 
