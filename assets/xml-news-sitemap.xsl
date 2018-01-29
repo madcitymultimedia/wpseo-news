@@ -1,7 +1,4 @@
-<?php
-// @codingStandardsIgnoreFile
-?>
-<?php echo '<?xml version="1.0" encoding="UTF-8"?>'?>
+<?xml version="1.0" encoding="UTF-8"?>
 <xsl:stylesheet version="2.0"
 	xmlns:html="http://www.w3.org/TR/REC-html40"
 	xmlns:image="http://www.google.com/schemas/sitemap-image/1.1"
@@ -14,14 +11,6 @@
 			<head>
 				<title>XML News Sitemap</title>
 				<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-				<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
-
-				<script type="text/javascript" src="<?php echo plugins_url( 'js/dist/jquery.tablesorter.min.js', WPSEO_FILE ) ?>"></script>
-				<script	type="text/javascript"><![CDATA[
-					jQuery(document).ready(function() {
-				        jQuery("#sitemap").tablesorter( { widgets: ['zebra'] } );
-					});
-				]]></script>
 				<style type="text/css">
 					body {
 						font-family: Helvetica, Arial, sans-serif;
@@ -32,7 +21,7 @@
 						border: none;
 						border-collapse: collapse;
 					}
-					#sitemap tr.odd {
+					#sitemap tbody tr:nth-child( odd ) {
 						background-color: #eee;
 					}
 					#sitemap tbody tr:hover {
@@ -73,7 +62,6 @@
 					}
 					thead th {
 						border-bottom: 1px solid #000;
-						cursor: pointer;
 					}
 				</style>
 			</head>
