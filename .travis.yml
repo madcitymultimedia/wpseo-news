@@ -45,6 +45,9 @@ before_install:
 before_script:
 - PLUGIN_SLUG=$(basename $(pwd))
 - export WP_DEVELOP_DIR=/tmp/wordpress/
+- if [[ "$COVERAGE" == "1" ]]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; fi
+- if [[ "$COVERAGE" == "1" ]]; then chmod +x ./cc-test-reporter; fi
+- if [[ "$COVERAGE" == "1" ]]; then ./cc-test-reporter before-build; fi
 
 # Clone WordPress
 #
@@ -80,4 +83,6 @@ script:
 - if [[ "$PHPCS" == "1" ]]; then vendor/bin/phpcs -p -s -v -n . --standard=./codesniffer.xml --extensions=php; fi
 - if [[ "$CHECKS" == "1" ]]; then npm install -g grunt-cli && npm install --no-optional && grunt check:js; fi
 - if [[ "$COVERAGE" == "1" ]]; then phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml; else phpunit -c phpunit.xml; fi
-- if [[ "$COVERAGE" == "1" ]]; then vendor/bin/test-reporter; fi
+
+after_script:
+  - if [[ "$COVERAGE" == "1" ]]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
