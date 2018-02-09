@@ -48,8 +48,9 @@ class WPSEO_News {
 	 */
 	public function __construct() {
 		// Check if module can work.
-		if ( false === $this->check_dependencies() ) {
-			return false;
+		global $wp_version;
+		if ( false === $this->check_dependencies( $wp_version ) ) {
+			return;
 		}
 
 		$this->set_hooks();
@@ -119,10 +120,12 @@ class WPSEO_News {
 
 	/**
 	 * Check the dependencies.
+	 *
+	 * @param string $wp_version The current version of WordPress.
+	 *
+	 * @return bool True whether the dependencies are okay.
 	 */
-	private function check_dependencies() {
-		global $wp_version;
-
+	private function check_dependencies( $wp_version ) {
 		if ( ! version_compare( $wp_version, '3.5', '>=' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wp' ) );
 		}
