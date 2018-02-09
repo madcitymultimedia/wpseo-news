@@ -28,6 +28,7 @@ class WPSEO_News_Test extends WPSEO_News_UnitTestCase {
 			->getMock();
 
 		$class_instance
+			->expects( $this->any() )
 			->method( 'get_wordpress_seo_version' )
 			->will( $this->returnValue( $wordpress_seo_version ) );
 
