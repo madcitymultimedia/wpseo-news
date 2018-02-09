@@ -48,8 +48,9 @@ class WPSEO_News {
 	 */
 	public function __construct() {
 		// Check if module can work.
-		if ( false === $this->check_dependencies() ) {
-			return false;
+		global $wp_version;
+		if ( false === $this->check_dependencies( $wp_version ) ) {
+			return;
 		}
 
 		$this->set_hooks();
@@ -119,28 +120,49 @@ class WPSEO_News {
 
 	/**
 	 * Check the dependencies.
+	 *
+	 * @param string $wp_version The current version of WordPress.
+	 *
+	 * @return bool True whether the dependencies are okay.
 	 */
-	private function check_dependencies() {
-		global $wp_version;
-
-		if ( ! version_compare( $wp_version, '3.5', '>=' ) ) {
+	protected function check_dependencies( $wp_version ) {
+		// When WordPress function is too low.
+		if ( version_compare( $wp_version, '4.8', '<' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wp' ) );
-		}
-		else {
-			if ( defined( 'WPSEO_VERSION' ) ) {
-				if ( version_compare( WPSEO_VERSION, '1.5', '>=' ) ) {
-					return true;
-				}
-				else {
-					add_action( 'all_admin_notices', array( $this, 'error_upgrade_wpseo' ) );
-				}
-			}
-			else {
-				add_action( 'all_admin_notices', array( $this, 'error_missing_wpseo' ) );
-			}
+
+			return false;
 		}
 
-		return false;
+		$wordpress_seo_version = $this->get_wordpress_seo_version();
+
+		// When WPSEO_VERSION isn't defined.
+		if ( $wordpress_seo_version === false ) {
+			add_action( 'all_admin_notices', array( $this, 'error_missing_wpseo' ) );
+
+			return false;
+		}
+
+		// Make sure Yoast SEO is installed on version 7.0 or an RC candidate of that version.
+		if ( version_compare( $wordpress_seo_version, '6.9', '<' ) ) {
+			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wpseo' ) );
+
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Returns the WordPress SEO version when set.
+	 *
+	 * @return bool|string The version whether it is set.
+	 */
+	protected function get_wordpress_seo_version() {
+		if ( ! defined( 'WPSEO_VERSION' ) ) {
+			return false;
+		}
+
+		return WPSEO_VERSION;
 	}
 
 	/**
