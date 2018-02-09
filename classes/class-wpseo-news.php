@@ -127,7 +127,7 @@ class WPSEO_News {
 	 */
 	protected function check_dependencies( $wp_version ) {
 		// When WordPress function is too low.
-		if ( ! version_compare( $wp_version, '3.5', '>=' ) ) {
+		if ( ! version_compare( $wp_version, '4.8', '>=' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wp' ) );
 
 			return false;
