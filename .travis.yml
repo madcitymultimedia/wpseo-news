@@ -6,6 +6,8 @@ branches:
   only:
     - master
     - trunk
+    - /^release\/\d+\.\d+(\.\d+)?(-\S*)?$/
+    - /^hotfix\/\d+\.\d+(\.\d+)?(-\S*)?$/
 
 matrix:
   fast_finish: true
@@ -45,9 +47,16 @@ before_install:
 before_script:
 - PLUGIN_SLUG=$(basename $(pwd))
 - export WP_DEVELOP_DIR=/tmp/wordpress/
-- if [[ "$COVERAGE" == "1" ]]; then curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter; fi
-- if [[ "$COVERAGE" == "1" ]]; then chmod +x ./cc-test-reporter; fi
-- if [[ "$COVERAGE" == "1" ]]; then ./cc-test-reporter before-build; fi
+- export -f travis_fold
+- export -f travis_time_start
+- export -f travis_time_finish
+
+- |
+  if [[ "$COVERAGE" == "1" ]]; then
+    curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
+    chmod +x ./cc-test-reporter
+    ./cc-test-reporter before-build
+  fi
 
 # Clone WordPress
 #
@@ -79,10 +88,41 @@ before_script:
 - phpenv rehash
 
 script:
-- if [[ "$PHPLINT" == "1" ]]; then find -L . -path ./vendor -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l; fi
-- if [[ "$PHPCS" == "1" ]]; then vendor/bin/phpcs -p -s -v -n . --standard=./codesniffer.xml --extensions=php; fi
-- if [[ "$CHECKS" == "1" ]]; then npm install -g grunt-cli && npm install --no-optional && grunt check:js; fi
-- if [[ "$COVERAGE" == "1" ]]; then phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml; else phpunit -c phpunit.xml; fi
+# JavaScript checks
+- |
+  if [[ "$CHECKS" == "1" ]]; then
+    travis_fold start "JavaScript.check" && travis_time_start
+    npm install -g grunt-cli && npm install --no-optional && grunt check:js
+    travis_time_finish && travis_fold end "JavaScript.check"
+  fi
+# PHP Linting
+- |
+  if [[ "$PHPLINT" == "1" ]]; then
+    travis_fold start "PHP.check" && travis_time_start
+    find -L . -path ./vendor -prune -o -path ./node_modules -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
+    travis_time_finish && travis_fold end "PHP.check"
+  fi
+# PHP Code Style
+- |
+  if [[ "$PHPCS" == "1" ]]; then
+    travis_fold start "PHP.code-style" && travis_time_start
+    vendor/bin/phpcs -p -s -v -n . --standard=./codesniffer.xml --extensions=php
+    travis_time_finish && travis_fold end "PHP.code-style"
+  fi
+# PHP Tests
+- |
+  if [[ "$COVERAGE" != "1" ]]; then
+    travis_fold start "PHP.tests" && travis_time_start
+    phpunit -c phpunit.xml
+    travis_time_finish && travis_fold end "PHP.tests"
+  fi
+# PHP Coverage
+- |
+  if [[ "$COVERAGE" == "1" ]]; then
+    travis_fold start "PHP.coverage" && travis_time_start
+    phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml
+    travis_time_finish && travis_fold end "PHP.coverage"
+  fi
 
 after_script:
   - if [[ "$COVERAGE" == "1" ]]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
