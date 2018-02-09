@@ -9,68 +9,49 @@
 class WPSEO_News_Test extends WPSEO_News_UnitTestCase {
 
 	/**
-	 * Tests the situation where WordPress version is below the minimal required version.
+	 * Tests the check dependencies function.
+	 *
+	 * @dataProvider check_dependencies_data
+	 *
+	 * @param bool   $expected              The expected value.
+	 * @param string $wordpress_seo_version The WordPress SEO version to check.
+	 * @param string $wordpress_version     The WordPress version to check.
+	 * @param string $message               Message given by PHPUnit after assertion.
 	 *
 	 * @covers WPSEO_News::check_dependencies()
 	 */
-	public function test_with_required_depencendies_with_older_wordpress_version() {
-		$class_instance = new WPSEO_News_Double();
-
-		$this->assertFalse( $class_instance->check_dependencies( 3.0 ) );
-	}
-
-	/**
-	 * * Tests the situation where WordPress SEO version isn't installed.
-	 * @covers WPSEO_News::check_dependencies()
-	 */
-	public function test_with_required_depencendies_with_no_wordpress_seo_version() {
-		$class_instance = $this->getMockBuilder( 'WPSEO_News_Double' )
+	public function test_check_dependencies( $expected, $wordpress_seo_version, $wordpress_version, $message ) {
+		$class_instance = $this
+			->getMockBuilder( 'WPSEO_News_Double' )
+			->disableOriginalConstructor()
 			->setMethods( array( 'get_wordpress_seo_version' ) )
 			->getMock();
 
 		$class_instance
-			->expects( $this->once() )
 			->method( 'get_wordpress_seo_version' )
-			->will( $this->returnValue( false ) );
+			->will( $this->returnValue( $wordpress_seo_version ) );
 
-		$this->assertFalse( $class_instance->check_dependencies( '5.0' ) );
+
+		$this->assertEquals( $expected, $class_instance->check_dependencies( $wordpress_version ), $message );
 	}
 
 	/**
-	 * Tests the situation where WordPress SEO version is below the minimal required version.
+	 * Data provider for the check dependencies test.
 	 *
-	 * @covers WPSEO_News::check_dependencies()
-	 */
-	public function test_with_required_depencendies_with_old_wordpress_seo_version() {
-		$class_instance = $this->getMockBuilder( 'WPSEO_News_Double' )
-			->setMethods( array( 'get_wordpress_seo_version' ) )
-			->getMock();
-
-		$class_instance
-			->expects( $this->once() )
-			->method( 'get_wordpress_seo_version' )
-			->will( $this->returnValue( '6.9' ) );
-
-		$this->assertFalse( $class_instance->check_dependencies( '5.0' ) );
-	}
-
-	/**
-	 * Tests the situation where WordPress and WordPress SEO have the minimal required versions.
+	 * [0]: Expected
+	 * [1]: WordPress SEO Version
+	 * [2]: WordPress Version
+	 * [3]: Message for PHPUnit.
 	 *
-	 * @covers WPSEO_News::check_dependencies()
+	 * @return array
 	 */
-	public function test_with_all_required_depencendies_ok() {
-		$class_instance = $this->getMockBuilder( 'WPSEO_News_Double' )
-			->setMethods( array( 'get_wordpress_seo_version' ) )
-			->getMock();
-
-		$class_instance
-			->expects( $this->once() )
-			->method( 'get_wordpress_seo_version' )
-			->will( $this->returnValue( '7.0' ) );
-
-		$this->assertTrue( $class_instance->check_dependencies( '5.0' ) );
+	public function check_dependencies_data() {
+		return array(
+			array( false, '7.0', '3.0', 'WordPress is below the minimal required version.' ),
+			array( false, false, '5.0', 'WordPress SEO is not installed.' ),
+			array( false, '6.0', '5.0', 'WordPress SEO is below the minimal required version.' ),
+			array( true, '7.0', '5.0', 'WordPress and WordPress SEO have the minimal required versions.' ),
+			array( true, '8.0', '3.5', 'WordPress and WordPress SEO have the minimal required versions.' ),
+		);
 	}
-
-
 }
