@@ -125,25 +125,44 @@ class WPSEO_News {
 	 *
 	 * @return bool True whether the dependencies are okay.
 	 */
-	private function check_dependencies( $wp_version ) {
+	protected function check_dependencies( $wp_version ) {
+		// When WordPress function is too low.
 		if ( ! version_compare( $wp_version, '3.5', '>=' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wp' ) );
-		}
-		else {
-			if ( defined( 'WPSEO_VERSION' ) ) {
-				if ( version_compare( WPSEO_VERSION, '1.5', '>=' ) ) {
-					return true;
-				}
-				else {
-					add_action( 'all_admin_notices', array( $this, 'error_upgrade_wpseo' ) );
-				}
-			}
-			else {
-				add_action( 'all_admin_notices', array( $this, 'error_missing_wpseo' ) );
-			}
+
+			return false;
 		}
 
-		return false;
+		$wordpress_seo_version = $this->get_wordpress_seo_version();
+
+		// When WPSEO_VERSION isn't defined.
+		if ( $wordpress_seo_version === false ) {
+			add_action( 'all_admin_notices', array( $this, 'error_missing_wpseo' ) );
+
+			return false;
+		}
+
+		// When version is below 7.0.
+		if ( ! version_compare( $wordpress_seo_version, '7.0', '>=' ) ) {
+			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wpseo' ) );
+
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Returns the WordPress SEO version when set.
+	 *
+	 * @return bool|string The version whether it is set.
+	 */
+	protected function get_wordpress_seo_version() {
+		if ( ! defined( 'WPSEO_VERSION' ) ) {
+			return false;
+		}
+
+		return WPSEO_VERSION;
 	}
 
 	/**
