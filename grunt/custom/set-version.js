@@ -17,15 +17,15 @@ module.exports = function( grunt ) {
                 }
             );
 
-            var version = grunt.option( "new-version" ) || '';
-            if ( version.trim().length === 0 ) {
+            let version = grunt.option( "new-version" ) || '';
+            if ( version.toString().trim().length === 0 ) {
                 grunt.fail.fatal( 'Missing --new-version argument' );
             }
 
             this.files.forEach( (file) => {
                 file.src.forEach( (path) => {
                     let contents = grunt.file.readJSON( path );
-                    contents[ options.base ][ options.target ] = version;
+                    contents[ options.base ][ options.target ] = version.toString();
                     grunt.file.write( path, JSON.stringify( contents, null, '  ' ) + "\n" );
                 } );
             } );
