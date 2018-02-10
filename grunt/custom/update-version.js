@@ -21,13 +21,13 @@ module.exports = function( grunt ) {
 
             this.files.forEach( (file) => {
                 file.src.forEach( (path) => {
-                let contents = grunt.file.read( path ).replace(
-                    options.regEx,
-                    options.preVersionMatch + options.version + options.postVersionMatch
-                );
-            grunt.file.write( path, contents );
-        } );
-        } );
+                    let contents = grunt.file.read( path ).replace(
+                        options.regEx,
+                        options.preVersionMatch + options.version + options.postVersionMatch
+                    );
+                    grunt.file.write( path, contents );
+                } );
+            } );
         }
     );
 }
