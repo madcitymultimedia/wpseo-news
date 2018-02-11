@@ -1,5 +1,7 @@
 <?php
 /**
+ * Yoast SEO: News.
+ *
  * @package WPSEO_News
  *
  * @wordpress-plugin

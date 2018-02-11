@@ -1,6 +1,8 @@
 <?php
 /**
- * @package WPSEO\Tests
+ * Yoast SEO: News plugin test file.
+ *
+ * @package WPSEO_News\Tests
  */
 
 /**
