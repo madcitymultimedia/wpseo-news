@@ -5,6 +5,9 @@
  * @package WPSEO_News\Tests
  */
 
+/**
+ * Class WPSEO_News_Admin_Page_Test.
+ */
 class WPSEO_News_Admin_Page_Test extends WPSEO_News_UnitTestCase {
 
 	/**

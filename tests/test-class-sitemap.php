@@ -5,6 +5,9 @@
  * @package WPSEO_News\Tests
  */
 
+/**
+ * Class WPSEO_News_Sitemap_Test.
+ */
 class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 	/**

@@ -5,6 +5,9 @@
  * @package WPSEO_News\Tests
  */
 
+/**
+ * Class WPSEO_News_Sitemap_Editors_Pick_Test.
+ */
 class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 
 	/**
