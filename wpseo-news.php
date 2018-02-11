@@ -11,6 +11,7 @@ Description: Google News plugin for the Yoast SEO plugin
 Author: Team Yoast
 Author URI: http://yoast.com/
 Text Domain: wpseo_news
+Domain Path: /languages/
 License: GPL v3
 
 Yoast SEO Plugin
