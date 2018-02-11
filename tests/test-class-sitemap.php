@@ -92,7 +92,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= "\t\t<news:title><![CDATA[generate rss]]></news:title>\n";
 		$expected_output .= "\t\t<news:keywords><![CDATA[]]></news:keywords>\n";
 		$expected_output .= "\t</news:news>\n";
-		$expected_output .= "</url>";
+		$expected_output .= '</url>';
 
 		// Check if the $output contains the $expected_output
 		$this->assertContains( $expected_output, $output );
