@@ -44,4 +44,20 @@
 		</properties>
 	</rule>
 
+
+	<!--
+	#############################################################################
+	SNIFF SPECIFIC CONFIGURATION
+	#############################################################################
+	-->
+
+	<!-- Verify that all gettext calls use the correct text domain. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="wordpress-seo-news"/>
+			</property>
+		</properties>
+	</rule>
+
 </ruleset>
