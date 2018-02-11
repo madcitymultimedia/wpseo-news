@@ -2,6 +2,14 @@ language: php
 dist: trusty
 sudo: false
 
+cache:
+  directories:
+    - vendor
+    # Cache directory for older Composer versions.
+    - $HOME/.composer/cache/files
+    # Cache directory for more recent Composer versions.
+    - $HOME/.cache/composer/files
+
 branches:
   only:
     - master
@@ -33,11 +41,6 @@ matrix:
   allow_failures:
     # Allow failures for unstable builds.
     - php: nightly
-
-cache:
-  directories:
-    - vendor
-    - $HOME/.composer/cache
 
 before_install:
 - if [[ "$COVERAGE" != "1" ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
