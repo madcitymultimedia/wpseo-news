@@ -281,26 +281,4 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
 		return $standout_desc;
 	}
-
-	/**
-	 * Returns post in metabox context - fallback for Yoast SEO < 3.0 and News SEO > 2.2.5
-	 *
-	 * @returns WP_Post|array
-	 */
-	protected function get_metabox_post() {
-		if ( is_callable( 'parent:get_metabox_post' ) ) {
-			return parent::get_metabox_post();
-		}
-
-		if ( $post = filter_input( INPUT_GET, 'post' ) ) {
-			$post_id = (int) WPSEO_Utils::validate_int( $post );
-			return get_post( $post_id );
-		}
-
-		if ( isset( $GLOBALS['post'] ) ) {
-			return $GLOBALS['post'];
-		}
-
-		return array();
-	}
 }
