@@ -23,7 +23,6 @@ class WPSEO_News_Beacon_Setting implements Yoast_HelpScout_Beacon_Setting {
 					'5375e852e4b03c6512282d5a',
 					// See: http://kb.yoast.com/article/36-my-sitemap-is-blank-what-s-wrong.
 				);
-				break;
 		}
 
 		return array();
@@ -40,7 +39,6 @@ class WPSEO_News_Beacon_Setting implements Yoast_HelpScout_Beacon_Setting {
 		switch ( $page ) {
 			case 'wpseo_news':
 				return array( new WPSEO_News_Product() );
-				break;
 		}
 
 		return array();
