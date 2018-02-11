@@ -83,6 +83,7 @@ script:
 - if [[ "$PHPCS" == "1" ]]; then vendor/bin/phpcs -p -s -v -n . --standard=./codesniffer.xml --extensions=php; fi
 - if [[ "$CHECKS" == "1" ]]; then npm install -g grunt-cli && npm install --no-optional && grunt check:js; fi
 - if [[ "$COVERAGE" == "1" ]]; then phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml; else phpunit -c phpunit.xml; fi
+- if [[ $TRAVIS_PHP_VERSION == "5.3" || $TRAVIS_PHP_VERSION == "7.2" ]]; then composer validate --no-check-all; fi
 
 after_script:
   - if [[ "$COVERAGE" == "1" ]]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
