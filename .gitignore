@@ -6,3 +6,5 @@ node_modules/*
 artifact.zip
 phpunit.xml
 css/dist
+phpcs.xml
+.phpcs.xml
