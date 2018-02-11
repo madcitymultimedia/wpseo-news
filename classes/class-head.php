@@ -96,7 +96,7 @@ class WPSEO_News_Head {
 		 */
 		if ( apply_filters( 'wpseo_news_head_display_standout', true, $this->post ) ) {
 			$meta_standout = WPSEO_Meta::get_value( 'newssitemap-standout', $this->post->ID );
-			if ( 'on' == $meta_standout && strtotime( $this->post->post_date ) >= strtotime( '-7 days' ) ) {
+			if ( 'on' === $meta_standout && strtotime( $this->post->post_date ) >= strtotime( '-7 days' ) ) {
 				echo '<meta name="standout" content="' . get_permalink( $this->post->ID ) . '" />' . "\n";
 			}
 		}

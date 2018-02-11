@@ -50,7 +50,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 		echo '<title>' . get_bloginfo( 'name' ) . '</title>' . PHP_EOL;
 
 		// Display the image tag if an image is set.
-		if ( isset( $options['ep_image_src'] ) && $options['ep_image_src'] != '' ) {
+		if ( isset( $options['ep_image_src'] ) && $options['ep_image_src'] !== '' ) {
 			$this->show_image( $options['ep_image_src'] );
 		}
 

@@ -83,7 +83,7 @@ class WPSEO_News_Meta_Keywords {
 		$options = WPSEO_News::get_options();
 
 		// TODO: add suggested keywords to each post based on category, next to the entire.
-		if ( isset( $options['default_keywords'] ) && $options['default_keywords'] != '' ) {
+		if ( isset( $options['default_keywords'] ) && $options['default_keywords'] !== '' ) {
 			$this->add_keywords( $options['default_keywords'] );
 		}
 	}
