@@ -173,7 +173,7 @@ class WPSEO_News_Admin_Page {
 	protected function is_news_page( $page ) {
 		$news_pages = array( 'wpseo_news' );
 
-		return in_array( $page, $news_pages );
+		return in_array( $page, $news_pages, true );
 	}
 
 	/**
