@@ -11,6 +11,8 @@
 class WPSEO_News_Javascript_Strings {
 
 	/**
+	 * Strings to be made available to javascript.
+	 *
 	 * @var null|array
 	 */
 	private static $strings = null;

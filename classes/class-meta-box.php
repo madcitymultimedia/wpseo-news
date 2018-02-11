@@ -11,6 +11,8 @@
 class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
 	/**
+	 * Options.
+	 *
 	 * @var array
 	 */
 	private $options;

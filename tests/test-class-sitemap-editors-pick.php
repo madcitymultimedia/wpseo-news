@@ -11,6 +11,8 @@
 class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 
 	/**
+	 * Instance of the WPSEO_News_Sitemap_Editors_Pick class.
+	 *
 	 * @var WPSEO_News_Sitemap_Editors_Pick
 	 */
 	private $instance;

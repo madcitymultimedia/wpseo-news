@@ -11,6 +11,8 @@
 class WPSEO_News_Admin_Page {
 
 	/**
+	 * Options.
+	 *
 	 * @var array
 	 */
 	private $options = array();
