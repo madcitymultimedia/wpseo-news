@@ -92,9 +92,9 @@ function wpseo_news_activate_license() {
 	$license_manager->activate_license();
 }
 
-register_activation_hook( __FILE__, 'yoast_wpseo_news_activate' );
+register_activation_hook( WPSEO_NEWS_FILE, 'yoast_wpseo_news_activate' );
 
-register_deactivation_hook( __FILE__, 'yoast_wpseo_news_deactivate' );
+register_deactivation_hook( WPSEO_NEWS_FILE, 'yoast_wpseo_news_deactivate' );
 
 /*
  * When the plugin is deactivated and activated again, the license has to be activated. This is mostly the case
