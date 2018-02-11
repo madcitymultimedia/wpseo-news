@@ -1,22 +1,38 @@
 <?xml version="1.0"?>
-<ruleset name="Yoast SEO: News">
-    <description>Yoast SEO: News rules for PHP_CodeSniffer</description>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	name="Yoast SEO: News"
+	xsi:noNamespaceSchemaLocation="./vendor/squizlabs/php_codesniffer/phpcs.xsd">
 
-    <file>.</file>
+	<description>Yoast SEO: News rules for PHP_CodeSniffer</description>
 
-    <exclude-pattern>tests/*</exclude-pattern>
-    <exclude-pattern>vendor/*</exclude-pattern>
-    <exclude-pattern>node_modules/*</exclude-pattern>
+	<!--
+	#############################################################################
+	COMMAND LINE ARGUMENTS
+	https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml
+	#############################################################################
+	-->
 
-    <arg name="extensions" value="php" />
-    <arg value="nsp" />
+	<file>.</file>
 
-    <rule ref="Yoast">
-        <exclude name="WordPress.CSRF.NonceVerification.NoNonceVerification" /><!-- TODO audit and fix nonces -->
-        <exclude name="WordPress.WP.PreparedSQL.NotPrepared" /><!-- TODO audit raw queries -->
-    </rule>
+	<!-- Only check PHP files. -->
+	<arg name="extensions" value="php"/>
 
-    <rule ref="WordPress.WP.EnqueuedResources.NonEnqueuedScript">
-        <exclude-pattern>css/xml-sitemap-xsl.php</exclude-pattern>
-    </rule>
+	<!-- Show progress, show the error codes for each message (source). -->
+	<arg value="ps"/>
+
+	<!-- Strip the filepaths down to the relevant bit. -->
+	<arg name="basepath" value="./"/>
+
+	<!-- Check up to 8 files simultaneously. -->
+	<arg name="parallel" value="8"/>
+
+
+	<!--
+	#############################################################################
+	USE THE YoastCS RULESET
+	#############################################################################
+	-->
+
+	<rule ref="Yoast"/>
+
 </ruleset>
