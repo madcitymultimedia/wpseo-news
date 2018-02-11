@@ -6,7 +6,7 @@
 if ( ! class_exists( 'WPSEO_News_Product', false ) && class_exists( 'Yoast_Product' ) ) {
 
 	/**
-	 * Class WPSEO_News_Product
+	 * Class WPSEO_News_Product.
 	 */
 	class WPSEO_News_Product extends Yoast_Product {
 

@@ -4,7 +4,7 @@
  */
 
 /**
- * Class WPSEO_News_Test
+ * Class WPSEO_News_Test.
  */
 class WPSEO_News_Test extends WPSEO_News_UnitTestCase {
 

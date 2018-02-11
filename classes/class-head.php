@@ -14,7 +14,7 @@ class WPSEO_News_Head {
 	private $post;
 
 	/**
-	 * WPSEO_News_Head Constructor
+	 * WPSEO_News_Head Constructor.
 	 */
 	public function __construct() {
 		do_action( 'wpseo_news_head' );
@@ -38,15 +38,15 @@ class WPSEO_News_Head {
 	}
 
 	/**
-	 * Displays the original-source as link-tag in head
+	 * Displays the original-source as link-tag in head.
 	 */
 	private function display_original_source() {
 		/**
-		 * Filter: 'wpseo_news_head_display_original' - Allow preventing of outputting original source tag
+		 * Filter: 'wpseo_news_head_display_original' - Allow preventing of outputting original source tag.
 		 *
 		 * @api bool unsigned Whether or not to show the original source.
 		 *
-		 * @param object $post The post
+		 * @param object $post The post.
 		 */
 		if ( apply_filters( 'wpseo_news_head_display_original', true, $this->post ) ) {
 			$original_source = trim( WPSEO_Meta::get_value( 'newssitemap-original', $this->post->ID ) );
@@ -63,11 +63,11 @@ class WPSEO_News_Head {
 	}
 
 	/**
-	 * Displays the standout as meta tag in head
+	 * Displays the standout as meta tag in head.
 	 */
 	private function display_standout() {
 		/**
-		 * Filter: 'wpseo_news_head_display_standout' - Allow preventing of outputting standout tag
+		 * Filter: 'wpseo_news_head_display_standout' - Allow preventing of outputting standout tag.
 		 *
 		 * @api bool unsigned Whether or not to show the standout tag.
 		 *
@@ -88,11 +88,11 @@ class WPSEO_News_Head {
 	 */
 	private function display_noindex() {
 		/**
-		 * Filter: 'wpseo_news_head_display_noindex' - Allow preventing of outputting noindex tag
+		 * Filter: 'wpseo_news_head_display_noindex' - Allow preventing of outputting noindex tag.
 		 *
-		 * @api string $meta_standout The noindex tag
+		 * @api string $meta_standout The noindex tag.
 		 *
-		 * @param object $post The post
+		 * @param object $post The post.
 		 */
 		if ( apply_filters( 'wpseo_news_head_display_noindex', true, $this->post ) ) {
 			$robots_index = WPSEO_Meta::get_value( 'newssitemap-robots-index', $this->post->ID );

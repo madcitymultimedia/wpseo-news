@@ -1,6 +1,6 @@
 <?php
 
-// Disable xdebug backtrace.
+// Disable Xdebug backtrace.
 if ( function_exists( 'xdebug_disable' ) ) {
 	xdebug_disable();
 }
@@ -23,7 +23,7 @@ else {
 	require '../../../../tests/phpunit/includes/bootstrap.php';
 }
 
-// Load wordpress seo.
+// Load WordPress seo.
 require dirname( __FILE__ ) . '/../../wordpress-seo/wp-seo.php';
 
 

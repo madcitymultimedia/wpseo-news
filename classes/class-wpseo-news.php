@@ -4,7 +4,7 @@
  */
 
 /**
- * Represents the news extension for Yoast SEO
+ * Represents the news extension for Yoast SEO.
  */
 class WPSEO_News {
 
