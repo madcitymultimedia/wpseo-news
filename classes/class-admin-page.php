@@ -49,7 +49,9 @@ class WPSEO_News_Admin_Page {
 		echo WPSEO_News_Wrappers::textinput( 'name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );
 
 		// Default Genre.
-		echo WPSEO_News_Wrappers::select( 'default_genre', __( 'Default Genre', 'wordpress-seo-news' ),
+		echo WPSEO_News_Wrappers::select(
+			'default_genre',
+			__( 'Default Genre', 'wordpress-seo-news' ),
 			WPSEO_News::list_genres()
 		);
 

@@ -51,7 +51,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 			'newssitemap-keywords'     => array(
 				'name'        => 'newssitemap-keywords',
 				'type'        => 'text',
-				'std'        => '',
+				'std'         => '',
 				'title'       => __( 'Meta News Keywords', 'wordpress-seo-news' ),
 				'description' => __( 'Comma separated list of the keywords this article aims at, use a maximum of 10 keywords.', 'wordpress-seo-news' ),
 			),
@@ -252,7 +252,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		$used_standouts = $this->standouts_used();
 
 		// Default standout description.
-		$standout_desc = __( 'If your news organization breaks a big story, or publishes an extraordinary work of journalism, you can indicate this by using the standout tag.', 'wordpress-seo-news' );
+		$standout_desc  = __( 'If your news organization breaks a big story, or publishes an extraordinary work of journalism, you can indicate this by using the standout tag.', 'wordpress-seo-news' );
 		$standout_desc .= '<br />';
 
 		$standout_desc .= sprintf(
