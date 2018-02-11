@@ -81,4 +81,19 @@
 		</properties>
 	</rule>
 
+	<!-- Verify that everything in the global namespace is prefixed with a plugin specific prefix. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<!-- Provide the prefixes to look for. -->
+			<property name="prefixes" type="array">
+				<element value="wpseo_news"/>
+				<element value="yoast_wpseo_news"/>
+
+				<!-- These are the new prefixes which all code should comply with in the future. -->
+				<element value="yoast_news"/>
+				<element value="Yoast\WP\News"/>
+			</property>
+		</properties>
+	</rule>
+
 </ruleset>
