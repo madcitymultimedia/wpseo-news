@@ -8,11 +8,15 @@
  */
 class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
-	/** @var array */
+	/**
+	 * @var array
+	 */
 	private $options;
 
 	/**
-	 * @var int    The maximum number of standout tags allowed.
+	 * The maximum number of standout tags allowed.
+	 *
+	 * @var int
 	 */
 	private $max_standouts = 7;
 

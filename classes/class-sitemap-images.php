@@ -8,16 +8,32 @@
  */
 class WPSEO_News_Sitemap_Images {
 
-	/** @var object The current item */
+	/**
+	 * The current item.
+	 *
+	 * @var object
+	 */
 	private $item;
 
-	/** @var string The out that will be returned */
+	/**
+	 * The output that will be returned.
+	 *
+	 * @var string
+	 */
 	private $output = '';
 
-	/** @var array The options */
+	/**
+	 * The options.
+	 *
+	 * @var array
+	 */
 	private $options;
 
-	/** @var array Storage for the images */
+	/**
+	 * Storage for the images.
+	 *
+	 * @var array
+	 */
 	private $images;
 
 	/**

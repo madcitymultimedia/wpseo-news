@@ -9,7 +9,9 @@
 class WPSEO_News_Head {
 
 	/**
-	 * @var object - Holder for post-data
+	 * Holder for post-data.
+	 *
+	 * @var object
 	 */
 	private $post;
 

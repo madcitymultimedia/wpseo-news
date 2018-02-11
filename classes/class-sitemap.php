@@ -8,11 +8,17 @@
  */
 class WPSEO_News_Sitemap {
 
-	/** @var array Options */
+	/**
+	 * Options.
+	 *
+	 * @var array
+	 */
 	private $options;
 
 	/**
-	 * @var string The sitemap basename.
+	 * The sitemap basename.
+	 *
+	 * @var string
 	 */
 	private $basename;
 

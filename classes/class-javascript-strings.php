@@ -8,7 +8,9 @@
  */
 class WPSEO_News_Javascript_Strings {
 
-	/** @var null|array */
+	/**
+	 * @var null|array
+	 */
 	private static $strings = null;
 
 	/**

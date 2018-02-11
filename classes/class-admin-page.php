@@ -8,7 +8,9 @@
  */
 class WPSEO_News_Admin_Page {
 
-	/** @var array */
+	/**
+	 * @var array
+	 */
 	private $options = array();
 
 	/**

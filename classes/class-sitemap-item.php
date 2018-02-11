@@ -8,13 +8,25 @@
  */
 class WPSEO_News_Sitemap_Item {
 
-	/** @var string The output which will be returned */
+	/**
+	 * The output which will be returned.
+	 *
+	 * @var string
+	 */
 	private $output = '';
 
-	/** @var object The current item */
+	/**
+	 * The current item.
+	 *
+	 * @var object
+	 */
 	private $item;
 
-	/** @var array The options */
+	/**
+	 * The options.
+	 *
+	 * @var array
+	 */
 	private $options;
 
 	/**
