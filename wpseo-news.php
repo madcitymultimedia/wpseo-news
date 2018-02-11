@@ -1,35 +1,34 @@
 <?php
 /**
  * @package WPSEO_News
- */
-
-/**
-Plugin Name: Yoast SEO: News
-Version: 7.1
-Plugin URI: https://yoast.com/wordpress/plugins/news-seo/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=wpseonewsplugin
-Description: Google News plugin for the Yoast SEO plugin
-Author: Team Yoast
-Author URI: http://yoast.com/
-Text Domain: wpseo_news
-Domain Path: /languages/
-Depends: Yoast SEO
-License: GPL v3
-
-Yoast SEO Plugin
-Copyright (C) 2008-2016, Team Yoast
-
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
-
-You should have received a copy of the GNU General Public License
-along with this program.  If not, see <http://www.gnu.org/licenses/>.
+ *
+ * @wordpress-plugin
+ * Plugin Name: Yoast SEO: News
+ * Version:     7.1
+ * Plugin URI:  https://yoast.com/wordpress/plugins/news-seo/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=wpseonewsplugin
+ * Description: Google News plugin for the Yoast SEO plugin
+ * Author:      Team Yoast
+ * Author URI:  http://yoast.com/
+ * Text Domain: wpseo_news
+ * Domain Path: /languages/
+ * Depends:     Yoast SEO
+ * License:     GPL v3
+ *
+ * Yoast SEO Plugin
+ * Copyright (C) 2008-2016, Team Yoast
+ *
+ * This program is free software: you can redistribute it and/or modify
+ * it under the terms of the GNU General Public License as published by
+ * the Free Software Foundation, either version 3 of the License, or
+ * (at your option) any later version.
+ *
+ * This program is distributed in the hope that it will be useful,
+ * but WITHOUT ANY WARRANTY; without even the implied warranty of
+ * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+ * GNU General Public License for more details.
+ *
+ * You should have received a copy of the GNU General Public License
+ * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
 if ( ! defined( 'WPSEO_NEWS_FILE' ) ) {
