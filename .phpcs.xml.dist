@@ -60,4 +60,25 @@
 		</properties>
 	</rule>
 
+	<rule ref="Yoast.Files.FileName">
+		<properties>
+			<!-- Don't trigger on the main file as renaming it would deactivate the plugin.
+				 Also leave the main WPSEO_News class and associated test files alone as
+				 after removing the prefix, there would be nothing left. -->
+			<property name="exclude" type="array">
+				<element value="wpseo-news.php"/>
+				<element value="classes/wpseo-news.php"/>
+				<element value="integration-tests/wpseo-news-test.php"/>
+				<element value="integration-tests/doubles/wpseo-news-double.php"/>
+			</property>
+
+			<!-- Remove the following prefixes from the names of object structures. -->
+			<property name="prefixes" type="array">
+				<element value="wpseo_news"/>
+				<element value="yoast_wpseo_news"/>
+				<element value="yoast_news"/>
+			</property>
+		</properties>
+	</rule>
+
 </ruleset>
