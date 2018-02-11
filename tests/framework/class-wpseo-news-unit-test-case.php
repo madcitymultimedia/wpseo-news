@@ -1,4 +1,9 @@
 <?php
+/**
+ * Yoast SEO: News plugin test file.
+ *
+ * @package WPSEO_News\Tests
+ */
 
 /**
  * TestCase base class for convenience methods.

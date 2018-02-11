@@ -1,4 +1,9 @@
 <?php
+/**
+ * Yoast SEO: News plugin test file.
+ *
+ * @package WPSEO_News\Tests
+ */
 
 class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 

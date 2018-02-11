@@ -1,4 +1,9 @@
 <?php
+/**
+ * Yoast SEO: News plugin test file.
+ *
+ * @package WPSEO_News\Tests
+ */
 
 // Disable Xdebug backtrace.
 if ( function_exists( 'xdebug_disable' ) ) {
