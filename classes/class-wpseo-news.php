@@ -307,7 +307,8 @@ class WPSEO_News {
 	 * Initializes the helpscout beacon.
 	 */
 	public function init_helpscout_beacon() {
-		$query_var = ( $page = filter_input( INPUT_GET, 'page' ) ) ? $page : '';
+		$page      = filter_input( INPUT_GET, 'page' );
+		$query_var = ( ! empty( $page ) ) ? $page : '';
 
 		// Only add the helpscout beacon on Yoast SEO pages.
 		if ( $query_var === 'wpseo_news' ) {
