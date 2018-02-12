@@ -1,11 +1,17 @@
 /* global require, process */
+const { flattenVersionForFile } = require( "./grunt/modules/version.js" );
+
 module.exports = function(grunt) {
 	'use strict';
 
 	require('time-grunt')(grunt);
 
+	const pkg = grunt.file.readJSON( "package.json" );
+	const pluginVersion = pkg.yoast.pluginVersion;
+
 	// Define project configuration
 	var project = {
+		pluginVersion: pluginVersion,
 		paths: {
 			get config() {
 				return this.grunt + 'config/';
@@ -36,6 +42,8 @@ module.exports = function(grunt) {
 		pkg: grunt.file.readJSON( 'package.json' )
 	};
 
+	project.pluginVersionSlug = flattenVersionForFile( pluginVersion );
+
 	// Load Grunt configurations and tasks
 	require( 'load-grunt-config' )(grunt, {
 		configPath: require( 'path' ).join( process.cwd(), project.paths.config ),
@@ -45,7 +53,8 @@ module.exports = function(grunt) {
 				addtextdomain: 'grunt-wp-i18n',
 				makepot: 'grunt-wp-i18n',
 				glotpress_download: 'grunt-glotpress'
-			}
-		}
+			},
+			customTasksDir: "grunt/custom",
+		},
 	});
 };

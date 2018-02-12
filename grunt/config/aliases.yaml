@@ -12,6 +12,7 @@ build:
   - 'addtextdomain'
   - 'makepot'
   - 'glotpress_download'
+
 # Check health of the project
 check:
   - 'check:js'
@@ -27,6 +28,7 @@ check:
   - 'phpcs'
 'check:i18n':
   - 'checktextdomain'
+
 # Default task
 default:
   - build
