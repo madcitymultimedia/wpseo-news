@@ -7,6 +7,7 @@
  * Implements the helpscout beacon suggestions for wpseo news
  */
 class WPSEO_News_Beacon_Setting implements Yoast_HelpScout_Beacon_Setting {
+
 	/**
 	 * {@inheritdoc}
 	 *

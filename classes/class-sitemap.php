@@ -20,7 +20,7 @@ class WPSEO_News_Sitemap {
 	 * Constructor. Set options, basename and add actions.
 	 */
 	public function __construct() {
-		$this->options  = WPSEO_News::get_options();
+		$this->options = WPSEO_News::get_options();
 
 		add_action( 'init', array( $this, 'init' ), 10 );
 
