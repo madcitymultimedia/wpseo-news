@@ -242,20 +242,23 @@ class WPSEO_News_Sitemap_Item {
 	 * @return string
 	 */
 	private function get_date_format() {
-		static $timezone_option;
+		static $timezone_format;
 
-		if ( $timezone_option === null ) {
+		if ( ! isset( $timezone_format ) ) {
+			// Set a default.
+			$timezone_format = 'Y-m-d';
 
 			// Get the timezone string.
 			$timezone_option = new WPSEO_News_Sitemap_Timezone();
+			$timezone_option = (string) $timezone_option;
+
+			// Is there a usable timezone option and does it exists in the list of 'valid' timezones.
+			if ( $timezone_option !== '' && in_array( $timezone_option, DateTimeZone::listIdentifiers(), true ) ) {
+				$timezone_format = DateTime::W3C;
+			}
 		}
 
-		// Is there a timezone option and does it exists in the list of 'valid' timezone.
-		if ( $timezone_option !== '' && in_array( $timezone_option, DateTimeZone::listIdentifiers() ) ) {
-			return DateTime::W3C;
-		}
-
-		return 'Y-m-d';
+		return $timezone_format;
 	}
 
 	/**
