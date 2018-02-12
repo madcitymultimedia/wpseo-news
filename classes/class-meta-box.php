@@ -207,7 +207,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				$post_types = WPSEO_News::get_included_post_types();
 
 				// Display content if post type is supported.
-				if ( ! empty( $post_types ) && in_array( $post->post_type, $post_types ) ) {
+				if ( ! empty( $post_types ) && in_array( $post->post_type, $post_types, true ) ) {
 					$is_supported = true;
 				}
 			}
