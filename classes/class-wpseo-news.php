@@ -98,7 +98,7 @@ class WPSEO_News {
 		// Edit Post JS.
 		global $pagenow;
 
-		if ( 'post.php' == $pagenow || 'post-new.php' == $pagenow ) {
+		if ( 'post.php' === $pagenow || 'post-new.php' === $pagenow ) {
 			add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_edit_post' ) );
 		}
 
@@ -193,7 +193,7 @@ class WPSEO_News {
 		if ( empty( $this_plugin ) ) {
 			$this_plugin = plugin_basename( __FILE__ );
 		}
-		if ( $file == $this_plugin ) {
+		if ( $file === $this_plugin ) {
 			$settings_link = '<a href="' . admin_url( 'admin.php?page=wpseo_news' ) . '">' . __( 'Settings', 'wordpress-seo-news' ) . '</a>';
 			array_unshift( $links, $settings_link );
 		}
@@ -344,7 +344,7 @@ class WPSEO_News {
 			// Get supported post types.
 			$post_types = array();
 			foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $post_type ) {
-				if ( isset( $options[ 'newssitemap_include_' . $post_type->name ] ) && ( 'on' == $options[ 'newssitemap_include_' . $post_type->name ] ) ) {
+				if ( isset( $options[ 'newssitemap_include_' . $post_type->name ] ) && ( 'on' === $options[ 'newssitemap_include_' . $post_type->name ] ) ) {
 					$post_types[] = $post_type->name;
 				}
 			}
