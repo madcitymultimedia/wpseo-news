@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 4.8
 Tested up to: 4.9.2
-Stable tag: 6.2.1
+Stable tag: 6.3
 Depends: wordpress-seo
 
 Yoast News SEO module for the Yoast SEO plugin.
