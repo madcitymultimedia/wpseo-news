@@ -250,10 +250,10 @@ class WPSEO_News_Sitemap_Item {
 
 			// Get the timezone string.
 			$timezone_option = new WPSEO_News_Sitemap_Timezone();
-			$timezone_option = (string) $timezone_option;
+			$timezone_string = $timezone_option->wp_get_timezone_string();
 
-			// Is there a usable timezone option and does it exists in the list of 'valid' timezones.
-			if ( $timezone_option !== '' && in_array( $timezone_option, DateTimeZone::listIdentifiers(), true ) ) {
+			// Is there a usable timezone string and does it exists in the list of 'valid' timezones.
+			if ( $timezone_string !== '' && in_array( $timezone_string, DateTimeZone::listIdentifiers(), true ) ) {
 				$timezone_format = DateTime::W3C;
 			}
 		}
