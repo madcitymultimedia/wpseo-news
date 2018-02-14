@@ -22,9 +22,11 @@ class WPSEO_News_Sitemap_Timezone {
 	 *
 	 * Adapted from http://www.php.net/manual/en/function.timezone-name-from-abbr.php#89155
 	 *
+	 * @since 7.0 Changed the visibility of the method from private to public.
+	 *
 	 * @return string valid PHP timezone string
 	 */
-	private function wp_get_timezone_string() {
+	public function wp_get_timezone_string() {
 
 		// If site timezone string exists, return it.
 		if ( $timezone = get_option( 'timezone_string' ) ) {
