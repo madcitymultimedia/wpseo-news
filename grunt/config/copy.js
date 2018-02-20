@@ -6,11 +6,12 @@ module.exports = {
 				cwd: ".",
 				src: [
 					// folders to copy
-					"classes/**",
 					"vendor/**",
-					"assets/**",
 					"languages/**",
 					// files to copy
+					"/assets/xml-news-sitemap.xsl",
+					"/assets/admin-page.min.js",
+					"/assets/post-edit.min.js",
 					"wpseo-news.php"
 				],
 				dest: "artifact",
