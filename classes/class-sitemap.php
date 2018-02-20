@@ -20,7 +20,7 @@ class WPSEO_News_Sitemap {
 	 * Constructor. Set options, basename and add actions.
 	 */
 	public function __construct() {
-		$this->options  = WPSEO_News::get_options();
+		$this->options = WPSEO_News::get_options();
 
 		add_action( 'init', array( $this, 'init' ), 10 );
 
@@ -91,7 +91,7 @@ class WPSEO_News_Sitemap {
 		}
 
 		// Only invalidate when we are in a News Post Type object.
-		if ( ! in_array( get_post_type( $post_id ), WPSEO_News::get_included_post_types() ) ) {
+		if ( ! in_array( get_post_type( $post_id ), WPSEO_News::get_included_post_types(), true ) ) {
 			return;
 		}
 

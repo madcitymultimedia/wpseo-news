@@ -50,7 +50,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 		echo '<title>' . get_bloginfo( 'name' ) . '</title>' . PHP_EOL;
 
 		// Display the image tag if an image is set.
-		if ( isset( $options['ep_image_src'] ) && $options['ep_image_src'] != '' ) {
+		if ( isset( $options['ep_image_src'] ) && $options['ep_image_src'] !== '' ) {
 			$this->show_image( $options['ep_image_src'] );
 		}
 
@@ -92,17 +92,17 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	private function get_ep_query() {
 		return new WP_Query(
 			array(
-				'post_type'   => WPSEO_News::get_included_post_types(),
-				'post_status' => 'publish',
+				'post_type'           => WPSEO_News::get_included_post_types(),
+				'post_status'         => 'publish',
 				'ignore_sticky_posts' => 1,
-				'meta_query'  => array(
+				'meta_query'          => array(
 					array(
 						'key'   => '_yoast_wpseo_newssitemap-editors-pick',
 						'value' => 'on',
 					),
 				),
-				'order'       => 'DESC',
-				'orderby'     => 'date',
+				'order'               => 'DESC',
+				'orderby'             => 'date',
 			)
 		);
 	}

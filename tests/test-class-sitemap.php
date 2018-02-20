@@ -20,7 +20,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	 * @covers WPSEO_News_Sitemap::add_to_index
 	 */
 	public function test_add_to_index_no_items() {
-		$input = '';
+		$input  = '';
 		$output = $this->instance->add_to_index( $input );
 		$this->assertEquals( $input, $output );
 	}
@@ -41,9 +41,11 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		$output = $this->instance->add_to_index( '' );
 
-		$output_date     = new DateTime( get_lastpostdate( 'gmt' ),
-			new DateTimeZone( new WPSEO_News_Sitemap_Timezone() ) );
-		$expected_output = '<sitemap>' . "\n";
+		$output_date      = new DateTime(
+			get_lastpostdate( 'gmt' ),
+			new DateTimeZone( new WPSEO_News_Sitemap_Timezone() )
+		);
+		$expected_output  = '<sitemap>' . "\n";
 		$expected_output .= '<loc>' . home_url( 'news-sitemap.xml' ) . '</loc>' . "\n";
 		$expected_output .= '<lastmod>' . htmlspecialchars( $output_date->format( 'c' ) ) . '</lastmod>' . "\n";
 		$expected_output .= '</sitemap>' . "\n";
@@ -81,7 +83,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$output = $this->instance->build_sitemap();
 
 		// This is what we expect
-		$expected_output = "<url>\n";
+		$expected_output  = "<url>\n";
 		$expected_output .= "\t<loc>" . get_permalink( $post_id ) . "</loc>\n";
 		$expected_output .= "\t<news:news>\n";
 		$expected_output .= "\t\t<news:publication>\n";
@@ -92,7 +94,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= "\t\t<news:title><![CDATA[generate rss]]></news:title>\n";
 		$expected_output .= "\t\t<news:keywords><![CDATA[]]></news:keywords>\n";
 		$expected_output .= "\t</news:news>\n";
-		$expected_output .= "</url>";
+		$expected_output .= '</url>';
 
 		// Check if the $output contains the $expected_output
 		$this->assertContains( $expected_output, $output );
@@ -342,7 +344,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		$output = $this->instance->build_sitemap();
 
-		$expected_output = "\t<image:image>\n";
+		$expected_output  = "\t<image:image>\n";
 		$expected_output .= "\t\t<image:loc>" . $image . "</image:loc>\n";
 		$expected_output .= "\t</image:image>\n";
 
@@ -370,7 +372,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		$output = $this->instance->build_sitemap();
 
-		$expected_output = "\t</news:news>\n";
+		$expected_output  = "\t</news:news>\n";
 		$expected_output .= "\t<image:image>\n";
 		$expected_output .= "\t\t<image:loc>" . $image . "</image:loc>\n";
 		$expected_output .= "\t</image:image>\n";
@@ -407,7 +409,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		$output = $this->instance->build_sitemap();
 
-		$expected_output = "\t</news:news>\n";
+		$expected_output  = "\t</news:news>\n";
 		$expected_output .= "\t<image:image>\n";
 		$expected_output .= "\t\t<image:loc>" . $featured_image . "</image:loc>\n";
 		$expected_output .= "\t\t<image:title>attachment</image:title>\n";

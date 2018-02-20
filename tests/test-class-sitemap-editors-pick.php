@@ -18,11 +18,11 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 		$this->post_id = $this->factory->post->create(
 			array(
 				'post_title'   => 'generate rss',
-				'post_excerpt' => 'Post excerpt 1'
+				'post_excerpt' => 'Post excerpt 1',
 			)
 		);
 		// Set post as editors pick
-		add_post_meta($this->post_id, '_yoast_wpseo_newssitemap-editors-pick', 'on');
+		add_post_meta( $this->post_id, '_yoast_wpseo_newssitemap-editors-pick', 'on' );
 
 		$this->instance = new WPSEO_News_Sitemap_Editors_Pick();
 	}
@@ -64,7 +64,7 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 
 		// Check if the $output contains the $expected_output
 		$this->assertEquals( $expected_output, $output );
-//		$this->expectOutputString( $expected_output );
+		// $this->expectOutputString( $expected_output );
 	}
 
 }
