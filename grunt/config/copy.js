@@ -10,9 +10,8 @@ module.exports = {
 					"languages/**",
 					// files to copy
 					"/assets/xml-news-sitemap.xsl",
-					"/assets/admin-page.min.js",
-					"/assets/post-edit.min.js",
-					"wpseo-news.php"
+					"/assets/*.min.js",
+					"*.php"
 				],
 				dest: "artifact",
 			},
