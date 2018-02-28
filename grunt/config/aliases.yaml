@@ -30,6 +30,7 @@ check:
   - 'checktextdomain'
 # Create a zipped artifact from a fresh build
 'create:artifact':
+  - 'update-version'
   - 'build'
   - 'copy:artifact'
   - 'compress:artifact'
