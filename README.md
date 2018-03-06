@@ -28,6 +28,13 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 7.1: March 20th, 2018
+* Compatibility with Yoast SEO 7.1
+
+### 7.0: March 6th, 2018
+* Requires Yoast SEO 7.0 or higher to be installed.
+* Move each sitemap class to its own file instead of having multiple classes in one single file.
+
 ### 6.3: February 13th, 2018
 * Load the XSL stylesheet from a static file when home and site URL are the same.
 * Compatibility with Yoast SEO 6.3
