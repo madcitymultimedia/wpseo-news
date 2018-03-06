@@ -199,7 +199,7 @@ class WPSEO_News {
 		if ( empty( $this_plugin ) ) {
 			$this_plugin = plugin_basename( __FILE__ );
 		}
-		if ( $file == $this_plugin ) {
+		if ( $file === $this_plugin ) {
 			$settings_link = '<a href="' . admin_url( 'admin.php?page=wpseo_news' ) . '">' .
 			                 __( 'Settings', 'wordpress-seo-news' ) .
 			                 '</a>';

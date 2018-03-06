@@ -28,6 +28,9 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 7.1: March 20th, 2018
+* Compatibility with Yoast SEO 7.1
+
 ### 7.0: March 6th, 2018
 * Requires Yoast SEO 7.0 or higher to be installed.
 * Moves each sitemap class to its own file instead of having multiple classes in one single file.
