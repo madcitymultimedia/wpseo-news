@@ -1,8 +1,8 @@
 Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 4.8
-Tested up to: 4.9.2
-Stable tag: 6.3
+Tested up to: 4.9.4
+Stable tag: 7.0
 Requires PHP: 5.2.4
 Depends: wordpress-seo
 
@@ -33,7 +33,7 @@ Changelog
 
 ### 7.0: March 6th, 2018
 * Requires Yoast SEO 7.0 or higher to be installed.
-* Move each sitemap class to its own file instead of having multiple classes in one single file.
+* Moves each sitemap class to its own file instead of having multiple classes in one single file.
 
 ### 6.3: February 13th, 2018
 * Load the XSL stylesheet from a static file when home and site URL are the same.

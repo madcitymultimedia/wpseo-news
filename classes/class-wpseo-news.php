@@ -8,7 +8,7 @@
  */
 class WPSEO_News {
 
-	const VERSION = '6.3';
+	const VERSION = '7.0';
 
 	/**
 	 * Get WPSEO News options.
@@ -22,11 +22,12 @@ class WPSEO_News {
 		 * @api array $wpseo_news_options The Yoast News SEO options.
 		 */
 		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array(
-			'name'             => '',
-			'default_genre'    => array(),
-			'default_keywords' => '',
-			'ep_image_src'     => '',
-			'version'          => '0',
+			'name'                     => '',
+			'default_genre'            => array(),
+			'default_keywords'         => '',
+			'ep_image_src'             => '',
+			'version'                  => '0',
+			'newssitemap_include_post' => 'on',
 		) ) );
 	}
 
@@ -113,8 +114,13 @@ class WPSEO_News {
 		}
 
 		// Setting action for removing the transient on update options.
-		if ( class_exists( 'WPSEO_Sitemaps_Cache' ) && method_exists( 'WPSEO_Sitemaps_Cache', 'register_clear_on_option_update' ) ) {
-			WPSEO_Sitemaps_Cache::register_clear_on_option_update( 'wpseo_news', WPSEO_News_Sitemap::get_sitemap_name( false ) );
+		if ( class_exists( 'WPSEO_Sitemaps_Cache' ) &&
+		     method_exists( 'WPSEO_Sitemaps_Cache', 'register_clear_on_option_update' )
+		) {
+			WPSEO_Sitemaps_Cache::register_clear_on_option_update(
+				'wpseo_news',
+				WPSEO_News_Sitemap::get_sitemap_name( false )
+			);
 		}
 	}
 
@@ -194,7 +200,9 @@ class WPSEO_News {
 			$this_plugin = plugin_basename( __FILE__ );
 		}
 		if ( $file === $this_plugin ) {
-			$settings_link = '<a href="' . admin_url( 'admin.php?page=wpseo_news' ) . '">' . __( 'Settings', 'wordpress-seo-news' ) . '</a>';
+			$settings_link = '<a href="' . admin_url( 'admin.php?page=wpseo_news' ) . '">' .
+			                 __( 'Settings', 'wordpress-seo-news' ) .
+			                 '</a>';
 			array_unshift( $links, $settings_link );
 		}
 
@@ -252,11 +260,16 @@ class WPSEO_News {
 	public function enqueue_admin_page() {
 
 		wp_enqueue_media(); // Enqueue files needed for upload functionality.
-		wp_enqueue_script( 'wpseo-news-admin-page', plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ), array(
-			'jquery',
-			'jquery-ui-core',
-			'jquery-ui-autocomplete',
-		), self::VERSION, true );
+
+		wp_enqueue_script(
+			'wpseo-news-admin-page',
+			plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ), array(
+				'jquery',
+			),
+			self::VERSION,
+			true
+		);
+
 		wp_localize_script( 'wpseo-news-admin-page', 'wpseonews', WPSEO_News_Javascript_Strings::strings() );
 	}
 
@@ -264,7 +277,9 @@ class WPSEO_News {
 	 * Enqueue edit post JS.
 	 */
 	public function enqueue_edit_post() {
-		wp_enqueue_script( 'wpseo-news-edit-post', plugins_url( 'assets/post-edit' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ), array( 'jquery' ), self::VERSION, true );
+		wp_enqueue_script( 'wpseo-news-edit-post',
+			plugins_url( 'assets/post-edit' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ), array( 'jquery' ),
+			self::VERSION, true );
 	}
 
 	/**
@@ -274,14 +289,15 @@ class WPSEO_News {
 	 */
 	public function error_missing_wpseo() {
 		echo '<div class="error"><p>',
-			sprintf(
-				/* translators: %1$s resolves to the link to search for Yoast SEO, %2$s resolves to the closing tag for this link, %3$s resolves to Yoast SEO, %4$s resolves to News SEO */
-				__( 'Please %1$sinstall &amp; activate %3$s%2$s and then enable its XML sitemap functionality to allow the %4$s module to work.', 'wordpress-seo-news' ),
-				'<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=yoast+seo&plugin-search-input=Search+Plugins' ) ) . '">',
-				'</a>',
-				'Yoast SEO',
-				'News SEO'
-			), '</p></div>';
+		sprintf(
+			/* translators: %1$s resolves to the link to search for Yoast SEO, %2$s resolves to the closing tag for this link, %3$s resolves to Yoast SEO, %4$s resolves to News SEO */
+			__( 'Please %1$sinstall &amp; activate %3$s%2$s and then enable its XML sitemap functionality to allow the %4$s module to work.',
+				'wordpress-seo-news' ),
+			'<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=yoast+seo&plugin-search-input=Search+Plugins' ) ) . '">',
+			'</a>',
+			'Yoast SEO',
+			'News SEO'
+		), '</p></div>';
 	}
 
 	/**
@@ -291,11 +307,12 @@ class WPSEO_News {
 	 */
 	public function error_upgrade_wp() {
 		echo '<div class="error"><p>',
-			sprintf(
-				/* translators: %1$s resolves to News SEO */
-				__( 'Please upgrade WordPress to the latest version to allow WordPress and the %1$s module to work properly.', 'wordpress-seo-news' ),
-				'News SEO'
-			), '</p></div>';
+		sprintf(
+			/* translators: %1$s resolves to News SEO */
+			__( 'Please upgrade WordPress to the latest version to allow WordPress and the %1$s module to work properly.',
+				'wordpress-seo-news' ),
+			'News SEO'
+		), '</p></div>';
 	}
 
 	/**
@@ -305,12 +322,13 @@ class WPSEO_News {
 	 */
 	public function error_upgrade_wpseo() {
 		echo '<div class="error"><p>',
-			sprintf(
-				/* translators: %1$s resolves to Yoast SEO, %2$s resolves to News SEO */
-				__( 'Please upgrade the %1$s plugin to the latest version to allow the %2$s module to work.', 'wordpress-seo-news' ),
-				'Yoast SEO',
-				'News SEO'
-			), '</p></div>';
+		sprintf(
+			/* translators: %1$s resolves to Yoast SEO, %2$s resolves to News SEO */
+			__( 'Please upgrade the %1$s plugin to the latest version to allow the %2$s module to work.',
+				'wordpress-seo-news' ),
+			'Yoast SEO',
+			'News SEO'
+		), '</p></div>';
 	}
 
 	/**
@@ -330,8 +348,8 @@ class WPSEO_News {
 	/**
 	 * Getting the post_types based on the included post_types option.
 	 *
-	 * The variable $post_types is static, because it won't change during pageload, but the method may be called multiple
-	 * times. First time it will set the value, second time it will return this value.
+	 * The variable $post_types is static, because it won't change during pageload, but the method may be called
+	 * multiple times. First time it will set the value, second time it will return this value.
 	 *
 	 * @return array
 	 */
