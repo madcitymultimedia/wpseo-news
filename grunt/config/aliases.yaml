@@ -28,7 +28,18 @@ check:
   - 'phpcs'
 'check:i18n':
   - 'checktextdomain'
-
+# Create a zipped artifact from a fresh build
+'create:artifact':
+  - 'update-version'
+  - 'build'
+  - 'copy:artifact'
+  - 'compress:artifact'
+# Copy the needed files to the ./artifact folder
+'copy:artifact':
+  - 'copy:artifactFiles'
+# Create a compressed zip from the ./artifact folder
+'compress:artifact':
+  - 'compress:artifactFiles'
 # Default task
 default:
   - build
