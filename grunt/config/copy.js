@@ -5,10 +5,10 @@ module.exports = {
 				expand: true,
 				cwd: ".",
 				src: [
-					// folders to copy
+					// Folders to copy.
 					"vendor/**",
 					"languages/**",
-					// files to copy
+					// Files to copy.
 					"/assets/xml-news-sitemap.xsl",
 					"/assets/*.min.js",
 					"*.php"
