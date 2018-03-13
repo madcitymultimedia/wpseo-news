@@ -32,19 +32,6 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Get plugin file.
-	 *
-	 * @deprecated since 3.1. Use WPSEO_NEWS_FILE instead.
-	 *
-	 * @return string
-	 */
-	public static function get_file() {
-		_deprecated_function( __FUNCTION__, '3.1', 'WPSEO_NEWS_FILE' );
-
-		return WPSEO_NEWS_FILE;
-	}
-
-	/**
 	 * Initializes the plugin.
 	 */
 	public function __construct() {
