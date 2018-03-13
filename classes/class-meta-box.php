@@ -154,7 +154,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 * The tab header.
 	 */
 	public function header() {
-		echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . __( 'Google News', 'wordpress-seo-news' ) . '</a></li>';
+		echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . esc_html__( 'Google News', 'wordpress-seo-news' ) . '</a></li>';
 	}
 
 	/**
