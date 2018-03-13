@@ -4,7 +4,7 @@ Requires at least: 4.8
 Tested up to: 4.9.4
 Stable tag: 7.0
 Requires PHP: 5.2.4
-Depends: wordpress-seo
+Depends: Yoast SEO
 
 Yoast News SEO module for the Yoast SEO plugin.
 
