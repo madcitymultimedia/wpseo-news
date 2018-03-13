@@ -12,7 +12,7 @@ Author: Team Yoast
 Author URI: http://yoast.com/
 Text Domain: wpseo_news
 Domain Path: /languages/
-Depends:     Yoast SEO
+Depends: Yoast SEO
 License: GPL v3
 
 Yoast SEO Plugin
