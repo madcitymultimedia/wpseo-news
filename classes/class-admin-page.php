@@ -143,11 +143,9 @@ class WPSEO_News_Admin_Page {
 	private function editors_pick() {
 		echo '<h2>' . __( "Editors' Picks", 'wordpress-seo-news' ) . '</h2>';
 
-		$esc_form_key = 'ep_image_src';
-
-		echo '<label class="select" for="' . $esc_form_key . '">' . __( "Editors' Picks Image", 'wordpress-seo-news' ) . ':</label>';
-		echo '<input id="' . $esc_form_key . '" type="text" size="36" name="wpseo_news[' . $esc_form_key . ']" value="' . esc_attr( $this->options[ $esc_form_key ] ) . '" />';
-		echo '<input id="' . $esc_form_key . '_button" class="wpseo_image_upload_button button" type="button" value="' . __( 'Upload Image', 'wordpress-seo-news' ) . '" />';
+		echo '<label class="select" for="ep_image_src">' . esc_html__( "Editors' Picks Image", 'wordpress-seo-news' ) . ':</label>';
+		echo '<input id="ep_image_src" type="text" size="36" name="wpseo_news[ep_image_src]" value="' . esc_attr( $this->options['ep_image_src'] ) . '" />';
+		echo '<input id="ep_image_src_button" class="wpseo_image_upload_button button" type="button" value="' . esc_attr__( 'Upload Image', 'wordpress-seo-news' ) . '" />';
 		echo '<br class="clear"/>';
 
 		echo '<p>' . sprintf(
