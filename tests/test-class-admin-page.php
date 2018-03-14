@@ -2,6 +2,11 @@
 
 class WPSEO_News_Admin_Page_Test extends WPSEO_News_UnitTestCase {
 
+	/**
+	 * Instance of the WPSEO_News_Admin_Page class.
+	 *
+	 * @var \WPSEO_News_Admin_Page
+	 */
 	private $instance;
 
 	/**

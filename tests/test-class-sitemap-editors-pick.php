@@ -7,6 +7,11 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 	 */
 	private $instance;
 
+	/**
+	 * ID of the post to test with.
+	 *
+	 * @var int
+	 */
 	private $post_id;
 
 	/**
