@@ -101,8 +101,8 @@ class WPSEO_News {
 		}
 
 		// Setting action for removing the transient on update options.
-		if ( class_exists( 'WPSEO_Sitemaps_Cache' ) &&
-		     method_exists( 'WPSEO_Sitemaps_Cache', 'register_clear_on_option_update' )
+		if ( class_exists( 'WPSEO_Sitemaps_Cache' )
+			&& method_exists( 'WPSEO_Sitemaps_Cache', 'register_clear_on_option_update' )
 		) {
 			WPSEO_Sitemaps_Cache::register_clear_on_option_update(
 				'wpseo_news',
@@ -187,9 +187,9 @@ class WPSEO_News {
 			$this_plugin = plugin_basename( WPSEO_NEWS_FILE );
 		}
 		if ( $file === $this_plugin ) {
-			$settings_link = '<a href="' . admin_url( 'admin.php?page=wpseo_news' ) . '">' .
-			                 __( 'Settings', 'wordpress-seo-news' ) .
-			                 '</a>';
+			$settings_link = '<a href="' . admin_url( 'admin.php?page=wpseo_news' ) . '">'
+				. __( 'Settings', 'wordpress-seo-news' )
+				. '</a>';
 			array_unshift( $links, $settings_link );
 		}
 
@@ -264,9 +264,13 @@ class WPSEO_News {
 	 * Enqueue edit post JS.
 	 */
 	public function enqueue_edit_post() {
-		wp_enqueue_script( 'wpseo-news-edit-post',
-			plugins_url( 'assets/post-edit' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ), array( 'jquery' ),
-			self::VERSION, true );
+		wp_enqueue_script(
+			'wpseo-news-edit-post',
+			plugins_url( 'assets/post-edit' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ),
+			array( 'jquery' ),
+			self::VERSION,
+			true
+		);
 	}
 
 	/**
@@ -278,8 +282,10 @@ class WPSEO_News {
 		echo '<div class="error"><p>';
 		printf(
 			/* translators: %1$s resolves to the link to search for Yoast SEO, %2$s resolves to the closing tag for this link, %3$s resolves to Yoast SEO, %4$s resolves to News SEO */
-			esc_html__( 'Please %1$sinstall &amp; activate %3$s%2$s and then enable its XML sitemap functionality to allow the %4$s module to work.',
-				'wordpress-seo-news' ),
+			esc_html__(
+				'Please %1$sinstall &amp; activate %3$s%2$s and then enable its XML sitemap functionality to allow the %4$s module to work.',
+				'wordpress-seo-news'
+			),
 			'<a href="' . esc_url( admin_url( 'plugin-install.php?tab=search&type=term&s=yoast+seo&plugin-search-input=Search+Plugins' ) ) . '">',
 			'</a>',
 			'Yoast SEO',
@@ -297,8 +303,10 @@ class WPSEO_News {
 		echo '<div class="error"><p>';
 		printf(
 			/* translators: %1$s resolves to News SEO */
-			esc_html__( 'Please upgrade WordPress to the latest version to allow WordPress and the %1$s module to work properly.',
-				'wordpress-seo-news' ),
+			esc_html__(
+				'Please upgrade WordPress to the latest version to allow WordPress and the %1$s module to work properly.',
+				'wordpress-seo-news'
+			),
 			'News SEO'
 		);
 		echo '</p></div>';
@@ -313,8 +321,10 @@ class WPSEO_News {
 		echo '<div class="error"><p>';
 		printf(
 			/* translators: %1$s resolves to Yoast SEO, %2$s resolves to News SEO */
-			esc_html__( 'Please upgrade the %1$s plugin to the latest version to allow the %2$s module to work.',
-				'wordpress-seo-news' ),
+			esc_html__(
+				'Please upgrade the %1$s plugin to the latest version to allow the %2$s module to work.',
+				'wordpress-seo-news'
+			),
 			'Yoast SEO',
 			'News SEO'
 		);
