@@ -196,28 +196,29 @@ class WPSEO_News_Sitemap {
 	private function get_items( $limit = 1000 ) {
 		global $wpdb;
 
-		$limit = max( 1, min( 1000, $limit ) );
-
-		$post_types = $this->get_post_types();
+		// Get supported post types.
+		$post_types = WPSEO_News::get_included_post_types();
 		if ( empty( $post_types ) ) {
 			return array();
 		}
 
+		$replacements   = $post_types;
+		$replacements[] = max( 1, min( 1000, $limit ) );
+
 		// Get posts for the last two days only, credit to Alex Moss for this code.
-		// @codingStandardsIgnoreStart
-		$sql_query = "
-			 SELECT ID, post_content, post_name, post_author, post_parent, post_date_gmt, post_date, post_date_gmt, post_title, post_type
-			 FROM {$wpdb->posts}
-			 WHERE post_status=%s
-			 AND (DATEDIFF(CURDATE(), post_date_gmt)<=2)
-			 AND post_type IN ({$post_types})
-			 ORDER BY post_date_gmt DESC
-			 LIMIT 0, {$limit}
-		 ";
-
-		$items = $wpdb->get_results( $wpdb->prepare( $sql_query, 'publish' ) );
-
-		// @codingStandardsIgnoreEnd
+		$items = $wpdb->get_results(
+			$wpdb->prepare(
+				"SELECT ID, post_content, post_name, post_author, post_parent, post_date_gmt, post_date, post_date_gmt, post_title, post_type
+				FROM {$wpdb->posts}
+				WHERE post_status='publish'
+					AND (DATEDIFF(CURDATE(), post_date_gmt)<=2)
+					AND post_type IN (" . implode( ',', array_fill( 0, count( $post_types ), '%s' ) ) . ')
+				ORDER BY post_date_gmt DESC
+				LIMIT 0, %d
+				',
+				$replacements
+			)
+		);
 
 		return $items;
 	}
@@ -236,22 +237,6 @@ class WPSEO_News_Sitemap {
 		}
 
 		return $output;
-	}
-
-	/**
-	 * Getting the post_types which will be displayed in the sitemap
-	 *
-	 * @return array|string
-	 */
-	private function get_post_types() {
-		// Get supported post types.
-		$post_types = WPSEO_News::get_included_post_types();
-
-		if ( ! empty( $post_types ) ) {
-			$post_types = "'" . implode( "','", $post_types ) . "'";
-		}
-
-		return $post_types;
 	}
 
 	/**
