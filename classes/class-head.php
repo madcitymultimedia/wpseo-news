@@ -53,7 +53,7 @@ class WPSEO_News_Head {
 
 			$meta_news_keywords = new WPSEO_News_Meta_Keywords( $this->post->ID );
 			if ( ! empty( $meta_news_keywords ) ) {
-				echo '<meta name="news_keywords" content="' . $meta_news_keywords . '" />' . "\n";
+				echo '<meta name="news_keywords" content="' . esc_attr( $meta_news_keywords ) . '" />' . "\n";
 			}
 		}
 	}
@@ -72,12 +72,12 @@ class WPSEO_News_Head {
 		if ( apply_filters( 'wpseo_news_head_display_original', true, $this->post ) ) {
 			$original_source = trim( WPSEO_Meta::get_value( 'newssitemap-original', $this->post->ID ) );
 			if ( empty( $original_source ) ) {
-				echo '<meta name="original-source" content="' . get_permalink( $this->post->ID ) . '" />' . "\n";
+				echo '<meta name="original-source" content="' . esc_url( get_permalink( $this->post->ID ) ) . '" />' . "\n";
 			}
 			else {
 				$sources = explode( '|', $original_source );
 				foreach ( $sources as $source ) {
-					echo '<meta name="original-source" content="' . $source . '" />' . "\n";
+					echo '<meta name="original-source" content="' . esc_url( $source ) . '" />' . "\n";
 				}
 			}
 		}
@@ -97,7 +97,7 @@ class WPSEO_News_Head {
 		if ( apply_filters( 'wpseo_news_head_display_standout', true, $this->post ) ) {
 			$meta_standout = WPSEO_Meta::get_value( 'newssitemap-standout', $this->post->ID );
 			if ( 'on' === $meta_standout && strtotime( $this->post->post_date ) >= strtotime( '-7 days' ) ) {
-				echo '<meta name="standout" content="' . get_permalink( $this->post->ID ) . '" />' . "\n";
+				echo '<meta name="standout" content="' . esc_url( get_permalink( $this->post->ID ) ) . '" />' . "\n";
 			}
 		}
 	}
