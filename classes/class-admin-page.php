@@ -57,9 +57,6 @@ class WPSEO_News_Admin_Page {
 			WPSEO_News::list_genres()
 		);
 
-		// Default keywords.
-		$this->default_keywords();
-
 		echo '</fieldset>';
 
 		// Post Types to include in News Sitemap.
@@ -93,25 +90,6 @@ class WPSEO_News_Admin_Page {
 				'register_url'   => 'http://translate.yoast.com/gp/projects#utm_source=plugin&utm_medium=promo-box&utm_campaign=wpseo-news-i18n-promo',
 			)
 		);
-	}
-
-	/**
-	 * Generate HTML for the keywords which will be defaulted.
-	 */
-	private function default_keywords() {
-		// Default keywords.
-		echo WPSEO_News_Wrappers::textinput( 'default_keywords', __( 'Default Keywords', 'wordpress-seo-news' ) );
-		echo '<p class="desc label">';
-		printf(
-			/* translators: %1$s opening tag of the link to the Google suggested keywords page, %2$s closing tag for the link. */
-			esc_html__( 'It might be wise to add some of the %1$sGoogle\'s suggested keywords%2$s to all of your posts. Add them as a comma separated list.', 'wordpress-seo-news' ),
-			'<a target="_blank" href="http://www.google.com/support/news_pub/bin/answer.py?answer=116037">',
-			'</a>'
-		);
-		echo '</p>';
-
-		echo WPSEO_News_Wrappers::checkbox( 'restrict_sitemap_featured_img', __( 'Only use the featured image for your News Sitemap, ignore images in post.', 'wordpress-seo-news' ), false );
-		echo '<br>';
 	}
 
 	/**

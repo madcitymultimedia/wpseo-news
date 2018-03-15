@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Yoast SEO: News 7.0\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
-"POT-Creation-Date: 2018-03-06 09:07:20+00:00\n"
+"POT-Creation-Date: 2018-03-15 10:56:41+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -30,81 +30,65 @@ msgid ""
 "in Google News."
 msgstr ""
 
-#: classes/class-admin-page.php:39
+#: classes/class-admin-page.php:40
 #. translators: %1$s opening tag of the link to the News Sitemap, %2$s closing
 #. tag for the link.
 msgid "%1$sView your News Sitemap%2$s."
 msgstr ""
 
-#: classes/class-admin-page.php:44
+#: classes/class-admin-page.php:46
 msgid "General settings"
 msgstr ""
 
-#: classes/class-admin-page.php:46
+#: classes/class-admin-page.php:48
 msgid "News Sitemap settings"
 msgstr ""
 
-#: classes/class-admin-page.php:49
+#: classes/class-admin-page.php:51
 msgid "Google News Publication Name"
 msgstr ""
 
-#: classes/class-admin-page.php:52
+#: classes/class-admin-page.php:56
 msgid "Default Genre"
 msgstr ""
 
-#: classes/class-admin-page.php:99
-msgid "Default Keywords"
-msgstr ""
-
-#: classes/class-admin-page.php:102
-#. translators: %1$s opening tag of the link to the Google suggested keywords
-#. page, %2$s closing tag for the link.
-msgid ""
-"It might be wise to add some of the %1$sGoogle's suggested keywords%2$s to "
-"all of your posts. Add them as a comma separated list."
-msgstr ""
-
-#: classes/class-admin-page.php:107
-msgid "Only use the featured image for your News Sitemap, ignore images in post."
-msgstr ""
-
-#: classes/class-admin-page.php:116
+#: classes/class-admin-page.php:100
 msgid "Post Types to include in News Sitemap and Editors&#39; Picks RSS"
 msgstr ""
 
-#: classes/class-admin-page.php:117
+#: classes/class-admin-page.php:101
 msgid "Post Types to include:"
 msgstr ""
 
-#: classes/class-admin-page.php:129 classes/class-admin-page.php:130
+#: classes/class-admin-page.php:113 classes/class-admin-page.php:114
 msgid "Post categories to exclude"
 msgstr ""
 
-#: classes/class-admin-page.php:142 classes/class-meta-box.php:93
+#: classes/class-admin-page.php:126 classes/class-meta-box.php:86
 msgid "Editors' Picks"
 msgstr ""
 
-#: classes/class-admin-page.php:146
+#: classes/class-admin-page.php:128
 msgid "Editors' Picks Image"
 msgstr ""
 
-#: classes/class-admin-page.php:148
+#: classes/class-admin-page.php:130
 msgid "Upload Image"
 msgstr ""
 
-#: classes/class-admin-page.php:153
+#: classes/class-admin-page.php:136
 #. translators: %1$s opening tag of the link to the Editors Picks RSS, %2$s
 #. closing tag for the link.
 msgid "%1$sView your Editors' Picks RSS Feed%2$s."
 msgstr ""
 
-#: classes/class-admin-page.php:160
+#: classes/class-admin-page.php:145
 #. translators: %1$s opening tag of the link to the Google Editors Picks submit
 #. page, %2$s closing tag for the link.
 msgid "%1$sSubmit your Editors' Picks RSS Feed to Google News%2$s."
 msgstr ""
 
-#: classes/class-admin-page.php:189
+#: classes/class-admin-page.php:175
 #. translators: %1$s resolves to the opening tag of the link to the general
 #. settings page, %1$s resolves to the closing tag for the link
 msgid ""
@@ -125,39 +109,29 @@ msgid "Exclude from News Sitemap"
 msgstr ""
 
 #: classes/class-meta-box.php:55
-msgid "Meta News Keywords"
-msgstr ""
-
-#: classes/class-meta-box.php:56
-msgid ""
-"Comma separated list of the keywords this article aims at, use a maximum of "
-"10 keywords."
-msgstr ""
-
-#: classes/class-meta-box.php:62
 msgid "Google News Genre"
 msgstr ""
 
-#: classes/class-meta-box.php:63
+#: classes/class-meta-box.php:56
 msgid "Genre to show in Google News Sitemap."
 msgstr ""
 
-#: classes/class-meta-box.php:71
+#: classes/class-meta-box.php:64
 msgid "Original Source"
 msgstr ""
 
-#: classes/class-meta-box.php:72
+#: classes/class-meta-box.php:65
 msgid ""
 "Is this article the original source of this news? If not, please enter the "
 "URL of the original source here. If there are multiple sources, please "
 "separate them by a pipe symbol: | ."
 msgstr ""
 
-#: classes/class-meta-box.php:78
+#: classes/class-meta-box.php:71
 msgid "Stock Tickers"
 msgstr ""
 
-#: classes/class-meta-box.php:79
+#: classes/class-meta-box.php:72
 msgid ""
 "A comma-separated list of up to 5 stock tickers of the companies, mutual "
 "funds, or other financial entities that are the main subject of the "
@@ -166,19 +140,19 @@ msgid ""
 "(but not \"NASD:AMAT\"), or \"BOM:500325\" (but not \"BOM:RIL\")."
 msgstr ""
 
-#: classes/class-meta-box.php:85
+#: classes/class-meta-box.php:78
 msgid "Standout"
 msgstr ""
 
-#: classes/class-meta-box.php:86
+#: classes/class-meta-box.php:79
 msgid "Use the standout tag"
 msgstr ""
 
-#: classes/class-meta-box.php:94
+#: classes/class-meta-box.php:87
 msgid "Include in Editors' Picks"
 msgstr ""
 
-#: classes/class-meta-box.php:95
+#: classes/class-meta-box.php:88
 msgid ""
 "Editors' Picks enables you to provide up to five links to original news "
 "content you believe represents your organization’s best journalistic work "
@@ -186,25 +160,25 @@ msgid ""
 "homepage or select section pages."
 msgstr ""
 
-#: classes/class-meta-box.php:105
+#: classes/class-meta-box.php:98
 msgid "Googlebot-News index"
 msgstr ""
 
-#: classes/class-meta-box.php:106
+#: classes/class-meta-box.php:99
 msgid "Using noindex allows you to prevent articles from appearing in Google News."
 msgstr ""
 
-#: classes/class-meta-box.php:157 classes/class-meta-box.php:172
+#: classes/class-meta-box.php:150 classes/class-meta-box.php:165
 msgid "Google News"
 msgstr ""
 
-#: classes/class-meta-box.php:255
+#: classes/class-meta-box.php:248
 msgid ""
 "If your news organization breaks a big story, or publishes an extraordinary "
 "work of journalism, you can indicate this by using the standout tag."
 msgstr ""
 
-#: classes/class-meta-box.php:260
+#: classes/class-meta-box.php:253
 #. translators: %1$d: number of standout tags, %2$s resolves to the opening tag
 #. of the link to the Google help page, %3$s resolves to the closing tag for
 #. the link.
@@ -213,17 +187,17 @@ msgid ""
 "can cause removal from Google news. See the %2$sGoogle Help page  tag%3$s."
 msgstr ""
 
-#: classes/class-meta-box.php:275
+#: classes/class-meta-box.php:268
 #. translators: %1$d number of used standout tags, %2$d number of maximum
 #. standout tags allowed.
 msgid "You have used %1$d/%2$d standout tags in the last 7 days."
 msgstr ""
 
-#: classes/class-wpseo-news.php:204
+#: classes/class-wpseo-news.php:183
 msgid "Settings"
 msgstr ""
 
-#: classes/class-wpseo-news.php:294
+#: classes/class-wpseo-news.php:264
 #. translators: %1$s resolves to the link to search for Yoast SEO, %2$s
 #. resolves to the closing tag for this link, %3$s resolves to Yoast SEO, %4$s
 #. resolves to News SEO
@@ -232,45 +206,45 @@ msgid ""
 "functionality to allow the %4$s module to work."
 msgstr ""
 
-#: classes/class-wpseo-news.php:312
+#: classes/class-wpseo-news.php:285
 #. translators: %1$s resolves to News SEO
 msgid ""
 "Please upgrade WordPress to the latest version to allow WordPress and the "
 "%1$s module to work properly."
 msgstr ""
 
-#: classes/class-wpseo-news.php:327
+#: classes/class-wpseo-news.php:303
 #. translators: %1$s resolves to Yoast SEO, %2$s resolves to News SEO
 msgid ""
 "Please upgrade the %1$s plugin to the latest version to allow the %2$s "
 "module to work."
 msgstr ""
 
-#: classes/class-wpseo-news.php:386
+#: classes/class-wpseo-news.php:365
 msgid "None"
 msgstr ""
 
-#: classes/class-wpseo-news.php:387
+#: classes/class-wpseo-news.php:366
 msgid "Press Release"
 msgstr ""
 
-#: classes/class-wpseo-news.php:388
+#: classes/class-wpseo-news.php:367
 msgid "Satire"
 msgstr ""
 
-#: classes/class-wpseo-news.php:389
+#: classes/class-wpseo-news.php:368
 msgid "Blog"
 msgstr ""
 
-#: classes/class-wpseo-news.php:390
+#: classes/class-wpseo-news.php:369
 msgid "Op-Ed"
 msgstr ""
 
-#: classes/class-wpseo-news.php:391
+#: classes/class-wpseo-news.php:370
 msgid "Opinion"
 msgstr ""
 
-#: classes/class-wpseo-news.php:392
+#: classes/class-wpseo-news.php:371
 msgid "User Generated"
 msgstr ""
 
