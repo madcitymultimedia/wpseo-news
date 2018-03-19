@@ -10,9 +10,6 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		// Be sure eventually hook will be removed
-		remove_action( 'wpseo_news_options', array( $this, 'set_default_keywords' ) );
-
 		$this->instance = new WPSEO_News_Sitemap();
 	}
 
@@ -92,7 +89,6 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= "\t\t</news:publication>\n";
 		$expected_output .= "\t\t<news:publication_date>" . get_the_date( DATE_ATOM, $post_id ) . "</news:publication_date>\n";
 		$expected_output .= "\t\t<news:title><![CDATA[generate rss]]></news:title>\n";
-		$expected_output .= "\t\t<news:keywords><![CDATA[]]></news:keywords>\n";
 		$expected_output .= "\t</news:news>\n";
 		$expected_output .= '</url>';
 
@@ -119,213 +115,6 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 </urlset>';
 
 		// Check if the $output contains the $expected_output
-		$this->assertContains( $expected_output, $output );
-	}
-
-
-	/**
-	 * Check what happens if there is one post added with keywords
-	 *
-	 * @covers WPSEO_News_Sitemap::build_sitemap
-	 */
-	public function test_sitemap_WITH_keywords() {
-		// Create post
-		$post_id = $this->factory->post->create();
-
-		// Set meta value to exclude
-		update_post_meta( $post_id, '_yoast_wpseo_newssitemap-keywords', 'keyword' );
-
-		$output = $this->instance->build_sitemap();
-
-		// The expected output
-		$expected_output = "\t\t<news:keywords><![CDATA[keyword]]></news:keywords>\n";
-
-		// Check if the $output contains the $expected_output
-		$this->assertContains( $expected_output, $output );
-	}
-
-	/**
-	 * Check what happens if there is one post added with only a single tag
-	 *
-	 * @covers WPSEO_News_Sitemap::build_sitemap
-	 */
-	public function test_sitemap_WITH_tags() {
-		// Create post
-		$post_id = $this->factory->post->create();
-
-		// Set meta value to exclude
-		$term = wp_insert_term( 'tag', 'post_tag' );
-		wp_set_post_terms( $post_id, array( $term['term_id'] ) );
-
-		$output = $this->instance->build_sitemap();
-
-		// The expected output
-		$expected_output = "\t\t<news:keywords><![CDATA[tag]]></news:keywords>\n";
-
-		// Check if the $output contains the $expected_output
-		$this->assertContains( $expected_output, $output );
-	}
-
-	/**
-	 * Check what happens if there is one post added and there is are default keywords present
-	 *
-	 * @covers WPSEO_News_Sitemap::build_sitemap
-	 */
-	public function test_sitemap_WITH_default_keywords() {
-
-		$this->default_keywords();
-
-		// Create post
-		$post_id = $this->factory->post->create();
-
-		$output = $this->instance->build_sitemap();
-
-		// The expected output
-		$expected_output = "\t\t<news:keywords><![CDATA[unit, test]]></news:keywords>\n";
-
-		// Check if the $output contains the $expected_output
-		$this->assertContains( $expected_output, $output );
-
-		unset( $this->instance );
-
-
-		// Be sure eventually hook will be removed
-		remove_action( 'wpseo_news_options', array( $this, 'set_default_keywords' ) );
-	}
-
-	/**
-	 * Check what happens if there is one post added with keywords and tags
-	 *
-	 * @covers WPSEO_News_Sitemap::build_sitemap
-	 */
-	public function test_sitemap_WITH_keywords_AND_tags() {
-
-		// Create post
-		$post_id = $this->factory->post->create();
-
-		// Set keyword for this post
-		update_post_meta( $post_id, '_yoast_wpseo_newssitemap-keywords', 'keyword' );
-
-		// Add tag to the post
-		$term = wp_insert_term( 'tag', 'post_tag' );
-		wp_set_post_terms( $post_id, array( $term['term_id'] ) );
-
-		$output = $this->instance->build_sitemap();
-
-		// The expected output
-		$expected_output = "\t\t<news:keywords><![CDATA[keyword, tag]]></news:keywords>\n";
-
-		// Check if the $output contains the $expected_output
-		$this->assertContains( $expected_output, $output );
-	}
-
-	/**
-	 * Check what happens if there is one post added with keywords and tags
-	 *
-	 * @covers WPSEO_News_Sitemap::build_sitemap
-	 */
-	public function test_sitemap_WITH_tags_AND_default_keywords() {
-		// Create post
-		$post_id = $this->factory->post->create();
-
-		// Add tag to the post
-		$term = wp_insert_term( 'tag', 'post_tag' );
-		wp_set_post_terms( $post_id, array( $term['term_id'] ) );
-
-		// Adding default keywords
-		$this->default_keywords();
-
-		$output = $this->instance->build_sitemap();
-
-		// The expected output
-		$expected_output = "\t\t<news:keywords><![CDATA[tag, unit, test]]></news:keywords>\n";
-
-		// Check if the $output contains the $expected_output
-		$this->assertContains( $expected_output, $output );
-	}
-
-	/**
-	 * Check what happens if there is one post added with tags, keywords and default keywords
-	 *
-	 * @covers WPSEO_News_Sitemap::build_sitemap
-	 */
-	public function test_sitemap_WITH_keywords_and_default_keywords() {
-
-		// Create post
-		$post_id = $this->factory->post->create();
-
-		// Set keyword for this post
-		update_post_meta( $post_id, '_yoast_wpseo_newssitemap-keywords', 'keyword' );
-
-		// Adding default keywords
-		$this->default_keywords();
-
-		// Building the sitemap
-		$output = $this->instance->build_sitemap();
-
-		// The expected output
-		$expected_output = "\t\t<news:keywords><![CDATA[keyword, unit, test]]></news:keywords>\n";
-
-		// Check if the $output contains the $expected_output
-		$this->assertContains( $expected_output, $output );
-	}
-
-	/**
-	 * Check what happens if there is one post added with keywords and default keywords
-	 *
-	 * @covers WPSEO_News_Sitemap::build_sitemap
-	 */
-	public function test_sitemap_WITH_keywords_AND_tags_AND_default_keywords() {
-
-		// Create post
-		$post_id = $this->factory->post->create();
-
-		// Set keyword for this post
-		update_post_meta( $post_id, '_yoast_wpseo_newssitemap-keywords', 'keyword' );
-
-		// Add tag to the post
-		$term = wp_insert_term( 'tag', 'post_tag' );
-		wp_set_post_terms( $post_id, array( $term['term_id'] ) );
-
-		// Adding default keywords
-		$this->default_keywords();
-
-		$output = $this->instance->build_sitemap();
-
-		// The expected output
-		$expected_output = "\t\t<news:keywords><![CDATA[keyword, tag, unit, test]]></news:keywords>\n";
-
-		// Check if the $output contains the $expected_output
-		$this->assertContains( $expected_output, $output );
-	}
-
-	/**
-	 * Check what happens if post added with some simular tags, keywords and default keywords
-	 *
-	 * @covers WPSEO_News_Sitemap::build_sitemap
-	 */
-	public function test_sitemap_WITH_SIMULAR_keywords_AND_tags_AND_default_keywords() {
-
-		// Create post
-		$post_id = $this->factory->post->create();
-
-		// Set keyword for this post
-		update_post_meta( $post_id, '_yoast_wpseo_newssitemap-keywords', 'simular,keyword' );
-
-		// Adding default keywords
-		$this->default_keywords();
-
-		// Add tag to the post
-		$term1 = wp_insert_term( 'tag', 'post_tag' );
-		$term2 = wp_insert_term( 'simular', 'post_tag' );
-		wp_set_post_terms( $post_id, array( $term1['term_id'], $term2['term_id'] ) );
-
-		$output = $this->instance->build_sitemap();
-
-		// The expected output
-		$expected_output = "\t\t<news:keywords><![CDATA[simular, keyword, tag, unit, test]]></news:keywords>\n";
-		// Check if the $output contains the $expected_output
-
 		$this->assertContains( $expected_output, $output );
 	}
 
@@ -456,21 +245,6 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		return $options;
 	}
-
-	public function set_default_keywords( $options ) {
-		$options['default_keywords'] = 'unit, test';
-
-		return $options;
-	}
-
-	private function default_keywords() {
-		// Adding the hook to override options
-		add_action( 'wpseo_news_options', array( $this, 'set_default_keywords' ) );
-
-		// Re-instance the sitemap class
-		$this->instance = new WPSEO_News_Sitemap();
-	}
-
 
 	private function create_attachment( $image, $post_id = 0 ) {
 		return $this->factory->post->create( array(

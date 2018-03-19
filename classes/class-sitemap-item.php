@@ -109,7 +109,6 @@ class WPSEO_News_Sitemap_Item {
 	 */
 	private function build_news_tag() {
 
-		$keywords      = new WPSEO_News_Meta_Keywords( $this->item->ID );
 		$genre         = $this->get_item_genre();
 		$stock_tickers = $this->get_item_stock_tickers( $this->item->ID );
 
@@ -124,10 +123,6 @@ class WPSEO_News_Sitemap_Item {
 
 		$this->output .= "\t\t<news:publication_date>" . $this->get_publication_date( $this->item ) . '</news:publication_date>' . "\n";
 		$this->output .= "\t\t<news:title><![CDATA[" . $this->item->post_title . ']]></news:title>' . "\n";
-
-		if ( ! empty( $keywords ) ) {
-			$this->output .= "\t\t<news:keywords><![CDATA[" . $keywords . ']]></news:keywords>' . "\n";
-		}
 
 		if ( ! empty( $stock_tickers ) ) {
 			$this->output .= "\t\t<news:stock_tickers><![CDATA[" . $stock_tickers . ']]></news:stock_tickers>' . "\n";

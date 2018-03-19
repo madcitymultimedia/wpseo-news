@@ -31,30 +31,9 @@ class WPSEO_News_Head {
 
 			$this->post = $post;
 
-			$this->display_keywords();
 			$this->display_original_source();
 			$this->display_standout();
 			$this->display_noindex();
-		}
-	}
-
-	/**
-	 * Displays the keywords on the head as a meta-tag
-	 */
-	private function display_keywords() {
-		/**
-		 * Filter: 'wpseo_news_head_display_keywords' - Allow preventing of outputting news keywords tag
-		 *
-		 * @api string $meta_news_keywords The meta news keywords tag
-		 *
-		 * @param object $post The post
-		 */
-		if ( apply_filters( 'wpseo_news_head_display_keywords', true, $this->post ) ) {
-
-			$meta_news_keywords = new WPSEO_News_Meta_Keywords( $this->post->ID );
-			if ( ! empty( $meta_news_keywords ) ) {
-				echo '<meta name="news_keywords" content="' . esc_attr( $meta_news_keywords ) . '" />' . "\n";
-			}
 		}
 	}
 
@@ -63,9 +42,9 @@ class WPSEO_News_Head {
 	 */
 	private function display_original_source() {
 		/**
-		 * Filter: 'wpseo_news_head_display_keywords' - Allow preventing of outputting original source tag
+		 * Filter: 'wpseo_news_head_display_original' - Allow preventing of outputting original source tag
 		 *
-		 * @api string $meta_news_keywords The meta news keywords tag
+		 * @api bool unsigned Whether or not to show the original source.
 		 *
 		 * @param object $post The post
 		 */
@@ -90,7 +69,7 @@ class WPSEO_News_Head {
 		/**
 		 * Filter: 'wpseo_news_head_display_standout' - Allow preventing of outputting standout tag
 		 *
-		 * @api string $meta_standout The standout tag
+		 * @api bool unsigned Whether or not to show the standout tag.
 		 *
 		 * @param object $post The post.
 		 */

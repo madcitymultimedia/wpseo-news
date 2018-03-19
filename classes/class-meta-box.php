@@ -48,13 +48,6 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				'title' => __( 'News Sitemap', 'wordpress-seo-news' ),
 				'expl'  => __( 'Exclude from News Sitemap', 'wordpress-seo-news' ),
 			),
-			'newssitemap-keywords'     => array(
-				'name'        => 'newssitemap-keywords',
-				'type'        => 'text',
-				'std'         => '',
-				'title'       => __( 'Meta News Keywords', 'wordpress-seo-news' ),
-				'description' => __( 'Comma separated list of the keywords this article aims at, use a maximum of 10 keywords.', 'wordpress-seo-news' ),
-			),
 			'newssitemap-genre'        => array(
 				'name'        => 'newssitemap-genre',
 				'type'        => 'multiselect',

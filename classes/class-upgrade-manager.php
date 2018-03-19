@@ -65,7 +65,6 @@ class WPSEO_News_Upgrade_Manager {
 			$new_options = array(
 				'name'             => ( ( isset( $current_options['newssitemapname'] ) ) ? $current_options['newssitemapname'] : '' ),
 				'default_genre'    => ( ( isset( $current_options['newssitemap_default_genre'] ) ) ? $current_options['newssitemap_default_genre'] : '' ),
-				'default_keywords' => ( ( isset( $current_options['newssitemap_default_keywords'] ) ) ? $current_options['newssitemap_default_keywords'] : '' ),
 			);
 
 			// Save new options.
