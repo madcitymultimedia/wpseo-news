@@ -1,18 +1,26 @@
 <?php
 /**
+ * Yoast SEO: News plugin file.
+ *
  * @package WPSEO_News\XML_Sitemaps
  */
 
 /**
- * Handling the generation of the News Sitemap
+ * Handling the generation of the News Sitemap.
  */
 class WPSEO_News_Sitemap {
 
-	/** @var array Options */
+	/**
+	 * Options.
+	 *
+	 * @var array
+	 */
 	private $options;
 
 	/**
-	 * @var string The sitemap basename.
+	 * The sitemap basename.
+	 *
+	 * @var string
 	 */
 	private $basename;
 
@@ -80,7 +88,7 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
-	 * Method to invalidate the sitemap
+	 * Method to invalidate the sitemap.
 	 *
 	 * @param integer $post_id Post ID to invalidate for.
 	 */
@@ -122,7 +130,7 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
-	 * Building the XML for the sitemap
+	 * Building the XML for the sitemap.
 	 *
 	 * @return string
 	 */
@@ -142,7 +150,7 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
-	 * Outputs the XSL file
+	 * Outputs the XSL file.
 	 */
 	public function build_news_sitemap_xsl() {
 		$protocol = 'HTTP/1.1';
@@ -176,7 +184,7 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
-	 * Getter for stylesheet url
+	 * Getter for stylesheet url.
 	 *
 	 * @return string
 	 */
@@ -187,9 +195,9 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
-	 * Getting all the items for the sitemap
+	 * Getting all the items for the sitemap.
 	 *
-	 * @param int $limit the limit for the query, default is 1000 items.
+	 * @param int $limit The limit for the query, default is 1000 items.
 	 *
 	 * @return array|null|object
 	 */
@@ -224,7 +232,7 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
-	 * Loop through all $items and build each one of it
+	 * Loop through all $items and build each one of it.
 	 *
 	 * @param array $items Items to convert to sitemap output.
 	 *
@@ -240,7 +248,7 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
-	 * Getting the name for the sitemap, if $full_path is true, it will return the full path
+	 * Getting the name for the sitemap, if $full_path is true, it will return the full path.
 	 *
 	 * @param bool $full_path Generate a full path.
 	 *
@@ -282,7 +290,7 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
-	 * Retrieves the XSL URL that should be used in the current environment
+	 * Retrieves the XSL URL that should be used in the current environment.
 	 *
 	 * When home_url and site_url are not the same, the home_url should be used.
 	 * This is because the XSL needs to be served from the same domain, protocol and port

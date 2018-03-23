@@ -1,5 +1,7 @@
 <?php
 /**
+ * Yoast SEO: News plugin file.
+ *
  * @package WPSEO_News\XML_Sitemaps
  */
 
@@ -16,8 +18,9 @@ class WPSEO_News_Sitemap_Editors_Pick {
 	private $items;
 
 	/**
-	 * Construct the Class-Sitemap-Editors-Pick rss feed generator. We set the WP Seo options and we
-	 * find the editors picks items and store them in the $items var
+	 * Construct the Class-Sitemap-Editors-Pick rss feed generator.
+	 *
+	 * We set the WPSEO options and we find the editors picks items and store them in the $items var.
 	 */
 	public function __construct() {
 		$this->prepare_items();
@@ -80,7 +83,7 @@ class WPSEO_News_Sitemap_Editors_Pick {
 			$this->set_items( $ep_query );
 		}
 
-		/* Restore original Post Data */
+		/* Restore original Post Data. */
 		wp_reset_postdata();
 	}
 

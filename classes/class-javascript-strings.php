@@ -1,5 +1,7 @@
 <?php
 /**
+ * Yoast SEO: News plugin file.
+ *
  * @package WPSEO_News
  */
 
@@ -8,7 +10,11 @@
  */
 class WPSEO_News_Javascript_Strings {
 
-	/** @var null|array */
+	/**
+	 * Strings to be made available to javascript.
+	 *
+	 * @var null|array
+	 */
 	private static $strings = null;
 
 	/**

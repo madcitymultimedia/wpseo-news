@@ -1,10 +1,12 @@
 <?php
 /**
- * @package WPSEO\Tests
+ * Yoast SEO: News plugin test file.
+ *
+ * @package WPSEO_News\Tests
  */
 
 /**
- * Class WPSEO_News_Test
+ * Class WPSEO_News_Test.
  */
 class WPSEO_News_Test extends WPSEO_News_UnitTestCase {
 

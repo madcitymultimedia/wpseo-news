@@ -1,27 +1,45 @@
 <?php
 /**
+ * Yoast SEO: News plugin file.
+ *
  * @package WPSEO_News\XML_Sitemaps
  */
 
 /**
- * Handle images used in News
+ * Handle images used in News.
  */
 class WPSEO_News_Sitemap_Images {
 
-	/** @var object The current item */
+	/**
+	 * The current item.
+	 *
+	 * @var object
+	 */
 	private $item;
 
-	/** @var string The out that will be returned */
+	/**
+	 * The output that will be returned.
+	 *
+	 * @var string
+	 */
 	private $output = '';
 
-	/** @var array The options */
+	/**
+	 * The options.
+	 *
+	 * @var array
+	 */
 	private $options;
 
-	/** @var array Storage for the images */
+	/**
+	 * Storage for the images.
+	 *
+	 * @var array
+	 */
 	private $images;
 
 	/**
-	 * Setting properties and build the item
+	 * Setting properties and build the item.
 	 *
 	 * @param object $item    News post object.
 	 * @param array  $options The options.
@@ -34,7 +52,7 @@ class WPSEO_News_Sitemap_Images {
 	}
 
 	/**
-	 * Return the output, because the object is converted to a string
+	 * Return the output, because the object is converted to a string.
 	 *
 	 * @return string
 	 */
@@ -43,7 +61,7 @@ class WPSEO_News_Sitemap_Images {
 	}
 
 	/**
-	 * Parsing the images from the item
+	 * Parsing the images from the item.
 	 */
 	private function parse_item_images() {
 		$this->get_item_images();
@@ -56,7 +74,7 @@ class WPSEO_News_Sitemap_Images {
 	}
 
 	/**
-	 * Getting the images for the given $item
+	 * Getting the images for the given $item.
 	 */
 	private function get_item_images() {
 		$restrict_sitemap_featured_img = isset( $this->options['restrict_sitemap_featured_img'] ) ? $this->options['restrict_sitemap_featured_img'] : false;
@@ -72,7 +90,7 @@ class WPSEO_News_Sitemap_Images {
 	}
 
 	/**
-	 * Getting the images from the content
+	 * Getting the images from the content.
 	 *
 	 * @param array $matches Images found in the content.
 	 */
@@ -90,7 +108,7 @@ class WPSEO_News_Sitemap_Images {
 	}
 
 	/**
-	 * Parsing the image source
+	 * Parsing the image source.
 	 *
 	 * @param string $src Image Source.
 	 *
@@ -120,7 +138,7 @@ class WPSEO_News_Sitemap_Images {
 	}
 
 	/**
-	 * Setting title and alt for image and returns them in an array
+	 * Setting title and alt for image and returns them in an array.
 	 *
 	 * @param string $img Image HTML.
 	 *
@@ -140,7 +158,7 @@ class WPSEO_News_Sitemap_Images {
 	}
 
 	/**
-	 * Parse the XML for given image
+	 * Parse the XML for given image.
 	 *
 	 * @param string $src Image source.
 	 * @param array  $img Image array.
@@ -149,11 +167,11 @@ class WPSEO_News_Sitemap_Images {
 	 */
 	private function parse_item_image( $src, $img ) {
 		/**
-		 * Filter: 'wpseo_xml_sitemap_img_src' - Allow changing of sitemap image src
+		 * Filter: 'wpseo_xml_sitemap_img_src' - Allow changing of sitemap image src.
 		 *
-		 * @api string $src The image source
+		 * @api string $src The image source.
 		 *
-		 * @param object $item The post item
+		 * @param object $item The post item.
 		 */
 		$src = apply_filters( 'wpseo_xml_sitemap_img_src', $src, $this->item );
 
@@ -172,7 +190,7 @@ class WPSEO_News_Sitemap_Images {
 	}
 
 	/**
-	 * Getting the featured image
+	 * Getting the featured image.
 	 *
 	 * @param integer $post_thumbnail_id Thumbnail ID.
 	 *
@@ -205,7 +223,7 @@ class WPSEO_News_Sitemap_Images {
 	}
 
 	/**
-	 * Get attachment
+	 * Get attachment.
 	 *
 	 * @param int $attachment_id Attachment ID.
 	 *

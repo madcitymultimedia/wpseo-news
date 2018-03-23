@@ -1,11 +1,24 @@
 <?php
+/**
+ * Yoast SEO: News plugin test file.
+ *
+ * @package WPSEO_News\Tests
+ */
 
+/**
+ * Class WPSEO_News_Sitemap_Test.
+ */
 class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
+	/**
+	 * Instance of the WPSEO_News_Sitemap class.
+	 *
+	 * @var \WPSEO_News_Sitemap
+	 */
 	private $instance;
 
 	/**
-	 * Setting up the instance of WPSEO_News_Admin_Page
+	 * Setting up the instance of WPSEO_News_Admin_Page.
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -52,7 +65,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check what happens if no posts are added
+	 * Check what happens if no posts are added.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
@@ -68,7 +81,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check what happens if there is one post added
+	 * Check what happens if there is one post added.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
@@ -79,7 +92,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		$output = $this->instance->build_sitemap();
 
-		// This is what we expect
+		// This is what we expect.
 		$expected_output  = "<url>\n";
 		$expected_output .= "\t<loc>" . get_permalink( $post_id ) . "</loc>\n";
 		$expected_output .= "\t<news:news>\n";
@@ -92,34 +105,35 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= "\t</news:news>\n";
 		$expected_output .= '</url>';
 
-		// Check if the $output contains the $expected_output
+		// Check if the $output contains the $expected_output.
 		$this->assertContains( $expected_output, $output );
 	}
 
 	/**
-	 * Check what happens if there is one post added
+	 * Check what happens if there is one post added.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
 	public function test_sitemap_post_excluded() {
-		// Create post
+		// Create post.
 		$post_id = $this->factory->post->create();
 
-		// Set meta value to exclude
+		// Set meta value to exclude.
 		update_post_meta( $post_id, '_yoast_wpseo_newssitemap-exclude', 'on' );
 
 		$output = $this->instance->build_sitemap();
 
-		// The expected output
+		// The expected output.
 		$expected_output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 </urlset>';
 
-		// Check if the $output contains the $expected_output
+		// Check if the $output contains the $expected_output.
 		$this->assertContains( $expected_output, $output );
 	}
 
+		// Check if the $output contains the $expected_output.
 	/**
-	 * Check what happens if there is one post added with a image in its content
+	 * Check what happens if there is one post added with a image in its content.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
@@ -137,12 +151,12 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= "\t\t<image:loc>" . $image . "</image:loc>\n";
 		$expected_output .= "\t</image:image>\n";
 
-		// Check if the $output contains the $expected_output
+		// Check if the $output contains the $expected_output.
 		$this->assertContains( $expected_output, $output );
 	}
 
 	/**
-	 * Check what happens if there is one post added with a image in its content
+	 * Check what happens if there is one post added with a image in its content.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
@@ -170,12 +184,12 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= "\t\t<image:title>attachment</image:title>\n";
 		$expected_output .= "\t</image:image>\n";
 
-		// Check if the $output contains the $expected_output
+		// Check if the $output contains the $expected_output.
 		$this->assertContains( $expected_output, $output );
 	}
 
 	/**
-	 * Check what happens if there is one post added with a image in its content
+	 * Check what happens if there is one post added with a image in its content.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
@@ -204,12 +218,12 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= "\t\t<image:title>attachment</image:title>\n";
 		$expected_output .= "\t</image:image>\n";
 
-		// Check if the $output contains the $expected_output
+		// Check if the $output contains the $expected_output.
 		$this->assertContains( $expected_output, $output );
 	}
 
 	/**
-	 * Check that the sitemap uses the default name of news when no news post type is present
+	 * Check that the sitemap uses the default name of news when no news post type is present.
 	 *
 	 * @covers WPSEO_News_Sitemap::news_sitemap_basename
 	 */
@@ -218,7 +232,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check that the sitemap name uses the fallback name for the sitemap when a post type of News exists
+	 * Check that the sitemap name uses the fallback name for the sitemap when a post type of News exists.
 	 *
 	 * @covers WPSEO_News_Sitemap::news_sitemap_basename
 	 */
@@ -229,7 +243,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check that the sitemap name uses the YOAST_NEWS_SITEMAP_BASENAME constant value
+	 * Check that the sitemap name uses the YOAST_NEWS_SITEMAP_BASENAME constant value.
 	 *
 	 * @covers WPSEO_News_Sitemap::news_sitemap_basename
 	 */

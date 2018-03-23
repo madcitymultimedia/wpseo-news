@@ -1,24 +1,38 @@
 <?php
 /**
+ * Yoast SEO: News plugin file.
+ *
  * @package WPSEO_News\XML_Sitemaps
  */
 
 /**
- * The News Sitemap entry
+ * The News Sitemap entry.
  */
 class WPSEO_News_Sitemap_Item {
 
-	/** @var string The output which will be returned */
+	/**
+	 * The output which will be returned.
+	 *
+	 * @var string
+	 */
 	private $output = '';
 
-	/** @var object The current item */
+	/**
+	 * The current item.
+	 *
+	 * @var object
+	 */
 	private $item;
 
-	/** @var array The options */
+	/**
+	 * The options.
+	 *
+	 * @var array
+	 */
 	private $options;
 
 	/**
-	 * Setting properties and build the item
+	 * Setting properties and build the item.
 	 *
 	 * @param object $item    The post.
 	 * @param array  $options The options.
@@ -35,7 +49,7 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Return the output, because the object is converted to a string
+	 * Return the output, because the object is converted to a string.
 	 *
 	 * @return string
 	 */
@@ -44,7 +58,7 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Determine if item has to be skipped or not
+	 * Determine if item has to be skipped or not.
 	 *
 	 * @return bool
 	 */
@@ -65,7 +79,7 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Exclude the item when one of his terms is excluded
+	 * Exclude the item when one of his terms is excluded.
 	 *
 	 * @return bool
 	 */
@@ -87,7 +101,7 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Building each sitemap item
+	 * Building each sitemap item.
 	 */
 	private function build_item() {
 		$this->item->post_status = 'publish';
@@ -105,7 +119,7 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Building the news tag
+	 * Building the news tag.
 	 */
 	private function build_news_tag() {
 
@@ -132,7 +146,7 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Builds the publication tag
+	 * Builds the publication tag.
 	 */
 	private function build_publication_tag() {
 		$publication_name = ! empty( $this->options['name'] ) ? $this->options['name'] : get_bloginfo( 'name' );
@@ -145,7 +159,7 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Getting the genre for given $item_id
+	 * Getting the genre for given $item_id.
 	 *
 	 * @return string
 	 */
@@ -165,7 +179,7 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Getting the publication language
+	 * Getting the publication language.
 	 *
 	 * @return string
 	 */
@@ -183,7 +197,7 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Parses the $item argument into an xml format
+	 * Parses the $item argument into an xml format.
 	 *
 	 * @param WP_Post $item Object to get data from.
 	 *
@@ -211,7 +225,7 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Format a datestring with a timezone
+	 * Format a datestring with a timezone.
 	 *
 	 * @param string $item_date Date to parse.
 	 *
@@ -257,7 +271,7 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Getting the stock_tickers for given $item_id
+	 * Getting the stock_tickers for given $item_id.
 	 *
 	 * @param integer $item_id Item to get ticker from.
 	 *
@@ -271,14 +285,14 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Getting the images for current item
+	 * Getting the images for current item.
 	 */
 	private function get_item_images() {
 		$this->output .= new WPSEO_News_Sitemap_Images( $this->item, $this->options );
 	}
 
 	/**
-	 * Wrapper function to check if we have a valid datetime (Uses a new util in WPSEO)
+	 * Wrapper function to check if we have a valid datetime (Uses a new util in WPSEO).
 	 *
 	 * @param string $datetime Datetime to check.
 	 *

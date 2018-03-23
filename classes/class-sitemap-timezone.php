@@ -1,15 +1,17 @@
 <?php
 /**
+ * Yoast SEO: News plugin file.
+ *
  * @package WPSEO_News\XML_Sitemaps
  */
 
 /**
- * Convert the sitemap dates to the correct timezone
+ * Convert the sitemap dates to the correct timezone.
  */
 class WPSEO_News_Sitemap_Timezone {
 
 	/**
-	 * Returns the timezone string for a site, even if it's set to a UTC offset
+	 * Returns the timezone string for a site, even if it's set to a UTC offset.
 	 *
 	 * @return string
 	 */
@@ -18,13 +20,13 @@ class WPSEO_News_Sitemap_Timezone {
 	}
 
 	/**
-	 * Returns the timezone string for a site, even if it's set to a UTC offset
+	 * Returns the timezone string for a site, even if it's set to a UTC offset.
 	 *
 	 * Adapted from http://www.php.net/manual/en/function.timezone-name-from-abbr.php#89155
 	 *
 	 * @since 7.0 Changed the visibility of the method from private to public.
 	 *
-	 * @return string valid PHP timezone string
+	 * @return string Valid PHP timezone string.
 	 */
 	public function wp_get_timezone_string() {
 
@@ -60,7 +62,7 @@ class WPSEO_News_Sitemap_Timezone {
 
 
 	/**
-	 * Getting the timezone id
+	 * Getting the timezone id.
 	 *
 	 * @param string $utc_offset Offset to use.
 	 *

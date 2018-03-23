@@ -1,5 +1,7 @@
 <?php
 /**
+ * Yoast SEO: News plugin file.
+ *
  * @package WPSEO_News\Admin
  */
 
@@ -8,7 +10,11 @@
  */
 class WPSEO_News_Admin_Page {
 
-	/** @var array */
+	/**
+	 * Options.
+	 *
+	 * @var array
+	 */
 	private $options = array();
 
 	/**

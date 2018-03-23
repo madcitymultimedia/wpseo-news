@@ -1,16 +1,31 @@
 <?php
+/**
+ * Yoast SEO: News plugin test file.
+ *
+ * @package WPSEO_News\Tests
+ */
 
+/**
+ * Class WPSEO_News_Sitemap_Editors_Pick_Test.
+ */
 class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 
 	/**
+	 * Instance of the WPSEO_News_Sitemap_Editors_Pick class.
+	 *
 	 * @var WPSEO_News_Sitemap_Editors_Pick
 	 */
 	private $instance;
 
+	/**
+	 * ID of the post to test with.
+	 *
+	 * @var int
+	 */
 	private $post_id;
 
 	/**
-	 * Setting up the instance of WPSEO_News_Admin_Page
+	 * Setting up the instance of WPSEO_News_Admin_Page.
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -21,7 +36,7 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 				'post_excerpt' => 'Post excerpt 1',
 			)
 		);
-		// Set post as editors pick
+		// Set post as editors pick.
 		add_post_meta( $this->post_id, '_yoast_wpseo_newssitemap-editors-pick', 'on' );
 
 		$this->instance = new WPSEO_News_Sitemap_Editors_Pick();
@@ -31,10 +46,10 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 	 * @covers WPSEO_News_Sitemap_Editors_Pick::generate_rss
 	 */
 	public function test_generate_rss() {
-		// The date in XML format
+		// The date in XML format.
 		$date_in_rss = get_the_date( 'D, d M Y H:i:s O', $this->post_id );
 
-		// Start buffering to get the output of display method
+		// Start buffering to get the output of display method.
 		ob_start();
 
 		$this->instance->generate_rss( false );
@@ -43,7 +58,7 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 		ob_end_clean();
 
 
-		// We expect this part in the generated HTML
+		// We expect this part in the generated HTML.
 		$expected_output  = '<?xml version="1.0" encoding="UTF-8" ?>' . PHP_EOL;
 		$expected_output .= '<rss version="2.0" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:atom="http://www.w3.org/2005/Atom">' . PHP_EOL;
 		$expected_output .= '<channel>' . PHP_EOL;
@@ -62,7 +77,7 @@ class WPSEO_News_Sitemap_Editors_Pick_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= '</channel>' . PHP_EOL;
 		$expected_output .= '</rss>' . PHP_EOL;
 
-		// Check if the $output contains the $expected_output
+		// Check if the $output contains the $expected_output.
 		$this->assertEquals( $expected_output, $output );
 		// $this->expectOutputString( $expected_output );
 	}

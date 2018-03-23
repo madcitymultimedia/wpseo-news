@@ -1,10 +1,12 @@
 <?php
 /**
+ * Yoast SEO: News plugin file.
+ *
  * @package WPSEO_News
  */
 
 /**
- * Represents the news extension for Yoast SEO
+ * Represents the news extension for Yoast SEO.
  */
 class WPSEO_News {
 

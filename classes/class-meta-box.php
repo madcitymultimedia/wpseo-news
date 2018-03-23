@@ -1,5 +1,7 @@
 <?php
 /**
+ * Yoast SEO: News plugin file.
+ *
  * @package WPSEO_News
  */
 
@@ -8,11 +10,17 @@
  */
 class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
-	/** @var array */
+	/**
+	 * Options.
+	 *
+	 * @var array
+	 */
 	private $options;
 
 	/**
-	 * @var int    The maximum number of standout tags allowed.
+	 * The maximum number of standout tags allowed.
+	 *
+	 * @var int
 	 */
 	private $max_standouts = 7;
 
@@ -89,7 +97,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 			),
 			'newssitemap-robots-index' => array(
 				'type'          => 'radio',
-				'default_value' => '0', // = The default value will be 'index'; See the list of options.
+				'default_value' => '0', // The default value will be 'index'; See the list of options.
 				'std'           => '',
 				'options'       => array(
 					'0' => 'index',
