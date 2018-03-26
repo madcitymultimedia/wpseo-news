@@ -131,7 +131,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$this->assertContains( $expected_output, $output );
 	}
 
-		// Check if the $output contains the $expected_output.
+
 	/**
 	 * Check what happens if there is one post added with a image in its content.
 	 *
