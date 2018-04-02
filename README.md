@@ -28,6 +28,19 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 7.2: April 3rd, 2018
+Enhancements:
+* Removes the use of meta news keywords everywhere as Google no longer supports them.
+* Renews compatibility with the [Plugin Dependencies](http://wordpress.org/plugins/plugin-dependencies/) plugin.
+
+Bugfixes:
+* Fixes a bug where the page link was missing on the plugin settings page.
+
+Other:
+* Compatibility with Yoast SEO 7.2
+* Adds warnings for deprecated functions.
+* Security hardening.
+
 ### 7.1: March 20th, 2018
 * Compatibility with Yoast SEO 7.1
 
