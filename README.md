@@ -28,6 +28,9 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 7.3: April 17th, 2018
+* Compatibility with Yoast SEO 7.3
+
 ### 7.2: April 3rd, 2018
 Enhancements:
 * Removes the use of meta news keywords everywhere as Google no longer supports them.
