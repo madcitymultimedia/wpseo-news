@@ -254,7 +254,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check what happens if there is one post added.
+	 * Checks that expired posts don't get included in the sitemap.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
@@ -284,6 +284,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		// Check if the $output contains the $expected_output.
 		$this->assertContains( "\t\t<news:title><![CDATA[Newest post]]></news:title>\n", $output );
 		$this->assertContains( "\t\t<news:title><![CDATA[New-ish post]]></news:title>\n", $output );
+
 		$this->assertNotContains( "\t\t<news:title><![CDATA[Too old Post]]></news:title>\n", $output );
 	}
 
