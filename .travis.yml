@@ -42,9 +42,6 @@ jobs:
       env: WP_VERSION=master
     - php: nightly
       env: WP_VERSION=master
-  allow_failures:
-    # Allow failures for unstable builds.
-    - php: nightly
     - stage: deploy
       if: tag IS present
       before_deploy:
@@ -64,6 +61,9 @@ jobs:
           tags: true
           repo: $TRAVIS_REPO_SLUG
           all_branches: true
+  allow_failures:
+    # Allow failures for unstable builds.
+    - php: nightly
 
 before_install:
 - if [[ "$COVERAGE" != "1" ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
