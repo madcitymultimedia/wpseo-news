@@ -56,7 +56,7 @@ jobs:
       deploy:
         skip_cleanup: true
         provider: script
-        script: bash scripts/deploy_to_dist.sh $TRAVIS_TAG yoast-test-helper
+        script: bash scripts/deploy_to_dist.sh $TRAVIS_TAG wpseo-news
         on:
           tags: true
           repo: $TRAVIS_REPO_SLUG
