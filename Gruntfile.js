@@ -1,10 +1,10 @@
 /* global require, process */
 const { flattenVersionForFile } = require( "./grunt/modules/version.js" );
 
-module.exports = function(grunt) {
+module.exports = function( grunt ) {
 	"use strict";
 
-	require("time-grunt")(grunt);
+	require( "time-grunt" )( grunt );
 
 	const pkg = grunt.file.readJSON( "package.json" );
 	const pluginVersion = pkg.yoast.pluginVersion;
