@@ -261,23 +261,29 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	public function test_sitemap_only_showing_recent_items() {
 		$base_time = new DateTimeImmutable();
 
-		$this->factory->post->create( array(
-				'post_title' 	=> 'Newest post',
-				'post_date'		=> $base_time->format( 'Y-m-d H:i:s' ),
-				'post_date_gmt' => $base_time->format( 'Y-m-d H:i:s' )
-			) );
+		$this->factory->post->create(
+			array(
+				'post_title'    => 'Newest post',
+				'post_date'     => $base_time->format( 'Y-m-d H:i:s' ),
+				'post_date_gmt' => $base_time->format( 'Y-m-d H:i:s' ),
+			)
+		);
 
-		$this->factory->post->create( array(
-				'post_title' 	=> 'New-ish post',
-				'post_date'		=> $base_time->sub( new DateInterval( 'PT48H' ) )->format( 'Y-m-d H:i:s' ),
-				'post_date_gmt' => $base_time->sub( new DateInterval( 'PT48H' ) )->format( 'Y-m-d H:i:s' )
-			) );
+		$this->factory->post->create(
+			array(
+				'post_title'    => 'New-ish post',
+				'post_date'     => $base_time->sub( new DateInterval( 'PT48H' ) )->format( 'Y-m-d H:i:s' ),
+				'post_date_gmt' => $base_time->sub( new DateInterval( 'PT48H' ) )->format( 'Y-m-d H:i:s' ),
+			)
+		);
 
-		$this->factory->post->create( array(
-				'post_title' 	=> 'Too old Post',
-				'post_date'		=> $base_time->sub( new DateInterval( 'PT48H1M' ) )->format( 'Y-m-d H:i:s' ),
-				'post_date_gmt' => $base_time->sub( new DateInterval( 'PT48H1M' ) )->format( 'Y-m-d H:i:s' )
-			) );
+		$this->factory->post->create(
+			array(
+				'post_title'    => 'Too old Post',
+				'post_date'     => $base_time->sub( new DateInterval( 'PT48H1M' ) )->format( 'Y-m-d H:i:s' ),
+				'post_date_gmt' => $base_time->sub( new DateInterval( 'PT48H1M' ) )->format( 'Y-m-d H:i:s' ),
+			)
+		);
 
 		$output = $this->instance->build_sitemap();
 
@@ -295,13 +301,15 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	private function create_attachment( $image, $post_id = 0 ) {
-		return $this->factory->post->create( array(
-			'post_title'     => 'attachment',
-			'post_name'      => 'attachment',
-			'guid'           => $image,
-			'post_type'      => 'attachment',
-			'post_mime_type' => 'image/png',
-			'parent_id'      => $post_id,
-		) );
+		return $this->factory->post->create(
+			array(
+				'post_title'     => 'attachment',
+				'post_name'      => 'attachment',
+				'guid'           => $image,
+				'post_type'      => 'attachment',
+				'post_mime_type' => 'image/png',
+				'parent_id'      => $post_id,
+			)
+		);
 	}
 }
