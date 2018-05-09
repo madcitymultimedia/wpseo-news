@@ -10,7 +10,7 @@
  */
 class WPSEO_News {
 
-	const VERSION = '7.3';
+	const VERSION = '7.4';
 
 	/**
 	 * Get WPSEO News options.
