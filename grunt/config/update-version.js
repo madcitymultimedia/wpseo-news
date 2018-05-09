@@ -13,7 +13,7 @@ module.exports = {
     },
     pluginFile: {
         options: {
-            regEx: /(Version: {1,10})(\d+(\.\d+){0,3})([^\n^\.\d]?.*?)(\n)/,
+            regEx: /(\* Version:\s+)(\d+(\.\d+){0,3})([^\n^\.\d]?.*?)(\n)/,
             preVersionMatch: "$1",
             postVersionMatch: "$5",
         },
