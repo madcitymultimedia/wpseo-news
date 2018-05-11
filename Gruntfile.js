@@ -53,8 +53,8 @@ module.exports = function( grunt ) {
 				addtextdomain: "grunt-wp-i18n",
 				makepot: "grunt-wp-i18n",
 				glotpress_download: "grunt-glotpress",
-				"update-version": "grunt-yoast-tasks",
-				"set-version": "grunt-yoast-tasks",
+				"update-version": "./node_modules/@yoast/grunt-plugin-tasks/tasks/update-version.js",
+				"set-version": "./node_modules/@yoast/grunt-plugin-tasks/tasks/set-version.js",
 			},
 		},
 	});
