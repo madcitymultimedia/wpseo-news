@@ -46,4 +46,22 @@ class WPSEO_News_UnitTestCase extends WP_UnitTestCase {
 		ob_clean();
 		$this->assertEquals( $output, $string );
 	}
+
+	/**
+	 * Call protected/private method of a class.
+	 *
+	 * @param object $object      Instantiated object that we will run method on.
+	 * @param string $method_name Method name to call.
+	 * @param array  $parameters  Array of parameters to pass into method.
+	 *
+	 * @return mixed Method return.
+	 */
+	public function invoke_method( &$object, $method_name, array $parameters = array() ) {
+		$reflection = new ReflectionClass( get_class( $object ) );
+		$method     = $reflection->getMethod( $method_name );
+
+		$method->setAccessible( true ); // PHP 5.3.2.
+
+		return $method->invokeArgs( $object, $parameters );
+	}
 }
