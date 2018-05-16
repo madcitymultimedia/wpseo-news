@@ -28,6 +28,9 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 7.6: May 29th, 2018
+* Compatibility with Yoast SEO 7.6
+
 ### 7.5: May 15th, 2018
 * Compatibility with Yoast SEO 7.5
 
