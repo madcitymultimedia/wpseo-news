@@ -71,9 +71,6 @@ class WPSEO_News_Admin_Page {
 		// Post categories to exclude.
 		$this->excluded_post_categories();
 
-		// Editors' Picks.
-		$this->editors_pick();
-
 		// Admin footer.
 		WPSEO_News_Wrappers::admin_footer( true, false );
 	}
@@ -123,36 +120,6 @@ class WPSEO_News_Admin_Page {
 			}
 			echo '</fieldset><br>';
 		}
-	}
-
-	/**
-	 * Part with HTML for editors picks.
-	 */
-	private function editors_pick() {
-		echo '<h2>' . esc_html__( "Editors' Picks", 'wordpress-seo-news' ) . '</h2>';
-
-		echo '<label class="select" for="ep_image_src">' . esc_html__( "Editors' Picks Image", 'wordpress-seo-news' ) . ':</label>';
-		echo '<input id="ep_image_src" type="text" size="36" name="wpseo_news[ep_image_src]" value="' . esc_attr( $this->options['ep_image_src'] ) . '" />';
-		echo '<input id="ep_image_src_button" class="wpseo_image_upload_button button" type="button" value="' . esc_attr__( 'Upload Image', 'wordpress-seo-news' ) . '" />';
-		echo '<br class="clear"/>';
-
-		echo '<p>';
-		printf(
-			/* translators: %1$s opening tag of the link to the Editors Picks RSS, %2$s closing tag for the link. */
-			esc_html__( '%1$sView your Editors\' Picks RSS Feed%2$s.', 'wordpress-seo-news' ),
-			'<a target="_blank" href="' . esc_url( home_url( 'editors-pick.rss' ) ) . '">',
-			'</a>'
-		);
-		echo '</p>';
-
-		echo '<p>';
-		printf(
-			/* translators: %1$s opening tag of the link to the Google Editors Picks submit page, %2$s closing tag for the link. */
-			esc_html__( '%1$sSubmit your Editors\' Picks RSS Feed to Google News%2$s.', 'wordpress-seo-news' ),
-			'<a href="https://support.google.com/news/publisher/contact/editors_picks" target="_blank">',
-			'</a>'
-		);
-		echo '</p>';
 	}
 
 	/**
