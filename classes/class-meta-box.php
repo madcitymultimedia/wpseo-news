@@ -148,7 +148,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		$this->do_tab( 'news', __( 'Google News', 'wordpress-seo-news' ), $content );
 	}
 
-git 	/**
+	/**
 	 * Check if current post_type is supported.
 	 *
 	 * @return bool
