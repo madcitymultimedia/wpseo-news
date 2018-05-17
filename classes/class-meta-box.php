@@ -18,13 +18,6 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	private $options;
 
 	/**
-	 * The maximum number of standout tags allowed.
-	 *
-	 * @var int
-	 */
-	private $max_standouts = 7;
-
-	/**
 	 * WPSEO_News_Meta_Box constructor.
 	 */
 	public function __construct() {
@@ -78,22 +71,6 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				'type'        => 'text',
 				'title'       => __( 'Stock Tickers', 'wordpress-seo-news' ),
 				'description' => __( 'A comma-separated list of up to 5 stock tickers of the companies, mutual funds, or other financial entities that are the main subject of the article. Each ticker must be prefixed by the name of its stock exchange, and must match its entry in Google Finance. For example, "NASDAQ:AMAT" (but not "NASD:AMAT"), or "BOM:500325" (but not "BOM:RIL").', 'wordpress-seo-news' ),
-			),
-			'newssitemap-standout'     => array(
-				'name'        => 'newssitemap-standout',
-				'std'         => '',
-				'type'        => 'checkbox',
-				'title'       => __( 'Standout', 'wordpress-seo-news' ),
-				'expl'        => __( 'Use the standout tag', 'wordpress-seo-news' ),
-				'description' => '', // This value is rendered when metabox will be displayed.
-			),
-			'newssitemap-editors-pick' => array(
-				'name'        => 'newssitemap-editors-pick',
-				'std'         => '',
-				'type'        => 'checkbox',
-				'title'       => __( "Editors' Picks", 'wordpress-seo-news' ),
-				'expl'        => __( "Include in Editors' Picks", 'wordpress-seo-news' ),
-				'description' => __( "Editors' Picks enables you to provide up to five links to original news content you believe represents your organization’s best journalistic work at any given moment, and potentially have it displayed on the Google News homepage or select section pages.", 'wordpress-seo-news' ),
 			),
 			'newssitemap-robots-index' => array(
 				'type'          => 'radio',
@@ -166,27 +143,9 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		$content = '';
 
 		foreach ( $this->get_meta_boxes() as $meta_key => $meta_box ) {
-			$meta_box = $this->before_do_meta_box( $meta_key, $meta_box );
-
 			$content .= $this->do_meta_box( $meta_box, $meta_key );
 		}
 		$this->do_tab( 'news', __( 'Google News', 'wordpress-seo-news' ), $content );
-	}
-
-	/**
-	 * Alters the metabox values if needed.
-	 *
-	 * @param string      $meta_key The key of the metabox field.
-	 * @param array|mixed $meta_box The values for the metabox.
-	 *
-	 * @return mixed The altered value.
-	 */
-	protected function before_do_meta_box( $meta_key, $meta_box ) {
-		if ( $meta_key === 'newssitemap-standout' ) {
-			$meta_box['description'] = $this->standout_description();
-		}
-
-		return $meta_box;
 	}
 
 	/**
@@ -217,69 +176,4 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		return $is_supported;
 	}
 
-	/**
-	 * Count the total number of used standouts.
-	 *
-	 * @return mixed
-	 */
-	private function standouts_used() {
-		// Count standout tags.
-		$standout_query = new WP_Query(
-			array(
-				'post_type'   => 'any',
-				'post_status' => 'publish',
-				'meta_query'  => array(
-					array(
-						'key'   => '_yoast_wpseo_newssitemap-standout',
-						'value' => 'on',
-					),
-				),
-				'date_query'  => array(
-					'after' => '-7 days',
-				),
-			)
-		);
-
-		return $standout_query->found_posts;
-	}
-
-	/**
-	 * Generates the standout description.
-	 *
-	 * @return string
-	 */
-	private function standout_description() {
-
-		$used_standouts = $this->standouts_used();
-
-		// Default standout description.
-		$standout_desc  = __( 'If your news organization breaks a big story, or publishes an extraordinary work of journalism, you can indicate this by using the standout tag.', 'wordpress-seo-news' );
-		$standout_desc .= '<br />';
-
-		$standout_desc .= sprintf(
-			/* translators: %1$d: number of standout tags, %2$s resolves to the opening tag of the link to the Google help page, %3$s resolves to the closing tag for the link. */
-			__( 'Note: Google has a limit of %1$d standout tags per 7 days. Using more tags can cause removal from Google news. See the %2$sGoogle Help page  tag%3$s.', 'wordpress-seo-news' ),
-			$this->max_standouts,
-			'<a target="_blank" href="https://support.google.com/news/publisher/answer/191283?hl=en">',
-			'</a>'
-		);
-
-		$standout_desc .= '<br />';
-
-		$standout_desc .= '<span style="font-weight:bold;';
-		if ( $used_standouts > $this->max_standouts ) {
-			$standout_desc .= 'color:#dc3232';
-		}
-		$standout_desc .= '">';
-		$standout_desc .= sprintf(
-			/* translators: %1$d number of used standout tags, %2$d number of maximum standout tags allowed. */
-			__( 'You have used %1$d/%2$d standout tags in the last 7 days.', 'wordpress-seo-news' ),
-			$used_standouts,
-			$this->max_standouts
-		);
-
-		$standout_desc .= '</span>';
-
-		return $standout_desc;
-	}
 }

@@ -50,9 +50,6 @@ class WPSEO_News {
 		// Sitemap.
 		new WPSEO_News_Sitemap();
 
-		// Rewrite Rules.
-		new WPSEO_News_Editors_Pick_Request();
-
 		// Head.
 		new WPSEO_News_Head();
 
