@@ -259,24 +259,28 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
 	public function test_sitemap_only_showing_recent_items() {
-		$base_time = new DateTimeImmutable();
+		$base_time = time();
 
 		$this->factory->post->create( array(
 				'post_title' 	=> 'Newest post',
-				'post_date'		=> $base_time->format( 'Y-m-d H:i:s' ),
-				'post_date_gmt' => $base_time->format( 'Y-m-d H:i:s' )
+				'post_date'		=> date( 'Y-m-d H:i:s', $base_time ),
+				'post_date_gmt' => date( 'Y-m-d H:i:s', $base_time )
 			) );
+
+		$two_days_ago = strtotime( '-48 hours' );
 
 		$this->factory->post->create( array(
 				'post_title' 	=> 'New-ish post',
-				'post_date'		=> $base_time->sub( new DateInterval( 'PT48H' ) )->format( 'Y-m-d H:i:s' ),
-				'post_date_gmt' => $base_time->sub( new DateInterval( 'PT48H' ) )->format( 'Y-m-d H:i:s' )
+				'post_date'		=> date( 'Y-m-d H:i:s', $two_days_ago ),
+				'post_date_gmt' => date( 'Y-m-d H:i:s', $two_days_ago )
 			) );
+
+		$two_days_ago_one_minute = strtotime( '-48 hours -1 minute' );
 
 		$this->factory->post->create( array(
 				'post_title' 	=> 'Too old Post',
-				'post_date'		=> $base_time->sub( new DateInterval( 'PT48H1M' ) )->format( 'Y-m-d H:i:s' ),
-				'post_date_gmt' => $base_time->sub( new DateInterval( 'PT48H1M' ) )->format( 'Y-m-d H:i:s' )
+				'post_date'		=> date( 'Y-m-d H:i:s', $two_days_ago_one_minute ),
+				'post_date_gmt' => date( 'Y-m-d H:i:s', $two_days_ago_one_minute )
 			) );
 
 		$output = $this->instance->build_sitemap();
