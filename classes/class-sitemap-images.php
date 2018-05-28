@@ -122,7 +122,7 @@ class WPSEO_News_Sitemap_Images {
 			$home_url = home_url();
 		}
 
-		if ( strpos( $src, 'http' ) !== 0 ) {
+		if ( strpos( $src, 'http' ) !== 0 && strpos( $src, '//' ) !== 0 ) {
 			if ( $src[0] !== '/' ) {
 				return null;
 			}
