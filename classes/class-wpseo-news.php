@@ -10,7 +10,7 @@
  */
 class WPSEO_News {
 
-	const VERSION = '7.5';
+	const VERSION = '7.6';
 
 	/**
 	 * Get WPSEO News options.
@@ -49,9 +49,6 @@ class WPSEO_News {
 
 		// Sitemap.
 		new WPSEO_News_Sitemap();
-
-		// Rewrite Rules.
-		new WPSEO_News_Editors_Pick_Request();
 
 		// Head.
 		new WPSEO_News_Head();

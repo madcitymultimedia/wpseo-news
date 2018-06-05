@@ -36,7 +36,6 @@ class WPSEO_News_Head {
 			$this->post = $post;
 
 			$this->display_original_source();
-			$this->display_standout();
 			$this->display_noindex();
 		}
 	}
@@ -67,25 +66,6 @@ class WPSEO_News_Head {
 	}
 
 	/**
-	 * Displays the standout as meta tag in head.
-	 */
-	private function display_standout() {
-		/**
-		 * Filter: 'wpseo_news_head_display_standout' - Allow preventing of outputting standout tag.
-		 *
-		 * @api bool unsigned Whether or not to show the standout tag.
-		 *
-		 * @param object $post The post.
-		 */
-		if ( apply_filters( 'wpseo_news_head_display_standout', true, $this->post ) ) {
-			$meta_standout = WPSEO_Meta::get_value( 'newssitemap-standout', $this->post->ID );
-			if ( 'on' === $meta_standout && strtotime( $this->post->post_date ) >= strtotime( '-7 days' ) ) {
-				echo '<meta name="standout" content="' . esc_url( get_permalink( $this->post->ID ) ) . '" />' . "\n";
-			}
-		}
-	}
-
-	/**
 	 * Shows the meta-tag with noindex when it has been decided to exclude the post from Google News.
 	 *
 	 * @see: https://support.google.com/news/publisher/answer/93977?hl=en
@@ -94,7 +74,7 @@ class WPSEO_News_Head {
 		/**
 		 * Filter: 'wpseo_news_head_display_noindex' - Allow preventing of outputting noindex tag.
 		 *
-		 * @api string $meta_standout The noindex tag.
+		 * @api string $meta_robots The noindex tag.
 		 *
 		 * @param object $post The post.
 		 */
