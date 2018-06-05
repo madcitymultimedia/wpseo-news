@@ -28,7 +28,15 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
-### 7.6: May 29th, 2018
+### 7.6: June 5th, 2018
+Enhancements:
+* Removes support for standout tag.
+* Removes support for editor's pick RSS.
+
+Bugfixes:
+* Fixes a bug where the news image sitemap did not correctly handle protocol relative URLs.
+
+Other:
 * Compatibility with Yoast SEO 7.6
 
 ### 7.5: May 15th, 2018
