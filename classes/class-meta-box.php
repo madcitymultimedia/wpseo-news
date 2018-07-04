@@ -58,13 +58,6 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				'options'     => WPSEO_News::list_genres(),
 				'serialized'  => true,
 			),
-			'newssitemap-original'     => array(
-				'name'        => 'newssitemap-original',
-				'std'         => '',
-				'type'        => 'text',
-				'title'       => __( 'Original Source', 'wordpress-seo-news' ),
-				'description' => __( 'Is this article the original source of this news? If not, please enter the URL of the original source here. If there are multiple sources, please separate them by a pipe symbol: | .', 'wordpress-seo-news' ),
-			),
 			'newssitemap-stocktickers' => array(
 				'name'        => 'newssitemap-stocktickers',
 				'std'         => '',
