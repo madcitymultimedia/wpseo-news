@@ -29,6 +29,11 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 7.8: July 10th, 2018
+Other:
+* Removes functionality for original-source as Google has confirmed they're no longer using it.
+* Compatibility with Yoast SEO 7.8
+
 ### 7.7: June 26th, 2018
 * Compatibility with Yoast SEO 7.7
 
