@@ -100,14 +100,31 @@ class WPSEO_News_Upgrade_Manager {
 	 * Perform the upgrade to 7.8.
 	 */
 	private function upgrade_78() {
-		global $wpdb;
 		// Delete all standout tags. Functionality was deleted in 7.7, data only deleted in 7.8.
-		$wpdb->query( "DELETE FROM $wpdb->postmeta WHERE meta_key = '_yoast_wpseo_newssitemap-standout'" );
+		$this->delete_meta_by_key( '_yoast_wpseo_newssitemap-standout' );
 
 		// Delete all editors picks settings.
-		$wpdb->query( "DELETE FROM $wpdb->postmeta WHERE meta_key = '_yoast_wpseo_newssitemap-editors-pick'" );
+		$this->delete_meta_by_key( '_yoast_wpseo_newssitemap-editors-pick' );
 
-		// Delete all editors picks settings.
-		$wpdb->query( "DELETE FROM $wpdb->postmeta WHERE meta_key = '_yoast_wpseo_newssitemap-original'" );
+		// Delete all original source references.
+		$this->delete_meta_by_key( '_yoast_wpseo_newssitemap-original' );
+	}
+
+	/**
+	 * Deletes post meta fields by key.
+	 *
+	 * @param string $key The key to delete post meta fields for.
+	 *
+	 * @link https://codex.wordpress.org/Class_Reference/wpdb#DELETE_Rows
+	 */
+	private function delete_meta_by_key( $key ) {
+		global $wpdb;
+		$wpdb->delete(
+			$wpdb->postmeta,
+			array(
+				'meta_key' => $key,
+			),
+			array( '%s' )
+		);
 	}
 }
