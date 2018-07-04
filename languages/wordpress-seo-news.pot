@@ -4,7 +4,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Yoast SEO: News 7.7\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
-"POT-Creation-Date: 2018-06-28 11:06:09+00:00\n"
+"POT-Creation-Date: 2018-07-04 12:49:26+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -93,21 +93,10 @@ msgid "Genre to show in Google News Sitemap."
 msgstr ""
 
 #: classes/class-meta-box.php:65
-msgid "Original Source"
-msgstr ""
-
-#: classes/class-meta-box.php:66
-msgid ""
-"Is this article the original source of this news? If not, please enter the "
-"URL of the original source here. If there are multiple sources, please "
-"separate them by a pipe symbol: | ."
-msgstr ""
-
-#: classes/class-meta-box.php:72
 msgid "Stock Tickers"
 msgstr ""
 
-#: classes/class-meta-box.php:73
+#: classes/class-meta-box.php:66
 msgid ""
 "A comma-separated list of up to 5 stock tickers of the companies, mutual "
 "funds, or other financial entities that are the main subject of the "
@@ -116,15 +105,15 @@ msgid ""
 "(but not \"NASD:AMAT\"), or \"BOM:500325\" (but not \"BOM:RIL\")."
 msgstr ""
 
-#: classes/class-meta-box.php:83
+#: classes/class-meta-box.php:76
 msgid "Googlebot-News index"
 msgstr ""
 
-#: classes/class-meta-box.php:84
+#: classes/class-meta-box.php:77
 msgid "Using noindex allows you to prevent articles from appearing in Google News."
 msgstr ""
 
-#: classes/class-meta-box.php:135 classes/class-meta-box.php:148
+#: classes/class-meta-box.php:128 classes/class-meta-box.php:141
 msgid "Google News"
 msgstr ""
 
