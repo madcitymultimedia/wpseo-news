@@ -71,6 +71,23 @@ class WPSEO_News_Sitemap_Item {
 			return true;
 		}
 
+		$item_noindex = WPSEO_Meta::get_value( 'meta-robots-noindex', $this->item->ID );
+
+		if ( $item_noindex == 1 ) {
+			return true;
+		}
+
+		if ( $item_noindex == 0 ) {
+			if ( WPSEO_Options::get( 'noindex-' . $this->item->post_type ) == 1 ) {
+				return true;
+			}
+		}
+
+		// Check the specific WordPress SEO News no-index value.
+		if  ( WPSEO_Meta::get_value( 'newssitemap-robots-index', $this->item->ID ) == 1 ) {
+			return true;
+		}
+
 		if ( 'post' === $this->item->post_type && $this->exclude_item_terms() ) {
 			return true;
 		}

@@ -173,7 +173,7 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
-	 * Clear the sitemap  and sitemap index every hour to make sure the sitemap is hidden or shown when it needs to be.
+	 * Clear the sitemap and sitemap index every hour to make sure the sitemap is hidden or shown when it needs to be.
 	 */
 	private function yoast_wpseo_news_schedule_clear() {
 		$schedule = wp_get_schedule( 'wpseo_news_schedule_sitemap_clear' );
