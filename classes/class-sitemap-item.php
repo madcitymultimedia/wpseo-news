@@ -84,7 +84,7 @@ class WPSEO_News_Sitemap_Item {
 		}
 
 		// Check the specific WordPress SEO News no-index value.
-		if  ( WPSEO_Meta::get_value( 'newssitemap-robots-index', $this->item->ID ) == 1 ) {
+		if ( WPSEO_Meta::get_value( 'newssitemap-robots-index', $this->item->ID ) == 1 ) {
 			return true;
 		}
 
