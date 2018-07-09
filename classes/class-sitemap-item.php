@@ -77,7 +77,7 @@ class WPSEO_News_Sitemap_Item {
 			return true;
 		}
 
-		if ( $item_noindex === 0 && WPSEO_Options::get( 'noindex-' . $this->item->post_type ) === 1 ){
+		if ( $item_noindex === 0 && WPSEO_Options::get( 'noindex-' . $this->item->post_type ) === 1 ) {
 			return true;
 		}
 
