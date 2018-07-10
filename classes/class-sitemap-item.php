@@ -67,7 +67,9 @@ class WPSEO_News_Sitemap_Item {
 			return true;
 		}
 
-		if ( false !== WPSEO_Meta::get_value( 'meta-robots', $this->item->ID ) && strpos( WPSEO_Meta::get_value( 'meta-robots', $this->item->ID ), 'noindex' ) !== false ) {
+		$meta_robots = WPSEO_Meta::get_value( 'meta-robots', $this->item->ID );
+		
+		if ( $meta_robots !== false && strpos( $meta_robots, 'noindex' ) !== false ) {
 			return true;
 		}
 
