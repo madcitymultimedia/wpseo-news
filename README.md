@@ -29,6 +29,13 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 7.9: July 24th, 2018
+Bugfixes:
+* Fixes a bug where news posts set to no-index would still appear in the XML News Sitemap.
+
+Other:
+* Compatibility with Yoast SEO 7.9
+
 ### 7.8: July 10th, 2018
 Other:
 * Removes functionality for original-source as Google has confirmed they're no longer using it.
