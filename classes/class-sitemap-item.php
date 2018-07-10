@@ -68,7 +68,7 @@ class WPSEO_News_Sitemap_Item {
 		}
 
 		$meta_robots = WPSEO_Meta::get_value( 'meta-robots', $this->item->ID );
-		
+
 		if ( $meta_robots !== false && strpos( $meta_robots, 'noindex' ) !== false ) {
 			return true;
 		}
