@@ -67,24 +67,18 @@ class WPSEO_News_Sitemap_Item {
 			return true;
 		}
 
-		$meta_robots = WPSEO_Meta::get_value( 'meta-robots', $this->item->ID );
-
-		if ( $meta_robots !== false && strpos( $meta_robots, 'noindex' ) !== false ) {
-			return true;
-		}
-
 		$item_noindex = WPSEO_Meta::get_value( 'meta-robots-noindex', $this->item->ID );
 
-		if ( $item_noindex === 1 ) {
+		if ( $item_noindex === '1' ) {
 			return true;
 		}
 
-		if ( $item_noindex === 0 && WPSEO_Options::get( 'noindex-' . $this->item->post_type ) === 1 ) {
+		if ( $item_noindex === '0' && WPSEO_Options::get( 'noindex-' . $this->item->post_type ) === true ) {
 			return true;
 		}
 
 		// Check the specific WordPress SEO News no-index value.
-		if ( WPSEO_Meta::get_value( 'newssitemap-robots-index', $this->item->ID ) === 1 ) {
+		if ( WPSEO_Meta::get_value( 'newssitemap-robots-index', $this->item->ID ) === '1' ) {
 			return true;
 		}
 
