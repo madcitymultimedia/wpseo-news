@@ -24,13 +24,11 @@ class WPSEO_News_Upgrade_Manager {
 
 		// Check if update is required.
 		if ( version_compare( WPSEO_News::VERSION, $options['version'], '>' ) ) {
-
 			// Do update.
 			$this->do_update( $options['version'] );
 
 			// Update version code.
 			$this->update_current_version_code();
-
 		}
 
 	}
@@ -41,39 +39,20 @@ class WPSEO_News_Upgrade_Manager {
 	 * @param string $current_version The current version.
 	 */
 	private function do_update( $current_version ) {
+		// Update to version 2.0.
+		if ( version_compare( $current_version, '2.0', '<' ) ) {
+			$this->upgrade_20();
+		}
 
 		// Upgrade to version 2.0.4.
 		if ( version_compare( $current_version, '2.0.4', '<' ) ) {
-
-			// Remove unused option.
-			$news_options = WPSEO_News::get_options();
-			unset( $news_options['ep_image_title'] );
-
-			// Update options.
-			update_option( 'wpseo_news', $news_options );
-
-			// Reset variable.
-			$news_options = null;
-
+			$this->upgrade_204();
 		}
 
-		// Update to version 2.0.
-		if ( version_compare( $current_version, '2.0', '<' ) ) {
-
-			// Get current options.
-			$current_options = get_option( 'wpseo_news' );
-
-			// Set new options.
-			$new_options = array(
-				'name'             => ( ( isset( $current_options['newssitemapname'] ) ) ? $current_options['newssitemapname'] : '' ),
-				'default_genre'    => ( ( isset( $current_options['newssitemap_default_genre'] ) ) ? $current_options['newssitemap_default_genre'] : '' ),
-			);
-
-			// Save new options.
-			update_option( 'wpseo_news', $new_options );
-
+		// Upgrade to version 7.8.
+		if ( version_compare( $current_version, '7.8', '<' ) ) {
+			$this->upgrade_78();
 		}
-
 	}
 
 	/**
@@ -83,5 +62,69 @@ class WPSEO_News_Upgrade_Manager {
 		$options            = WPSEO_News::get_options();
 		$options['version'] = WPSEO_News::VERSION;
 		update_option( 'wpseo_news', $options );
+	}
+
+	/**
+	 * Perform the upgrade to 2.0.
+	 */
+	private function upgrade_20() {
+		// Get current options.
+		$current_options = get_option( 'wpseo_news' );
+
+		// Set new options.
+		$new_options = array(
+			'name'          => ( ( isset( $current_options['newssitemapname'] ) ) ? $current_options['newssitemapname'] : '' ),
+			'default_genre' => ( ( isset( $current_options['newssitemap_default_genre'] ) ) ? $current_options['newssitemap_default_genre'] : '' ),
+		);
+
+		// Save new options.
+		update_option( 'wpseo_news', $new_options );
+	}
+
+	/**
+	 * Perform the upgrade to 2.0.4.
+	 */
+	private function upgrade_204() {
+		// Remove unused option.
+		$news_options = WPSEO_News::get_options();
+		unset( $news_options['ep_image_title'] );
+
+		// Update options.
+		update_option( 'wpseo_news', $news_options );
+
+		// Reset variable.
+		$news_options = null;
+	}
+
+	/**
+	 * Perform the upgrade to 7.8.
+	 */
+	private function upgrade_78() {
+		// Delete all standout tags. Functionality was deleted in 7.7, data only deleted in 7.8.
+		$this->delete_meta_by_key( '_yoast_wpseo_newssitemap-standout' );
+
+		// Delete all editors picks settings.
+		$this->delete_meta_by_key( '_yoast_wpseo_newssitemap-editors-pick' );
+
+		// Delete all original source references.
+		$this->delete_meta_by_key( '_yoast_wpseo_newssitemap-original' );
+	}
+
+	/**
+	 * Deletes post meta fields by key.
+	 *
+	 * @param string $key The key to delete post meta fields for.
+	 *
+	 * @link https://codex.wordpress.org/Class_Reference/wpdb#DELETE_Rows
+	 */
+	private function delete_meta_by_key( $key ) {
+		global $wpdb;
+		$wpdb->delete(
+			$wpdb->postmeta,
+			array(
+				'meta_key' => $key,
+			),
+			array( '%s' )
+		);
 	}
 }

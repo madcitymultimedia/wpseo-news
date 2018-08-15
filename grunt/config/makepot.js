@@ -4,6 +4,7 @@ module.exports = {
 		options: {
 			domainPath: '<%= paths.languages %>',
 			potFilename: '<%= pkg.plugin.textdomain %>.pot',
+			exclude: [ 'artifact/.*' ],
 			potHeaders: {
 				poedit: true,
 				'report-msgid-bugs-to': '<%= pkg.pot.reportmsgidbugsto %>',
