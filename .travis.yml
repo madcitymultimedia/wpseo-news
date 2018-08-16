@@ -57,7 +57,7 @@ jobs:
         - yarn install
         - grunt set-version -new-version=$TRAVIS_TAG
         - grunt update-version
-        - grunt artifact
+        - grunt create:artifact
       # If the commit was tagged, create an artifact and push it to the distribution github
       deploy:
         skip_cleanup: true
