@@ -16,8 +16,10 @@ branches:
     - trunk
     - /^release\/\d+\.\d+(\.\d+)?(-\S*)?$/
     - /^hotfix\/\d+\.\d+(\.\d+)?(-\S*)?$/
+    # Also build tags like 1.1.1 or 1.1 for deployment.
+    - /(\d+\.)?(\d+\.)?(\*|\d+)/
 
-matrix:
+jobs:
   fast_finish: true
   include:
     - php: 7.2
@@ -40,6 +42,31 @@ matrix:
       env: WP_VERSION=master
     - php: nightly
       env: WP_VERSION=master
+    - stage: deploy-to-github-dist
+      if: tag IS present
+      before_install:
+        - openssl aes-256-cbc -K $encrypted_b489f7a38f66_key -iv $encrypted_b489f7a38f66_iv -in ./deploy_keys/wpseo_news_deploy.enc -out ./deploy_keys/wpseo_news_deploy -d
+        - chmod 600 ./deploy_keys/wpseo_news_deploy
+        - eval $(ssh-agent -s)
+        - ssh-add ./deploy_keys/wpseo_news_deploy
+      before_deploy:
+        - nvm install node
+        - curl -o- -L https://yarnpkg.com/install.sh | bash
+        - export PATH=$HOME/.yarn/bin:$PATH
+        - yarn global add grunt-cli
+        - yarn install
+        - grunt set-version -new-version=$TRAVIS_TAG
+        - grunt update-version
+        - grunt create:artifact
+      # If the commit was tagged, create an artifact and push it to the distribution github
+      deploy:
+        skip_cleanup: true
+        provider: script
+        script: bash scripts/deploy_to_dist.sh $TRAVIS_TAG wpseo-news
+        on:
+          tags: true
+          repo: $TRAVIS_REPO_SLUG
+          all_branches: true
   allow_failures:
     # Allow failures for unstable builds.
     - php: nightly
