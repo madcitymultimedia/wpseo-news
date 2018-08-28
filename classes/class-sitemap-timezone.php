@@ -42,8 +42,7 @@ class WPSEO_News_Sitemap_Timezone {
 			return 'UTC';
 		}
 
-		// Format the UTC offset to a string readable by DateTimeZone()
-
+		// Format the UTC offset to a string readable by DateTimeZone.
 		$offset_float = floatval( $utc_offset );
 
 		if ( $utc_offset < 0 ) {
@@ -51,9 +50,9 @@ class WPSEO_News_Sitemap_Timezone {
 		}
 
 		$offset_int = floor( $offset_float );
-		$offset_minutes_float = ( $offset_float - $offset_int ) * 60;
-		$offset_minutes = sprintf("%02d", $offset_minutes_float);
-		$offset_hours = sprintf("%02d", $offset_int);
+		$offset_minutes_float = ( ( $offset_float - $offset_int ) * 60 );
+		$offset_minutes = sprintf( '%02d' , $offset_minutes_float );
+		$offset_hours = sprintf( '%02d', $offset_int );
 
 		if ( $utc_offset >= 0 ) {
 			return '+' . $offset_hours . $offset_minutes;
