@@ -260,7 +260,7 @@ class WPSEO_News_Sitemap_Item {
 			$timezone_string = $timezone_option->wp_get_timezone_string();
 
 			// Is there a usable timezone string and does it exist in the list of 'valid' timezones.
-			if ( $timezone_string !== '' && ( in_array( $timezone_string, DateTimeZone::listIdentifiers(), true ) || ( preg_match( '/[+-][0-9]{4}/', $timezone_string  === 1 ) ) ) {
+			if ( $timezone_string !== '' && ( in_array( $timezone_string, DateTimeZone::listIdentifiers(), true ) || ( preg_match( '/[+-][0-9]{4}/', $timezone_string ) === 1 ) ) ) {
 				$timezone_format = DateTime::W3C;
 			}
 		}
