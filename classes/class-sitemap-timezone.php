@@ -35,29 +35,31 @@ class WPSEO_News_Sitemap_Timezone {
 			return $timezone;
 		}
 
+		$utc_offset = get_option( 'gmt_offset', 0 );
+
 		// Get UTC offset, if it isn't set then return UTC.
-		if ( 0 === ( $utc_offset = get_option( 'gmt_offset', 0 ) ) ) {
+		if ( $utc_offset === 0 ) {
 			return 'UTC';
 		}
 
-		// Adjust UTC offset from hours to seconds.
-		$utc_offset *= HOUR_IN_SECONDS;
+		// Format the UTC offset to a string readable by DateTimeZone()
 
-		// Attempt to guess the timezone string from the UTC offset.
-		$timezone = timezone_name_from_abbr( '', $utc_offset );
+		$offset_float = floatval( $utc_offset );
 
-		if ( false !== $timezone ) {
-			return $timezone;
+		if ( $utc_offset < 0 ) {
+			$offset_float *= -1;
 		}
 
-		// Last try, guess timezone string manually.
-		$timezone_id = $this->get_timezone_id( $utc_offset );
-		if ( $timezone_id ) {
-			return $timezone_id;
+		$offset_int = floor( $offset_float );
+		$offset_minutes_float = ( $offset_float - $offset_int ) * 60;
+		$offset_minutes = sprintf("%02d", $offset_minutes_float);
+		$offset_hours = sprintf("%02d", $offset_int);
+
+		if ( $utc_offset >= 0 ) {
+			return '+' . $offset_hours . $offset_minutes;
 		}
 
-		// Fallback to UTC.
-		return 'UTC';
+		return '-' . $offset_hours . $offset_minutes;
 	}
 
 
