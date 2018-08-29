@@ -29,6 +29,10 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 8.2: September 11th, 2018
+Other:
+* Compatibility with Yoast SEO 8.2
+
 ### 8.1: August 28th, 2018
 Other:
 * Compatibility with Yoast SEO 8.1
