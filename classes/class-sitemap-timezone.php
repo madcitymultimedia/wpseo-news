@@ -43,43 +43,16 @@ class WPSEO_News_Sitemap_Timezone {
 		}
 
 		// Format the UTC offset to a string readable by DateTimeZone.
-		$offset_float = floatval( $utc_offset );
-
-		if ( $utc_offset < 0 ) {
-			$offset_float *= -1;
-		}
-
-		$offset_int = floor( $offset_float );
+		$offset_float         = abs( floatval( $utc_offset ) );
+		$offset_int           = floor( $offset_float );
 		$offset_minutes_float = ( ( $offset_float - $offset_int ) * 60 );
-		$offset_minutes = sprintf( '%02d' , $offset_minutes_float );
-		$offset_hours = sprintf( '%02d', $offset_int );
+		$offset_minutes       = sprintf( '%02d' , $offset_minutes_float );
+		$offset_hours         = sprintf( '%02d', $offset_int );
 
 		if ( $utc_offset >= 0 ) {
 			return '+' . $offset_hours . $offset_minutes;
 		}
 
 		return '-' . $offset_hours . $offset_minutes;
-	}
-
-
-	/**
-	 * Getting the timezone id.
-	 *
-	 * @param string $utc_offset Offset to use.
-	 *
-	 * @return mixed
-	 */
-	private function get_timezone_id( $utc_offset ) {
-		$is_dst = date( 'I' );
-
-		foreach ( timezone_abbreviations_list() as $abbr ) {
-			foreach ( $abbr as $city ) {
-				if ( $city['dst'] === $is_dst && $city['offset'] === $utc_offset ) {
-					return $city['timezone_id'];
-				}
-			}
-		}
-
-		return false;
 	}
 }
