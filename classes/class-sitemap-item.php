@@ -271,7 +271,7 @@ class WPSEO_News_Sitemap_Item {
 	private function get_date_format() {
 		static $timezone_format;
 
-		if ( ! isset( $timezone_format ) ) {
+		if ( $timezone_format === null ) {
 			// Set a default.
 			$timezone_format = 'Y-m-d';
 
