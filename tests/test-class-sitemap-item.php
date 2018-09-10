@@ -70,7 +70,6 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		$this->assertEquals( $original_post_date, $get_publication_date_output );
 	}
 
-
 	/**
 	 * Checks if the time output for the sitemap is an empty string when dates are
 	 * invalid.
@@ -80,7 +79,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 	public function test_get_publication_date_with_invalid_datetime() {
 		$test_post_date_gmt = self::factory()->post->create_and_get(
 			array(
-				'post_title'    => 'Newest post'
+				'post_title'    => 'Newest post',
 			)
 		);
 
