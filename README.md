@@ -30,6 +30,9 @@ Changelog
 =========
 
 ### 8.3: September 25th, 2018
+Bugfixes:
+* Fixes a bug where the XML of the news sitemap would contain an incorrect publication time when the user would use a location-based timezone.
+
 Other:
 * Compatibility with Yoast SEO 8.3
 
