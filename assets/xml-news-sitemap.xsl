@@ -104,7 +104,7 @@
 										<xsl:value-of select="count(image:image)"/>
 									</td>
 									<td>
-										<xsl:value-of select="concat(substring(n:news/n:publication_date,0,11),concat(' ', substring(n:news/n:publication_date,12,5)))"/>
+										<xsl:value-of select="n:news/n:publication_date"/>
 									</td>
 								</tr>
 							</xsl:for-each>

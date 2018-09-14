@@ -214,46 +214,53 @@ class WPSEO_News_Sitemap_Item {
 	 *
 	 * @return string
 	 */
-	private function get_publication_date( $item ) {
+	protected function get_publication_date( $item ) {
 		if ( $this->is_valid_datetime( $item->post_date_gmt ) ) {
-			// Create a DateTime object date in the correct timezone.
-			return $this->format_date_with_timezone( $item->post_date_gmt );
+			return $this->format_date_with_timezone( $item->post_date_gmt, 'UTC' );
 		}
-		if ( $this->is_valid_datetime( $item->post_modified_gmt ) ) {
-			// Fallback 1: post_modified_gmt.
-			return $this->format_date_with_timezone( $item->post_modified_gmt );
-		}
-		if ( $this->is_valid_datetime( $item->post_modified ) ) {
-			// Fallback 2: post_modified.
-			return $this->format_date_with_timezone( $item->post_modified );
-		}
+
+		// Fallback: post_date.
 		if ( $this->is_valid_datetime( $item->post_date ) ) {
-			// Fallback 3: post_date.
-			return $this->format_date_with_timezone( $item->post_date );
+			return $this->format_date_with_timezone( $item->post_date, new WPSEO_News_Sitemap_Timezone() );
 		}
 
 		return '';
 	}
 
 	/**
-	 * Format a datestring with a timezone.
+	 * Format a date string with a timezone.
 	 *
-	 * @param string $item_date Date to parse.
+	 * @param string                                $item_date Date to parse.
+	 * @param string || WPSEO_News_Sitemap_Timezone $time_zone Timezone to parse.
 	 *
-	 * @return string
+	 * @return string The formatted date string.
 	 */
-	private function format_date_with_timezone( $item_date ) {
-		static $timezone_string;
-
-		if ( $timezone_string === null ) {
-			// Get the timezone string.
-			$timezone_string = new WPSEO_News_Sitemap_Timezone();
-		}
+	private function format_date_with_timezone( $item_date, $time_zone ) {
 
 		// Create a DateTime object date in the correct timezone.
-		$datetime = new DateTime( $item_date, new DateTimeZone( $timezone_string ) );
+		$datetime = new DateTime( $item_date, new DateTimeZone( $time_zone ) );
 
 		return $datetime->format( $this->get_date_format() );
+	}
+
+	/**
+	 * Checks if a DateTimeZone string is usable, either as a known timezone or as a numeric entry.
+	 *
+	 * @param string $timezone_string DateTimeZone string to check.
+	 *
+	 * @return bool
+	 */
+	private function is_timezone_usable( $timezone_string ) {
+		if ( $timezone_string === '' ) {
+			return false;
+		}
+
+		if ( in_array( $timezone_string, DateTimeZone::listIdentifiers(), true ) ) {
+			return true;
+		}
+
+		// Checks if the string matches a valid numeric DateTimeZone, for example "+0200".
+		return ( preg_match( '/[+-][0-9]{4}/', $timezone_string ) === 1 );
 	}
 
 	/**
@@ -264,7 +271,7 @@ class WPSEO_News_Sitemap_Item {
 	private function get_date_format() {
 		static $timezone_format;
 
-		if ( ! isset( $timezone_format ) ) {
+		if ( $timezone_format === null ) {
 			// Set a default.
 			$timezone_format = 'Y-m-d';
 
@@ -272,8 +279,8 @@ class WPSEO_News_Sitemap_Item {
 			$timezone_option = new WPSEO_News_Sitemap_Timezone();
 			$timezone_string = $timezone_option->wp_get_timezone_string();
 
-			// Is there a usable timezone string and does it exists in the list of 'valid' timezones.
-			if ( $timezone_string !== '' && in_array( $timezone_string, DateTimeZone::listIdentifiers(), true ) ) {
+			// Is there a usable timezone string and does it exist in the list of 'valid' timezones.
+			if ( $this->is_timezone_usable( $timezone_string ) ) {
 				$timezone_format = DateTime::W3C;
 			}
 		}
