@@ -28,6 +28,7 @@ class WPSEO_News {
 			'default_genre'            => array(),
 			'ep_image_src'             => '',
 			'version'                  => '0',
+			'newssitemap_include_post' => 'on',
 		) ) );
 	}
 
