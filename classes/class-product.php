@@ -20,7 +20,7 @@ if ( ! class_exists( 'WPSEO_News_Product', false ) && class_exists( 'Yoast_Produ
 			$slug = dirname( $file );
 
 			parent::__construct(
-				'http://my.yoast.com/edd-sl-api',
+				'https://my.yoast.com/edd-sl-api',
 				'News SEO',
 				$slug,
 				WPSEO_News::VERSION,
