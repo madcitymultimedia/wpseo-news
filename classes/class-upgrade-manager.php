@@ -120,11 +120,12 @@ class WPSEO_News_Upgrade_Manager {
 		// Get current options.
 		$options = get_option( 'wpseo_news' );
 		foreach ( $options as $key => $value ) {
-			if ( strpos( $key, 'catexclude_' ) === 0 ) {
-				$slug                                        = str_replace( 'catexclude_', '', $key );
-				$options[ 'term_exclude_category_' . $slug ] = $value;
-				unset( $options[ $key ] );
+			if ( strpos( $key, 'catexclude_' ) !== 0 ) {
+				continue;
 			}
+			$slug                                        = str_replace( 'catexclude_', '', $key );
+			$options[ 'term_exclude_category_' . $slug ] = $value;
+			unset( $options[ $key ] );
 		}
 
 		// Update options.
