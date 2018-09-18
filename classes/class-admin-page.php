@@ -123,7 +123,7 @@ class WPSEO_News_Admin_Page {
 	/**
 	 * Echoes the heading + checkboxes to exclude terms within each of the post type's taxonomies.
 	 *
-	 * @param WP_Post_Type $post_type Post type for which to exclude taxonomies
+	 * @param WP_Post_Type $post_type Post type for which to exclude taxonomies.
 	 */
 	private function excluded_post_type_taxonomies_output( $post_type ) {
 		$taxonomies = get_object_taxonomies( $post_type->name, 'objects' );
