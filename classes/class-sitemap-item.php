@@ -58,9 +58,9 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Determines if item has to be skipped or not.
+	 * Determines if the item has to be skipped or not.
 	 *
-	 * @return bool
+	 * @return bool True if the item has to be skipped.
 	 */
 	private function skip_build_item() {
 		if ( WPSEO_Meta::get_value( 'newssitemap-exclude', $this->item->ID ) === 'on' ) {
@@ -92,7 +92,7 @@ class WPSEO_News_Sitemap_Item {
 	/**
 	 * Excludes the item when one of his terms is excluded.
 	 *
-	 * @return bool True whether the item should be excluded.
+	 * @return bool True if the item should be excluded.
 	 */
 	private function exclude_item_terms() {
 		foreach ( $this->get_terms_for_item() as $term ) {
