@@ -128,8 +128,12 @@ class WPSEO_News_Admin_Page {
 	private function excluded_post_type_taxonomies_output( $post_type ) {
 		$taxonomies = get_object_taxonomies( $post_type->name, 'objects' );
 		foreach ( $taxonomies as $taxonomy ) {
+			$terms = get_terms( array( 'taxonomy' => $taxonomy->name, 'hide_empty' => false ) );
+			if ( count( $terms ) === 0 ) {
+				continue;
+			}
 			echo '<h2>' . sprintf( esc_html__( '%1$s %2$s to exclude', 'wordpress-seo-news' ), $post_type->labels->singular_name, $taxonomy->labels->name ) . '</h2>';
-			foreach ( get_terms( array( 'taxonomy' => $taxonomy->name, 'hide_empty' => false ) ) as $term ) {
+			foreach ( $terms as $term ) {
 				echo WPSEO_News_Wrappers::checkbox( 'term_exclude_' . $term->taxonomy . '_' . $term->slug, $term->name . ' (' . $term->count . ' posts)', false );
 			}
 		}
