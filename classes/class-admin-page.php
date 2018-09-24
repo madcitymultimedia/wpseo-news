@@ -96,27 +96,30 @@ class WPSEO_News_Admin_Page {
 	}
 
 	/**
-	 * Generate HTML for the post types which should be included in the sitemap.
+	 * Generates the HTML for the post types which should be included in the sitemap.
 	 */
 	private function include_post_types() {
 		// Post Types to include in News Sitemap.
 		echo '<h2>' . esc_html__( 'Post Types to include in News Sitemap', 'wordpress-seo-news' ) . '</h2>';
 		echo '<fieldset><legend class="screen-reader-text">' . esc_html__( 'Post Types to include:', 'wordpress-seo-news' ) . '</legend>';
+
 		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
 			echo WPSEO_News_Wrappers::checkbox( 'newssitemap_include_' . $posttype->name, $posttype->labels->name . ' (<code>' . $posttype->name . '</code>)', false );
 		}
+
 		echo '</fieldset><br>';
 	}
 
 	/**
-	 * Generate HTML for excluding post categories.
+	 * Generates the HTML for excluding post categories.
 	 *
 	 * @return void
 	 */
 	private function excluded_post_type_taxonomies() {
 		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $post_type ) {
 			$option_key = 'newssitemap_include_' . $post_type->name;
-			if ( isset( $this->options[ $option_key ] ) && ( 'on' === $this->options[ $option_key ] ) ) {
+
+			if ( isset( $this->options[ $option_key ] ) && ( $this->options[ $option_key ] === 'on' ) ) {
 				$this->excluded_post_type_taxonomies_output( $post_type );
 			}
 		}
@@ -130,13 +133,15 @@ class WPSEO_News_Admin_Page {
 	 * @return void
 	 */
 	private function excluded_post_type_taxonomies_output( $post_type ) {
-		$taxonomies = get_object_taxonomies( $post_type->name, 'objects' );
-		foreach ( $taxonomies as $taxonomy ) {
+		foreach ( get_object_taxonomies( $post_type->name, 'objects' ) as $taxonomy ) {
 			$terms = get_terms( array( 'taxonomy' => $taxonomy->name, 'hide_empty' => false ) );
+
 			if ( count( $terms ) === 0 ) {
 				continue;
 			}
+
 			echo '<h2>' . sprintf( esc_html__( '%1$s %2$s to exclude', 'wordpress-seo-news' ), $post_type->labels->singular_name, $taxonomy->labels->name ) . '</h2>';
+
 			foreach ( $terms as $term ) {
 				echo WPSEO_News_Wrappers::checkbox( 'term_exclude_' . $term->taxonomy . '_' . $term->slug, $term->name . ' (' . $term->count . ' posts)', false );
 			}
