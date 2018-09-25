@@ -36,7 +36,7 @@ Enhancements:
 * Makes it possible to exclude posts with post type 'post' from the the news sitemap.
 
 Other:
-* Compatibility with Yoast SEO 8.3
+* Compatibility with Yoast SEO 8.4
 
 ### 8.3: September 25th, 2018
 Bugfixes:
