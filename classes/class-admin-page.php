@@ -120,19 +120,30 @@ class WPSEO_News_Admin_Page {
 			$option_key = 'newssitemap_include_' . $post_type->name;
 
 			if ( isset( $this->options[ $option_key ] ) && ( $this->options[ $option_key ] === 'on' ) ) {
-				$this->excluded_post_type_taxonomies_output( $post_type );
+				$terms_per_taxonomy = $this->get_excluded_post_type_taxonomies( $post_type );
+
+				if ( $terms_per_taxonomy === false ) {
+					continue;
+				}
+
+				echo '<h2>' . sprintf( esc_html__( 'Terms to exclude for %1$s', 'wordpress-seo-news' ), $post_type->labels->name ) . '</h2>';
+
+				$this->excluded_post_type_taxonomies_output( $terms_per_taxonomy );
 			}
 		}
 	}
 
 	/**
-	 * Echoes the heading + checkboxes to exclude terms within each of the post type's taxonomies.
+	 * Creates an array of objects containing taxonomies and the list of terms that are eligible for exclusion in the
+	 * sitemap.
 	 *
 	 * @param WP_Post_Type $post_type Post type for which to exclude taxonomies.
 	 *
-	 * @return void
+	 * @return array|bool Returns an array containing terms and taxonomies.
 	 */
-	private function excluded_post_type_taxonomies_output( $post_type ) {
+	private function get_excluded_post_type_taxonomies( $post_type ) {
+		$terms_per_taxonomy = array();
+
 		foreach ( get_object_taxonomies( $post_type->name, 'objects' ) as $taxonomy ) {
 			$terms = get_terms( array( 'taxonomy' => $taxonomy->name, 'hide_empty' => false ) );
 
@@ -140,7 +151,34 @@ class WPSEO_News_Admin_Page {
 				continue;
 			}
 
-			echo '<h2>' . sprintf( esc_html__( '%1$s %2$s to exclude', 'wordpress-seo-news' ), $post_type->labels->singular_name, $taxonomy->labels->name ) . '</h2>';
+			$terms_per_taxonomy[] = array(
+				'taxonomy' => $taxonomy,
+				'terms'    => $terms,
+			);
+		}
+
+		if ( count( $terms_per_taxonomy ) === 0 ) {
+			return false;
+		}
+
+		return $terms_per_taxonomy;
+	}
+
+	/**
+	 * Echoes the sub heading + checkboxes to exclude terms within each of the post type's taxonomies.
+	 *
+	 * @param array             $terms_per_taxonomy Post type for which to exclude taxonomies.
+	 * @param array['taxonomy'] WP_Taxonomy         The taxonomy.
+	 * @param array['terms']    array               The terms.
+	 *
+	 * @return void
+	 */
+	private function excluded_post_type_taxonomies_output( $terms_per_taxonomy ) {
+		foreach ( $terms_per_taxonomy as $data ) {
+			$taxonomy = $data['taxonomy'];
+			$terms    = $data['terms'];
+
+			echo '<h3>' . sprintf( esc_html__( '%1$s to exclude', 'wordpress-seo-news' ), $taxonomy->labels->name ) . '</h3>';
 
 			foreach ( $terms as $term ) {
 				echo WPSEO_News_Wrappers::checkbox( 'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type->name, $term->name . ' (' . $term->count . ' posts)', false );
