@@ -28,6 +28,15 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 8.4: October 9th, 2018
+Bugfix:
+* Fixes a bug where the changelog would not show up when the plugin was updated.
+
+Enhancements:
+* Makes it possible to exclude posts with post type 'post' from the the XML sitemap.
+
+Other:
+* Compatibility with Yoast SEO 8.3
 
 ### 8.3: September 25th, 2018
 Bugfixes:
