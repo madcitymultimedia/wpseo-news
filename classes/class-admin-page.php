@@ -178,7 +178,7 @@ class WPSEO_News_Admin_Page {
 			echo '<h3>' . sprintf( esc_html__( '%1$s to exclude', 'wordpress-seo-news' ), $taxonomy->labels->name ) . '</h3>';
 
 			foreach ( $terms as $term ) {
-				echo WPSEO_News_Wrappers::checkbox( 'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type->name, $term->name . ' (' . $term->count . ' posts)', false );
+				echo WPSEO_News_Wrappers::checkbox( 'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type->name, $term->name, false );
 			}
 		}
 	}
