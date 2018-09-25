@@ -131,7 +131,7 @@ class WPSEO_News_Admin_Page {
 
 			echo '<h2>' . sprintf( esc_html__( 'Terms to exclude for %1$s', 'wordpress-seo-news' ), $post_type->labels->name ) . '</h2>';
 
-			$this->excluded_post_type_taxonomies_output( $terms_per_taxonomy );
+			$this->excluded_post_type_taxonomies_output( $terms_per_taxonomy, $post_type );
 		}
 	}
 
@@ -170,7 +170,7 @@ class WPSEO_News_Admin_Page {
 	 *
 	 * @return void
 	 */
-	private function excluded_post_type_taxonomies_output( $terms_per_taxonomy ) {
+	private function excluded_post_type_taxonomies_output( $terms_per_taxonomy, $post_type ) {
 		foreach ( $terms_per_taxonomy as $data ) {
 			$taxonomy = $data['taxonomy'];
 			$terms    = $data['terms'];
