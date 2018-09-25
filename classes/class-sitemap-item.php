@@ -41,7 +41,6 @@ class WPSEO_News_Sitemap_Item {
 		$this->item    = $item;
 		$this->options = $options;
 
-
 		// Check if item should be skipped.
 		if ( ! $this->skip_build_item() ) {
 			$this->build_item();
@@ -96,7 +95,7 @@ class WPSEO_News_Sitemap_Item {
 	 */
 	private function exclude_item_terms() {
 		foreach ( $this->get_terms_for_item() as $term ) {
-			$term_exclude_option = 'term_exclude_' . $term->taxonomy . '_' . $term->slug;
+			$term_exclude_option = 'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $this->item->post_type->name;
 			if ( isset( $this->options[ $term_exclude_option ] ) ) {
 				return true;
 			}

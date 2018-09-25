@@ -143,7 +143,7 @@ class WPSEO_News_Admin_Page {
 			echo '<h2>' . sprintf( esc_html__( '%1$s %2$s to exclude', 'wordpress-seo-news' ), $post_type->labels->singular_name, $taxonomy->labels->name ) . '</h2>';
 
 			foreach ( $terms as $term ) {
-				echo WPSEO_News_Wrappers::checkbox( 'term_exclude_' . $term->taxonomy . '_' . $term->slug, $term->name . ' (' . $term->count . ' posts)', false );
+				echo WPSEO_News_Wrappers::checkbox( 'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type->name, $term->name . ' (' . $term->count . ' posts)', false );
 			}
 		}
 	}
