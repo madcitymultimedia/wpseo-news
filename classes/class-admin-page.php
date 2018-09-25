@@ -155,8 +155,9 @@ class WPSEO_News_Admin_Page {
 			}
 
 			$terms_per_taxonomy[] = array(
-				'taxonomy' => $taxonomy,
-				'terms'    => $terms,
+				'taxonomy'   => $taxonomy,
+				'terms'      => $terms,
+				'term_count' => 0,
 			);
 		}
 
@@ -174,11 +175,16 @@ class WPSEO_News_Admin_Page {
 		foreach ( $terms_per_taxonomy as $data ) {
 			$taxonomy = $data['taxonomy'];
 			$terms    = $data['terms'];
+			$count    = $data['term_count'];
 
 			echo '<h3>' . sprintf( esc_html__( '%1$s to exclude', 'wordpress-seo-news' ), $taxonomy->labels->name ) . '</h3>';
 
 			foreach ( $terms as $term ) {
-				echo WPSEO_News_Wrappers::checkbox( 'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type->name, $term->name, false );
+				echo WPSEO_News_Wrappers::checkbox(
+					'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type->name,
+					$term->name . ' (' . $count . ' ' . $post_type->label . ')',
+					false
+				);
 			}
 		}
 	}
