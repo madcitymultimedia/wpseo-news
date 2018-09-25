@@ -119,17 +119,19 @@ class WPSEO_News_Admin_Page {
 		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $post_type ) {
 			$option_key = 'newssitemap_include_' . $post_type->name;
 
-			if ( isset( $this->options[ $option_key ] ) && ( $this->options[ $option_key ] === 'on' ) ) {
-				$terms_per_taxonomy = $this->get_excluded_post_type_taxonomies( $post_type );
-
-				if ( $terms_per_taxonomy === false ) {
-					continue;
-				}
-
-				echo '<h2>' . sprintf( esc_html__( 'Terms to exclude for %1$s', 'wordpress-seo-news' ), $post_type->labels->name ) . '</h2>';
-
-				$this->excluded_post_type_taxonomies_output( $terms_per_taxonomy );
+			if ( ! ( isset( $this->options[ $option_key ] ) && ( $this->options[ $option_key ] === 'on' ) ) ) {
+				continue;
 			}
+
+			$terms_per_taxonomy = $this->get_excluded_post_type_taxonomies( $post_type );
+
+			if ( $terms_per_taxonomy === array() ) {
+				continue;
+			}
+
+			echo '<h2>' . sprintf( esc_html__( 'Terms to exclude for %1$s', 'wordpress-seo-news' ), $post_type->labels->name ) . '</h2>';
+
+			$this->excluded_post_type_taxonomies_output( $terms_per_taxonomy );
 		}
 	}
 
@@ -139,12 +141,13 @@ class WPSEO_News_Admin_Page {
 	 *
 	 * @param WP_Post_Type $post_type Post type for which to exclude taxonomies.
 	 *
-	 * @return array|bool Returns an array containing terms and taxonomies.
+	 * @return array Returns an array containing terms and taxonomies. Can be empty.
 	 */
 	private function get_excluded_post_type_taxonomies( $post_type ) {
 		$terms_per_taxonomy = array();
+		$taxonomies = get_object_taxonomies( $post_type->name, 'objects' );
 
-		foreach ( get_object_taxonomies( $post_type->name, 'objects' ) as $taxonomy ) {
+		foreach ( $taxonomies as $taxonomy ) {
 			$terms = get_terms( array( 'taxonomy' => $taxonomy->name, 'hide_empty' => false ) );
 
 			if ( count( $terms ) === 0 ) {
@@ -155,10 +158,6 @@ class WPSEO_News_Admin_Page {
 				'taxonomy' => $taxonomy,
 				'terms'    => $terms,
 			);
-		}
-
-		if ( count( $terms_per_taxonomy ) === 0 ) {
-			return false;
 		}
 
 		return $terms_per_taxonomy;
