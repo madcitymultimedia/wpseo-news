@@ -95,7 +95,8 @@ class WPSEO_News_Sitemap_Item {
 	 */
 	private function exclude_item_terms() {
 		foreach ( $this->get_terms_for_item() as $term ) {
-			$term_exclude_option = 'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $this->item->post_type->name;
+			$term_exclude_option = 'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $this->item->post_type;
+
 			if ( isset( $this->options[ $term_exclude_option ] ) ) {
 				return true;
 			}
