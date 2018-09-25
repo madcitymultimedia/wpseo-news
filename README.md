@@ -33,7 +33,7 @@ Bugfixes:
 * Fixes a bug where the changelog would not show up when the plugin was updated.
 
 Enhancements:
-* Makes it possible to exclude posts with post type 'post' from the the XML sitemap.
+* Makes it possible to exclude posts with post type 'post' from the the news sitemap.
 
 Other:
 * Compatibility with Yoast SEO 8.3
