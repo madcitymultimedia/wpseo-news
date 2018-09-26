@@ -116,21 +116,23 @@ class WPSEO_News_Admin_Page {
 	 * @return void
 	 */
 	private function excluded_post_type_taxonomies() {
-		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $post_type ) {
-			$option_key = 'newssitemap_include_' . $post_type->name;
+		$post_types = get_post_types( array( 'public' => true ), 'objects' );
+		$post_types = array_filter( $post_types, array( $this, 'filter_included_post_type' ) );
 
-			if ( ! ( isset( $this->options[ $option_key ] ) && ( $this->options[ $option_key ] === 'on' ) ) ) {
-				continue;
-			}
+		array_walk( $post_types, array( $this, 'excluded_post_type_taxonomies_output' ) );
+	}
 
-			$terms_per_taxonomy = $this->get_excluded_post_type_taxonomies( $post_type );
+	/**
+	 * Filter function used to determine what post times should be included in the new sitemap.
+	 *
+	 * @param $post_type WP_Post_Type The post type.
+	 *
+	 * @return bool Whether or not the post type should be included in the sitemap.
+	 */
+	protected function filter_included_post_type( $post_type ) {
+		$option_key = 'newssitemap_include_' . $post_type->name;
 
-			if ( $terms_per_taxonomy === array() ) {
-				continue;
-			}
-
-			$this->excluded_post_type_taxonomies_output( $terms_per_taxonomy, $post_type );
-		}
+		return isset( $this->options[ $option_key ] ) && $this->options[ $option_key ] === 'on';
 	}
 
 	/**
@@ -163,12 +165,16 @@ class WPSEO_News_Admin_Page {
 	/**
 	 * Echoes the sub heading + checkboxes to exclude terms within each of the post type's taxonomies.
 	 *
-	 * @param array        $terms_per_taxonomy Array containing arrays with 'taxonomy' and corresponding 'terms'.
 	 * @param WP_Post_Type $post_type          The post type.
 	 *
 	 * @return void
 	 */
-	private function excluded_post_type_taxonomies_output( $terms_per_taxonomy, $post_type ) {
+	private function excluded_post_type_taxonomies_output( $post_type ) {
+		$terms_per_taxonomy = $this->get_excluded_post_type_taxonomies( $post_type );
+
+		if ( $terms_per_taxonomy === array() ) {
+			return;
+		}
 
 		/* translators: %1%s expands to the post type name. */
 		echo '<h2>' . sprintf( esc_html__( 'Terms to exclude for %1$s', 'wordpress-seo-news' ), $post_type->labels->name ) . '</h2>';
