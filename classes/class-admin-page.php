@@ -145,9 +145,8 @@ class WPSEO_News_Admin_Page {
 	 */
 	private function get_excluded_post_type_taxonomies( $post_type ) {
 		$terms_per_taxonomy = array();
-		$taxonomies = get_object_taxonomies( $post_type->name, 'objects' );
 
-		foreach ( $taxonomies as $taxonomy ) {
+		foreach ( get_object_taxonomies( $post_type->name, 'objects' ) as $taxonomy ) {
 			$terms = get_terms( array( 'taxonomy' => $taxonomy->name, 'hide_empty' => false ) );
 
 			if ( count( $terms ) === 0 ) {
@@ -157,7 +156,6 @@ class WPSEO_News_Admin_Page {
 			$terms_per_taxonomy[] = array(
 				'taxonomy'   => $taxonomy,
 				'terms'      => $terms,
-				'term_count' => 0,
 			);
 		}
 
