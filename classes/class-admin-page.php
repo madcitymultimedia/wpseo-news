@@ -125,7 +125,7 @@ class WPSEO_News_Admin_Page {
 	/**
 	 * Filter function used to determine what post times should be included in the new sitemap.
 	 *
-	 * @param $post_type WP_Post_Type The post type.
+	 * @param WP_Post_Type $post_type The post type.
 	 *
 	 * @return bool Whether or not the post type should be included in the sitemap.
 	 */
