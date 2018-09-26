@@ -163,37 +163,6 @@ class WPSEO_News_Admin_Page {
 	}
 
 	/**
-	 * Performs a query getting all term counts per specific post type, and returns
-	 * the results in an array with the key [post_type]_[term_id].
-	 *
-	 * Does takes trashed posts and revisions into account.
-	 *
-	 * @return array Term counts per post type.
-	 */
-	private function get_term_count_per_post_type() {
-		global $wpdb;
-		$posts_table              = $wpdb->prefix . 'posts';
-		$term_relationships_table = $wpdb->prefix . 'term_relationships';
-
-		$results = $wpdb->get_results(
-			"SELECT posts.post_type as post_type, tr.term_taxonomy_id as term_id, COUNT( tr.term_taxonomy_id ) as count FROM $posts_table as posts
-			INNER JOIN $term_relationships_table as tr
-			ON posts.ID=tr.object_id
-			WHERE posts.post_status!='trash' and posts.post_status!='inherit'
-			GROUP BY posts.post_type, tr.term_taxonomy_id"
-		);
-
-		$counts = array();
-
-		foreach ( $results as $query_row ) {
-			$id = $query_row->post_type . '_' . $query_row->term_id;
-			$counts[ $id ] = $query_row->count;
-		}
-
-		return $counts;
-	}
-
-	/**
 	 * Echoes the sub heading + checkboxes to exclude terms within each of the post type's taxonomies.
 	 *
 	 * @param array        $terms_per_taxonomy Array containing arrays with 'taxonomy' and corresponding 'terms'.
@@ -202,8 +171,6 @@ class WPSEO_News_Admin_Page {
 	 * @return void
 	 */
 	private function excluded_post_type_taxonomies_output( $terms_per_taxonomy, $post_type ) {
-		$term_counts = $this->get_term_count_per_post_type();
-
 		foreach ( $terms_per_taxonomy as $data ) {
 			$taxonomy = $data['taxonomy'];
 			$terms    = $data['terms'];
@@ -211,15 +178,10 @@ class WPSEO_News_Admin_Page {
 			echo '<h3>' . sprintf( esc_html__( '%1$s to exclude', 'wordpress-seo-news' ), $taxonomy->labels->name ) . '</h3>';
 
 			foreach ( $terms as $term ) {
-				$count = $term_counts[ $post_type->name . '_' . $term->term_id ];
-
-				if ( empty( $count ) ) {
-					$count = '0';
-				}
 
 				echo WPSEO_News_Wrappers::checkbox(
 					'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type->name,
-					$term->name . ' (' . $count . ' ' . $post_type->label . ')',
+					$term->name,
 					false
 				);
 			}
