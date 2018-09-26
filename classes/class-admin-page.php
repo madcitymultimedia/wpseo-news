@@ -198,7 +198,8 @@ class WPSEO_News_Admin_Page {
 	/**
 	 * Echoes the sub heading + checkboxes to exclude terms within each of the post type's taxonomies.
 	 *
-	 * @param array $terms_per_taxonomy Array containing arrays with 'taxonomy' and corresponding 'terms'.
+	 * @param array        $terms_per_taxonomy Array containing arrays with 'taxonomy' and corresponding 'terms'.
+	 * @param WP_Post_Type $post_type          The post type.
 	 *
 	 * @return void
 	 */
