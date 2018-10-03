@@ -41,7 +41,6 @@ class WPSEO_News_Sitemap_Item {
 		$this->item    = $item;
 		$this->options = $options;
 
-
 		// Check if item should be skipped.
 		if ( ! $this->skip_build_item() ) {
 			$this->build_item();
@@ -58,9 +57,9 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Determine if item has to be skipped or not.
+	 * Determines if the item has to be skipped or not.
 	 *
-	 * @return bool
+	 * @return bool True if the item has to be skipped.
 	 */
 	private function skip_build_item() {
 		if ( WPSEO_Meta::get_value( 'newssitemap-exclude', $this->item->ID ) === 'on' ) {
@@ -82,7 +81,7 @@ class WPSEO_News_Sitemap_Item {
 			return true;
 		}
 
-		if ( 'post' === $this->item->post_type && $this->exclude_item_terms() ) {
+		if ( $this->exclude_item_terms() ) {
 			return true;
 		}
 
@@ -90,25 +89,41 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Exclude the item when one of his terms is excluded.
+	 * Excludes the item when one of his terms is excluded.
 	 *
-	 * @return bool
+	 * @return bool True if the item should be excluded.
 	 */
 	private function exclude_item_terms() {
-		$cats    = get_the_terms( $this->item->ID, 'category' );
-		$exclude = 0;
+		foreach ( $this->get_terms_for_item() as $term ) {
+			$term_exclude_option = 'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $this->item->post_type;
 
-		if ( is_array( $cats ) ) {
-			foreach ( $cats as $cat ) {
-				if ( isset( $this->options[ 'catexclude_' . $cat->slug ] ) ) {
-					$exclude ++;
-				}
+			if ( isset( $this->options[ $term_exclude_option ] ) ) {
+				return true;
 			}
 		}
 
-		if ( $exclude >= count( $cats ) ) {
-			return true;
+		return false;
+	}
+
+	/**
+	 * Retrieves all the Term IDs for all the items.
+	 *
+	 * @return array The terms for the item.
+	 */
+	private function get_terms_for_item() {
+		$terms = array();
+
+		foreach ( get_object_taxonomies( $this->item->post_type ) as $taxonomy ) {
+			$extra_terms = get_the_terms( $this->item->ID, $taxonomy );
+
+			if ( ! is_array( $extra_terms ) || count( $extra_terms ) === 0 ) {
+				continue;
+			}
+
+			$terms = array_merge( $terms, $extra_terms );
 		}
+
+		return $terms;
 	}
 
 	/**

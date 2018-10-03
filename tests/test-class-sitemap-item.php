@@ -26,6 +26,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 				'post_title'    => 'Newest post',
 				'post_date'     => date( $timezone_format, $base_time ),
 				'post_date_gmt' => date( $timezone_format, $base_time ),
+				'post_type'     => 'post',
 			)
 		);
 
@@ -54,6 +55,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 			array(
 				'post_title'    => 'Newest post',
 				'post_date'     => date( $timezone_format, $base_time ),
+				'post_type'     => 'post',
 			)
 		);
 
@@ -80,6 +82,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		$test_post_date_gmt = self::factory()->post->create_and_get(
 			array(
 				'post_title'    => 'Newest post',
+				'post_type'     => 'post',
 			)
 		);
 
