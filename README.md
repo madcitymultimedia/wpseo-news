@@ -28,6 +28,13 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 9.0: October 23rd, 2018
+Enhancements:
+* Allows term based exclusion in the news sitemap for all taxonomies connected to enabled post types.
+
+Other:
+* Compatibility with Yoast SEO 9.0
+
 ### 8.4: October 9th, 2018
 Bugfixes:
 * Fixes a bug where the changelog would not show up when the plugin was updated.
