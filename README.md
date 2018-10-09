@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 4.8
 Tested up to: 4.9.8
-Stable tag: 8.3
+Stable tag: 8.4
 Requires PHP: 5.2.4
 Depends: Yoast SEO
 
@@ -28,6 +28,15 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 8.4: October 9th, 2018
+Bugfixes:
+* Fixes a bug where the changelog would not show up when the plugin was updated.
+
+Enhancements:
+* Makes it possible to exclude posts with post type 'post' from the the news sitemap.
+
+Other:
+* Compatibility with Yoast SEO 8.4
 
 ### 8.3: September 25th, 2018
 Bugfixes:
