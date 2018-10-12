@@ -1,4 +1,9 @@
 <?php
+/**
+ * Yoast SEO: News plugin file.
+ *
+ * @package WPSEO_News
+ */
 
 /**
  * Class representing the excludable taxonomies for a certain post type.
