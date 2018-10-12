@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Class containing utility functions for excluding posts with certain terms from the news sitemap.
+ */
 class WPSEO_Exclude_Taxonomies {
 	/**
 	 * Gets a list of taxonomies of which posts with terms of this taxonomy can be excluded from the sitemap.
