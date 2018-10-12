@@ -113,10 +113,10 @@ class WPSEO_News_Sitemap_Item {
 	private function get_terms_for_item() {
 		$terms = array();
 
-		$taxonomies = WPSEO_Exclude_Taxonomies::getExcludableTaxonomies( $this->item->post_type );
+		$excludable_taxonomies = new WPSEO_News_Excludable_Taxonomies( $this->item->post_type );
 
-		foreach ( $taxonomies as $taxonomy ) {
-			$extra_terms = get_the_terms( $this->item->ID, $taxonomy );
+		foreach ( $excludable_taxonomies->get() as $taxonomy ) {
+			$extra_terms = get_the_terms( $this->item->ID, $taxonomy->name );
 
 			if ( ! is_array( $extra_terms ) || count( $extra_terms ) === 0 ) {
 				continue;

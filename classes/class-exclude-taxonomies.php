@@ -1,20 +1,34 @@
 <?php
 
 /**
- * Class containing utility functions for excluding posts with certain terms from the news sitemap.
+ * Class representing the excludable taxonomies for a certain post type.
  */
-class WPSEO_Exclude_Taxonomies {
+class WPSEO_News_Excludable_Taxonomies {
+	/**
+	 * The post type.
+	 *
+	 * @var string
+	 */
+	protected $post_type;
+
+	/**
+	 * Setting properties.
+	 *
+	 * @param string $post_type The post type.
+	 */
+	public function __construct( $post_type ) {
+		$this->post_type = $post_type;
+	}
+
 	/**
 	 * Gets a list of taxonomies of which posts with terms of this taxonomy can be excluded from the sitemap.
 	 *
-	 * @param string $post_type The post type.
-	 *
 	 * @return array Taxonomies of which posts with terms of this taxonomy can be excluded from the sitemap.
 	 */
-	public static function getExcludableTaxonomies( $post_type ) {
-		$taxonomies = get_object_taxonomies( $post_type, 'objects' );
+	public function get() {
+		$taxonomies = get_object_taxonomies( $this->post_type, 'objects' );
 
-		return array_filter( $taxonomies, 'WPSEO_Exclude_Taxonomies::filter_taxonomies_show_ui' );
+		return array_filter( $taxonomies, array( $this, 'filter_taxonomies' ) );
 	}
 
 	/**
@@ -24,7 +38,7 @@ class WPSEO_Exclude_Taxonomies {
 	 *
 	 * @return bool Whether or not the taxonomy is hidden in the WordPress ui.
 	 */
-	public static function filter_taxonomies_show_ui( WP_Taxonomy $taxonomy ) {
+	protected function filter_taxonomies( WP_Taxonomy $taxonomy ) {
 		return $taxonomy->show_ui === true;
 	}
 }
