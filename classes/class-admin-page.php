@@ -144,22 +144,37 @@ class WPSEO_News_Admin_Page {
 	 * @return array Returns an array containing terms and taxonomies. Can be empty.
 	 */
 	private function get_excluded_post_type_taxonomies( $post_type ) {
-		$terms_per_taxonomy = array();
+		$excludable_taxonomies = new WPSEO_News_Excludable_Taxonomies( $post_type->name );
 
-		foreach ( get_object_taxonomies( $post_type->name, 'objects' ) as $taxonomy ) {
-			$terms = get_terms( array( 'taxonomy' => $taxonomy->name, 'hide_empty' => false ) );
+		$taxonomy_terms = array_map( array( $this, 'get_terms_for_taxonomy' ), $excludable_taxonomies->get() );
 
-			if ( count( $terms ) === 0 ) {
-				continue;
-			}
+		return array_filter( $taxonomy_terms );
+	}
 
-			$terms_per_taxonomy[] = array(
-				'taxonomy'   => $taxonomy,
-				'terms'      => $terms,
-			);
+	/**
+	 * Gets a list of terms for the given taxonomy, and returns them along with the taxonomy in an array.
+	 *
+	 * @param WP_Taxonomy $taxonomy The taxonomy to get the terms for.
+	 *
+	 * @return array An array containing both the taxonomy and its terms.
+	 */
+	protected function get_terms_for_taxonomy( WP_Taxonomy $taxonomy ) {
+		$terms = get_terms(
+			array(
+				'taxonomy'   => $taxonomy->name,
+				'hide_empty' => false,
+				'show_ui'    => true,
+			)
+		);
+
+		if ( count( $terms ) === 0 ) {
+			return null;
 		}
 
-		return $terms_per_taxonomy;
+		return array(
+			'taxonomy' => $taxonomy,
+			'terms'    => $terms,
+		);
 	}
 
 	/**
