@@ -32,6 +32,9 @@ Changelog
 Enhancements:
 * Allows term based exclusion in the news sitemap for all taxonomies connected to enabled post types.
 
+Bugfixes:
+* Fixes a bug where terms with `show_ui` set to false would be shown in the list of terms to be excluded from the news sitemap.
+
 Other:
 * Compatibility with Yoast SEO 9.0
 
