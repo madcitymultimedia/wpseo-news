@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 4.8
 Tested up to: 4.9.8
-Stable tag: 9.0
+Stable tag: 9.1-RC1
 Requires PHP: 5.2.4
 Depends: Yoast SEO
 
@@ -28,6 +28,10 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 9.1: November 6th, 2018
+Other:
+* Compatibility with Yoast SEO 9.1
+
 ### 9.0: October 23rd, 2018
 Enhancements:
 * Allows term based exclusion in the news sitemap for all taxonomies connected to enabled post types.
