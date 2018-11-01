@@ -151,8 +151,9 @@ class WPSEO_News_Sitemap_Item {
 	 */
 	private function build_news_tag() {
 
-		$genre         = $this->get_item_genre();
-		$stock_tickers = $this->get_item_stock_tickers( $this->item->ID );
+    $title         = $this->get_item_title();
+    $genre         = $this->get_item_genre();
+    $stock_tickers = $this->get_item_stock_tickers( $this->item->ID );
 
 		$this->output .= "\t<news:news>\n";
 
@@ -164,7 +165,7 @@ class WPSEO_News_Sitemap_Item {
 		}
 
 		$this->output .= "\t\t<news:publication_date>" . $this->get_publication_date( $this->item ) . '</news:publication_date>' . "\n";
-		$this->output .= "\t\t<news:title><![CDATA[" . $this->item->post_title . ']]></news:title>' . "\n";
+		$this->output .= "\t\t<news:title><![CDATA[" . $title . ']]></news:title>' . "\n";
 
 		if ( ! empty( $stock_tickers ) ) {
 			$this->output .= "\t\t<news:stock_tickers><![CDATA[" . $stock_tickers . ']]></news:stock_tickers>' . "\n";
@@ -186,7 +187,27 @@ class WPSEO_News_Sitemap_Item {
 		$this->output .= "\t\t</news:publication>\n";
 	}
 
-	/**
+  /**
+   * Gets the SEO title of the item.
+   *
+   * @return string
+   */
+  private function get_item_title() {
+    $title = WPSEO_Meta::get_value( 'title', $this->item->ID, true );
+    
+    if ( empty( $title ) ) {
+      $default_from_options = WPSEO_Options::get_default( 'wpseo_titles', $this->item->post_type );
+      if ( false !== $default_from_options ) { 
+        $title = str_replace( ' %%page%% ', ' ', $default_from_options );
+      }
+    } else {
+      $title = '%%title%%';
+    }
+
+    return WPSEO_Replace_Vars::replace( $title, $this->item );
+  }
+
+  /**
 	 * Getting the genre for given $item_id.
 	 *
 	 * @return string
