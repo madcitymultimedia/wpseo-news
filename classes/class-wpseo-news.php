@@ -10,7 +10,7 @@
  */
 class WPSEO_News {
 
-	const VERSION = '9.1-RC1';
+	const VERSION = '9.1-RC2';
 
 	/**
 	 * Get WPSEO News options.
