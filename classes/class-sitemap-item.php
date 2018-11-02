@@ -195,13 +195,13 @@ class WPSEO_News_Sitemap_Item {
 	protected function get_item_title() {
 		$title = WPSEO_Meta::get_value( 'title', $this->item->ID );
 
-		if ( $title !== '' && $title !== false ) {
-			// $wpseo_replace_vars = new WPSEO_Replace_Vars();
+		if ( $title != '' && $title !== false ) {
 			return wpseo_replace_vars( $title, $this->item );
 		}
 
-		$default_from_options = WPSEO_Options::get_default( 'wpseo_titles', $this->item->post_type );
-		if ( $default_from_options !== '' && false !== $default_from_options ) {
+    // TODO: This call to get the default title format is not working.
+    $default_from_options = WPSEO_Options::get_default( 'titles', $this->item->post_type );
+    if ( $default_from_options != '' && false !== $default_from_options ) {
 			return wpseo_replace_vars( str_replace( ' %%page%% ', ' ', $default_from_options ), $this->item );
 		}
 
