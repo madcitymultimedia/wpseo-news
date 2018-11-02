@@ -196,12 +196,13 @@ class WPSEO_News_Sitemap_Item {
 		$title = WPSEO_Meta::get_value( 'title', $this->item->ID );
 
 		if ( $title !== '' && $title !== false ) {
-			return WPSEO_Replace_Vars::replace( $title, $this->item );
+      //$wpseo_replace_vars = new WPSEO_Replace_Vars();
+      return wpseo_replace_vars( $title, $this->item );
 		}
 
 		$default_from_options = WPSEO_Options::get_default( 'wpseo_titles', $this->item->post_type );
 		if ( $default_from_options !== '' && false !== $default_from_options ) {
-			return WPSEO_Replace_Vars::replace( str_replace( ' %%page%% ', ' ', $default_from_options ), $this->item );
+      return wpseo_replace_vars( str_replace( ' %%page%% ', ' ', $default_from_options ), $this->item );
 		}
 
 		return $this->item->post_title;
