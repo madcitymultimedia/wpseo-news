@@ -151,9 +151,9 @@ class WPSEO_News_Sitemap_Item {
 	 */
 	private function build_news_tag() {
 
-    $title         = $this->get_item_title();
-    $genre         = $this->get_item_genre();
-    $stock_tickers = $this->get_item_stock_tickers( $this->item->ID );
+		$title         = $this->get_item_title();
+		$genre         = $this->get_item_genre();
+		$stock_tickers = $this->get_item_stock_tickers( $this->item->ID );
 
 		$this->output .= "\t<news:news>\n";
 
@@ -187,27 +187,27 @@ class WPSEO_News_Sitemap_Item {
 		$this->output .= "\t\t</news:publication>\n";
 	}
 
-  /**
-   * Gets the SEO title of the item.
-   *
-   * @return string
-   */
-  private function get_item_title() {
-    $title = WPSEO_Meta::get_value( 'title', $this->item->ID, true );
-    
-    if ( empty( $title ) ) {
-      $default_from_options = WPSEO_Options::get_default( 'wpseo_titles', $this->item->post_type );
-      if ( false !== $default_from_options ) { 
-        $title = str_replace( ' %%page%% ', ' ', $default_from_options );
-      }
-    } else {
-      $title = '%%title%%';
-    }
+	/**
+	 * Gets the SEO title of the item.
+	 *
+	 * @return string The WPSEO formatted title or, if problems, the post_title.
+	 */
+	protected function get_item_title() {
+		$title = WPSEO_Meta::get_value( 'title', $this->item->ID );
 
-    return WPSEO_Replace_Vars::replace( $title, $this->item );
-  }
+		if ( $title !== '' && $title !== false ) {
+			return WPSEO_Replace_Vars::replace( $title, $this->item );
+		}
 
-  /**
+		$default_from_options = WPSEO_Options::get_default( 'wpseo_titles', $this->item->post_type );
+		if ( $default_from_options !== '' && false !== $default_from_options ) {
+			return WPSEO_Replace_Vars::replace( str_replace( ' %%page%% ', ' ', $default_from_options ), $this->item );
+		}
+
+		return $this->item->post_title;
+	}
+
+	/**
 	 * Getting the genre for given $item_id.
 	 *
 	 * @return string
