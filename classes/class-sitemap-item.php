@@ -151,7 +151,7 @@ class WPSEO_News_Sitemap_Item {
 	 */
 	private function build_news_tag() {
 
-		$title         = $this->get_item_title();
+		$title         = $this->get_item_title( $this->item );
 		$genre         = $this->get_item_genre();
 		$stock_tickers = $this->get_item_stock_tickers( $this->item->ID );
 
@@ -190,22 +190,25 @@ class WPSEO_News_Sitemap_Item {
 	/**
 	 * Gets the SEO title of the item.
 	 *
-	 * @return string The WPSEO formatted title or, if problems, the post_title.
+	 * @param   WP_Post $item The post object.
+	 *
+	 * @return  string        The WPSEO formatted title or, if problems, the post_title.
 	 */
-	protected function get_item_title() {
-		$title = WPSEO_Meta::get_value( 'title', $this->item->ID );
-
-		if ( $title != '' && $title !== false ) {
-			return wpseo_replace_vars( $title, $this->item );
+	protected function get_item_title( $item = null ) {
+		// Custom WPSEO post type title.
+		$title = WPSEO_Meta::get_value( 'title', $item->ID );
+		if ( $title != '' && false !== $title ) {
+			return wpseo_replace_vars( $title, $item );
 		}
 
-		// TODO: This call to get the default title format is not working.
-		$default_from_options = WPSEO_Options::get_default( 'titles', $this->item->post_type );
-		if ( $default_from_options != '' && false !== $default_from_options ) {
-			return wpseo_replace_vars( str_replace( ' %%page%% ', ' ', $default_from_options ), $this->item );
+		// Default WPSEO post type title.
+		$defaults = WPSEO_Option_Titles::get_instance()->get_defaults();
+		if ( array_key_exists( 'title-' . $item->post_type, $defaults ) && false !== $defaults ) {
+			return wpseo_replace_vars( str_replace( ' %%page%% ', ' ', $defaults[ 'title-' . $item->post_type ] ), $item );
 		}
 
-		return $this->item->post_title;
+		// Fallback post title.
+		return $item->post_title;
 	}
 
 	/**
