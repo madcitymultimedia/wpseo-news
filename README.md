@@ -28,6 +28,10 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 9.2: November 20th, 2018
+Other:
+* Compatibility with Yoast SEO 9.2
+
 ### 9.1: November 6th, 2018
 Bugfixes:
 * Fixes a bug where a PHP warning would be displayed when `php_uname` has been disabled for security reasons. 
