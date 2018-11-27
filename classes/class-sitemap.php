@@ -168,7 +168,7 @@ class WPSEO_News_Sitemap {
 		header( 'Cache-Control: maxage=' . YEAR_IN_SECONDS );
 		header( 'Expires: ' . gmdate( 'D, d M Y H:i:s', ( time() + YEAR_IN_SECONDS ) ) . ' GMT' );
 
-		include dirname( WPSEO_NEWS_FILE ) . '/assets/xml-news-sitemap.xsl';
+		readfile( dirname( WPSEO_NEWS_FILE ) . '/assets/xml-news-sitemap.xsl' );
 		die();
 	}
 
