@@ -52,7 +52,7 @@ class WPSEO_News_Sitemap {
 			return $str;
 		}
 
-		$date = new DateTime( get_lastpostdate( 'gmt' ), new DateTimeZone( new WPSEO_News_Sitemap_Timezone() ) );
+		$date = new DateTime( get_lastpostdate( 'gmt' ), new DateTimeZone( 'UTC' ) );
 
 		$str .= '<sitemap>' . "\n";
 		$str .= '<loc>' . self::get_sitemap_name() . '</loc>' . "\n";
