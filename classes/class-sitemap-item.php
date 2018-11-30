@@ -200,7 +200,7 @@ class WPSEO_News_Sitemap_Item {
 			return '';
 		}
 
-    // Custom WPSEO post type title.
+		// Custom WPSEO post type title.
 		$title = WPSEO_Meta::get_value( 'title', $item->ID );
 		if ( $title !== '' && $title !== false ) {
 			return wpseo_replace_vars( $title, $item );
