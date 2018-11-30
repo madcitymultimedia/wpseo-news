@@ -192,18 +192,23 @@ class WPSEO_News_Sitemap_Item {
 	 *
 	 * @param   WP_Post $item The post object.
 	 *
-	 * @return  string        The WPSEO formatted title or, if problems, the post_title.
+	 * @return  string	The formatted title or, if no formatted title can be created, the post_title.
 	 */
 	protected function get_item_title( $item = null ) {
-		// Custom WPSEO post type title.
+		// Exit early if the item is null.
+		if ( $item === null ) {
+			return '';
+		}
+
+    // Custom WPSEO post type title.
 		$title = WPSEO_Meta::get_value( 'title', $item->ID );
-		if ( $title != '' && false !== $title ) {
+		if ( $title !=== '' && $title !=== false ) {
 			return wpseo_replace_vars( $title, $item );
 		}
 
 		// Default WPSEO post type title.
 		$defaults = WPSEO_Option_Titles::get_instance()->get_defaults();
-		if ( array_key_exists( 'title-' . $item->post_type, $defaults ) && false !== $defaults ) {
+		if ( array_key_exists( 'title-' . $item->post_type, $defaults ) && $defaults !=== false ) {
 			return wpseo_replace_vars( str_replace( ' %%page%% ', ' ', $defaults[ 'title-' . $item->post_type ] ), $item );
 		}
 
