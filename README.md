@@ -28,6 +28,13 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 9.4: January 8th, 2018
+Bugfixes:
+* Fixes a bug where the last modified date for the sitemap index has been displayed with the wrong time zone
+
+Other:
+* Compatibility with Yoast SEO 9.4
+
 ### 9.3: December 11th, 2018
 Other:
 * Compatibility with Yoast SEO 9.3
