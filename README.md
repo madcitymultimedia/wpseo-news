@@ -1,7 +1,7 @@
 Yoast News SEO for Yoast SEO
 ==========================
-Requires at least: 4.8
-Tested up to: 5.0
+Requires at least: 4.9
+Tested up to: 5.0.1
 Stable tag: 9.4-beta1
 Requires PHP: 5.2.4
 Depends: Yoast SEO
@@ -35,7 +35,7 @@ Bugfixes:
 Other:
 * Compatibility with Yoast SEO 9.4
 
-### 9.3: December 11th, 2018
+### 9.3: December 18th, 2018
 Other:
 * Compatibility with Yoast SEO 9.3
 
