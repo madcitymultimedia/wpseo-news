@@ -1,8 +1,8 @@
 Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 4.9
-Tested up to: 5.0.1
-Stable tag: 9.4-RC1
+Tested up to: 5.0.3
+Stable tag: 9.4
 Requires PHP: 5.2.4
 Depends: Yoast SEO
 
@@ -30,7 +30,7 @@ Changelog
 =========
 ### 9.4: January 8th, 2018
 Bugfixes:
-* Fixes a bug where the last modified date for the sitemap index has been displayed with the wrong time zone
+* Fixes a bug where the last modified date for the sitemap index has been displayed with the wrong time zone.
 
 Other:
 * Compatibility with Yoast SEO 9.4
