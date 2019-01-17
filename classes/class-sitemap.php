@@ -222,7 +222,7 @@ class WPSEO_News_Sitemap {
 				"SELECT ID, post_content, post_name, post_author, post_parent, post_date_gmt, post_date, post_date_gmt, post_title, post_type
 				FROM {$wpdb->posts}
 				WHERE post_status='publish'
-					AND ( TIMESTAMPDIFF( MINUTE, post_date_gmt, NOW() ) <= ( 48 * 60 ) )
+					AND ( TIMESTAMPDIFF( MINUTE, post_date_gmt, UTC_TIMESTAMP() ) <= ( 48 * 60 ) )
 					AND post_type IN (" . implode( ',', array_fill( 0, count( $post_types ), '%s' ) ) . ')
 				ORDER BY post_date_gmt DESC
 				LIMIT 0, %d
