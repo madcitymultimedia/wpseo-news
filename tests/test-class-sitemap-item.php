@@ -97,5 +97,51 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		// Check if post_date_gmt is equal to output of get_publication_date().
 		$this->assertEquals( '', $get_publication_date_output );
 	}
+
+	/**
+	 * Checks if the post title output for the sitemap defaults to the post title when no SEO title is present.
+	 *
+	 * @covers WPSEO_News_Sitemap_Item::get_item_title
+	 */
+	public function test_get_item_title_when_no_seo_title_set() {
+		$test_seo_title = self::factory()->post->create_and_get(
+			array(
+				'post_title'    => 'Post without SEO title',
+				'post_type'     => 'post',
+			)
+		);
+
+		$test_options = WPSEO_News::get_options();
+		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_seo_title, $test_options );
+
+		$title_output = $instance->get_item_title( $test_seo_title );
+
+		// Check if correct post_title is returned.
+		$this->assertEquals( 'Post without SEO title', $title_output );
+	}
+
+	/**
+	 * Checks if the post title output for the sitemap is the SEO title when set.
+	 *
+	 * @covers WPSEO_News_Sitemap_Item::get_item_title
+	 */
+	public function test_get_item_title_when_seo_title_set() {
+		$test_seo_title = self::factory()->post->create_and_get(
+			array(
+				'post_title'    => 'Post with SEO title',
+				'post_type'     => 'post',
+			)
+		);
+		// $key, $meta_value, $post_id )
+		$test_options = WPSEO_News::get_options();
+
+		WPSEO_Meta::set_value('title', 'SEO title of the post', $test_seo_title->ID );
+		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_seo_title, $test_options );
+
+		$title_output = $instance->get_item_title( $test_seo_title );
+
+		// Check if correct post_title is returned.
+		$this->assertEquals( 'SEO title of the post', $title_output );
+	}
 }
 
