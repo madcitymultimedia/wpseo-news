@@ -188,7 +188,7 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Gets the SEO title of the item.
+	 * Gets the SEO title of the item, with a fallback to the item title.
 	 *
 	 * @param   WP_Post $item The post object.
 	 *
@@ -200,19 +200,14 @@ class WPSEO_News_Sitemap_Item {
 			return '';
 		}
 
-		// Custom WPSEO post type title.
-		$title = WPSEO_Frontend::get_instance()->get_content_title( $item );
-		if ( $title !== '' && $title !== false ) {
-			return wpseo_replace_vars( $title, $item );
+		// Get the SEO title.
+		$title = WPSEO_Frontend::get_instance()->get_seo_title( $item );
+
+		if ( ! empty( $title ) ) {
+			return $title;
 		}
 
-		// Default WPSEO post type title.
-		$defaults = WPSEO_Option_Titles::get_instance()->get_defaults();
-		if ( array_key_exists( 'title-' . $item->post_type, $defaults ) && $defaults !== false ) {
-			return wpseo_replace_vars( str_replace( ' %%page%% ', ' ', $defaults[ 'title-' . $item->post_type ] ), $item );
-		}
-
-		// Fallback post title.
+		// Fallback to the post title.
 		return $item->post_title;
 	}
 
