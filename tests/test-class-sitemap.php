@@ -259,7 +259,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
 	public function test_sitemap_only_showing_recent_items() {
-		$base_time = (int) current_time( 'timestamp' );
+		$base_time = time();
 
 		$this->factory->post->create(
 			array(

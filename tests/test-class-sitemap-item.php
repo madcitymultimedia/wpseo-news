@@ -121,6 +121,28 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
+	 * Checks if the post title output for the sitemap exits and returns an emptry string when given null as a value.
+	 *
+	 * @covers WPSEO_News_Sitemap_Item::get_item_title
+	 */
+	public function test_get_item_title_when_post_is_null() {
+		$test_seo_title = self::factory()->post->create_and_get(
+			array(
+				'post_title'    => 'title',
+				'post_type'     => 'post',
+			)
+		);
+
+		$test_options = WPSEO_News::get_options();
+		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_seo_title, $test_options );
+
+		$title_output = $instance->get_item_title( null );
+
+		// Check if an empty string is correctly returned.
+		$this->assertEquals( '', $title_output );
+	}
+
+	/**
 	 * Checks if the post title output for the sitemap is the SEO title when set.
 	 *
 	 * @covers WPSEO_News_Sitemap_Item::get_item_title
@@ -132,7 +154,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 				'post_type'     => 'post',
 			)
 		);
-		// $key, $meta_value, $post_id )
+
 		$test_options = WPSEO_News::get_options();
 
 		WPSEO_Meta::set_value('title', 'SEO title of the post', $test_seo_title->ID );
