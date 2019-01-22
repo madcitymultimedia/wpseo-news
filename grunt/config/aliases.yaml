@@ -43,3 +43,7 @@ check:
 # Default task
 default:
   - build
+
+# Get the project ready for release
+release:
+  - 'build'
