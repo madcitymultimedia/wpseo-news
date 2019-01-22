@@ -190,9 +190,9 @@ class WPSEO_News_Sitemap_Item {
 	/**
 	 * Gets the SEO title of the item, with a fallback to the item title.
 	 *
-	 * @param   WP_Post $item The post object.
+	 * @param WP_Post $item The post object.
 	 *
-	 * @return  string	The formatted title or, if no formatted title can be created, the post_title.
+	 * @return string The formatted title or, if no formatted title can be created, the post_title.
 	 */
 	protected function get_item_title( $item = null ) {
 		// Exit early if the item is null.
