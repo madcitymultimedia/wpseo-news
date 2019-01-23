@@ -151,6 +151,7 @@ class WPSEO_News_Sitemap_Item {
 	 */
 	private function build_news_tag() {
 
+		$title         = $this->get_item_title( $this->item );
 		$genre         = $this->get_item_genre();
 		$stock_tickers = $this->get_item_stock_tickers( $this->item->ID );
 
@@ -164,7 +165,7 @@ class WPSEO_News_Sitemap_Item {
 		}
 
 		$this->output .= "\t\t<news:publication_date>" . $this->get_publication_date( $this->item ) . '</news:publication_date>' . "\n";
-		$this->output .= "\t\t<news:title><![CDATA[" . $this->item->post_title . ']]></news:title>' . "\n";
+		$this->output .= "\t\t<news:title><![CDATA[" . $title . ']]></news:title>' . "\n";
 
 		if ( ! empty( $stock_tickers ) ) {
 			$this->output .= "\t\t<news:stock_tickers><![CDATA[" . $stock_tickers . ']]></news:stock_tickers>' . "\n";
@@ -184,6 +185,30 @@ class WPSEO_News_Sitemap_Item {
 		$this->output .= "\t\t\t<news:name>" . $publication_name . '</news:name>' . "\n";
 		$this->output .= "\t\t\t<news:language>" . htmlspecialchars( $publication_lang ) . '</news:language>' . "\n";
 		$this->output .= "\t\t</news:publication>\n";
+	}
+
+	/**
+	 * Gets the SEO title of the item, with a fallback to the item title.
+	 *
+	 * @param WP_Post $item The post object.
+	 *
+	 * @return string The formatted title or, if no formatted title can be created, the post_title.
+	 */
+	protected function get_item_title( $item = null ) {
+		// Exit early if the item is null.
+		if ( $item === null ) {
+			return '';
+		}
+
+		// Get the SEO title.
+		$title = WPSEO_Frontend::get_instance()->get_seo_title( $item );
+
+		if ( ! empty( $title ) ) {
+			return $title;
+		}
+
+		// Fallback to the post title.
+		return $item->post_title;
 	}
 
 	/**
