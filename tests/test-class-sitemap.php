@@ -260,7 +260,6 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	 */
 	public function test_sitemap_only_showing_recent_items() {
 		$base_time = time();
-
 		$this->factory->post->create(
 			array(
 				'post_title' 	=> 'Newest post',
