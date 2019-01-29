@@ -28,7 +28,7 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
-### 9.6: February 5th, 2018
+### 9.6: February 12th, 2018
 Other:
 * Compatibility with Yoast SEO 9.6
 
