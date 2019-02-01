@@ -100,6 +100,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 
 	/**
 	 * Checks if the post title output for the sitemap defaults to the post title when no SEO title is present.
+	 * This defaults to the default SEO title settings which is 'post_title - sitename'
 	 *
 	 * @covers WPSEO_News_Sitemap_Item::get_item_title
 	 */
@@ -113,11 +114,11 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 
 		$test_options = WPSEO_News::get_options();
 		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_seo_title, $test_options );
-
 		$title_output = $instance->get_item_title( $test_seo_title );
+		$blogname = get_bloginfo("name");
 
 		// Check if correct post_title is returned.
-		$this->assertEquals( 'Post without SEO title', $title_output );
+		$this->assertEquals( 'Post without SEO title' . " - " . $blogname, $title_output);
 	}
 
 	/**

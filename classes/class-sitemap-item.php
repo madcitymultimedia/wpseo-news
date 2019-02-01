@@ -199,9 +199,8 @@ class WPSEO_News_Sitemap_Item {
 		if ( $item === null ) {
 			return '';
 		}
-
 		// Get the SEO title.
-		$title = WPSEO_Frontend::get_instance()->get_seo_title( $item );
+		$title = WPSEO_Frontend::get_instance()->get_content_title( $item );
 
 		if ( ! empty( $title ) ) {
 			return $title;
