@@ -214,7 +214,7 @@ class WPSEO_News_Sitemap_Item {
 	 * Gets the SEO title of an item, used for static home and posts pages as well as singular titles.
 	 *
 	 * @codeCoverageIgnore
-	 *                    
+	 *
 	 * @param WP_Post $item Item to get the title for.
 	 *
 	 * @return string The formatted title.
