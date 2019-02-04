@@ -200,7 +200,7 @@ class WPSEO_News_Sitemap_Item {
 			return '';
 		}
 		// Get the SEO title.
-		$title = WPSEO_Frontend::get_instance()->get_content_title( $item );
+		$title = $this->get_frontend_title( $item );
 
 		if ( ! empty( $title ) ) {
 			return $title;
@@ -208,6 +208,17 @@ class WPSEO_News_Sitemap_Item {
 
 		// Fallback to the post title.
 		return $item->post_title;
+	}
+
+	/**
+	 * Gets the SEO title of an item, used for static home and posts pages as well as singular titles.
+	 *
+	 * @param WP_Post $item Item to get the title for.
+	 *
+	 * @return string The formatted title.
+	 */
+	protected function get_frontend_title( $item ) {
+		return WPSEO_Frontend::get_instance()->get_content_title( $item );
 	}
 
 	/**
