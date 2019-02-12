@@ -28,7 +28,7 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
-### 9.7: February 26th, 2018
+### 9.7: February 26th, 2019
 Enhancements:
 * Changes the titles in the news sitemap to default to the SEO title, with a fallback to the post title. (props: @timnolte)
 
@@ -38,15 +38,19 @@ Bugfixes:
 Other:
 * Compatibility with Yoast SEO 9.7
 
-### 9.6: February 12th, 2018
+### 9.6.1: February 12th, 2019
+Other:
+* Compatibility with Yoast SEO 9.6.1
+
+### 9.6: February 12th, 2019
 Other:
 * Compatibility with Yoast SEO 9.6
 
-### 9.5: January 22nd, 2018
+### 9.5: January 22nd, 2019
 Other:
 * Compatibility with Yoast SEO 9.5
 
-### 9.4: January 8th, 2018
+### 9.4: January 8th, 2019
 Bugfixes:
 * Fixes a bug where the last modified date for the sitemap index has been displayed with the wrong time zone.
 
