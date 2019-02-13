@@ -28,6 +28,13 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 9.8: March 12th, 2019
+Bugfixes:
+* Fixes a bug where `news-sitemap.xml` shows a blank page, due to an internal server error.
+
+Other:
+* Compatibility with Yoast SEO 9.8
+
 ### 9.7: February 26th, 2019
 Enhancements:
 * Changes the titles in the news sitemap to default to the SEO title, with a fallback to the post title. (props: @timnolte)
