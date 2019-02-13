@@ -30,7 +30,7 @@ Changelog
 =========
 ### 9.8: March 12th, 2019
 Bugfixes:
-* Fixes a bug where `news-sitemap.xml` shows a blank page, due to an internal server error.
+* Fixes a bug where the news sitemap would show a blank page due to an internal server error.
 
 Other:
 * Compatibility with Yoast SEO 9.8
