@@ -85,10 +85,10 @@ function yoast_wpseo_news_deactivate() {
 /**
  * Activate the license automatically.
  *
- * @deprecated 10.0
+ * @deprecated 10.1
  */
 function wpseo_news_activate_license() {
-	_deprecated_function( __FUNCTION__, '10.0' );
+	_deprecated_function( __FUNCTION__, '10.1' );
 }
 
 register_activation_hook( WPSEO_NEWS_FILE, 'yoast_wpseo_news_activate' );
