@@ -84,23 +84,13 @@ function yoast_wpseo_news_deactivate() {
 
 /**
  * Activate the license automatically.
+ *
+ * @deprecated 10.1
  */
 function wpseo_news_activate_license() {
-	if ( ! class_exists( 'Yoast_Plugin_License_Manager' ) ) {
-		return;
-	}
-
-	$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
-	$license_manager->activate_license();
+	_deprecated_function( __FUNCTION__, '10.1' );
 }
 
 register_activation_hook( WPSEO_NEWS_FILE, 'yoast_wpseo_news_activate' );
 
 register_deactivation_hook( WPSEO_NEWS_FILE, 'yoast_wpseo_news_deactivate' );
-
-/*
- * When the plugin is deactivated and activated again, the license has to be activated. This is mostly the case
- * during an update of the plugin. To solve this, we hook into the activation process by calling a method that will
- * activate the license.
- */
-register_activation_hook( WPSEO_NEWS_FILE, 'wpseo_news_activate_license' );

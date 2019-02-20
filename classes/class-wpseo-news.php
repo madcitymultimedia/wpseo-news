@@ -84,12 +84,6 @@ class WPSEO_News {
 		$upgrade_manager = new WPSEO_News_Upgrade_Manager();
 		$upgrade_manager->check_update();
 
-		// License Manager.
-		$license_manager = $this->get_license_manager();
-		if ( $license_manager ) {
-			add_action( 'wpseo_licenses_forms', array( $license_manager, 'show_license_form' ) );
-		}
-
 		// Setting action for removing the transient on update options.
 		if ( class_exists( 'WPSEO_Sitemaps_Cache' )
 			&& method_exists( 'WPSEO_Sitemaps_Cache', 'register_clear_on_option_update' )
@@ -368,23 +362,6 @@ class WPSEO_News {
 			'opinion'       => __( 'Opinion', 'wordpress-seo-news' ),
 			'usergenerated' => __( 'User Generated', 'wordpress-seo-news' ),
 		);
-	}
-
-	/**
-	 * Get the newest License Manager available.
-	 *
-	 * @return Yoast_Plugin_License_Manager
-	 */
-	private function get_license_manager() {
-
-		if ( ! class_exists( 'Yoast_Plugin_License_Manager' ) ) {
-			return null;
-		}
-
-		$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
-		$license_manager->setup_hooks();
-
-		return $license_manager;
 	}
 
 	/**
