@@ -51,11 +51,11 @@ class WPSEO_News_Test extends WPSEO_News_UnitTestCase {
 	public function check_dependencies_data() {
 		return array(
 			array( false, '7.0', '3.0', 'WordPress is below the minimal required version.' ),
-			array( false, '7.0', '3.5', 'WordPress is below the minimal required version.' ),
+			array( false, '7.0', '4.9', 'WordPress is below the minimal required version.' ),
 			array( false, false, '5.0', 'WordPress SEO is not installed.' ),
-			array( false, '6.0', '5.0', 'WordPress SEO is below the minimal required version.' ),
-			array( true, '7.0', '5.0', 'WordPress (5.0) and WordPress SEO have the minimal required versions.' ),
-			array( true, '8.0', '4.8', 'WordPress (4.8) and WordPress SEO have the minimal required versions.' ),
+			array( false, '8.1', '5.0', 'WordPress SEO is below the minimal required version.' ),
+			array( true, '10.1', '5.0', 'WordPress (5.0) and WordPress SEO have the minimal required versions.' ),
+			array( true, '10.1', '5.1', 'WordPress (5.1) and WordPress SEO have the minimal required versions.' ),
 		);
 	}
 }

@@ -104,7 +104,7 @@ class WPSEO_News {
 	 */
 	protected function check_dependencies( $wp_version ) {
 		// When WordPress function is too low.
-		if ( version_compare( $wp_version, '4.8', '<' ) ) {
+		if ( version_compare( $wp_version, '5.0', '<' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wp' ) );
 
 			return false;
@@ -119,8 +119,8 @@ class WPSEO_News {
 			return false;
 		}
 
-		// Make sure Yoast SEO is installed on version 7.0 or an RC candidate of that version.
-		if ( version_compare( $wordpress_seo_version, '6.9', '<' ) ) {
+		// Make sure the Yoast SEO version is least 10.1. In 10.1, we've removed the License Manager code from this addon. With older YoastSEO versions, this addon won't get any updates.
+		if ( version_compare( $wordpress_seo_version, '10.1', '<' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wpseo' ) );
 
 			return false;
