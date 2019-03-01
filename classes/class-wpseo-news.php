@@ -10,7 +10,7 @@
  */
 class WPSEO_News {
 
-	const VERSION = '9.5-RC1';
+	const VERSION = '10.1-beta2';
 
 	/**
 	 * Get WPSEO News options.
@@ -84,12 +84,6 @@ class WPSEO_News {
 		$upgrade_manager = new WPSEO_News_Upgrade_Manager();
 		$upgrade_manager->check_update();
 
-		// License Manager.
-		$license_manager = $this->get_license_manager();
-		if ( $license_manager ) {
-			add_action( 'wpseo_licenses_forms', array( $license_manager, 'show_license_form' ) );
-		}
-
 		// Setting action for removing the transient on update options.
 		if ( class_exists( 'WPSEO_Sitemaps_Cache' )
 			&& method_exists( 'WPSEO_Sitemaps_Cache', 'register_clear_on_option_update' )
@@ -110,7 +104,7 @@ class WPSEO_News {
 	 */
 	protected function check_dependencies( $wp_version ) {
 		// When WordPress function is too low.
-		if ( version_compare( $wp_version, '4.8', '<' ) ) {
+		if ( version_compare( $wp_version, '5.0', '<' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wp' ) );
 
 			return false;
@@ -125,8 +119,8 @@ class WPSEO_News {
 			return false;
 		}
 
-		// Make sure Yoast SEO is installed on version 7.0 or an RC candidate of that version.
-		if ( version_compare( $wordpress_seo_version, '6.9', '<' ) ) {
+		// Make sure the Yoast SEO version is least 10.1. In 10.1, we've removed the License Manager code from this addon. With older YoastSEO versions, this addon won't get any updates.
+		if ( version_compare( $wordpress_seo_version, '10.1', '<' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wpseo' ) );
 
 			return false;
@@ -368,22 +362,5 @@ class WPSEO_News {
 			'opinion'       => __( 'Opinion', 'wordpress-seo-news' ),
 			'usergenerated' => __( 'User Generated', 'wordpress-seo-news' ),
 		);
-	}
-
-	/**
-	 * Get the newest License Manager available.
-	 *
-	 * @return Yoast_Plugin_License_Manager
-	 */
-	private function get_license_manager() {
-
-		if ( ! class_exists( 'Yoast_Plugin_License_Manager' ) ) {
-			return null;
-		}
-
-		$license_manager = new Yoast_Plugin_License_Manager( new WPSEO_News_Product() );
-		$license_manager->setup_hooks();
-
-		return $license_manager;
 	}
 }

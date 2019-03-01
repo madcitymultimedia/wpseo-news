@@ -1,8 +1,8 @@
 Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 4.9
-Tested up to: 5.0.3
-Stable tag: 9.5-RC1
+Tested up to: 5.1
+Stable tag: 10.1-beta2
 Requires PHP: 5.2.4
 Depends: Yoast SEO
 
@@ -28,11 +28,40 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
-### 9.5: January 22nd, 2018
+### 10.1: March 26th, 2019
+Other:
+* Sets the minimum required Yoast SEO version to 10.1.
+
+### 10.0: March 12th, 2019
+Bugfixes:
+* Fixes a bug where the news sitemap would show a blank page due to an internal server error.
+
+Other:
+* Compatibility with Yoast SEO 10.0
+
+### 9.7: February 26th, 2019
+Enhancements:
+* Changes the titles in the news sitemap to default to the SEO title, with a fallback to the post title. (props: @timnolte)
+
+Bugfixes:
+* Fixes a bug where it was possible the 48 hour selection range for posts in the news sitemap was slightly off. (props: @timnolte)
+
+Other:
+* Compatibility with Yoast SEO 9.7
+
+### 9.6.1: February 12th, 2019
+Other:
+* Compatibility with Yoast SEO 9.6.1
+
+### 9.6: February 12th, 2019
+Other:
+* Compatibility with Yoast SEO 9.6
+
+### 9.5: January 22nd, 2019
 Other:
 * Compatibility with Yoast SEO 9.5
 
-### 9.4: January 8th, 2018
+### 9.4: January 8th, 2019
 Bugfixes:
 * Fixes a bug where the last modified date for the sitemap index has been displayed with the wrong time zone.
 
