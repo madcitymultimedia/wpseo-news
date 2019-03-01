@@ -363,19 +363,4 @@ class WPSEO_News {
 			'usergenerated' => __( 'User Generated', 'wordpress-seo-news' ),
 		);
 	}
-
-	/**
-	 * Getting the name for the sitemap, if $full_path is true, it will return the full path
-	 *
-	 * @deprecated 5.2
-	 *
-	 * @param bool $full_path Generate a full path.
-	 *
-	 * @return string
-	 */
-	public static function get_sitemap_name( $full_path = true ) {
-		_deprecated_function( 'WPSEO_News::get_sitemap_name', '5.2', 'WPSEO_News_Sitemap::get_sitemap_name' );
-
-		return WPSEO_News_Sitemap::get_sitemap_name( $full_path );
-	}
 }
