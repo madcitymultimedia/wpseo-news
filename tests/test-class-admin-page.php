@@ -55,7 +55,5 @@ EOT;
 
 		// Check if the $output contains the $expected_output.
 		$this->assertContains( $expected_output, $output );
-
 	}
-
 }

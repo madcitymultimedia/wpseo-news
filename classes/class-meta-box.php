@@ -168,5 +168,4 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
 		return $is_supported;
 	}
-
 }

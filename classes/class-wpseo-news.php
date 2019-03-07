@@ -224,7 +224,6 @@ class WPSEO_News {
 		return $submenu_pages;
 	}
 
-
 	/**
 	 * Enqueue admin page JS.
 	 */
