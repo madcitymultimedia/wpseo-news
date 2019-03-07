@@ -33,11 +33,11 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		$test_options = WPSEO_News::get_options();
 		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_post_date_gmt, $test_options );
 
-		$original_post_UTC_time      = date( $timezone_format, $base_time );
+		$original_post_utc_time      = date( $timezone_format, $base_time );
 		$get_publication_date_output = $instance->get_publication_date( $test_post_date_gmt );
 
 		// Check if post_date_gmt is equal to output of get_publication_date().
-		$this->assertEquals( $original_post_UTC_time, $get_publication_date_output );
+		$this->assertEquals( $original_post_utc_time, $get_publication_date_output );
 	}
 
 	/**
