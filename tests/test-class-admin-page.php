@@ -34,7 +34,7 @@ class WPSEO_News_Admin_Page_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Test whether the admin page is generated correctly.
+	 * Tests whether the admin page is generated correctly.
 	 *
 	 * @covers WPSEO_News_Admin_Page::display
 	 */
