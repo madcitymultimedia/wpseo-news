@@ -30,17 +30,17 @@ jobs:
     - php: 5.2
       # As 'trusty' is not supporting PHP 5.2/5.3 anymore, we need to force using 'precise'.
       dist: precise
-      env: WP_VERSION=4.9 WP_MULTISITE=1 PHPLINT=1
+      env: WP_VERSION=4.9 WP_MULTISITE=1 PHPLINT=1 PHPUNIT=1
     - php: 5.6
-      env: WP_VERSION=latest
+      env: WP_VERSION=latest PHPUNIT=1
       # Use 'trusty' to test against MySQL 5.6, 'xenial' contains 5.7 by default.
       dist: trusty
     - php: 5.2
       # As 'trusty' is not supporting PHP 5.2/5.3 anymore, we need to force using 'precise'.
       dist: precise
-      env: WP_VERSION=master
+      env: WP_VERSION=master PHPUNIT=1
     - php: nightly
-      env: WP_VERSION=master
+      env: WP_VERSION=master PHPUNIT=1
     - stage: deploy-to-github-dist
       env: WP_VERSION=latest
       if: tag IS present
@@ -158,7 +158,7 @@ script:
   fi
 # PHP Tests
 - |
-  if [[ "$COVERAGE" != "1" ]]; then
+  if [[ "$PHPUNIT" == "1" ]]; then
     travis_fold start "PHP.tests" && travis_time_start
     if [[ ${TRAVIS_PHP_VERSION:0:1} == "5" ]]; then
         phpunit -c phpunit.xml
