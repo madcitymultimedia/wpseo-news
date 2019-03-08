@@ -31,10 +31,6 @@ jobs:
       # As 'trusty' is not supporting PHP 5.2/5.3 anymore, we need to force using 'precise'.
       dist: precise
       env: WP_VERSION=4.8 WP_MULTISITE=1 PHPLINT=1
-    - php: 5.3
-      # As 'trusty' is not supporting PHP 5.2/5.3 anymore, we need to force using 'precise'.
-      dist: precise
-      env: WP_VERSION=4.9
     - php: 5.6
       env: WP_VERSION=4.9
       # Use 'trusty' to test against MySQL 5.6, 'xenial' contains 5.7 by default.
@@ -81,7 +77,7 @@ before_install:
 - if [[ "$COVERAGE" != "1" ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
 
 install:
-- if [[ $TRAVIS_PHP_VERSION == "5.2" || $TRAVIS_PHP_VERSION == "5.3" ]]; then phpenv local 5.6.13; fi
+- if [[ $TRAVIS_PHP_VERSION == "5.2" ]]; then phpenv local 5.6.13; fi
 - |
   if [[ "$PHPCS" == "1" ]]; then
     composer install --no-interaction
@@ -114,7 +110,7 @@ before_script:
 #
 - git clone --depth=50 --branch="trunk" https://github.com/Yoast/wordpress-seo.git $WP_DEVELOP_DIR/src/wp-content/plugins/wordpress-seo
 - cd /tmp/wordpress/src/wp-content/plugins/wordpress-seo
-- if [[ $TRAVIS_PHP_VERSION == "5.2" || $TRAVIS_PHP_VERSION == "5.3" ]]; then phpenv local 5.6.13; fi
+- if [[ $TRAVIS_PHP_VERSION == "5.2" ]]; then phpenv local 5.6.13; fi
 - composer install --no-dev --no-interaction --ignore-platform-reqs
 - phpenv local --unset
 - cd -
@@ -172,7 +168,7 @@ script:
     vendor/bin/phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml
     travis_time_finish && travis_fold end "PHP.coverage"
   fi
-- if [[ $TRAVIS_PHP_VERSION == "5.3" || $TRAVIS_PHP_VERSION == "7.2" ]]; then composer validate --no-check-all; fi
+- if [[ $TRAVIS_PHP_VERSION == "5.6" || $TRAVIS_PHP_VERSION == "7.2" ]]; then composer validate --no-check-all; fi
 
 after_script:
   - if [[ "$COVERAGE" == "1" ]]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
