@@ -172,7 +172,7 @@ script:
 - |
   if [[ "$COVERAGE" == "1" ]]; then
     travis_fold start "PHP.coverage" && travis_time_start
-    vendor/bin/phpunit -c phpunit.xml --coverage-clover build/logs/clover.xml
+    $PHPUNIT_BIN --coverage-clover build/logs/clover.xml
     travis_time_finish && travis_fold end "PHP.coverage"
   fi
 - if [[ $TRAVIS_PHP_VERSION == "5.6" || $TRAVIS_PHP_VERSION == "7.2" ]]; then composer validate --no-check-all; fi
