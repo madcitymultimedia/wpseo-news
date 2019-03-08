@@ -40,7 +40,7 @@ jobs:
       dist: precise
       env: WP_VERSION=master PHPUNIT=1
     - php: nightly
-      env: WP_VERSION=master PHPUNIT=1
+      env: WP_VERSION=latest PHPUNIT=1
     - stage: deploy-to-github-dist
       env: WP_VERSION=latest
       if: tag IS present
