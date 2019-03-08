@@ -35,8 +35,6 @@ jobs:
       env: WP_VERSION=latest
       # Use 'trusty' to test against MySQL 5.6, 'xenial' contains 5.7 by default.
       dist: trusty
-    - php: 7.0
-      env: WP_VERSION=latest
     - php: 5.2
       # As 'trusty' is not supporting PHP 5.2/5.3 anymore, we need to force using 'precise'.
       dist: precise
