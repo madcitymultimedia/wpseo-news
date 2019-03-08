@@ -163,7 +163,7 @@ script:
     if [[ ${TRAVIS_PHP_VERSION:0:1} == "5" ]]; then
         phpunit -c phpunit.xml
     fi
-    if [[ ${TRAVIS_PHP_VERSION:0:1} == "7" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
+    if [[ $TRAVIS_PHP_VERSION == "nightly" ]]; then
         vendor/bin/phpunit -c phpunit.xml
     fi
     travis_time_finish && travis_fold end "PHP.tests"
