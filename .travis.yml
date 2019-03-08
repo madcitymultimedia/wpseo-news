@@ -108,11 +108,11 @@ before_script:
 
 # Clone WordPress
 #
-- git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
+- git clone --depth=1 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
 
 # Clone WPSEO and its submodule
 #
-- git clone --depth=50 --branch="trunk" https://github.com/Yoast/wordpress-seo.git $WP_DEVELOP_DIR/src/wp-content/plugins/wordpress-seo
+- git clone --depth=1 --branch="trunk" https://github.com/Yoast/wordpress-seo.git $WP_DEVELOP_DIR/src/wp-content/plugins/wordpress-seo
 - cd /tmp/wordpress/src/wp-content/plugins/wordpress-seo
 - if [[ $TRAVIS_PHP_VERSION == "5.2" ]]; then phpenv local 5.6.13; fi
 - composer install --no-dev --no-interaction --ignore-platform-reqs
