@@ -86,7 +86,7 @@ install:
   else
     composer install --no-dev --no-interaction
   fi
-- if [[ $TRAVIS_PHP_VERSION == "nightly" ]]; then composer require --dev phpunit/phpunit ^5.7; fi
+- if [[ ${TRAVIS_PHP_VERSION:0:1} == "7" || $TRAVIS_PHP_VERSION == "nightly" ]]; then composer require --dev phpunit/phpunit ^5.7; fi
 - phpenv local --unset
 
 before_script:
