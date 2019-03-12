@@ -31,7 +31,7 @@ Changelog
 ### 10.1: March 26th, 2019
 Other:
 * Sets the minimum required Yoast SEO version to 10.1.
-* Removal of the deprecated methods ( < 6.1 ).
+* Removes the deprecated methods ( < 6.1 ).
 
 ### 10.0: March 12th, 2019
 Bugfixes:
