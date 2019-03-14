@@ -86,6 +86,7 @@ function yoast_wpseo_news_deactivate() {
  * Activate the license automatically.
  *
  * @deprecated 10.1
+ * @codeCoverageIgnore
  */
 function wpseo_news_activate_license() {
 	_deprecated_function( __FUNCTION__, '10.1' );
