@@ -137,11 +137,12 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	 */
 	public function test_sitemap_WITH_image() {
 
-		$image   = home_url( 'tests/assets/yoast.png' );
-		$post_id = $this->factory->post->create( array(
+		$image        = home_url( 'tests/assets/yoast.png' );
+		$post_details = array(
 			'post_title'   => 'with images',
 			'post_content' => '<img src="' . $image . '" />',
-		) );
+		);
+		$post_id      = $this->factory->post->create( $post_details );
 
 		$output = $this->instance->build_sitemap();
 
@@ -160,11 +161,12 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	 */
 	public function test_sitemap_WITHOUT_featured_image_restricted() {
 
-		$image   = home_url( 'tests/assets/yoast.png' );
-		$post_id = $this->factory->post->create( array(
+		$image        = home_url( 'tests/assets/yoast.png' );
+		$post_details = array(
 			'post_title'   => 'featured image',
 			'post_content' => '<img src="' . $image . '" />',
-		) );
+		);
+		$post_id      = $this->factory->post->create( $post_details );
 
 		$featured_image = home_url( 'tests/assets/yoast_featured.png' );
 		$thumbnail_id   = $this->create_attachment( $featured_image, $post_id );
@@ -197,11 +199,12 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		$this->instance = new WPSEO_News_Sitemap();
 
-		$image   = home_url( 'tests/assets/yoast.png' );
-		$post_id = $this->factory->post->create( array(
+		$image        = home_url( 'tests/assets/yoast.png' );
+		$post_details = array(
 			'post_title'   => 'featured image',
 			'post_content' => '<img src="' . $image . '" />',
-		) );
+		);
+		$post_id      = $this->factory->post->create( $post_details );
 
 		$featured_image = home_url( 'tests/assets/yoast_featured.png' );
 		$thumbnail_id   = $this->create_attachment( $featured_image, $post_id );

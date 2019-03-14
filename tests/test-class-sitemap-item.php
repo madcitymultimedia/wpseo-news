@@ -105,12 +105,11 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 	 * @covers WPSEO_News_Sitemap_Item::get_item_title
 	 */
 	public function test_get_item_title_when_no_seo_title_set() {
-		$test_seo_title = self::factory()->post->create_and_get(
-			array(
-				'post_title'    => 'Post without SEO title',
-				'post_type'     => 'post',
-			)
+		$post_details   = array(
+			'post_title' => 'Post without SEO title',
+			'post_type'  => 'post',
 		);
+		$test_seo_title = self::factory()->post->create_and_get( $post_details );
 
 		$test_options = WPSEO_News::get_options();
 		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_seo_title, $test_options );
@@ -128,12 +127,11 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 	 * @covers WPSEO_News_Sitemap_Item::get_item_title
 	 */
 	public function test_get_item_title_when_no_seo_title_set_and_no_default_is_set() {
-		$test_seo_title = self::factory()->post->create_and_get(
-			array(
-				'post_title'    => 'Post without SEO title and no default set',
-				'post_type'     => 'test_post_type',
-			)
+		$post_details   = array(
+			'post_title' => 'Post without SEO title and no default set',
+			'post_type'  => 'test_post_type',
 		);
+		$test_seo_title = self::factory()->post->create_and_get( $post_details );
 
 		$test_options = WPSEO_News::get_options();
 		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_seo_title, $test_options );
@@ -152,12 +150,11 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 	 * @covers WPSEO_News_Sitemap_Item::get_item_title
 	 */
 	public function test_get_item_title_when_post_is_null() {
-		$test_seo_title = self::factory()->post->create_and_get(
-			array(
-				'post_title'    => 'title',
-				'post_type'     => 'post',
-			)
+		$post_details   = array(
+			'post_title' => 'title',
+			'post_type'  => 'post',
 		);
+		$test_seo_title = self::factory()->post->create_and_get( $post_details );
 
 		$test_options = WPSEO_News::get_options();
 		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_seo_title, $test_options );
@@ -174,12 +171,11 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 	 * @covers WPSEO_News_Sitemap_Item::get_item_title
 	 */
 	public function test_get_item_title_when_seo_title_set() {
-		$test_seo_title = self::factory()->post->create_and_get(
-			array(
-				'post_title'    => 'Post with SEO title',
-				'post_type'     => 'post',
-			)
+		$post_details   = array(
+			'post_title' => 'Post with SEO title',
+			'post_type'  => 'post',
 		);
+		$test_seo_title = self::factory()->post->create_and_get( $post_details );
 
 		$test_options = WPSEO_News::get_options();
 
