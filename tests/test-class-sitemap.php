@@ -61,7 +61,6 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= '</sitemap>' . "\n";
 
 		$this->assertEquals( $expected_output, $output );
-
 	}
 
 	/**
@@ -77,7 +76,6 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 </urlset>';
 
 		$this->assertEquals( $expected_output, $output );
-
 	}
 
 	/**
@@ -128,7 +126,6 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		// Check if the $output contains the $expected_output.
 		$this->assertContains( $expected_output, $output );
 	}
-
 
 	/**
 	 * Checks what happens if there is one post added with a image in its content.
@@ -263,9 +260,9 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$base_time = time();
 		$this->factory->post->create(
 			array(
-				'post_title' 	=> 'Newest post',
-				'post_date'		=> date( 'Y-m-d H:i:s', $base_time ),
-				'post_date_gmt' => date( 'Y-m-d H:i:s', $base_time )
+				'post_title'    => 'Newest post',
+				'post_date'     => date( 'Y-m-d H:i:s', $base_time ),
+				'post_date_gmt' => date( 'Y-m-d H:i:s', $base_time ),
 			)
 		);
 
@@ -273,9 +270,9 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		$this->factory->post->create(
 			array(
-				'post_title' 	=> 'New-ish post',
-				'post_date'		=> date( 'Y-m-d H:i:s', $two_days_ago ),
-				'post_date_gmt' => date( 'Y-m-d H:i:s', $two_days_ago )
+				'post_title'    => 'New-ish post',
+				'post_date'     => date( 'Y-m-d H:i:s', $two_days_ago ),
+				'post_date_gmt' => date( 'Y-m-d H:i:s', $two_days_ago ),
 			)
 		);
 
@@ -283,9 +280,9 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		$this->factory->post->create(
 			array(
-				'post_title' 	=> 'Too old Post',
-				'post_date'		=> date( 'Y-m-d H:i:s', $two_days_ago_one_minute ),
-				'post_date_gmt' => date( 'Y-m-d H:i:s', $two_days_ago_one_minute )
+				'post_title'    => 'Too old Post',
+				'post_date'     => date( 'Y-m-d H:i:s', $two_days_ago_one_minute ),
+				'post_date_gmt' => date( 'Y-m-d H:i:s', $two_days_ago_one_minute ),
 			)
 		);
 
