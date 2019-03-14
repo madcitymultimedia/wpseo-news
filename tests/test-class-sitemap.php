@@ -18,7 +18,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	private $instance;
 
 	/**
-	 * Setting up the instance of WPSEO_News_Admin_Page.
+	 * Setting up the instance of WPSEO_News_Sitemap.
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -65,7 +65,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check what happens if no posts are added.
+	 * Checks what happens if no posts are added.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
@@ -81,7 +81,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check what happens if there is one post added.
+	 * Checks what happens if there is one post added.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
@@ -110,7 +110,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check what happens if there is one post added.
+	 * Checks what happens if there is one post added.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
@@ -133,7 +133,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 
 	/**
-	 * Check what happens if there is one post added with a image in its content.
+	 * Checks what happens if there is one post added with a image in its content.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
@@ -156,7 +156,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check what happens if there is one post added with a image in its content.
+	 * Checks what happens if there is one post added with a image in its content.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
@@ -189,7 +189,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check what happens if there is one post added with a image in its content.
+	 * Checks what happens if there is one post added with a image in its content.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
@@ -223,7 +223,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check that the sitemap uses the default name of news when no news post type is present.
+	 * Checks that the sitemap uses the default name of news when no news post type is present.
 	 *
 	 * @covers WPSEO_News_Sitemap::news_sitemap_basename
 	 */
@@ -232,7 +232,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check that the sitemap name uses the fallback name for the sitemap when a post type of News exists.
+	 * Checks that the sitemap name uses the fallback name for the sitemap when a post type of News exists.
 	 *
 	 * @covers WPSEO_News_Sitemap::news_sitemap_basename
 	 */
@@ -243,7 +243,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check that the sitemap name uses the YOAST_NEWS_SITEMAP_BASENAME constant value.
+	 * Checks that the sitemap name uses the YOAST_NEWS_SITEMAP_BASENAME constant value.
 	 *
 	 * @covers WPSEO_News_Sitemap::news_sitemap_basename
 	 */
