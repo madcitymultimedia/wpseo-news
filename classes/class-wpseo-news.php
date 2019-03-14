@@ -234,9 +234,8 @@ class WPSEO_News {
 
 		wp_enqueue_script(
 			'wpseo-news-admin-page',
-			plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ), array(
-				'jquery',
-			),
+			plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ),
+			array( 'jquery' ),
 			self::VERSION,
 			true
 		);
