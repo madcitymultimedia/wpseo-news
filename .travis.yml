@@ -23,19 +23,19 @@ jobs:
   fast_finish: true
   include:
     - php: 7.2
-      env: WP_VERSION=4.9 WP_MULTISITE=1 PHPLINT=1 PHPCS=1 COVERAGE=1
+      env: WP_VERSION=5.1 WP_MULTISITE=1 PHPLINT=1 PHPCS=1 COVERAGE=1
     - php: 5.2
       # As 'trusty' is not supporting PHP 5.2/5.3 anymore, we need to force using 'precise'.
       dist: precise
-      env: WP_VERSION=4.8 WP_MULTISITE=1 PHPLINT=1
+      env: WP_VERSION=5.0 WP_MULTISITE=1 PHPLINT=1
     - php: 5.3
       # As 'trusty' is not supporting PHP 5.2/5.3 anymore, we need to force using 'precise'.
       dist: precise
-      env: WP_VERSION=4.9
+      env: WP_VERSION=5.1
     - php: 5.6
-      env: WP_VERSION=4.9
+      env: WP_VERSION=5.1
     - php: 7.0
-      env: WP_VERSION=4.9
+      env: WP_VERSION=5.1
     - php: 5.2
       # As 'trusty' is not supporting PHP 5.2/5.3 anymore, we need to force using 'precise'.
       dist: precise
@@ -43,7 +43,7 @@ jobs:
     - php: nightly
       env: WP_VERSION=master
     - stage: deploy-to-github-dist
-      env: WP_VERSION=4.9
+      env: WP_VERSION=5.1
       if: tag IS present
       before_install:
         - openssl aes-256-cbc -K $encrypted_b489f7a38f66_key -iv $encrypted_b489f7a38f66_iv -in ./deploy_keys/wpseo_news_deploy.enc -out ./deploy_keys/wpseo_news_deploy -d
