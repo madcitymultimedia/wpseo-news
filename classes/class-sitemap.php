@@ -67,7 +67,7 @@ class WPSEO_News_Sitemap {
 	 */
 	public function init() {
 
-		$this->basename = WPSEO_News_Sitemap::get_sitemap_name( false );
+		$this->basename = self::get_sitemap_name( false );
 
 		// Setting stylesheet for cached sitemap.
 		add_action( 'wpseo_sitemap_stylesheet_cache_' . $this->basename, array( $this, 'set_stylesheet_cache' ) );

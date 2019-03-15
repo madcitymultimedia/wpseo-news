@@ -18,7 +18,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	private $instance;
 
 	/**
-	 * Setting up the instance of WPSEO_News_Admin_Page.
+	 * Setting up the instance of WPSEO_News_Sitemap.
 	 */
 	public function setUp() {
 		parent::setUp();
@@ -61,11 +61,10 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= '</sitemap>' . "\n";
 
 		$this->assertEquals( $expected_output, $output );
-
 	}
 
 	/**
-	 * Check what happens if no posts are added.
+	 * Checks what happens if no posts are added.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
@@ -77,18 +76,15 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 </urlset>';
 
 		$this->assertEquals( $expected_output, $output );
-
 	}
 
 	/**
-	 * Check what happens if there is one post added.
+	 * Checks what happens if there is one post added.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
 	public function test_sitemap_NOT_empty() {
-		$post_id = $this->factory->post->create( array(
-			'post_title' => 'generate rss',
-		) );
+		$post_id = $this->factory->post->create( array( 'post_title' => 'generate rss' ) );
 
 		$output = $this->instance->build_sitemap();
 
@@ -101,7 +97,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= "\t\t\t<news:language>en</news:language>\n";
 		$expected_output .= "\t\t</news:publication>\n";
 		$expected_output .= "\t\t<news:publication_date>" . get_the_date( DATE_ATOM, $post_id ) . "</news:publication_date>\n";
-		$expected_output .= "\t\t<news:title><![CDATA[generate rss - " . get_bloginfo( "name" ) . "]]></news:title>\n";
+		$expected_output .= "\t\t<news:title><![CDATA[generate rss - " . get_bloginfo( 'name' ) . "]]></news:title>\n";
 		$expected_output .= "\t</news:news>\n";
 		$expected_output .= '</url>';
 
@@ -110,7 +106,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check what happens if there is one post added.
+	 * Checks what happens if there is one post added.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
@@ -131,19 +127,19 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$this->assertContains( $expected_output, $output );
 	}
 
-
 	/**
-	 * Check what happens if there is one post added with a image in its content.
+	 * Checks what happens if there is one post added with a image in its content.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
 	public function test_sitemap_WITH_image() {
 
-		$image   = home_url( 'tests/assets/yoast.png' );
-		$post_id = $this->factory->post->create( array(
+		$image        = home_url( 'tests/assets/yoast.png' );
+		$post_details = array(
 			'post_title'   => 'with images',
 			'post_content' => '<img src="' . $image . '" />',
-		) );
+		);
+		$post_id      = $this->factory->post->create( $post_details );
 
 		$output = $this->instance->build_sitemap();
 
@@ -156,17 +152,18 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check what happens if there is one post added with a image in its content.
+	 * Checks what happens if there is one post added with a image in its content.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
 	public function test_sitemap_WITHOUT_featured_image_restricted() {
 
-		$image   = home_url( 'tests/assets/yoast.png' );
-		$post_id = $this->factory->post->create( array(
+		$image        = home_url( 'tests/assets/yoast.png' );
+		$post_details = array(
 			'post_title'   => 'featured image',
 			'post_content' => '<img src="' . $image . '" />',
-		) );
+		);
+		$post_id      = $this->factory->post->create( $post_details );
 
 		$featured_image = home_url( 'tests/assets/yoast_featured.png' );
 		$thumbnail_id   = $this->create_attachment( $featured_image, $post_id );
@@ -189,7 +186,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check what happens if there is one post added with a image in its content.
+	 * Checks what happens if there is one post added with a image in its content.
 	 *
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
@@ -199,11 +196,12 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		$this->instance = new WPSEO_News_Sitemap();
 
-		$image   = home_url( 'tests/assets/yoast.png' );
-		$post_id = $this->factory->post->create( array(
+		$image        = home_url( 'tests/assets/yoast.png' );
+		$post_details = array(
 			'post_title'   => 'featured image',
 			'post_content' => '<img src="' . $image . '" />',
-		) );
+		);
+		$post_id      = $this->factory->post->create( $post_details );
 
 		$featured_image = home_url( 'tests/assets/yoast_featured.png' );
 		$thumbnail_id   = $this->create_attachment( $featured_image, $post_id );
@@ -223,7 +221,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check that the sitemap uses the default name of news when no news post type is present.
+	 * Checks that the sitemap uses the default name of news when no news post type is present.
 	 *
 	 * @covers WPSEO_News_Sitemap::news_sitemap_basename
 	 */
@@ -232,7 +230,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check that the sitemap name uses the fallback name for the sitemap when a post type of News exists.
+	 * Checks that the sitemap name uses the fallback name for the sitemap when a post type of News exists.
 	 *
 	 * @covers WPSEO_News_Sitemap::news_sitemap_basename
 	 */
@@ -243,7 +241,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Check that the sitemap name uses the YOAST_NEWS_SITEMAP_BASENAME constant value.
+	 * Checks that the sitemap name uses the YOAST_NEWS_SITEMAP_BASENAME constant value.
 	 *
 	 * @covers WPSEO_News_Sitemap::news_sitemap_basename
 	 */
@@ -262,9 +260,9 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$base_time = time();
 		$this->factory->post->create(
 			array(
-				'post_title' 	=> 'Newest post',
-				'post_date'		=> date( 'Y-m-d H:i:s', $base_time ),
-				'post_date_gmt' => date( 'Y-m-d H:i:s', $base_time )
+				'post_title'    => 'Newest post',
+				'post_date'     => date( 'Y-m-d H:i:s', $base_time ),
+				'post_date_gmt' => date( 'Y-m-d H:i:s', $base_time ),
 			)
 		);
 
@@ -272,9 +270,9 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		$this->factory->post->create(
 			array(
-				'post_title' 	=> 'New-ish post',
-				'post_date'		=> date( 'Y-m-d H:i:s', $two_days_ago ),
-				'post_date_gmt' => date( 'Y-m-d H:i:s', $two_days_ago )
+				'post_title'    => 'New-ish post',
+				'post_date'     => date( 'Y-m-d H:i:s', $two_days_ago ),
+				'post_date_gmt' => date( 'Y-m-d H:i:s', $two_days_ago ),
 			)
 		);
 
@@ -282,19 +280,19 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		$this->factory->post->create(
 			array(
-				'post_title' 	=> 'Too old Post',
-				'post_date'		=> date( 'Y-m-d H:i:s', $two_days_ago_one_minute ),
-				'post_date_gmt' => date( 'Y-m-d H:i:s', $two_days_ago_one_minute )
+				'post_title'    => 'Too old Post',
+				'post_date'     => date( 'Y-m-d H:i:s', $two_days_ago_one_minute ),
+				'post_date_gmt' => date( 'Y-m-d H:i:s', $two_days_ago_one_minute ),
 			)
 		);
 
 		$output = $this->instance->build_sitemap();
 
 		// Check if the $output contains the $expected_output.
-		$this->assertContains( "\t\t<news:title><![CDATA[Newest post - " . get_bloginfo( "name" ) . "]]></news:title>\n", $output );
-		$this->assertContains( "\t\t<news:title><![CDATA[New-ish post - " . get_bloginfo( "name" ) . "]]></news:title>\n", $output );
+		$this->assertContains( "\t\t<news:title><![CDATA[Newest post - " . get_bloginfo( 'name' ) . "]]></news:title>\n", $output );
+		$this->assertContains( "\t\t<news:title><![CDATA[New-ish post - " . get_bloginfo( 'name' ) . "]]></news:title>\n", $output );
 
-		$this->assertNotContains( "\t\t<news:title><![CDATA[Too old Post - " . get_bloginfo( "name" ) . "]]></news:title>\n", $output );
+		$this->assertNotContains( "\t\t<news:title><![CDATA[Too old Post - " . get_bloginfo( 'name' ) . "]]></news:title>\n", $output );
 	}
 
 	public function restrict_featured_image( $options ) {
