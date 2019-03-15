@@ -46,7 +46,7 @@ class WPSEO_News_Sitemap_Timezone {
 		$offset_float         = abs( floatval( $utc_offset ) );
 		$offset_int           = floor( $offset_float );
 		$offset_minutes_float = ( ( $offset_float - $offset_int ) * 60 );
-		$offset_minutes       = sprintf( '%02d' , $offset_minutes_float );
+		$offset_minutes       = sprintf( '%02d', $offset_minutes_float );
 		$offset_hours         = sprintf( '%02d', $offset_int );
 
 		if ( $utc_offset >= 0 ) {

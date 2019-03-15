@@ -20,7 +20,7 @@ class WPSEO_News_Sitemap_Item_Double extends WPSEO_News_Sitemap_Item {
 	/**
 	 * @inheritdoc
 	 */
-	public function get_item_title( $item = NULL ) {
+	public function get_item_title( $item = null ) {
 		return parent::get_item_title( $item );
 	}
 }

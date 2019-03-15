@@ -18,17 +18,20 @@ class WPSEO_News {
 	 * @return array
 	 */
 	public static function get_options() {
+		$defaults = array(
+			'name'          => '',
+			'default_genre' => array(),
+			'ep_image_src'  => '',
+			'version'       => '0',
+		);
+		$options  = wp_parse_args( get_option( 'wpseo_news', array() ), $defaults );
+
 		/**
 		 * Filter: 'wpseo_news_options' - Allow modifying of Yoast News SEO options.
 		 *
 		 * @api array $wpseo_news_options The Yoast News SEO options.
 		 */
-		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array(
-			'name'                     => '',
-			'default_genre'            => array(),
-			'ep_image_src'             => '',
-			'version'                  => '0',
-		) ) );
+		return apply_filters( 'wpseo_news_options', $options );
 	}
 
 	/**
@@ -224,7 +227,6 @@ class WPSEO_News {
 		return $submenu_pages;
 	}
 
-
 	/**
 	 * Enqueue admin page JS.
 	 */
@@ -234,9 +236,8 @@ class WPSEO_News {
 
 		wp_enqueue_script(
 			'wpseo-news-admin-page',
-			plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ), array(
-				'jquery',
-			),
+			plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ),
+			array( 'jquery' ),
 			self::VERSION,
 			true
 		);
