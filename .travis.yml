@@ -72,7 +72,7 @@ jobs:
   allow_failures:
     # Allow failures for unstable builds.
     - php: nightly
-      env: WP_VERSION=latest
+      env: WP_VERSION=latest PHPUNIT=1
     - php: 7.3
       env: WP_VERSION=master
 
