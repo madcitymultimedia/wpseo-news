@@ -284,8 +284,8 @@ class WPSEO_News_Sitemap_Item {
 	/**
 	 * Format a date string with a timezone.
 	 *
-	 * @param string                                $item_date Date to parse.
-	 * @param string || WPSEO_News_Sitemap_Timezone $time_zone Timezone to parse.
+	 * @param string                             $item_date Date to parse.
+	 * @param string|WPSEO_News_Sitemap_Timezone $time_zone Timezone to parse.
 	 *
 	 * @return string The formatted date string.
 	 */
@@ -345,7 +345,7 @@ class WPSEO_News_Sitemap_Item {
 	/**
 	 * Getting the stock_tickers for given $item_id.
 	 *
-	 * @param integer $item_id Item to get ticker from.
+	 * @param int $item_id Item to get ticker from.
 	 *
 	 * @return string
 	 */

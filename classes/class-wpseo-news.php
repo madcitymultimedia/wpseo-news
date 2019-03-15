@@ -10,7 +10,7 @@
  */
 class WPSEO_News {
 
-	const VERSION = '10.1-beta2';
+	const VERSION = '10.1-RC2';
 
 	/**
 	 * Get WPSEO News options.
@@ -18,17 +18,20 @@ class WPSEO_News {
 	 * @return array
 	 */
 	public static function get_options() {
+		$defaults = array(
+			'name'          => '',
+			'default_genre' => array(),
+			'ep_image_src'  => '',
+			'version'       => '0',
+		);
+		$options  = wp_parse_args( get_option( 'wpseo_news', array() ), $defaults );
+
 		/**
 		 * Filter: 'wpseo_news_options' - Allow modifying of Yoast News SEO options.
 		 *
 		 * @api array $wpseo_news_options The Yoast News SEO options.
 		 */
-		return apply_filters( 'wpseo_news_options', wp_parse_args( get_option( 'wpseo_news', array() ), array(
-			'name'                     => '',
-			'default_genre'            => array(),
-			'ep_image_src'             => '',
-			'version'                  => '0',
-		) ) );
+		return apply_filters( 'wpseo_news_options', $options );
 	}
 
 	/**
@@ -104,7 +107,7 @@ class WPSEO_News {
 	 */
 	protected function check_dependencies( $wp_version ) {
 		// When WordPress function is too low.
-		if ( version_compare( $wp_version, '5.0', '<' ) ) {
+		if ( version_compare( $wp_version, '4.9', '<' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wp' ) );
 
 			return false;
@@ -120,7 +123,7 @@ class WPSEO_News {
 		}
 
 		// Make sure the Yoast SEO version is least 10.1. In 10.1, we've removed the License Manager code from this addon. With older YoastSEO versions, this addon won't get any updates.
-		if ( version_compare( $wordpress_seo_version, '10.1', '<' ) ) {
+		if ( version_compare( $wordpress_seo_version, '10.1-RC0', '<' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wpseo' ) );
 
 			return false;
@@ -224,7 +227,6 @@ class WPSEO_News {
 		return $submenu_pages;
 	}
 
-
 	/**
 	 * Enqueue admin page JS.
 	 */
@@ -234,9 +236,8 @@ class WPSEO_News {
 
 		wp_enqueue_script(
 			'wpseo-news-admin-page',
-			plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ), array(
-				'jquery',
-			),
+			plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ),
+			array( 'jquery' ),
 			self::VERSION,
 			true
 		);

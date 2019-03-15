@@ -6,7 +6,7 @@
  *
  * @wordpress-plugin
  * Plugin Name: Yoast SEO: News
- * Version:     10.1-beta2
+ * Version:     10.1-RC2
  * Plugin URI:  https://yoast.com/wordpress/plugins/news-seo/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=wpseonewsplugin
  * Description: Google News plugin for the Yoast SEO plugin
  * Author:      Team Yoast
@@ -86,6 +86,7 @@ function yoast_wpseo_news_deactivate() {
  * Activate the license automatically.
  *
  * @deprecated 10.1
+ * @codeCoverageIgnore
  */
 function wpseo_news_activate_license() {
 	_deprecated_function( __FUNCTION__, '10.1' );
