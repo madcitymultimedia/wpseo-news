@@ -1,6 +1,9 @@
 language: php
-dist: trusty
+dist: xenial
 sudo: false
+
+services:
+   - mysql
 
 cache:
   directories:
@@ -22,28 +25,22 @@ branches:
 jobs:
   fast_finish: true
   include:
+    - php: 7.3
+      env: WP_VERSION=master
     - php: 7.2
-      env: WP_VERSION=5.1 WP_MULTISITE=1 PHPLINT=1 PHPCS=1 COVERAGE=1
+      env: WP_VERSION=latest WP_MULTISITE=1 PHPLINT=1 PHPCS=1 COVERAGE=1
     - php: 5.2
       # As 'trusty' is not supporting PHP 5.2/5.3 anymore, we need to force using 'precise'.
       dist: precise
-      env: WP_VERSION=5.0 WP_MULTISITE=1 PHPLINT=1
-    - php: 5.3
-      # As 'trusty' is not supporting PHP 5.2/5.3 anymore, we need to force using 'precise'.
-      dist: precise
-      env: WP_VERSION=5.1
+      env: WP_VERSION=5.0 WP_MULTISITE=1 PHPLINT=1 PHPUNIT=1
     - php: 5.6
-      env: WP_VERSION=5.1
-    - php: 7.0
-      env: WP_VERSION=5.1
-    - php: 5.2
-      # As 'trusty' is not supporting PHP 5.2/5.3 anymore, we need to force using 'precise'.
-      dist: precise
-      env: WP_VERSION=master
+      env: WP_VERSION=latest PHPUNIT=1
+      # Use 'trusty' to test against MySQL 5.6, 'xenial' contains 5.7 by default.
+      dist: trusty
     - php: nightly
-      env: WP_VERSION=master
+      env: WP_VERSION=latest PHPUNIT=1
     - stage: deploy-to-github-dist
-      env: WP_VERSION=5.1
+      env: WP_VERSION=latest
       if: tag IS present
       before_install:
         - openssl aes-256-cbc -K $encrypted_b489f7a38f66_key -iv $encrypted_b489f7a38f66_iv -in ./deploy_keys/wpseo_news_deploy.enc -out ./deploy_keys/wpseo_news_deploy -d
@@ -71,12 +68,15 @@ jobs:
   allow_failures:
     # Allow failures for unstable builds.
     - php: nightly
+      env: WP_VERSION=latest PHPUNIT=1
+    - php: 7.3
+      env: WP_VERSION=master
 
 before_install:
 - if [[ "$COVERAGE" != "1" ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
 
 install:
-- if [[ $TRAVIS_PHP_VERSION == "5.2" || $TRAVIS_PHP_VERSION == "5.3" ]]; then phpenv local 5.6.13; fi
+- if [[ $TRAVIS_PHP_VERSION == "5.2" ]]; then phpenv local 5.6.13; fi
 - |
   if [[ "$PHPCS" == "1" ]]; then
     composer install --no-interaction
@@ -88,6 +88,12 @@ install:
 - phpenv local --unset
 
 before_script:
+# Careful: The HTTPS version of the following URL is different, therefore we need to use HTTP.
+- |
+  if [[ "$WP_VERSION" == "latest" ]]; then
+    curl -s http://api.wordpress.org/core/version-check/1.7/ > /tmp/wp-latest.json
+    WP_VERSION=$(grep -o '"version":"[^"]*' /tmp/wp-latest.json | sed 's/"version":"//')
+  fi
 - PLUGIN_SLUG=$(basename $(pwd))
 - export WP_DEVELOP_DIR=/tmp/wordpress/
 - export -f travis_fold
@@ -103,13 +109,13 @@ before_script:
 
 # Clone WordPress
 #
-- git clone --depth=50 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
+- git clone --depth=1 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
 
 # Clone WPSEO and its submodule
 #
-- git clone --depth=50 --branch="trunk" https://github.com/Yoast/wordpress-seo.git $WP_DEVELOP_DIR/src/wp-content/plugins/wordpress-seo
+- git clone --depth=1 --branch="trunk" https://github.com/Yoast/wordpress-seo.git $WP_DEVELOP_DIR/src/wp-content/plugins/wordpress-seo
 - cd /tmp/wordpress/src/wp-content/plugins/wordpress-seo
-- if [[ $TRAVIS_PHP_VERSION == "5.2" || $TRAVIS_PHP_VERSION == "5.3" ]]; then phpenv local 5.6.13; fi
+- if [[ $TRAVIS_PHP_VERSION == "5.2" ]]; then phpenv local 5.6.13; fi
 - composer install --no-dev --no-interaction --ignore-platform-reqs
 - phpenv local --unset
 - cd -
@@ -150,7 +156,7 @@ script:
   fi
 # PHP Tests
 - |
-  if [[ "$COVERAGE" != "1" ]]; then
+  if [[ "$PHPUNIT" == "1" ]]; then
     travis_fold start "PHP.tests" && travis_time_start
     if [[ ${TRAVIS_PHP_VERSION:0:1} == "5" ]]; then
         phpunit
@@ -167,7 +173,7 @@ script:
     vendor/bin/phpunit --coverage-clover build/logs/clover.xml
     travis_time_finish && travis_fold end "PHP.coverage"
   fi
-- if [[ $TRAVIS_PHP_VERSION == "5.3" || $TRAVIS_PHP_VERSION == "7.2" ]]; then composer validate --no-check-all; fi
+- if [[ $TRAVIS_PHP_VERSION == "5.6" || $TRAVIS_PHP_VERSION == "7.2" ]]; then composer validate --no-check-all; fi
 
 after_script:
   - if [[ "$COVERAGE" == "1" ]]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
