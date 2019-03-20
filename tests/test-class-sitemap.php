@@ -27,6 +27,8 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
+	 * Verifies that the news sitemap is not added to the sitemap index when there are no news items.
+	 *
 	 * @covers WPSEO_News_Sitemap::add_to_index
 	 */
 	public function test_add_to_index_no_items() {
@@ -36,6 +38,8 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
+	 * Verifies that the news sitemap is correctly added to the sitemap index when there are news items.
+	 *
 	 * @covers WPSEO_News_Sitemap::add_to_index
 	 */
 	public function test_add_to_index() {
