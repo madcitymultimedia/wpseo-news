@@ -158,6 +158,8 @@ class WPSEO_News_Upgrade_Manager {
 	 */
 	private function delete_meta_by_key( $key ) {
 		global $wpdb;
+
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery,WordPress.DB.SlowDBQuery -- Upgrade routines are only used intermittently.
 		$wpdb->delete(
 			$wpdb->postmeta,
 			array(
@@ -165,5 +167,6 @@ class WPSEO_News_Upgrade_Manager {
 			),
 			array( '%s' )
 		);
+		// phpcs:enable
 	}
 }
