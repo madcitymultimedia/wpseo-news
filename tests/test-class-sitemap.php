@@ -295,12 +295,27 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$this->assertNotContains( "\t\t<news:title><![CDATA[Too old Post - " . get_bloginfo( 'name' ) . "]]></news:title>\n", $output );
 	}
 
+	/**
+	 * Test helper. Filter the option return value.
+	 *
+	 * @param array $options Current value of the option.
+	 *
+	 * @return array Adjusted option value.
+	 */
 	public function restrict_featured_image( $options ) {
 		$options['restrict_sitemap_featured_img'] = true;
 
 		return $options;
 	}
 
+	/**
+	 * Test helper. Create an attachment to test with.
+	 *
+	 * @param string $image   URL to the image.
+	 * @param int    $post_id ID of the post to attach the image to.
+	 *
+	 * @return int Attachment post ID.
+	 */
 	private function create_attachment( $image, $post_id = 0 ) {
 		return $this->factory->post->create(
 			array(
