@@ -20,7 +20,7 @@ class WPSEO_News_Test extends WPSEO_News_UnitTestCase {
 	 * @param string $wordpress_version     The WordPress version to check.
 	 * @param string $message               Message given by PHPUnit after assertion.
 	 *
-	 * @covers WPSEO_News::check_dependencies()
+	 * @covers WPSEO_News::check_dependencies
 	 */
 	public function test_check_dependencies( $expected, $wordpress_seo_version, $wordpress_version, $message ) {
 		$class_instance = $this

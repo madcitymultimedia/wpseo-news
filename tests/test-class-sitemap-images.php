@@ -46,7 +46,7 @@ class WPSEO_News_Sitemap_Images_Test extends WPSEO_News_UnitTestCase {
 	/**
 	 * Tests parsing of the image source attribute value.
 	 *
-	 * @covers WPSEO_News_Sitemap_Images::parse_image_source()
+	 * @covers WPSEO_News_Sitemap_Images::parse_image_source
 	 *
 	 * @dataProvider provider_parse_image_source
 	 *
