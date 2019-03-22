@@ -214,11 +214,11 @@ class WPSEO_News_Sitemap_Images {
 			$image['alt'] = $attachment['alt'];
 		}
 
-		if ( ! empty( $attachment['src'] ) ) {
-			$this->images[ $attachment['src'] ] = $image;
-		}
-		elseif ( ! empty( $attachment['href'] ) ) {
+		if ( ! empty( $attachment['href'] ) ) {
 			$this->images[ $attachment['href'] ] = $image;
+		}
+		elseif ( ! empty( $attachment['src'] ) ) {
+			$this->images[ $attachment['src'] ] = $image;
 		}
 	}
 
@@ -242,7 +242,7 @@ class WPSEO_News_Sitemap_Images {
 		return array(
 			'title'       => $attachment->post_title,
 			'alt'         => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
-			'href'        => get_permalink( $attachment->ID ),
+			'href'        => wp_get_attachment_url( $attachment->ID ),
 			'src'         => $attachment->guid,
 		);
 	}
