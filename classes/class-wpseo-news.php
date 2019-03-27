@@ -52,6 +52,9 @@ class WPSEO_News {
 		// Head.
 		new WPSEO_News_Head();
 
+		// Schema.
+		new WPSEO_News_Schema();
+
 		if ( is_admin() ) {
 			$this->init_admin();
 		}
