@@ -39,8 +39,11 @@ class WPSEO_News_Schema {
 	 * @return array $data Schema Article data.
 	 */
 	public function change_article( $data ) {
-		if ( in_array( get_post_type(), $this->post_types ) ) {
-			$data['@type'] = 'NewsArticle';
+		$post = get_post();
+		if ( in_array( $post->post_type, $this->post_types ) ) {
+			$data['@type']           = 'NewsArticle';
+			$data['copyrightYear']   = mysql2date( 'Y', $post->post_date_gmt, false );
+			$data['copyrightHolder'] = array( '@id' => WPSEO_Utils::get_home_url() . WPSEO_Schema_IDs::ORGANIZATION_HASH );
 		}
 
 		return $data;
