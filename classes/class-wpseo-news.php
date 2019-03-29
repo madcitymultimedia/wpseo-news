@@ -122,8 +122,8 @@ class WPSEO_News {
 			return false;
 		}
 
-		// Make sure the Yoast SEO version is least 10.1. In 10.1, we've removed the License Manager code from this addon. With older YoastSEO versions, this addon won't get any updates.
-		if ( version_compare( $wordpress_seo_version, '10.1-RC0', '<' ) ) {
+		// Make sure the Yoast SEO version is least 10.2. In that version we introduced new functionality.
+		if ( version_compare( $wordpress_seo_version, '10.2-RC0', '<' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wpseo' ) );
 
 			return false;
