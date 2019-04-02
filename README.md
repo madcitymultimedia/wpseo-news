@@ -1,8 +1,8 @@
 Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 4.9
-Tested up to: 5.1
-Stable tag: 10.1-RC2
+Tested up to: 5.1.1
+Stable tag: 10.1
 Requires PHP: 5.2.4
 Depends: Yoast SEO
 
@@ -28,7 +28,7 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
-### 10.1: March 26th, 2019
+### 10.1: April 2nd, 2019
 Other:
 * Sets the minimum required Yoast SEO version to 10.1.
 * Removes the deprecated methods ( < 6.1 ).

@@ -40,6 +40,6 @@
     "time-grunt": "^1.0.0"
   },
   "yoast": {
-    "pluginVersion": "10.1-RC2"
+    "pluginVersion": "10.1"
   }
 }
