@@ -2,9 +2,9 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yoast SEO: News 10.1\n"
+"Project-Id-Version: Yoast SEO: News 11.0-RC1\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
-"POT-Creation-Date: 2019-04-02 08:04:19+00:00\n"
+"POT-Creation-Date: 2019-04-05 10:30:16+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -123,11 +123,11 @@ msgstr ""
 msgid "Google News"
 msgstr ""
 
-#: classes/class-wpseo-news.php:178
+#: classes/class-wpseo-news.php:181
 msgid "Settings"
 msgstr ""
 
-#: classes/class-wpseo-news.php:257
+#: classes/class-wpseo-news.php:260
 #. translators: %1$s resolves to the link to search for Yoast SEO, %2$s
 #. resolves to the closing tag for this link, %3$s resolves to Yoast SEO, %4$s
 #. resolves to News SEO
@@ -136,45 +136,45 @@ msgid ""
 "functionality to allow the %4$s module to work."
 msgstr ""
 
-#: classes/class-wpseo-news.php:278
+#: classes/class-wpseo-news.php:281
 #. translators: %1$s resolves to News SEO
 msgid ""
 "Please upgrade WordPress to the latest version to allow WordPress and the "
 "%1$s module to work properly."
 msgstr ""
 
-#: classes/class-wpseo-news.php:296
+#: classes/class-wpseo-news.php:299
 #. translators: %1$s resolves to Yoast SEO, %2$s resolves to News SEO
 msgid ""
 "Please upgrade the %1$s plugin to the latest version to allow the %2$s "
 "module to work."
 msgstr ""
 
-#: classes/class-wpseo-news.php:359
+#: classes/class-wpseo-news.php:362
 msgid "None"
 msgstr ""
 
-#: classes/class-wpseo-news.php:360
+#: classes/class-wpseo-news.php:363
 msgid "Press Release"
 msgstr ""
 
-#: classes/class-wpseo-news.php:361
+#: classes/class-wpseo-news.php:364
 msgid "Satire"
 msgstr ""
 
-#: classes/class-wpseo-news.php:362
+#: classes/class-wpseo-news.php:365
 msgid "Blog"
 msgstr ""
 
-#: classes/class-wpseo-news.php:363
+#: classes/class-wpseo-news.php:366
 msgid "Op-Ed"
 msgstr ""
 
-#: classes/class-wpseo-news.php:364
+#: classes/class-wpseo-news.php:367
 msgid "Opinion"
 msgstr ""
 
-#: classes/class-wpseo-news.php:365
+#: classes/class-wpseo-news.php:368
 msgid "User Generated"
 msgstr ""
 
