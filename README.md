@@ -30,7 +30,7 @@ Changelog
 =========
 ### 11.0: April 16th, 2019
 Enhancements:
-* Schema: * Adds Schema.org `NewsArticle` markup to all post types that you've selected as News.
+* Schema: Adds Schema.org `NewsArticle` markup to all post types that you've selected as News.
 
 Bugfixes:
 * Fixed Sitemap image URLs to use href instead of guid to prevent relative URLs in the Sitemap. Props to [ChristophKnopf](https://github.com/ChristophKnopf)
