@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 4.9
 Tested up to: 5.1.1
-Stable tag: 10.1
+Stable tag: 11.0
 Requires PHP: 5.2.4
 Depends: Yoast SEO
 
@@ -28,6 +28,16 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 11.0: April 16th, 2019
+Enhancements:
+* Schema: Adds Schema.org `NewsArticle` markup to all post types that you've selected as News.
+
+Bugfixes:
+* Fixed Sitemap image URLs to use href instead of guid to prevent relative URLs in the Sitemap. Props to [ChristophKnopf](https://github.com/ChristophKnopf)
+
+Other:
+* Sets the minimum required Yoast SEO version to 11.0.
+
 ### 10.1: April 2nd, 2019
 Other:
 * Sets the minimum required Yoast SEO version to 10.1.
