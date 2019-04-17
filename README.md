@@ -28,6 +28,10 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 11.1: April 30th, 2019
+Other:
+* Compatibility with Yoast SEO 11.1
+
 ### 11.0: April 16th, 2019
 Enhancements:
 * Schema: Adds Schema.org `NewsArticle` markup to all post types that you've selected as News.
