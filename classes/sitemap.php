@@ -258,7 +258,7 @@ class WPSEO_News_Sitemap {
 	 * @return string mixed
 	 */
 	public static function get_sitemap_name( $full_path = true ) {
-		// This filter is documented in classes/class-sitemap.php.
+		// This filter is documented in classes/sitemap.php.
 		$sitemap_name = apply_filters( 'wpseo_news_sitemap_name', self::news_sitemap_basename() );
 
 		// When $full_path is true, it will generate a full path.
