@@ -9,6 +9,7 @@
  * Makes the require Schema changes.
  */
 class WPSEO_News_Schema {
+
 	/**
 	 * WPSEO_News_Head Constructor.
 	 */
@@ -39,7 +40,7 @@ class WPSEO_News_Schema {
 	 */
 	public function change_article( $data ) {
 		$post = get_post();
-		if ( in_array( $post->post_type, WPSEO_News::get_included_post_types() ) ) {
+		if ( in_array( $post->post_type, WPSEO_News::get_included_post_types(), true ) ) {
 			$data['@type']           = 'NewsArticle';
 			$data['copyrightYear']   = mysql2date( 'Y', $post->post_date_gmt, false );
 			$data['copyrightHolder'] = array( '@id' => WPSEO_Utils::get_home_url() . WPSEO_Schema_IDs::ORGANIZATION_HASH );
