@@ -33,4 +33,4 @@ require dirname( __FILE__ ) . '/../../wordpress-seo/wp-seo.php';
 
 
 // Include unit test base class.
-require_once dirname( __FILE__ ) . '/framework/class-wpseo-news-unit-test-case.php';
+require_once dirname( __FILE__ ) . '/framework/unittestcase.php';
