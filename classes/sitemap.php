@@ -272,7 +272,7 @@ class WPSEO_News_Sitemap {
 	/**
 	 * Returns the basename of the news-sitemap, the first portion of the name of the sitemap "file".
 	 *
-	 * Defaults to news, but it's possible to override it by using the YOAST_VIDEO_SITEMAP_BASENAME constant.
+	 * Defaults to news, but it's possible to override it by using the YOAST_NEWS_SITEMAP_BASENAME constant.
 	 *
 	 * @since 3.1
 	 *
