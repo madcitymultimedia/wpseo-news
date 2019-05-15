@@ -28,9 +28,5 @@ else {
 	require '../../../../tests/phpunit/includes/bootstrap.php';
 }
 
-// Load WordPress seo.
-require dirname( __FILE__ ) . '/../../wordpress-seo/wp-seo.php';
-
-
 // Include unit test base class.
 require_once dirname( __FILE__ ) . '/framework/unittestcase.php';
