@@ -35,7 +35,7 @@ class WPSEO_News_Test extends WPSEO_News_UnitTestCase {
 			->will( $this->returnValue( $wordpress_seo_version ) );
 
 
-		$this->assertEquals( $expected, $class_instance->check_dependencies( $wordpress_version ), $message );
+		$this->assertSame( $expected, $class_instance->check_dependencies( $wordpress_version ), $message );
 	}
 
 	/**
