@@ -36,8 +36,8 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		$original_post_utc_time      = date( $timezone_format, $base_time );
 		$get_publication_date_output = $instance->get_publication_date( $test_post_date_gmt );
 
-		// Check if post_date_gmt is equal to output of get_publication_date().
-		$this->assertEquals( $original_post_utc_time, $get_publication_date_output );
+		// Check if post_date_gmt is the same as the output of get_publication_date().
+		$this->assertSame( $original_post_utc_time, $get_publication_date_output );
 	}
 
 	/**
@@ -68,8 +68,8 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		$original_post_date          = date( $timezone_format, $base_time );
 		$get_publication_date_output = $instance->get_publication_date( $test_post_date );
 
-		// Check if post_date is equal to output of get_publication_date().
-		$this->assertEquals( $original_post_date, $get_publication_date_output );
+		// Check if post_date is the same as the output of get_publication_date().
+		$this->assertSame( $original_post_date, $get_publication_date_output );
 	}
 
 	/**
@@ -94,8 +94,8 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 
 		$get_publication_date_output = $instance->get_publication_date( $test_post_date_gmt );
 
-		// Check if post_date_gmt is equal to output of get_publication_date().
-		$this->assertEquals( '', $get_publication_date_output );
+		// Check if post_date_gmt is the same as the output of get_publication_date().
+		$this->assertSame( '', $get_publication_date_output );
 	}
 
 	/**
@@ -117,7 +117,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		$blogname     = get_bloginfo( 'name' );
 
 		// Check if correct post_title - blogname is returned.
-		$this->assertEquals( 'Post without SEO title - ' . $blogname, $title_output );
+		$this->assertSame( 'Post without SEO title - ' . $blogname, $title_output );
 	}
 
 	/**
@@ -141,7 +141,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		WPSEO_Options::set( 'title-' . $test_seo_title->post_type, '' );
 
 		// Check if correct post_title is returned.
-		$this->assertEquals( 'Post without SEO title and no default set', $title_output );
+		$this->assertSame( 'Post without SEO title and no default set', $title_output );
 	}
 
 	/**
@@ -162,7 +162,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		$title_output = $instance->get_item_title( null );
 
 		// Check if an empty string is correctly returned.
-		$this->assertEquals( '', $title_output );
+		$this->assertSame( '', $title_output );
 	}
 
 	/**
@@ -185,7 +185,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		$title_output = $instance->get_item_title( $test_seo_title );
 
 		// Check if correct post_title is returned.
-		$this->assertEquals( 'SEO title of the post', $title_output );
+		$this->assertSame( 'SEO title of the post', $title_output );
 	}
 }
 

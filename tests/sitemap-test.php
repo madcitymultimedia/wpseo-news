@@ -34,7 +34,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	public function test_add_to_index_no_items() {
 		$input  = '';
 		$output = $this->instance->add_to_index( $input );
-		$this->assertEquals( $input, $output );
+		$this->assertSame( $input, $output );
 	}
 
 	/**
@@ -64,7 +64,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= '<lastmod>' . htmlspecialchars( $output_date->format( 'c' ) ) . '</lastmod>' . "\n";
 		$expected_output .= '</sitemap>' . "\n";
 
-		$this->assertEquals( $expected_output, $output );
+		$this->assertSame( $expected_output, $output );
 	}
 
 	/**
@@ -79,7 +79,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 </urlset>';
 
-		$this->assertEquals( $expected_output, $output );
+		$this->assertSame( $expected_output, $output );
 	}
 
 	/**
@@ -127,8 +127,8 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
 </urlset>';
 
-		// Check if the $output contains the $expected_output.
-		$this->assertContains( $expected_output, $output );
+		// Check if the $output is the same as the $expected_output.
+		$this->assertSame( $expected_output, $output );
 	}
 
 	/**
@@ -230,7 +230,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	 * @covers WPSEO_News_Sitemap::news_sitemap_basename
 	 */
 	public function test_sitemap_default_name() {
-		$this->assertEquals( 'news', WPSEO_News_Sitemap::news_sitemap_basename() );
+		$this->assertSame( 'news', WPSEO_News_Sitemap::news_sitemap_basename() );
 	}
 
 	/**
@@ -241,7 +241,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	public function test_sitemap_name_on_post_type() {
 		register_post_type( 'news' );
 
-		$this->assertEquals( 'yoast-news', WPSEO_News_Sitemap::news_sitemap_basename() );
+		$this->assertSame( 'yoast-news', WPSEO_News_Sitemap::news_sitemap_basename() );
 	}
 
 	/**
@@ -252,7 +252,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	public function test_sitemap_name_on_constant() {
 		define( 'YOAST_NEWS_SITEMAP_BASENAME', 'unit-test-news' );
 
-		$this->assertEquals( 'unit-test-news', WPSEO_News_Sitemap::news_sitemap_basename() );
+		$this->assertSame( 'unit-test-news', WPSEO_News_Sitemap::news_sitemap_basename() );
 	}
 
 	/**

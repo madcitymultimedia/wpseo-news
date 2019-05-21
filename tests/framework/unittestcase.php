@@ -45,7 +45,7 @@ class WPSEO_News_UnitTestCase extends WP_UnitTestCase {
 	protected function expectOutput( $string ) {
 		$output = ob_get_contents();
 		ob_clean();
-		$this->assertEquals( $output, $string );
+		$this->assertSame( $output, $string );
 	}
 
 	/**
