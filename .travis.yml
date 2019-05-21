@@ -80,13 +80,12 @@ before_install:
 install:
 - if [[ $TRAVIS_PHP_VERSION == "5.2" ]]; then phpenv local 5.6.13; fi
 - |
-  if [[ "$PHPCS" == "1" ]]; then
+  if [[ "$PHPCS" == "1" || ${TRAVIS_PHP_VERSION:0:3} > "7.1" ]]; then
     composer install --no-interaction
     composer config-yoastcs
   else
     composer install --no-dev --no-interaction
   fi
-- if [[ ${TRAVIS_PHP_VERSION:0:1} == "7" ]]; then composer require --dev phpunit/phpunit ^5.7; fi
 - phpenv local --unset
 - if [[ "$SECURITY" == "1" ]]; then wget -P $SECURITYCHECK_DIR https://get.sensiolabs.org/security-checker.phar && chmod +x $SECURITYCHECK_DIR/security-checker.phar;fi
 
@@ -161,10 +160,10 @@ script:
 - |
   if [[ "$PHPUNIT" == "1" ]]; then
     travis_fold start "PHP.tests" && travis_time_start
-    if [[ ${TRAVIS_PHP_VERSION:0:1} == "5" ]]; then
+    if [[ ${TRAVIS_PHP_VERSION:0:3} < "7.2" ]]; then
         phpunit
     fi
-    if [[ ${TRAVIS_PHP_VERSION:0:1} == "7" ]]; then
+    if [[ ${TRAVIS_PHP_VERSION:0:3} > "7.1" ]]; then
         vendor/bin/phpunit
     fi
     travis_time_finish && travis_fold end "PHP.tests"
