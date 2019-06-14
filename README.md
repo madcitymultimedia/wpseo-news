@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 4.9
 Tested up to: 5.2.1
-Stable tag: 11.3
+Stable tag: 11.5-RC1
 Requires PHP: 5.2.4
 Depends: Yoast SEO
 
@@ -28,6 +28,14 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 11.5: June 25th, 2019
+Other:
+* Compatibility with Yoast SEO 11.5
+
+### 11.4: June 12th, 2019
+Other:
+* Compatibility with Yoast SEO 11.4
+
 ### 11.3: May 28th, 2019
 Other:
 * Compatibility with Yoast SEO 11.3
