@@ -1,10 +1,14 @@
 /* global require, process */
+var path = require( "path" );
+var loadGruntConfig = require( "load-grunt-config" );
+var timeGrunt = require( "time-grunt" );
+
 const { flattenVersionForFile } = require( "./grunt/modules/version.js" );
 
 module.exports = function( grunt ) {
 	"use strict";
 
-	require( "time-grunt" )( grunt );
+	timeGrunt( grunt );
 
 	const pkg = grunt.file.readJSON( "package.json" );
 	const pluginVersion = pkg.yoast.pluginVersion;
@@ -12,6 +16,9 @@ module.exports = function( grunt ) {
 	// Define project configuration
 	var project = {
 		pluginVersion: pluginVersion,
+		pluginSlug: "wpseo-news",
+		pluginMainFile: "wpseo-news.php",
+		pluginVersionConstant: "WPSEO_NEWS_VERSION",
 		paths: {
 			get config() {
 				return this.grunt + "config/";
@@ -19,7 +26,8 @@ module.exports = function( grunt ) {
 			grunt: "grunt/",
 			js: "assets/",
 			languages: "languages/",
-			logs: "logs/"
+			logs: "logs/",
+			vendor: "vendor/"
 		},
 		files: {
 			js: [
@@ -45,8 +53,9 @@ module.exports = function( grunt ) {
 	project.pluginVersionSlug = flattenVersionForFile( pluginVersion );
 
 	// Load Grunt configurations and tasks
-	require( "load-grunt-config" )(grunt, {
-		configPath: require( "path" ).join( process.cwd(), project.paths.config ),
+	loadGruntConfig(grunt, {
+		configPath: path.join( process.cwd(), "node_modules/@yoast/grunt-plugin-tasks/config/" ),
+		overridePath: path.join( process.cwd(), project.paths.config ),
 		data: project,
 		jitGrunt: {
 			staticMappings: {

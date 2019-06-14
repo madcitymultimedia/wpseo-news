@@ -9,8 +9,7 @@
  * Represents the news extension for Yoast SEO.
  */
 class WPSEO_News {
-
-	const VERSION = '11.2';
+	const VERSION = WPSEO_NEWS_VERSION;
 
 	/**
 	 * Get WPSEO News options.
@@ -149,21 +148,6 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Check whether we can include the minified version or not.
-	 *
-	 * @param string $ext The file extension.
-	 *
-	 * @return string
-	 */
-	private function file_ext( $ext ) {
-		if ( ! defined( 'SCRIPT_DEBUG' ) || ! SCRIPT_DEBUG ) {
-			$ext = '.min' . $ext;
-		}
-
-		return $ext;
-	}
-
-	/**
 	 * Add plugin links.
 	 *
 	 * @param array  $links The plugin links.
@@ -239,7 +223,7 @@ class WPSEO_News {
 
 		wp_enqueue_script(
 			'wpseo-news-admin-page',
-			plugins_url( 'assets/admin-page' . $this->file_ext( '.js' ), WPSEO_NEWS_FILE ),
+			plugins_url( 'assets/admin-page.min.js', WPSEO_NEWS_FILE ),
 			array( 'jquery' ),
 			self::VERSION,
 			true

@@ -4,14 +4,15 @@
 build:
   - 'build:js'
   - 'build:i18n'
+
 # Build JavaScript from assets to production
 'build:js':
   - 'uglify'
+
 # Build internationalisation features
 'build:i18n':
   - 'addtextdomain'
   - 'makepot'
-  - 'glotpress_download'
 
 # Check health of the project
 check:
