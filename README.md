@@ -28,6 +28,10 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 11.6: Juli 7th, 2019
+Other:
+* Compatibility with Yoast SEO 11.6
+
 ### 11.5: June 25th, 2019
 Other:
 * Compatibility with Yoast SEO 11.5
