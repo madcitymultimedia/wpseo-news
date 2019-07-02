@@ -8,11 +8,9 @@
 .github export-ignore
 grunt export-ignore
 tests export-ignore
+.eslintrc export-ignore
 .gitattributes export-ignore
 .gitignore export-ignore
-.gruntjshintrc export-ignore
-.jscsrc export-ignore
-.jshintrc export-ignore
 .phpcs.xml export-ignore
 .phpcs.xml.dist export-ignore
 .removeable-files export-ignore

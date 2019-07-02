@@ -11,10 +11,10 @@ module.exports = {
 					// Files to copy.
 					"/assets/xml-news-sitemap.xsl",
 					"/assets/*.min.js",
-					"*.php"
+					"*.php",
 				],
 				dest: "artifact",
 			},
 		],
 	},
-}
+};

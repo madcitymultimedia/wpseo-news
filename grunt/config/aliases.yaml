@@ -14,21 +14,6 @@ build:
   - 'addtextdomain'
   - 'makepot'
 
-# Check health of the project
-check:
-  - 'check:js'
-  - 'check:php'
-  - 'check:i18n'
-'check:js':
-  - 'jshint'
-  - 'jsonlint'
-  - 'jsvalidate'
-  - 'jscs'
-'check:php':
-  - 'phplint'
-  - 'phpcs'
-'check:i18n':
-  - 'checktextdomain'
 # Create a zipped artifact from a fresh build
 'create:artifact':
   - 'update-version'
