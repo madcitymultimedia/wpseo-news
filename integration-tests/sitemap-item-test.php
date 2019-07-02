@@ -24,8 +24,8 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		$test_post_date_gmt = self::factory()->post->create_and_get(
 			array(
 				'post_title'    => 'Newest post',
-				'post_date'     => date( $timezone_format, $base_time ),
-				'post_date_gmt' => date( $timezone_format, $base_time ),
+				'post_date'     => gmdate( $timezone_format, $base_time ),
+				'post_date_gmt' => gmdate( $timezone_format, $base_time ),
 				'post_type'     => 'post',
 			)
 		);
@@ -33,7 +33,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		$test_options = WPSEO_News::get_options();
 		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_post_date_gmt, $test_options );
 
-		$original_post_utc_time      = date( $timezone_format, $base_time );
+		$original_post_utc_time      = gmdate( $timezone_format, $base_time );
 		$get_publication_date_output = $instance->get_publication_date( $test_post_date_gmt );
 
 		// Check if post_date_gmt is the same as the output of get_publication_date().
@@ -54,7 +54,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		$test_post_date = self::factory()->post->create_and_get(
 			array(
 				'post_title'    => 'Newest post',
-				'post_date'     => date( $timezone_format, $base_time ),
+				'post_date'     => gmdate( $timezone_format, $base_time ),
 				'post_type'     => 'post',
 			)
 		);
@@ -65,7 +65,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		$test_options = WPSEO_News::get_options();
 		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_post_date, $test_options );
 
-		$original_post_date          = date( $timezone_format, $base_time );
+		$original_post_date          = gmdate( $timezone_format, $base_time );
 		$get_publication_date_output = $instance->get_publication_date( $test_post_date );
 
 		// Check if post_date is the same as the output of get_publication_date().
