@@ -19,7 +19,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase {
 
 		Monkey\Functions\stubs(
 			[
-				// null makes that function return it's first argument.
+				// Passing "null" makes the function return it's first argument.
 				'esc_attr'       => null,
 				'esc_html'       => null,
 				'esc_textarea'   => null,
@@ -39,7 +39,7 @@ abstract class TestCase extends PHPUnit_Framework_TestCase {
 				'absint'         => function( $value ) {
 					return abs( intval( $value ) );
 				},
-				'wp_parse_args'       => function ( $settings, $defaults ) {
+				'wp_parse_args'  => function ( $settings, $defaults ) {
 					return \array_merge( $defaults, $settings );
 				},
 			]

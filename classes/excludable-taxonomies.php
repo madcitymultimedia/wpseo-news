@@ -9,6 +9,7 @@
  * Class representing the excludable taxonomies for a certain post type.
  */
 class WPSEO_News_Excludable_Taxonomies {
+
 	/**
 	 * The post type.
 	 *

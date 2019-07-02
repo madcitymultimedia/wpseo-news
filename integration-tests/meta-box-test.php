@@ -20,11 +20,13 @@ class WPSEO_News_Meta_Box_Test extends WPSEO_News_UnitTestCase {
 	public function test_add_metabox_section() {
 		$stub = $this
 			->getMockBuilder( 'WPSEO_News_Meta_Box_Double' )
-			->setMethods( array(
-				'is_post_type_supported',
-				'get_meta_boxes',
-				'do_meta_box',
-			) )
+			->setMethods(
+				array(
+					'is_post_type_supported',
+					'get_meta_boxes',
+					'do_meta_box',
+				)
+			)
 			->getMock();
 
 		$stub->method( 'is_post_type_supported' )->willReturn( true );

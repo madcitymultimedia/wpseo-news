@@ -270,8 +270,8 @@ class WPSEO_News {
 	public function error_missing_wpseo() {
 		echo '<div class="error"><p>';
 		printf(
+			/* translators: %1$s resolves to the link to search for Yoast SEO, %2$s resolves to the closing tag for this link, %3$s resolves to Yoast SEO, %4$s resolves to News SEO */
 			esc_html__(
-				/* translators: %1$s resolves to the link to search for Yoast SEO, %2$s resolves to the closing tag for this link, %3$s resolves to Yoast SEO, %4$s resolves to News SEO */
 				'Please %1$sinstall &amp; activate %3$s%2$s and then enable its XML sitemap functionality to allow the %4$s module to work.',
 				'wordpress-seo-news'
 			),
@@ -291,8 +291,8 @@ class WPSEO_News {
 	public function error_upgrade_wp() {
 		echo '<div class="error"><p>';
 		printf(
+			/* translators: %1$s resolves to News SEO */
 			esc_html__(
-				/* translators: %1$s resolves to News SEO */
 				'Please upgrade WordPress to the latest version to allow WordPress and the %1$s module to work properly.',
 				'wordpress-seo-news'
 			),
@@ -309,8 +309,8 @@ class WPSEO_News {
 	public function error_upgrade_wpseo() {
 		echo '<div class="error"><p>';
 		printf(
+			/* translators: %1$s resolves to Yoast SEO, %2$s resolves to News SEO */
 			esc_html__(
-				/* translators: %1$s resolves to Yoast SEO, %2$s resolves to News SEO */
 				'Please upgrade the %1$s plugin to the latest version to allow the %2$s module to work.',
 				'wordpress-seo-news'
 			),
