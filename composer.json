@@ -3,6 +3,7 @@
     "description": "Google News plugin for the Yoast SEO plugin",
     "type": "wordpress-plugin",
     "license": "GPL-2.0-or-later",
+    "homepage": "https://yoast.com/wordpress/plugins/news-seo/",
     "authors": [
         {
             "name": "Team Yoast",
@@ -10,7 +11,12 @@
             "homepage": "https://yoast.com"
         }
     ],
+    "support": {
+        "issues": "https://github.com/Yoast/wpseo-news/issues",
+        "source": "https://github.com/Yoast/wpseo-news"
+    },
     "require": {
+        "php": ">=5.2",
         "xrstf/composer-php52": "^1.0.20",
         "yoast/wp-helpscout": "^1.0||^2.0",
         "yoast/i18n-module": "^3.1.1"
@@ -33,8 +39,17 @@
     },
     "scripts": {
         "config-yoastcs": [
-            "\"vendor/bin/phpcs\" --config-set installed_paths ../../../vendor/wp-coding-standards/wpcs,../../../vendor/yoast/yoastcs",
-            "\"vendor/bin/phpcs\" --config-set default_standard Yoast"
+            "@php ./vendor/squizlabs/php_codesniffer/scripts/phpcs --config-set installed_paths ../../../vendor/wp-coding-standards/wpcs,../../../vendor/yoast/yoastcs",
+            "@php ./vendor/squizlabs/php_codesniffer/scripts/phpcs --config-set default_standard Yoast"
+        ],
+        "check-cs": [
+            "@php ./vendor/squizlabs/php_codesniffer/scripts/phpcs"
+        ],
+        "fix-cs": [
+            "@php ./vendor/squizlabs/php_codesniffer/scripts/phpcbf"
+        ],
+        "test": [
+            "@php ./vendor/phpunit/phpunit/phpunit"
         ],
         "post-install-cmd": [
             "xrstf\\Composer52\\Generator::onPostInstallCmd"
