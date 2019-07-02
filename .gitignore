@@ -1,5 +1,4 @@
 /vendor
-/assets/*.min.js
 node_modules/*
 .idea
 /.idea
