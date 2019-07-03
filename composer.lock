@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "7108bb1f09493c881083af8c43f4465a",
+    "content-hash": "1c63d9b003a8743a3a297af96dd04549",
     "packages": [
         {
             "name": "xrstf/composer-php52",
@@ -2002,6 +2002,8 @@
     "stability-flags": [],
     "prefer-stable": true,
     "prefer-lowest": false,
-    "platform": [],
+    "platform": {
+        "php": ">=5.2"
+    },
     "platform-dev": []
 }
