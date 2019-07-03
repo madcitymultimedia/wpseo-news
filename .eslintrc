@@ -3,8 +3,4 @@ extends: yoast
 parser: babel-eslint
 
 rules:
-  space-in-parens: 1
-  strict: 1
-  quotes: 1
   camelcase: 1
-  comma-dangle: 1
