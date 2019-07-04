@@ -1,8 +1,7 @@
 /* global require, process */
-var path = require( "path" );
-var loadGruntConfig = require( "load-grunt-config" );
-var timeGrunt = require( "time-grunt" );
-
+const path = require( "path" );
+const loadGruntConfig = require( "load-grunt-config" );
+const timeGrunt = require( "time-grunt" );
 const { flattenVersionForFile } = require( "./grunt/modules/version.js" );
 
 module.exports = function( grunt ) {
@@ -12,8 +11,10 @@ module.exports = function( grunt ) {
 	const pluginVersion = pkg.yoast.pluginVersion;
 
 	// Define project configuration.
-	var project = {
-		pluginVersion: pluginVersion,
+	const project = {
+		developmentBuild: false,
+		pluginVersion,
+		pluginVersionSlug: flattenVersionForFile( pluginVersion ),
 		pluginSlug: "wpseo-news",
 		pluginMainFile: "wpseo-news.php",
 		pluginVersionConstant: "WPSEO_NEWS_VERSION",
@@ -62,8 +63,6 @@ module.exports = function( grunt ) {
 		},
 		pkg: grunt.file.readJSON( "package.json" ),
 	};
-
-	project.pluginVersionSlug = flattenVersionForFile( pluginVersion );
 
 	/* eslint-disable camelcase */
 	// Load Grunt configurations and tasks.
