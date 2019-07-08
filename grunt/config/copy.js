@@ -7,7 +7,8 @@ module.exports = {
 				src: [
 					// Folders to copy.
 					"vendor/**",
-					"languages/**",
+					"!vendor/bin",
+					"languages/*.mo",
 					"classes/**",
 					// Files to copy.
 					"wpseo-news.php",
