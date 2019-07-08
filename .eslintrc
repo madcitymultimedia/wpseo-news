@@ -1,0 +1,6 @@
+extends: yoast
+
+parser: babel-eslint
+
+rules:
+  camelcase: 1
