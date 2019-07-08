@@ -15,17 +15,16 @@ build:
   - 'makepot'
 
 # Create a zipped artifact from a fresh build
-'create:artifact':
+'artifact':
+  - 'shell:composer-install-production'
   - 'update-version'
-  - 'build'
+  - 'build:js'
+  - 'build:i18n'
+  - 'clean:artifact'
   - 'copy:artifact'
   - 'compress:artifact'
-# Copy the needed files to the ./artifact folder
-'copy:artifact':
-  - 'copy:artifactFiles'
-# Create a compressed zip from the ./artifact folder
-'compress:artifact':
-  - 'compress:artifactFiles'
+  - 'shell:composer-install-dev'
+
 # Default task
 default:
   - build

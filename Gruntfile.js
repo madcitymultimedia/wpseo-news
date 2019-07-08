@@ -34,6 +34,7 @@ module.exports = function( grunt ) {
 			vendor: "vendor/",
 		},
 		files: {
+			artifact: "artifact",
 			js: [
 				"assets/**/*.js",
 				"!assets/**/*.min.js",

@@ -1,5 +1,5 @@
 module.exports = {
-	artifactFiles: {
+	artifact: {
 		files: [
 			{
 				expand: true,
@@ -8,10 +8,13 @@ module.exports = {
 					// Folders to copy.
 					"vendor/**",
 					"languages/**",
+					"classes/**",
 					// Files to copy.
-					"/assets/xml-news-sitemap.xsl",
-					"/assets/*.min.js",
-					"*.php",
+					"wpseo-news.php",
+					"assets/xml-news-sitemap.xsl",
+					"assets/*.min.js",
+					"README.md",
+					"license.txt",
 				],
 				dest: "artifact",
 			},
