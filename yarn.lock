@@ -113,10 +113,10 @@
   resolved "https://registry.yarnpkg.com/@types/q/-/q-1.5.2.tgz#690a1475b84f2a884fd07cd797c00f5f31356ea8"
   integrity sha512-ce5d3q03Ex0sy4R14722Rmt6MT07Ua+k4FwDfdcToYJcMKNtRVQvJ6JCAPdAmAnbRb6CsX6aYb9m96NGod9uTw==
 
-"@yoast/grunt-plugin-tasks@^1.4.0":
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/@yoast/grunt-plugin-tasks/-/grunt-plugin-tasks-1.4.0.tgz#f8e596c7d6aeae3561116e2f121487e031ddc80e"
-  integrity sha512-j/DC0ps6QCTLtdS4KN8dP+kk+6jniJKxGjIioQAGuZxcR/3OrbgUeFj/9jehTVfLef7aNHIXgY9BYWndnzhyhw==
+"@yoast/grunt-plugin-tasks@^1.4.1":
+  version "1.4.1"
+  resolved "https://registry.yarnpkg.com/@yoast/grunt-plugin-tasks/-/grunt-plugin-tasks-1.4.1.tgz#69666f698fbb38a085afb5f63a84dce17f36fd14"
+  integrity sha512-U+rU7O/q4a8YkXqqGhDWDF1bo58Y/htyVNtTw3Bst/st7j6JbwjkgEO18lXUp9oU5pzcBMiJ6KgNn497rVxJdA==
   dependencies:
     autoprefixer "^6.3.1"
     babel-eslint "^10.0.1"
@@ -2548,9 +2548,9 @@ grunt-eslint@^21.0.0:
     chalk "^2.1.0"
     eslint "^5.16.0"
 
-"grunt-glotpress@https://github.com/Yoast/grunt-glotpress.git#master":
+"grunt-glotpress@git+https://github.com/Yoast/grunt-glotpress.git#master":
   version "0.3.0"
-  resolved "https://github.com/Yoast/grunt-glotpress.git#e6ccc69c2532d126f5d8a30397ffd012e55b6eec"
+  resolved "git+https://github.com/Yoast/grunt-glotpress.git#e6ccc69c2532d126f5d8a30397ffd012e55b6eec"
   dependencies:
     request "^2.88.0"
     request-promise-native "^1.0.7"

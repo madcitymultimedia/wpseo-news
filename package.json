@@ -17,7 +17,7 @@
     "url": "https://github.com/Yoast/wpseo-news"
   },
   "devDependencies": {
-    "@yoast/grunt-plugin-tasks": "^1.4.0"
+    "@yoast/grunt-plugin-tasks": "^1.4.1"
   },
   "yoast": {
     "pluginVersion": "11.7-RC2"
