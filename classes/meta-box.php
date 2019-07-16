@@ -118,22 +118,53 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 */
 	public function add_tab_hooks() {
 		if ( $this->is_post_type_supported() ) {
-			add_action( 'wpseo_tab_header', array( $this, 'header' ) );
-			add_action( 'wpseo_tab_content', array( $this, 'content' ) );
+			add_filter( 'yoast_free_additional_metabox_sections', array( $this, 'add_metabox_section' ) );
 		}
 	}
 
 	/**
+	 * Adds a news section to the metabox sections array.
+	 *
+	 * @param array $sections The sections to add to.
+	 *
+	 * @return array
+	 */
+	public function add_metabox_section( $sections ) {
+		if ( ! $this->is_post_type_supported() ) {
+			return $sections;
+		}
+
+		$content = '';
+		foreach ( $this->get_meta_boxes() as $meta_key => $meta_box ) {
+			$content .= $this->do_meta_box( $meta_box, $meta_key );
+		}
+
+		$sections[] = array(
+			'name' => 'news',
+			'link_content' => '<span class="dashicons dashicons-admin-plugins"></span>' . esc_html__( 'Google News', 'wordpress-seo-news' ),
+			'content' => $content,
+		);
+
+		return $sections;
+	}
+
+	/**
 	 * The tab header.
+	 *
+	 * @deprecated 11.8
 	 */
 	public function header() {
+		_deprecated_function( __METHOD__, '11.8' );
 		echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . esc_html__( 'Google News', 'wordpress-seo-news' ) . '</a></li>';
 	}
 
 	/**
 	 * The tab content.
+	 *
+	 * @deprecated 11.8
 	 */
 	public function content() {
+		_deprecated_function( __METHOD__, '11.8' );
 		// Build tab content.
 		$content = '';
 
