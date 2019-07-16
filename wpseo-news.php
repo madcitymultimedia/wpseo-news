@@ -37,7 +37,7 @@ if ( ! defined( 'WPSEO_NEWS_FILE' ) ) {
 	define( 'WPSEO_NEWS_FILE', __FILE__ );
 }
 
-define( 'WPSEO_NEWS_VERSION', '11.3' );
+define( 'WPSEO_NEWS_VERSION', '11.6' );
 
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload_52.php' ) ) {
 	require dirname( __FILE__ ) . '/vendor/autoload_52.php';
