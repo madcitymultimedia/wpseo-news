@@ -98,6 +98,8 @@ class WPSEO_News {
 				WPSEO_News_Sitemap::get_sitemap_name( false )
 			);
 		}
+
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_scripts' ) );
 	}
 
 	/**
@@ -212,6 +214,32 @@ class WPSEO_News {
 		);
 
 		return $submenu_pages;
+	}
+
+	/**
+	 * Flattens a version number for use in a filename
+	 *
+	 * @param string $version The original version number.
+	 *
+	 * @return string The flattened version number.
+	 */
+	public function flatten_version( $version ) {
+		$parts = explode( '.', $version );
+		if ( count( $parts ) === 2 && preg_match( '/^\d+$/', $parts[1] ) === 1 ) {
+			$parts[] = '0';
+		}
+		return implode( '', $parts );
+	}
+
+	/**
+	 * Enqueues the plugin scripts.
+	 */
+	public function enqueue_scripts() {
+		global $pagenow;
+
+		if ( $pagenow === 'post.php' || $pagenow === 'post-new.php' ) {
+			wp_enqueue_style( 'wpseo-news-admin-metabox-css', plugins_url( 'css/dist/admin-metabox-' . $this->flatten_version( WPSEO_NEWS_VERSION ) . WPSEO_CSSJS_SUFFIX . '.css', WPSEO_NEWS_FILE ), array(), WPSEO_NEWS_VERSION );
+		}
 	}
 
 	/**

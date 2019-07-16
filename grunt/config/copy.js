@@ -14,6 +14,7 @@ module.exports = {
 					"wpseo-news.php",
 					"assets/xml-news-sitemap.xsl",
 					"assets/*.min.js",
+					"css/dist/*.min.css",
 					"README.md",
 					"license.txt",
 				],
