@@ -352,4 +352,64 @@ class WPSEO_News {
 			'usergenerated' => __( 'User Generated', 'wordpress-seo-news' ),
 		);
 	}
+
+	/**
+	 * Determines whether the post is excluded in the news sitemap (or schema) output.
+	 *
+	 * @param int $post_id The ID of the post to check for.
+	 *
+	 * @return bool Whether or not the post is excluded.
+	 */
+	public static function is_news_article_excluded( $post_id ) {
+		return WPSEO_Meta::get_value( 'newssitemap-exclude', $post_id ) === 'on';
+	}
+
+	/**
+	 * Excludes the item when one of its terms is excluded.
+	 *
+	 * @param int    $post_id   The ID of the post.
+	 * @param string $post_type The type of the post.
+	 *
+	 * @return bool True if the item should be excluded.
+	 */
+	public static function exclude_item_terms( $post_id, $post_type ) {
+		$options = self::get_options();
+		$terms   = self::get_terms_for_item( $post_id, $post_type );
+
+		foreach ( $terms as $term ) {
+			$term_exclude_option = 'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type;
+
+			if ( isset( $options[ $term_exclude_option ] ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Retrieves all the Term IDs for all the items.
+	 *
+	 * @param int    $post_id   The ID of the post.
+	 * @param string $post_type The type of the post.
+	 *
+	 * @return array The terms for the item.
+	 */
+	public static function get_terms_for_item( $post_id, $post_type ) {
+		$terms = array();
+
+		$excludable_taxonomies = new WPSEO_News_Excludable_Taxonomies( $post_type );
+
+		foreach ( $excludable_taxonomies->get() as $taxonomy ) {
+			$extra_terms = get_the_terms( $post_id, $taxonomy->name );
+
+			if ( ! is_array( $extra_terms ) || count( $extra_terms ) === 0 ) {
+				continue;
+			}
+
+			$terms = array_merge( $terms, $extra_terms );
+		}
+
+		return $terms;
+	}
 }
