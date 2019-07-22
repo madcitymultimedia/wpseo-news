@@ -354,7 +354,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Determines whether the post is excluded in the news sitemap (or schema) output.
+	 * Determines whether the post is excluded in the news sitemap (and therefore schema) output.
 	 *
 	 * @param int $post_id The ID of the post to check for.
 	 *

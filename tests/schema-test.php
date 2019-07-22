@@ -51,7 +51,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Tests whether the admin page is generated correctly.
+	 * Tests whether the @type in the schema is correctly changed to NewsArticle.
 	 *
 	 * @covers WPSEO_News_Schema::change_article
 	 * @covers WPSEO_News::is_news_article_excluded
@@ -76,7 +76,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Tests whether the admin page is generated correctly with an excluded term.
+	 * Tests whether the schema output is generated correctly if one of the terms that is attached to a post is excluded from the news sitemap.
 	 *
 	 * @covers WPSEO_News_Schema::change_article
 	 * @covers WPSEO_News::is_news_article_excluded
