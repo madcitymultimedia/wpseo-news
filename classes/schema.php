@@ -55,11 +55,14 @@ class WPSEO_News_Schema {
 	/**
 	 * Retrieves post data given a post ID or post object.
 	 *
+	 * This function exists to be abe to mock the get_post call and should
+	 * no longer be needed when moving the tests suite over to BrainMonkey.
+	 *
 	 * @codeCoverageIgnore
 	 *
-	 * @param int|WP_Post|null $post Optional. Post ID or post object. Defaults to global $post.
+	 * @param int|WP_Post|null $post Optional. Post ID or post object.
 	 *
-	 * @return WP_Post|null Type corresponding to $output on success or null on failure.
+	 * @return WP_Post|null The post object or null if it cannot be found.
 	 */
 	protected function get_post( $post = null ) {
 		return get_post( $post );
