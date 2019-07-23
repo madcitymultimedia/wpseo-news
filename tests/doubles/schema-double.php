@@ -18,6 +18,6 @@ class WPSEO_News_Schema_Double extends WPSEO_News_Schema {
 	 * @return WP_Post|null The post object or null if it cannot be found.
 	 */
 	public function get_post( $post = null ) {
-		return get_post( $post );
+		return parent::get_post( $post );
 	}
 }

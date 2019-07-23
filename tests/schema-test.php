@@ -51,12 +51,54 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
+	 * Tests whether the article post types includes `post` by default.
+	 *
+	 * @covers WPSEO_News_Schema::article_post_types
+	 * @covers WPSEO_News_Schema::is_post_excluded
+	 * @covers WPSEO_News::is_excluded_through_sitemap
+	 * @covers WPSEO_News::is_excluded_through_terms
+	 * @covers WPSEO_News::get_terms_for_post
+	 */
+	public function test_article_post_types() {
+		$this->default_mock
+			->expects( $this->once() )
+			->method( 'get_post' );
+
+		$actual = $this->default_mock->article_post_types( array() );
+
+		$this->assertEquals( array( 'post' ), $actual );
+	}
+
+	/**
+	 * Tests whether the article post types does not add when the post is excluded through a term.
+	 *
+	 * @covers WPSEO_News_Schema::article_post_types
+	 * @covers WPSEO_News_Schema::is_post_excluded
+	 * @covers WPSEO_News::is_excluded_through_sitemap
+	 * @covers WPSEO_News::is_excluded_through_terms
+	 * @covers WPSEO_News::get_terms_for_post
+	 */
+	public function test_article_post_types_with_excluded_term() {
+		$this->default_mock
+			->expects( $this->once() )
+			->method( 'get_post' );
+
+		// Add the term exclusion in the options.
+		add_filter( 'wpseo_news_options', array( $this, 'filter_options_exclude_uncategorized' ) );
+
+		$actual = $this->default_mock->article_post_types( array() );
+
+		$this->assertEquals( array(), $actual );
+	}
+
+	/**
 	 * Tests whether the @type in the schema is correctly changed to NewsArticle.
 	 *
 	 * @covers WPSEO_News_Schema::change_article
-	 * @covers WPSEO_News::is_news_article_excluded
-	 * @covers WPSEO_News::exclude_item_terms
-	 * @covers WPSEO_News::get_terms_for_item
+	 * @covers WPSEO_News_Schema::is_post_excluded
+	 * @covers WPSEO_News::is_excluded_through_sitemap
+	 * @covers WPSEO_News::is_excluded_through_terms
+	 * @covers WPSEO_News::get_terms_for_post
 	 */
 	public function test_change_article() {
 		$this->default_mock
@@ -79,9 +121,10 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 	 * Tests whether the schema output is generated correctly if one of the terms that is attached to a post is excluded from the news sitemap.
 	 *
 	 * @covers WPSEO_News_Schema::change_article
-	 * @covers WPSEO_News::is_news_article_excluded
-	 * @covers WPSEO_News::exclude_item_terms
-	 * @covers WPSEO_News::get_terms_for_item
+	 * @covers WPSEO_News_Schema::is_post_excluded
+	 * @covers WPSEO_News::is_excluded_through_sitemap
+	 * @covers WPSEO_News::is_excluded_through_terms
+	 * @covers WPSEO_News::get_terms_for_post
 	 */
 	public function test_change_article_with_an_excluded_term() {
 		$this->default_mock

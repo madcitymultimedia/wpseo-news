@@ -12,6 +12,8 @@ class WPSEO_News_Schema {
 
 	/**
 	 * WPSEO_News_Schema Constructor.
+	 *
+	 * @codeCoverageIgnore
 	 */
 	public function __construct() {
 		add_filter( 'wpseo_schema_article_post_types', array( $this, 'article_post_types' ) );
@@ -26,7 +28,10 @@ class WPSEO_News_Schema {
 	 * @return array $post_types Supported post types.
 	 */
 	public function article_post_types( $post_types ) {
-		$post_types = array_merge( WPSEO_News::get_included_post_types(), $post_types );
+		// When the news article is excluded do not alter the article post types.
+		if ( $this->is_post_excluded() ) {
+			$post_types = array_merge( WPSEO_News::get_included_post_types(), $post_types );
+		}
 
 		return $post_types;
 	}
@@ -41,8 +46,8 @@ class WPSEO_News_Schema {
 	public function change_article( $data ) {
 		$post = $this->get_post();
 		if ( $post !== null && in_array( $post->post_type, WPSEO_News::get_included_post_types(), true ) ) {
-			// When the news article is excluded (from the news sitemap) do not change the `@type` to `NewsArticle`.
-			if ( WPSEO_News::is_news_article_excluded( $post->ID ) === false && WPSEO_News::exclude_item_terms( $post->ID, $post->post_type ) === false ) {
+			// When the news article is excluded do not change the `@type` to `NewsArticle`.
+			if ( $this->is_post_excluded( $post ) ) {
 				$data['@type'] = 'NewsArticle';
 			}
 			$data['copyrightYear']   = mysql2date( 'Y', $post->post_date_gmt, false );
@@ -50,6 +55,25 @@ class WPSEO_News_Schema {
 		}
 
 		return $data;
+	}
+
+	/**
+	 * Checks if the given post should be excluded or not.
+	 *
+	 * @param WP_Post|null $post The post to check for.
+	 *
+	 * @return bool True if the post should be excluded.
+	 */
+	private function is_post_excluded( $post = null ) {
+		if ( $post === null ) {
+			$post = $this->get_post();
+		}
+
+		return (
+			$post !== null &&
+			WPSEO_News::is_excluded_through_sitemap( $post->ID ) === false &&
+			WPSEO_News::is_excluded_through_terms( $post->ID, $post->post_type ) === false
+		);
 	}
 
 	/**

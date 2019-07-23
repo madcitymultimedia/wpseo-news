@@ -62,7 +62,7 @@ class WPSEO_News_Sitemap_Item {
 	 * @return bool True if the item has to be skipped.
 	 */
 	private function skip_build_item() {
-		if ( WPSEO_News::is_news_article_excluded( $this->item->ID ) ) {
+		if ( WPSEO_News::is_excluded_through_sitemap( $this->item->ID ) ) {
 			return true;
 		}
 
@@ -81,7 +81,7 @@ class WPSEO_News_Sitemap_Item {
 			return true;
 		}
 
-		if ( WPSEO_News::exclude_item_terms( $this->item->ID, $this->item->post_type ) ) {
+		if ( WPSEO_News::is_excluded_through_terms( $this->item->ID, $this->item->post_type ) ) {
 			return true;
 		}
 
