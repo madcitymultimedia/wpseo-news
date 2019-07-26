@@ -70,16 +70,16 @@ class WPSEO_News_Schema {
 		}
 
 		return (
-			$post !== null &&
-			WPSEO_News::is_excluded_through_sitemap( $post->ID ) === false &&
-			WPSEO_News::is_excluded_through_terms( $post->ID, $post->post_type ) === false
+			$post !== null
+			&& WPSEO_News::is_excluded_through_sitemap( $post->ID ) === false
+			&& WPSEO_News::is_excluded_through_terms( $post->ID, $post->post_type ) === false
 		);
 	}
 
 	/**
 	 * Retrieves post data given a post ID or post object.
 	 *
-	 * This function exists to be abe to mock the get_post call and should
+	 * This function exists to be able to mock the get_post call and should
 	 * no longer be needed when moving the tests suite over to BrainMonkey.
 	 *
 	 * @codeCoverageIgnore
