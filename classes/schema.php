@@ -31,7 +31,7 @@ class WPSEO_News_Schema {
 		$post = $this->get_post();
 		// Alter the article post types only when the news article is not excluded.
 		if ( $post !== null && ! $this->is_post_excluded( $post ) ) {
-			$post_types = array_merge( WPSEO_News::get_included_post_types(), $post_types );
+			$post_types = array_unique( array_merge( WPSEO_News::get_included_post_types(), $post_types ) );
 		}
 
 		return $post_types;
