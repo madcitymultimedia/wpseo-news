@@ -28,8 +28,9 @@ class WPSEO_News_Schema {
 	 * @return array $post_types Supported post types.
 	 */
 	public function article_post_types( $post_types ) {
+		$post = $this->get_post();
 		// Alter the article post types only when the news article is not excluded.
-		if ( ! $this->is_post_excluded() ) {
+		if ( $post !== null && ! $this->is_post_excluded( $post ) ) {
 			$post_types = array_merge( WPSEO_News::get_included_post_types(), $post_types );
 		}
 
@@ -60,18 +61,13 @@ class WPSEO_News_Schema {
 	/**
 	 * Checks if the given post should be excluded or not.
 	 *
-	 * @param WP_Post|null $post The post to check for.
+	 * @param WP_Post $post The post to check for.
 	 *
 	 * @return bool True if the post should be excluded.
 	 */
-	private function is_post_excluded( $post = null ) {
-		if ( $post === null ) {
-			$post = $this->get_post();
-		}
-
+	private function is_post_excluded( $post ) {
 		return (
-			$post === null
-			|| WPSEO_News::is_excluded_through_sitemap( $post->ID )
+			WPSEO_News::is_excluded_through_sitemap( $post->ID )
 			|| WPSEO_News::is_excluded_through_terms( $post->ID, $post->post_type )
 		);
 	}
