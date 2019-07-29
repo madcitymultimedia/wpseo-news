@@ -28,8 +28,8 @@ class WPSEO_News_Schema {
 	 * @return array $post_types Supported post types.
 	 */
 	public function article_post_types( $post_types ) {
-		// When the news article is excluded do not alter the article post types.
-		if ( $this->is_post_excluded() ) {
+		// Alter the article post types only when the news article is not excluded.
+		if ( ! $this->is_post_excluded() ) {
 			$post_types = array_merge( WPSEO_News::get_included_post_types(), $post_types );
 		}
 
@@ -46,8 +46,8 @@ class WPSEO_News_Schema {
 	public function change_article( $data ) {
 		$post = $this->get_post();
 		if ( $post !== null && in_array( $post->post_type, WPSEO_News::get_included_post_types(), true ) ) {
-			// When the news article is excluded do not change the `@type` to `NewsArticle`.
-			if ( $this->is_post_excluded( $post ) ) {
+			// Change the `@type` to `NewsArticle` only when the news article is not excluded.
+			if ( ! $this->is_post_excluded( $post ) ) {
 				$data['@type'] = 'NewsArticle';
 			}
 			$data['copyrightYear']   = mysql2date( 'Y', $post->post_date_gmt, false );
@@ -70,9 +70,9 @@ class WPSEO_News_Schema {
 		}
 
 		return (
-			$post !== null
-			&& WPSEO_News::is_excluded_through_sitemap( $post->ID ) === false
-			&& WPSEO_News::is_excluded_through_terms( $post->ID, $post->post_type ) === false
+			$post === null
+			|| WPSEO_News::is_excluded_through_sitemap( $post->ID )
+			|| WPSEO_News::is_excluded_through_terms( $post->ID, $post->post_type )
 		);
 	}
 
