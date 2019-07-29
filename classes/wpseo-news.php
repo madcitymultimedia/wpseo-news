@@ -217,7 +217,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Flattens a version number for use in a filename
+	 * Flattens a version number for use in a filename.
 	 *
 	 * @param string $version The original version number.
 	 *
