@@ -6,7 +6,7 @@
  */
 
 /**
- * Class WWPSEO_News_Meta_Box_Double.
+ * Class WPSEO_News_Meta_Box_Double.
  */
 class WPSEO_News_Meta_Box_Double extends WPSEO_News_Meta_Box {
 
