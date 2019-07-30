@@ -149,37 +149,11 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	}
 
 	/**
-	 * The tab header.
-	 *
-	 * @deprecated 11.8
-	 */
-	public function header() {
-		_deprecated_function( __METHOD__, '11.8' );
-		echo '<li class="news"><a class="wpseo_tablink" href="#wpseo_news">' . esc_html__( 'Google News', 'wordpress-seo-news' ) . '</a></li>';
-	}
-
-	/**
-	 * The tab content.
-	 *
-	 * @deprecated 11.8
-	 */
-	public function content() {
-		_deprecated_function( __METHOD__, '11.8' );
-		// Build tab content.
-		$content = '';
-
-		foreach ( $this->get_meta_boxes() as $meta_key => $meta_box ) {
-			$content .= $this->do_meta_box( $meta_box, $meta_key );
-		}
-		$this->do_tab( 'news', __( 'Google News', 'wordpress-seo-news' ), $content );
-	}
-
-	/**
 	 * Check if current post_type is supported.
 	 *
 	 * @return bool
 	 */
-	private function is_post_type_supported() {
+	protected function is_post_type_supported() {
 		static $is_supported;
 
 		if ( $is_supported === null ) {
@@ -200,5 +174,24 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		}
 
 		return $is_supported;
+	}
+
+	/* ********************* DEPRECATED METHODS ********************* */
+
+	/**
+	 * The tab header.
+	 *
+	 * @deprecated 11.8
+	 */
+	public function header() {
+		_deprecated_function( __METHOD__, '11.9' );}
+
+	/**
+	 * The tab content.
+	 *
+	 * @deprecated 11.8
+	 */
+	public function content() {
+		_deprecated_function( __METHOD__, '11.9' );
 	}
 }
