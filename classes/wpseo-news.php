@@ -126,8 +126,8 @@ class WPSEO_News {
 			return false;
 		}
 
-		// Make sure the Yoast SEO version is least 10.2. In that version we introduced new functionality.
-		if ( version_compare( $wordpress_seo_version, '10.2-RC0', '<' ) ) {
+		// At least 11.9, in which we've refactored the metabox API for addons.
+		if ( version_compare( $wordpress_seo_version, '11.9-RC0', '<' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wpseo' ) );
 
 			return false;
