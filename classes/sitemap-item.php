@@ -62,7 +62,7 @@ class WPSEO_News_Sitemap_Item {
 	 * @return bool True if the item has to be skipped.
 	 */
 	private function skip_build_item() {
-		if ( WPSEO_Meta::get_value( 'newssitemap-exclude', $this->item->ID ) === 'on' ) {
+		if ( WPSEO_News::is_excluded_through_sitemap( $this->item->ID ) ) {
 			return true;
 		}
 
@@ -81,51 +81,11 @@ class WPSEO_News_Sitemap_Item {
 			return true;
 		}
 
-		if ( $this->exclude_item_terms() ) {
+		if ( WPSEO_News::is_excluded_through_terms( $this->item->ID, $this->item->post_type ) ) {
 			return true;
 		}
 
 		return false;
-	}
-
-	/**
-	 * Excludes the item when one of his terms is excluded.
-	 *
-	 * @return bool True if the item should be excluded.
-	 */
-	private function exclude_item_terms() {
-		foreach ( $this->get_terms_for_item() as $term ) {
-			$term_exclude_option = 'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $this->item->post_type;
-
-			if ( isset( $this->options[ $term_exclude_option ] ) ) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-
-	/**
-	 * Retrieves all the Term IDs for all the items.
-	 *
-	 * @return array The terms for the item.
-	 */
-	private function get_terms_for_item() {
-		$terms = array();
-
-		$excludable_taxonomies = new WPSEO_News_Excludable_Taxonomies( $this->item->post_type );
-
-		foreach ( $excludable_taxonomies->get() as $taxonomy ) {
-			$extra_terms = get_the_terms( $this->item->ID, $taxonomy->name );
-
-			if ( ! is_array( $extra_terms ) || count( $extra_terms ) === 0 ) {
-				continue;
-			}
-
-			$terms = array_merge( $terms, $extra_terms );
-		}
-
-		return $terms;
 	}
 
 	/**

@@ -163,9 +163,11 @@ class WPSEO_News {
 			$this_plugin = plugin_basename( WPSEO_NEWS_FILE );
 		}
 		if ( $file === $this_plugin ) {
-			$settings_link = '<a href="' . admin_url( 'admin.php?page=wpseo_news' ) . '">'
-				. __( 'Settings', 'wordpress-seo-news' )
-				. '</a>';
+			$settings_link = sprintf(
+				'<a href="%1$s">%2$s</a>',
+				admin_url( 'admin.php?page=wpseo_news' ),
+				__( 'Settings', 'wordpress-seo-news' )
+			);
 			array_unshift( $links, $settings_link );
 		}
 
@@ -268,8 +270,8 @@ class WPSEO_News {
 	public function error_missing_wpseo() {
 		echo '<div class="error"><p>';
 		printf(
-			/* translators: %1$s resolves to the link to search for Yoast SEO, %2$s resolves to the closing tag for this link, %3$s resolves to Yoast SEO, %4$s resolves to News SEO */
 			esc_html__(
+				/* translators: %1$s resolves to the link to search for Yoast SEO, %2$s resolves to the closing tag for this link, %3$s resolves to Yoast SEO, %4$s resolves to News SEO */
 				'Please %1$sinstall &amp; activate %3$s%2$s and then enable its XML sitemap functionality to allow the %4$s module to work.',
 				'wordpress-seo-news'
 			),
@@ -289,8 +291,8 @@ class WPSEO_News {
 	public function error_upgrade_wp() {
 		echo '<div class="error"><p>';
 		printf(
-			/* translators: %1$s resolves to News SEO */
 			esc_html__(
+				/* translators: %1$s resolves to News SEO */
 				'Please upgrade WordPress to the latest version to allow WordPress and the %1$s module to work properly.',
 				'wordpress-seo-news'
 			),
@@ -307,8 +309,8 @@ class WPSEO_News {
 	public function error_upgrade_wpseo() {
 		echo '<div class="error"><p>';
 		printf(
-			/* translators: %1$s resolves to Yoast SEO, %2$s resolves to News SEO */
 			esc_html__(
+				/* translators: %1$s resolves to Yoast SEO, %2$s resolves to News SEO */
 				'Please upgrade the %1$s plugin to the latest version to allow the %2$s module to work.',
 				'wordpress-seo-news'
 			),
@@ -379,5 +381,64 @@ class WPSEO_News {
 			'opinion'       => __( 'Opinion', 'wordpress-seo-news' ),
 			'usergenerated' => __( 'User Generated', 'wordpress-seo-news' ),
 		);
+	}
+
+	/**
+	 * Determines whether the post is excluded in the news sitemap (and therefore schema) output.
+	 *
+	 * @param int $post_id The ID of the post to check for.
+	 *
+	 * @return bool Whether or not the post is excluded.
+	 */
+	public static function is_excluded_through_sitemap( $post_id ) {
+		return WPSEO_Meta::get_value( 'newssitemap-exclude', $post_id ) === 'on';
+	}
+
+	/**
+	 * Determines if the post is excluded in through a term that is excluded.
+	 *
+	 * @param int    $post_id   The ID of the post.
+	 * @param string $post_type The type of the post.
+	 *
+	 * @return bool True if the post is excluded.
+	 */
+	public static function is_excluded_through_terms( $post_id, $post_type ) {
+		$options = self::get_options();
+		$terms   = self::get_terms_for_post( $post_id, $post_type );
+
+		foreach ( $terms as $term ) {
+			$term_exclude_option = 'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type;
+
+			if ( isset( $options[ $term_exclude_option ] ) ) {
+				return true;
+			}
+		}
+
+		return false;
+	}
+
+	/**
+	 * Retrieves all the term IDs for the post.
+	 *
+	 * @param int    $post_id   The ID of the post.
+	 * @param string $post_type The type of the post.
+	 *
+	 * @return array The terms for the item.
+	 */
+	public static function get_terms_for_post( $post_id, $post_type ) {
+		$terms                 = array();
+		$excludable_taxonomies = new WPSEO_News_Excludable_Taxonomies( $post_type );
+
+		foreach ( $excludable_taxonomies->get() as $taxonomy ) {
+			$extra_terms = get_the_terms( $post_id, $taxonomy->name );
+
+			if ( ! is_array( $extra_terms ) || count( $extra_terms ) === 0 ) {
+				continue;
+			}
+
+			$terms = array_merge( $terms, $extra_terms );
+		}
+
+		return $terms;
 	}
 }
