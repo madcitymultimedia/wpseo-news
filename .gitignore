@@ -5,3 +5,4 @@ node_modules/*
 /artifact
 artifact.zip
 phpunit.xml
+css/dist

@@ -3,10 +3,12 @@
 # Build everything
 build:
   - 'build:js'
+  - 'build:css'
   - 'build:i18n'
 
 # Build JavaScript from assets to production
 'build:js':
+  - 'clean:build-assets-js'
   - 'uglify'
 
 # Build internationalisation features
