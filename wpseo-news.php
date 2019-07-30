@@ -84,16 +84,6 @@ function yoast_wpseo_news_deactivate() {
 	yoast_wpseo_news_clear_sitemap_cache();
 }
 
-/**
- * Activate the license automatically.
- *
- * @deprecated 10.1
- * @codeCoverageIgnore
- */
-function wpseo_news_activate_license() {
-	_deprecated_function( __FUNCTION__, '10.1' );
-}
-
 register_activation_hook( WPSEO_NEWS_FILE, 'yoast_wpseo_news_activate' );
 
 register_deactivation_hook( WPSEO_NEWS_FILE, 'yoast_wpseo_news_deactivate' );
