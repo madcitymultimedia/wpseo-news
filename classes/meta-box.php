@@ -181,7 +181,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	/**
 	 * The tab header.
 	 *
-	 * @deprecated 11.8
+	 * @deprecated 11.9
 	 */
 	public function header() {
 		_deprecated_function( __METHOD__, '11.9' );}
@@ -189,7 +189,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	/**
 	 * The tab content.
 	 *
-	 * @deprecated 11.8
+	 * @deprecated 11.9
 	 */
 	public function content() {
 		_deprecated_function( __METHOD__, '11.9' );
