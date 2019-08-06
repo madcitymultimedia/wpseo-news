@@ -30,11 +30,11 @@ Changelog
 =========
 ### 11.9: August 20th, 2019
 Enhancements:
-* This add-on now has it's own tab in the Yoast SEO metabox, even if you have multiple Yoast SEO add-ons installed.
+* This add-on now has its own tab in the Yoast SEO metabox, even if you have multiple Yoast SEO add-ons installed.
 
 Bugfixes:
-* Fixes a bug where the `@type` in the schema output would be `NewsArticle` instead of `Article` for articles which are excluded from the news sitemap.
-* Fixes a bug where news-article pages and custom post-types included in the news sitemap would not receive an author in their schema output.
+* Fixes a bug where the `@type` in the schema output would be `NewsArticle` instead of `Article` for articles which were excluded from the news sitemap.
+* Fixes a bug where news article pages and custom post types included in the news sitemap would not receive an author in their schema output.
 
 Other:
 * Sets the minimum required Yoast SEO version to 11.9.
