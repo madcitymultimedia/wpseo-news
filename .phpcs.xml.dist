@@ -33,6 +33,15 @@
 	#############################################################################
 	-->
 
-	<rule ref="Yoast"/>
+	<rule ref="Yoast">
+		<!-- Set the custom test class whitelist for all sniffs which use it in one go.
+			 Ref: https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Customizable-sniff-properties#custom-unit-test-classes
+		-->
+		<properties>
+			<property name="custom_test_class_whitelist" type="array">
+				<element value="WPSEO_News_UnitTestCase"/>
+			</property>
+		</properties>
+	</rule>
 
 </ruleset>
