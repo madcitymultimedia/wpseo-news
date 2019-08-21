@@ -23,7 +23,8 @@
     },
     "require-dev": {
         "yoast/yoastcs": "^0.4.3",
-        "phpunit/phpunit": "^4.5 || ^5.7 || ^6.0 || ^7.0"
+        "phpunit/phpunit": "^4.5 || ^5.7 || ^6.0 || ^7.0",
+        "brain/monkey": "^2.3"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
@@ -34,6 +35,7 @@
     },
     "autoload-dev": {
         "classmap": [
+            "integration-tests/",
             "tests/"
         ]
     },
@@ -49,7 +51,10 @@
             "@php ./vendor/squizlabs/php_codesniffer/scripts/phpcbf"
         ],
         "test": [
-            "@php ./vendor/phpunit/phpunit/phpunit"
+            "@php ./vendor/phpunit/phpunit/phpunit -c phpunit.xml.dist"
+        ],
+        "integration-test": [
+            "@php ./vendor/phpunit/phpunit/phpunit -c phpunit-integration.xml.dist"
         ],
         "post-install-cmd": [
             "xrstf\\Composer52\\Generator::onPostInstallCmd"

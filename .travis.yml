@@ -33,7 +33,7 @@ jobs:
     - php: 5.2
       # As 'trusty' is not supporting PHP 5.2/5.3 anymore, we need to force using 'precise'.
       dist: precise
-      env: WP_VERSION=5.0 WP_MULTISITE=1 PHPLINT=1 PHPUNIT=1
+      env: WP_VERSION=5.0 WP_MULTISITE=1 PHPLINT=1 PHPUNIT_INTEGRATION=1
     - php: 5.6
       env: WP_VERSION=latest PHPUNIT=1
       # Use 'trusty' to test against MySQL 5.6, 'xenial' contains 5.7 by default.
@@ -86,6 +86,15 @@ install:
   else
     composer install --no-dev --no-interaction
   fi
+- |
+  if [[ "$PHPUNIT" == "1" || "$PHPUNIT_INTEGRATION" == "1" ]]; then
+    composer install --no-interaction
+  fi
+- |
+  if [[ "$COVERAGE" == "1" ]]; then
+    # Install phpcov so we can combine the coverage results of unit and integration tests.
+    composer require phpunit/phpcov ^3.1
+  fi
 - phpenv local --unset
 - if [[ "$SECURITY" == "1" ]]; then wget -P $SECURITYCHECK_DIR https://get.sensiolabs.org/security-checker.phar && chmod +x $SECURITYCHECK_DIR/security-checker.phar;fi
 
@@ -107,6 +116,7 @@ before_script:
     curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
     chmod +x ./cc-test-reporter
     ./cc-test-reporter before-build
+    mkdir -p /tmp/coverage
   fi
 
 # Clone WordPress
@@ -144,11 +154,16 @@ script:
   fi
 # PHP Linting
 - |
-  if [[ "$PHPLINT" == "1" ]]; then
+  if [[ "$PHPLINT" == "1" && ${TRAVIS_PHP_VERSION:0:3} < "5.6" ]]; then
     travis_fold start "PHP.check" && travis_time_start
-    find -L . -path ./vendor -prune -o -path ./node_modules -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
+    find -L . -path ./vendor -prune -o -path ./tests -prune -o -path ./node_modules -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
     travis_time_finish && travis_fold end "PHP.check"
   fi
+  if [[ "$PHPLINT" == "1" && ${TRAVIS_PHP_VERSION:0:3} > "5.5" ]]; then
+      travis_fold start "PHP.check" && travis_time_start
+      find -L . -path ./vendor -prune -o -path ./node_modules -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
+      travis_time_finish && travis_fold end "PHP.check"
+    fi
 # PHP Code Style
 - |
   if [[ "$PHPCS" == "1" ]]; then
@@ -156,15 +171,27 @@ script:
     vendor/bin/phpcs -q --runtime-set ignore_warnings_on_exit 1
     travis_time_finish && travis_fold end "PHP.code-style"
   fi
-# PHP Tests
+# PHP Integration Tests
+- |
+  if [[ "$PHPUNIT_INTEGRATION" == "1" ]]; then
+    travis_fold start "PHP.integration-tests" && travis_time_start
+    if [[ ${TRAVIS_PHP_VERSION:0:3} < "7.2" ]]; then
+        phpunit -c phpunit-integration.xml.dist
+    fi
+    if [[ ${TRAVIS_PHP_VERSION:0:3} > "7.1" ]]; then
+        vendor/bin/phpunit -c phpunit-integration.xml.dist
+    fi
+    travis_time_finish && travis_fold end "PHP.integration-tests"
+  fi
+# PHP Unit Tests
 - |
   if [[ "$PHPUNIT" == "1" ]]; then
     travis_fold start "PHP.tests" && travis_time_start
     if [[ ${TRAVIS_PHP_VERSION:0:3} < "7.2" ]]; then
-        phpunit
+        phpunit -c phpunit.xml.dist
     fi
     if [[ ${TRAVIS_PHP_VERSION:0:3} > "7.1" ]]; then
-        vendor/bin/phpunit
+        vendor/bin/phpunit -c phpunit.xml.dist
     fi
     travis_time_finish && travis_fold end "PHP.tests"
   fi
@@ -172,7 +199,9 @@ script:
 - |
   if [[ "$COVERAGE" == "1" ]]; then
     travis_fold start "PHP.coverage" && travis_time_start
-    vendor/bin/phpunit --coverage-clover build/logs/clover.xml
+    vendor/bin/phpunit -c phpunit-integration.xml.dist --coverage-php /tmp/coverage/integration-tests.cov
+    vendor/bin/phpunit --coverage-php /tmp/coverage/tests.cov
+    ./vendor/bin/phpcov merge /tmp/coverage --clover build/logs/clover.xml
     travis_time_finish && travis_fold end "PHP.coverage"
   fi
 - if [[ $TRAVIS_PHP_VERSION == "5.6" || $TRAVIS_PHP_VERSION == "7.2" ]]; then composer validate --no-check-all; fi

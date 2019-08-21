@@ -1,56 +1,27 @@
 <?php
 /**
- * Yoast SEO: News plugin test file.
+ * PHPUnit bootstrap file
  *
- * @package WPSEO_News\Tests
+ * @package WPSEO/WooCommerce/Tests
  */
 
-// Disable Xdebug backtrace.
-if ( function_exists( 'xdebug_disable' ) ) {
-	xdebug_disable();
+define( 'ABSPATH', true );
+define( 'WPSEO_INDEXABLES', true );
+
+define( 'MINUTE_IN_SECONDS', 60 );
+define( 'HOUR_IN_SECONDS', 3600 );
+define( 'DAY_IN_SECONDS', 86400 );
+define( 'WEEK_IN_SECONDS', 604800 );
+define( 'MONTH_IN_SECONDS', 2592000 );
+define( 'YEAR_IN_SECONDS', 31536000 );
+
+define( 'DB_HOST', 'nowhere' );
+define( 'DB_NAME', 'none' );
+define( 'DB_USER', 'nobody' );
+define( 'DB_PASSWORD', 'nothing' );
+
+if ( class_exists( 'opcache_reset' ) ) {
+	opcache_reset();
 }
 
-echo 'Welcome to the Yoast News SEO test suite' . PHP_EOL;
-echo 'Version: 1.0' . PHP_EOL . PHP_EOL;
-
-if ( false !== getenv( 'WP_DEVELOP_DIR' ) ) {
-	define( 'WP_DEVELOP_DIR', getenv( 'WP_DEVELOP_DIR' ) );
-}
-
-if ( false !== getenv( 'WP_PLUGIN_DIR' ) ) {
-	define( 'WP_PLUGIN_DIR', getenv( 'WP_PLUGIN_DIR' ) );
-}
-
-$GLOBALS['wp_tests_options'] = array(
-	'active_plugins' => array( 'wordpress-seo/wp-seo.php', 'wpseo-news/wpseo-news.php' ),
-);
-
-if ( file_exists( dirname( dirname( __FILE__ ) ) . '/vendor/autoload_52.php' ) === false ) {
-	echo PHP_EOL, 'ERROR: Run `composer install` to generate the autoload files before running the unit tests.', PHP_EOL;
-	exit( 1 );
-}
-
-if ( defined( 'WP_DEVELOP_DIR' ) ) {
-	if ( file_exists( WP_DEVELOP_DIR . 'tests/phpunit/includes/bootstrap.php' ) ) {
-		require WP_DEVELOP_DIR . 'tests/phpunit/includes/bootstrap.php';
-	}
-	else {
-		echo PHP_EOL, 'ERROR: Please check the WP_DEVELOP_DIR environment variable. Based on the current value ', WP_DEVELOP_DIR, ' the WordPress native unit test bootstrap file could not be found.', PHP_EOL;
-		exit( 1 );
-	}
-}
-elseif ( file_exists( '../../../../tests/phpunit/includes/bootstrap.php' ) ) {
-	require '../../../../tests/phpunit/includes/bootstrap.php';
-}
-else {
-	echo PHP_EOL, 'ERROR: The WordPress native unit test bootstrap file could not be found. Please set the WP_DEVELOP_DIR environment variable either in your OS or in a custom phpunit.xml file.', PHP_EOL;
-	exit( 1 );
-}
-
-if ( ! defined( 'WP_PLUGIN_DIR' ) || file_exists( WP_PLUGIN_DIR . '/wpseo-news/wpseo-news.php' ) === false ) {
-	echo PHP_EOL, 'ERROR: Please check whether the WP_PLUGIN_DIR environment variable is set and set to the correct value. The unit test suite won\'t be able to run without it.', PHP_EOL;
-	exit( 1 );
-}
-
-// Include unit test base class.
-require_once dirname( __FILE__ ) . '/framework/unittestcase.php';
+require_once __DIR__ . '/../vendor/autoload.php';
