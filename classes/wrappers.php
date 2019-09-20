@@ -13,68 +13,46 @@ class WPSEO_News_Wrappers {
 	/**
 	 * Fallback for admin_header.
 	 *
+	 * @deprecated 12.4
+	 *
 	 * @param bool   $form             Whether or not the form start tag should be included.
 	 * @param string $option_long_name Group name of the option.
 	 * @param string $option           The short name of the option to use for the current page.
 	 * @param bool   $contains_files   Whether the form should allow for file uploads.
-	 *
-	 * @return mixed
 	 */
 	public static function admin_header( $form = true, $option_long_name = 'yoast_wpseo_options', $option = 'wpseo', $contains_files = false ) {
-
-		if ( method_exists( 'Yoast_Form', 'admin_header' ) ) {
-			Yoast_Form::get_instance()->admin_header( $form, $option, $contains_files, $option_long_name );
-
-			return;
-		}
-
-		return self::admin_pages()->admin_header( true, 'yoast_wpseo_news_options', 'wpseo_news' );
+		_deprecated_function( __METHOD__, 'WPSEO News 12.4' );
 	}
 
 	/**
 	 * Fallback for admin_footer.
 	 *
+	 * @deprecated 12.4
+	 *
 	 * @param bool $submit       Whether or not a submit button and form end tag should be shown.
 	 * @param bool $show_sidebar Whether or not to show the banner sidebar - used by premium plugins to disable it.
-	 *
-	 * @return mixed
 	 */
 	public static function admin_footer( $submit = true, $show_sidebar = true ) {
-
-		if ( method_exists( 'Yoast_Form', 'admin_footer' ) ) {
-			Yoast_Form::get_instance()->admin_footer( $submit, $show_sidebar );
-
-			return;
-		}
-
-		return self::admin_pages()->admin_footer( $submit, $show_sidebar );
+		_deprecated_function( __METHOD__, 'WPSEO News 12.4' );
 	}
 
 	/**
 	 * Fallback for the textinput method.
 	 *
+	 * @deprecated 12.4
+	 *
 	 * @param string $var   The variable within the option to create the text input field for.
 	 * @param string $label The label to show for the variable.
 	 * @param string $option The option to use.
-	 *
-	 * @return mixed
 	 */
 	public static function textinput( $var, $label, $option = '' ) {
-		if ( method_exists( 'Yoast_Form', 'textinput' ) ) {
-			if ( $option !== '' ) {
-				Yoast_Form::get_instance()->set_option( $option );
-			}
-
-			Yoast_Form::get_instance()->textinput( $var, $label );
-
-			return;
-		}
-
-		return self::admin_pages()->textinput( $var, $label, $option );
+		_deprecated_function( __METHOD__, 'WPSEO News 12.4' );
 	}
 
 	/**
 	 * Wrapper for select method.
+	 *
+	 * @deprecated 12.4
 	 *
 	 * @param string $var    The variable within the option to create the select for.
 	 * @param string $label  The label to show for the variable.
@@ -84,51 +62,20 @@ class WPSEO_News_Wrappers {
 	 * @return mixed
 	 */
 	public static function select( $var, $label, $values, $option = '' ) {
-		if ( method_exists( 'Yoast_Form', 'select' ) ) {
-			if ( $option !== '' ) {
-				Yoast_Form::get_instance()->set_option( $option );
-			}
-
-			Yoast_Form::get_instance()->select( $var, $label, $values );
-
-			return;
-		}
-
-		return self::admin_pages()->select( $var, $label, $option );
+		_deprecated_function( __METHOD__, 'WPSEO News 12.4' );
 	}
 
 	/**
 	 * Wrapper for checkbox method.
 	 *
+	 * @deprecated 12.4
+	 *
 	 * @param string $var        The variable within the option to create the checkbox for.
 	 * @param string $label      The label to show for the variable.
 	 * @param bool   $label_left Whether the label should be left (true) or right (false).
 	 * @param string $option     The option to use.
-	 *
-	 * @return mixed
 	 */
 	public static function checkbox( $var, $label, $label_left = false, $option = '' ) {
-		if ( method_exists( 'Yoast_Form', 'checkbox' ) ) {
-			if ( $option !== '' ) {
-				Yoast_Form::get_instance()->set_option( $option );
-			}
-
-			Yoast_Form::get_instance()->checkbox( $var, $label, $label_left );
-
-			return;
-		}
-
-		return self::admin_pages()->checkbox( $var, $label, $label_left, $option );
-	}
-
-	/**
-	 * Returns the wpseo_admin pages global variable.
-	 *
-	 * @return mixed
-	 */
-	private static function admin_pages() {
-		global $wpseo_admin_pages;
-
-		return $wpseo_admin_pages;
+		_deprecated_function( __METHOD__, 'WPSEO News 12.4' );
 	}
 }
