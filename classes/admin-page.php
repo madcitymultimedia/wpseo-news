@@ -36,7 +36,7 @@ class WPSEO_News_Admin_Page {
 	 */
 	public function display() {
 		// Admin header.
-		WPSEO_News_Wrappers::admin_header( true, 'yoast_wpseo_news_options', 'wpseo_news' );
+		Yoast_Form::get_instance()->admin_header( true, 'wpseo_news', false, 'yoast_wpseo_news_options' );
 
 		// Introduction.
 		echo '<p>' . esc_html__( 'You will generally only need a News Sitemap when your website is included in Google News.', 'wordpress-seo-news' ) . '</p>';
@@ -54,10 +54,10 @@ class WPSEO_News_Admin_Page {
 		echo '<fieldset><legend class="screen-reader-text">' . esc_html__( 'News Sitemap settings', 'wordpress-seo-news' ) . '</legend>';
 
 		// Google News Publication Name.
-		echo WPSEO_News_Wrappers::textinput( 'name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );
+		Yoast_Form::get_instance()->textinput( 'name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );
 
 		// Default Genre.
-		echo WPSEO_News_Wrappers::select(
+		Yoast_Form::get_instance()->select(
 			'default_genre',
 			__( 'Default Genre', 'wordpress-seo-news' ),
 			WPSEO_News::list_genres()
@@ -72,7 +72,7 @@ class WPSEO_News_Admin_Page {
 		$this->excluded_post_type_taxonomies();
 
 		// Admin footer.
-		WPSEO_News_Wrappers::admin_footer( true, false );
+		Yoast_Form::get_instance()->admin_footer( true, false );
 	}
 
 	/**
@@ -104,7 +104,7 @@ class WPSEO_News_Admin_Page {
 		echo '<fieldset><legend class="screen-reader-text">' . esc_html__( 'Post Types to include:', 'wordpress-seo-news' ) . '</legend>';
 
 		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
-			echo WPSEO_News_Wrappers::checkbox( 'newssitemap_include_' . $posttype->name, $posttype->labels->name . ' (<code>' . $posttype->name . '</code>)', false );
+			Yoast_Form::get_instance()->checkbox( 'newssitemap_include_' . $posttype->name, $posttype->labels->name . ' (<code>' . $posttype->name . '</code>)', false );
 		}
 
 		echo '</fieldset><br>';
@@ -203,7 +203,7 @@ class WPSEO_News_Admin_Page {
 
 			foreach ( $terms as $term ) {
 
-				echo WPSEO_News_Wrappers::checkbox(
+				Yoast_Form::get_instance()->checkbox(
 					'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type->name,
 					$term->name,
 					false
