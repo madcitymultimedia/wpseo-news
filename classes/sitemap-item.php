@@ -143,7 +143,7 @@ class WPSEO_News_Sitemap_Item {
 
 		$this->output .= "\t\t<news:publication>\n";
 		$this->output .= "\t\t\t<news:name>" . $publication_name . '</news:name>' . "\n";
-		$this->output .= "\t\t\t<news:language>" . htmlspecialchars( $publication_lang ) . '</news:language>' . "\n";
+		$this->output .= "\t\t\t<news:language>" . htmlspecialchars( $publication_lang, ENT_COMPAT, get_bloginfo( 'charset' ), false ) . '</news:language>' . "\n";
 		$this->output .= "\t\t</news:publication>\n";
 	}
 

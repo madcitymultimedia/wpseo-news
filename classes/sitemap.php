@@ -56,7 +56,7 @@ class WPSEO_News_Sitemap {
 
 		$str .= '<sitemap>' . "\n";
 		$str .= '<loc>' . self::get_sitemap_name() . '</loc>' . "\n";
-		$str .= '<lastmod>' . htmlspecialchars( $date->format( 'c' ) ) . '</lastmod>' . "\n";
+		$str .= '<lastmod>' . htmlspecialchars( $date->format( 'c' ), ENT_COMPAT, get_bloginfo( 'charset' ), false ) . '</lastmod>' . "\n";
 		$str .= '</sitemap>' . "\n";
 
 		return $str;
