@@ -96,4 +96,12 @@
 		</properties>
 	</rule>
 
+	<rule ref="Yoast.Files.TestDoubles">
+		<properties>
+			<property name="doubles_path" type="array">
+				<element value="/integration-tests/doubles"/>
+			</property>
+		</properties>
+	</rule>
+
 </ruleset>
