@@ -94,6 +94,10 @@
 				<element value="Yoast\WP\News"/>
 			</property>
 		</properties>
+
+		<!-- Valid usage: For testing purposes, some non-prefixed globals are being created. -->
+		<exclude-pattern>/tests/bootstrap\.php$</exclude-pattern>
+		<exclude-pattern>/integration-tests/bootstrap\.php$</exclude-pattern>
 	</rule>
 
 	<rule ref="Yoast.Files.TestDoubles">
@@ -102,6 +106,33 @@
 				<element value="/integration-tests/doubles"/>
 			</property>
 		</properties>
+	</rule>
+
+
+	<!--
+	#############################################################################
+	SELECTIVE EXCLUSIONS
+	Exclude specific files for specific sniffs and/or exclude sub-groups in sniffs.
+	#############################################################################
+	-->
+
+	<!-- Allow for the double/mock classes to override methods just to change the visibility. -->
+	<rule ref="Generic.CodeAnalysis.UselessOverridingMethod.Found">
+		<exclude-pattern>/integration-tests/doubles/*-double\.php$</exclude-pattern>
+	</rule>
+
+	<!-- Allow for select unit test files to use less secure code. -->
+	<rule ref="WordPress.Security">
+		<exclude-pattern>/integration-tests/bootstrap\.php$</exclude-pattern>
+		<exclude-pattern>/integration-tests/framework/unittestcase\.php$</exclude-pattern>
+	</rule>
+
+	<!-- For documentation of the double/mock classes, please refer to the _real_ classes. -->
+	<rule ref="Generic.Commenting.DocComment.MissingShort">
+		<exclude-pattern>/integration-tests/doubles/*-double\.php$</exclude-pattern>
+	</rule>
+	<rule ref="Squiz.Commenting.FunctionComment.MissingParamTag">
+		<exclude-pattern>/integration-tests/doubles/*-double\.php$</exclude-pattern>
 	</rule>
 
 </ruleset>
