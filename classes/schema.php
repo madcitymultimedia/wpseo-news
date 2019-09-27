@@ -52,7 +52,7 @@ class WPSEO_News_Schema {
 				$data['@type'] = 'NewsArticle';
 			}
 			$data['copyrightYear']   = mysql2date( 'Y', $post->post_date_gmt, false );
-			$data['copyrightHolder'] = array( '@id' => WPSEO_Utils::get_home_url() . WPSEO_Schema_IDs::ORGANIZATION_HASH );
+			$data['copyrightHolder'] = array( '@id' => trailingslashit( WPSEO_Utils::get_home_url() ) . WPSEO_Schema_IDs::ORGANIZATION_HASH );
 		}
 
 		return $data;
