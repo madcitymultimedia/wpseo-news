@@ -87,10 +87,6 @@ install:
     composer install --no-dev --no-interaction
   fi
 - |
-  if [[ "$PHPUNIT" == "1" || "$PHPUNIT_INTEGRATION" == "1" ]]; then
-    composer install --no-interaction
-  fi
-- |
   if [[ "$COVERAGE" == "1" ]]; then
     # Install phpcov so we can combine the coverage results of unit and integration tests.
     composer require phpunit/phpcov ^3.1
