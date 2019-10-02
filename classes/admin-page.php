@@ -180,7 +180,7 @@ class WPSEO_News_Admin_Page {
 	/**
 	 * Echoes the sub heading + checkboxes to exclude terms within each of the post type's taxonomies.
 	 *
-	 * @param WP_Post_Type $post_type          The post type.
+	 * @param WP_Post_Type $post_type The post type.
 	 *
 	 * @return void
 	 */

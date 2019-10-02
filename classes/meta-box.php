@@ -140,9 +140,9 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		}
 
 		$sections[] = array(
-			'name' => 'news',
+			'name'         => 'news',
 			'link_content' => '<span class="dashicons dashicons-admin-plugins"></span>' . esc_html__( 'Google News', 'wordpress-seo-news' ),
-			'content' => $content,
+			'content'      => $content,
 		);
 
 		return $sections;

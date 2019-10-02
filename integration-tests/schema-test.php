@@ -40,14 +40,18 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 
 		$this->default_mock
 			->method( 'get_post' )
-			->will( $this->returnValue( self::factory()->post->create_and_get(
-				array(
-					'post_title'    => 'Newest post',
-					'post_date'     => $date_string,
-					'post_date_gmt' => $date_string,
-					'post_type'     => 'post',
+			->will(
+				$this->returnValue(
+					self::factory()->post->create_and_get(
+						array(
+							'post_title'    => 'Newest post',
+							'post_date'     => $date_string,
+							'post_date_gmt' => $date_string,
+							'post_type'     => 'post',
+						)
+					)
 				)
-			) ) );
+			);
 	}
 
 	/**
@@ -118,7 +122,8 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Tests whether the schema output is generated correctly if one of the terms that is attached to a post is excluded from the news sitemap.
+	 * Tests whether the schema output is generated correctly if one of the terms that is
+	 * attached to a post is excluded from the news sitemap.
 	 *
 	 * @covers WPSEO_News_Schema::change_article
 	 * @covers WPSEO_News_Schema::is_post_excluded
@@ -157,7 +162,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 	 * @return array $options
 	 */
 	public function filter_options_exclude_uncategorized( $options ) {
-		$options[ 'term_exclude_category_uncategorized_for_post' ] = true;
+		$options['term_exclude_category_uncategorized_for_post'] = true;
 		return $options;
 	}
 }
