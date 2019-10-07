@@ -32,7 +32,7 @@ Changelog
 =========
 ### 12.2: October 15th, 2019
 Enhancements:
-* Shows a floating `Save changes` button on the Yoast SEO Video admin page when the normal button is not visible in the browser window.
+* Shows a floating `Save changes` button on the Yoast SEO News admin page when the normal button is not visible in the browser window.
 
 Bugfixes:
 * Fixes a bug where the copyrightHolder schema piece would not stitch on Windows because of a missing slash.
