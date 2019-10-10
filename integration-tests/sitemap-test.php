@@ -265,8 +265,8 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$this->factory->post->create(
 			array(
 				'post_title'    => 'Newest post',
-				'post_date'     => date( 'Y-m-d H:i:s', $base_time ),
-				'post_date_gmt' => date( 'Y-m-d H:i:s', $base_time ),
+				'post_date'     => gmdate( 'Y-m-d H:i:s', $base_time ),
+				'post_date_gmt' => gmdate( 'Y-m-d H:i:s', $base_time ),
 			)
 		);
 
@@ -275,8 +275,8 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$this->factory->post->create(
 			array(
 				'post_title'    => 'New-ish post',
-				'post_date'     => date( 'Y-m-d H:i:s', $two_days_ago ),
-				'post_date_gmt' => date( 'Y-m-d H:i:s', $two_days_ago ),
+				'post_date'     => gmdate( 'Y-m-d H:i:s', $two_days_ago ),
+				'post_date_gmt' => gmdate( 'Y-m-d H:i:s', $two_days_ago ),
 			)
 		);
 
@@ -285,8 +285,8 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$this->factory->post->create(
 			array(
 				'post_title'    => 'Too old Post',
-				'post_date'     => date( 'Y-m-d H:i:s', $two_days_ago_one_minute ),
-				'post_date_gmt' => date( 'Y-m-d H:i:s', $two_days_ago_one_minute ),
+				'post_date'     => gmdate( 'Y-m-d H:i:s', $two_days_ago_one_minute ),
+				'post_date_gmt' => gmdate( 'Y-m-d H:i:s', $two_days_ago_one_minute ),
 			)
 		);
 
