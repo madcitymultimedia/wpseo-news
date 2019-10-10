@@ -175,15 +175,16 @@ class WPSEO_News_Sitemap_Images {
 		 */
 		$src = apply_filters( 'wpseo_xml_sitemap_img_src', $src, $this->item );
 
+		$encoding      = get_bloginfo( 'charset' );
 		$this->output .= "\t<image:image>\n";
-		$this->output .= "\t\t<image:loc>" . htmlspecialchars( $src ) . "</image:loc>\n";
+		$this->output .= "\t\t<image:loc>" . htmlspecialchars( $src, ENT_COMPAT, $encoding, false ) . "</image:loc>\n";
 
 		if ( ! empty( $img['title'] ) ) {
-			$this->output .= "\t\t<image:title>" . htmlspecialchars( $img['title'] ) . "</image:title>\n";
+			$this->output .= "\t\t<image:title>" . htmlspecialchars( $img['title'], ENT_COMPAT, $encoding, false ) . "</image:title>\n";
 		}
 
 		if ( ! empty( $img['alt'] ) ) {
-			$this->output .= "\t\t<image:caption>" . htmlspecialchars( $img['alt'] ) . "</image:caption>\n";
+			$this->output .= "\t\t<image:caption>" . htmlspecialchars( $img['alt'], ENT_COMPAT, $encoding, false ) . "</image:caption>\n";
 		}
 
 		$this->output .= "\t</image:image>\n";
