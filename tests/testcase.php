@@ -32,7 +32,7 @@ abstract class TestCase extends PHPUnit_TestCase {
 				'is_multisite'   => false,
 				'site_url'       => 'https://www.example.org',
 				'wp_json_encode' => function( $data, $options = 0, $depth = 512 ) {
-					// @phpcs:ignore -- Mocks the wp_json_encode function.
+					// phpcs:ignore Yoast.Yoast.AlternativeFunctions -- Mocks the wp_json_encode function.
 					return \json_encode( $data, $options, $depth );
 				},
 				'wp_slash'       => null,
