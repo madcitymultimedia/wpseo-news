@@ -29,9 +29,17 @@ class WPSEO_News_Meta_Box_Test extends WPSEO_News_UnitTestCase {
 			)
 			->getMock();
 
-		$stub->method( 'is_post_type_supported' )->willReturn( true );
-		$stub->method( 'get_meta_boxes' )->willReturn( array( 'metakey' => 'metabox' ) );
-		$stub->method( 'do_meta_box' )->willReturn( '[content]' );
+		$stub->expects( $this->any() )
+			->method( 'is_post_type_supported' )
+			->will( $this->returnValue( true ) );
+	
+		$stub->expects( $this->any() )
+			->method( 'get_meta_boxes' )
+			->will( $this->returnValue( array( 'metakey' => 'metabox' ) ) );
+	
+		$stub->expects( $this->any() )
+			->method( 'do_meta_box' )
+			->will( $this->returnValue( '[content]' ) );
 
 		$sections = $stub->add_metabox_section( array() );
 
@@ -53,7 +61,9 @@ class WPSEO_News_Meta_Box_Test extends WPSEO_News_UnitTestCase {
 			->setMethods( array( 'is_post_type_supported' ) )
 			->getMock();
 
-		$stub->method( 'is_post_type_supported' )->willReturn( false );
+		$stub->expects( $this->any() )
+			->method( 'is_post_type_supported' )
+			->will( $this->returnValue( false ) );
 
 		$sections = $stub->add_metabox_section( array() );
 

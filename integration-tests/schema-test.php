@@ -39,6 +39,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 			->getMock();
 
 		$this->default_mock
+			->expects( $this->any() )
 			->method( 'get_post' )
 			->will(
 				$this->returnValue(
