@@ -96,10 +96,10 @@ class WPSEO_News_Upgrade_Manager {
 		$current_options = get_option( 'wpseo_news' );
 
 		// Set new options.
-		$new_options = array(
+		$new_options = [
 			'news_sitemap_name'          => ( ( isset( $current_options['newssitemapname'] ) ) ? $current_options['newssitemapname'] : '' ),
 			'news_sitemap_default_genre' => ( ( isset( $current_options['newssitemap_default_genre'] ) ) ? $current_options['newssitemap_default_genre'] : '' ),
-		);
+		];
 
 		// Save new options.
 		update_option( 'wpseo_news', $new_options );
@@ -202,8 +202,8 @@ class WPSEO_News_Upgrade_Manager {
 	private function upgrade_1241() {
 		$options = get_option( 'wpseo_news' );
 
-		$included_post_types = array();
-		$excluded_terms      = array();
+		$included_post_types = [];
+		$excluded_terms      = [];
 
 		if ( isset( $options['news_sitemap_include_post_types'] ) && is_array( $options['news_sitemap_include_post_types'] ) ) {
 			$included_post_types = $options['news_sitemap_include_post_types'];
@@ -252,10 +252,10 @@ class WPSEO_News_Upgrade_Manager {
 		// phpcs:disable WordPress.DB.DirectDatabaseQuery,WordPress.DB.SlowDBQuery -- Upgrade routines are only used intermittently.
 		$wpdb->delete(
 			$wpdb->postmeta,
-			array(
+			[
 				'meta_key' => $key,
-			),
-			array( '%s' )
+			],
+			[ '%s' ]
 		);
 		// phpcs:enable
 	}

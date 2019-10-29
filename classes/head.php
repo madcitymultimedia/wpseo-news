@@ -26,7 +26,7 @@ class WPSEO_News_Head {
 		 *
 		 * @deprecated 12.5.0 Use the {@see 'Yoast\WP\News\head'} action instead.
 		 */
-		do_action_deprecated( 'wpseo_news_head', array(), 'YoastSEO News 12.5.0', 'Yoast\WP\News\head' );
+		do_action_deprecated( 'wpseo_news_head', [], 'YoastSEO News 12.5.0', 'Yoast\WP\News\head' );
 
 		/**
 		 * Allow for running additional code before adding the News header tags.
@@ -35,7 +35,7 @@ class WPSEO_News_Head {
 		 */
 		do_action( 'Yoast\WP\News\head' );
 
-		add_action( 'wpseo_head', array( $this, 'add_head_tags' ) );
+		add_action( 'wpseo_head', [ $this, 'add_head_tags' ] );
 	}
 
 	/**
@@ -68,7 +68,7 @@ class WPSEO_News_Head {
 		 */
 		$display_noindex = apply_filters_deprecated(
 			'wpseo_news_head_display_noindex',
-			array( true, $this->post ),
+			[ true, $this->post ],
 			'YoastSEO News 12.5.0',
 			'Yoast\WP\News\head_display_noindex'
 		);

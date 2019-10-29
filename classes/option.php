@@ -22,13 +22,13 @@ class WPSEO_News_Option extends WPSEO_Option {
 	 *
 	 * @var array
 	 */
-	protected $defaults = array(
+	protected $defaults = [
 		'news_sitemap_name'               => '',
 		'news_sitemap_default_genre'      => '',
 		'news_version'                    => '0',
-		'news_sitemap_include_post_types' => array(),
-		'news_sitemap_exclude_terms'      => array(),
-	);
+		'news_sitemap_include_post_types' => [],
+		'news_sitemap_exclude_terms'      => [],
+	];
 
 	/**
 	 * Registers the option to the WPSEO Options framework.
@@ -85,9 +85,9 @@ class WPSEO_News_Option extends WPSEO_Option {
 
 				case 'news_sitemap_include_post_types':
 				case 'news_sitemap_exclude_terms':
-					$clean[ $key ] = array();
+					$clean[ $key ] = [];
 
-					if ( isset( $dirty[ $key ] ) && ( is_array( $dirty[ $key ] ) && $dirty[ $key ] !== array() ) ) {
+					if ( isset( $dirty[ $key ] ) && ( is_array( $dirty[ $key ] ) && $dirty[ $key ] !== [] ) ) {
 						foreach ( $dirty[ $key ] as $name => $posted_value ) {
 							if ( is_string( $name ) ) {
 								$clean[ $key ][ $name ] = 'on';

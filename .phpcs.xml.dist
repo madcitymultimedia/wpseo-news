@@ -48,9 +48,6 @@
 				<element value="yoast_news"/>
 			</property>
 		</properties>
-
-		<!-- Short arrays will be demanded as of YoastCS 2.0, so ignore for now. -->
-		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
 	</rule>
 
 

@@ -35,7 +35,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 
 		$this->default_mock = $this
 			->getMockBuilder( 'WPSEO_News_Schema_Double' )
-			->setMethods( array( 'get_post', 'is_post_excluded' ) )
+			->setMethods( [ 'get_post', 'is_post_excluded' ] )
 			->getMock();
 
 		$this->default_mock
@@ -43,12 +43,12 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 			->will(
 				$this->returnValue(
 					self::factory()->post->create_and_get(
-						array(
+						[
 							'post_title'    => 'Newest post',
 							'post_date'     => $date_string,
 							'post_date_gmt' => $date_string,
 							'post_type'     => 'post',
-						)
+						]
 					)
 				)
 			);
@@ -65,9 +65,9 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 			->expects( $this->once() )
 			->method( 'get_post' );
 
-		$actual = $this->default_mock->article_post_types( array() );
+		$actual = $this->default_mock->article_post_types( [] );
 
-		$this->assertEquals( array( 'post' ), $actual );
+		$this->assertEquals( [ 'post' ], $actual );
 	}
 
 	/**
@@ -86,9 +86,9 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 			->method( 'is_post_excluded' )
 			->willReturn( $this->returnValue( true ) );
 
-		$actual = $this->default_mock->article_post_types( array() );
+		$actual = $this->default_mock->article_post_types( [] );
 
-		$this->assertEquals( array(), $actual );
+		$this->assertEquals( [], $actual );
 	}
 
 	/**
@@ -102,14 +102,14 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 			->expects( $this->once() )
 			->method( 'get_post' );
 
-		$expected = array(
+		$expected = [
 			'@type'           => 'NewsArticle',
 			'copyrightYear'   => $this->date->format( 'Y' ),
-			'copyrightHolder' => array(
+			'copyrightHolder' => [
 				'@id' => 'http://example.org/#organization',
-			),
-		);
-		$actual   = $this->default_mock->change_article( array() );
+			],
+		];
+		$actual   = $this->default_mock->change_article( [] );
 
 		$this->assertEquals( $expected, $actual );
 	}
@@ -135,13 +135,13 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 		 * Note there is no `@type` expected here. This is because we do not __override__ it.
 		 * Yoast SEO is setting the default of `Article` in the output of the actual page.
 		 */
-		$expected = array(
+		$expected = [
 			'copyrightYear'   => $this->date->format( 'Y' ),
-			'copyrightHolder' => array(
+			'copyrightHolder' => [
 				'@id' => 'http://example.org/#organization',
-			),
-		);
-		$actual   = $this->default_mock->change_article( array() );
+			],
+		];
+		$actual   = $this->default_mock->change_article( [] );
 
 		$this->assertEquals( $expected, $actual );
 	}

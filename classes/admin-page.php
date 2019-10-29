@@ -70,7 +70,7 @@ class WPSEO_News_Admin_Page {
 	 */
 	protected function register_i18n_promo_class() {
 		new Yoast_I18n_v3(
-			array(
+			[
 				'textdomain'     => 'wordpress_seo_news',
 				'project_slug'   => 'news-seo',
 				'plugin_name'    => 'WordPress SEO News',
@@ -79,7 +79,7 @@ class WPSEO_News_Admin_Page {
 				'glotpress_name' => 'Yoast Translate',
 				'glotpress_logo' => 'http://translate.yoast.com/gp-templates/images/Yoast_Translate.svg',
 				'register_url'   => 'http://translate.yoast.com/gp/projects#utm_source=plugin&utm_medium=promo-box&utm_campaign=wpseo-news-i18n-promo',
-			)
+			]
 		);
 	}
 
@@ -91,8 +91,8 @@ class WPSEO_News_Admin_Page {
 		echo '<h2>' . esc_html__( 'Post Types to include in News Sitemap', 'wordpress-seo-news' ) . '</h2>';
 		echo '<fieldset><legend class="screen-reader-text">' . esc_html__( 'Post Types to include:', 'wordpress-seo-news' ) . '</legend>';
 
-		$post_types      = get_post_types( array( 'public' => true ), 'objects' );
-		$post_types_list = array();
+		$post_types      = get_post_types( [ 'public' => true ], 'objects' );
+		$post_types_list = [];
 		foreach ( $post_types as $post_type ) {
 			$post_types_list[ $post_type->name ] = $post_type->labels->name . ' (' . $post_type->name . ')';
 		}
@@ -108,10 +108,10 @@ class WPSEO_News_Admin_Page {
 	 * @return void
 	 */
 	private function excluded_post_type_taxonomies() {
-		$post_types = get_post_types( array( 'public' => true ), 'objects' );
-		$post_types = array_filter( $post_types, array( $this, 'filter_included_post_type' ) );
+		$post_types = get_post_types( [ 'public' => true ], 'objects' );
+		$post_types = array_filter( $post_types, [ $this, 'filter_included_post_type' ] );
 
-		array_walk( $post_types, array( $this, 'excluded_post_type_taxonomies_output' ) );
+		array_walk( $post_types, [ $this, 'excluded_post_type_taxonomies_output' ] );
 	}
 
 	/**
@@ -154,7 +154,7 @@ class WPSEO_News_Admin_Page {
 	private function excluded_post_type_taxonomies_output( $post_type ) {
 		$terms_per_taxonomy = $this->get_excluded_post_type_taxonomies( $post_type );
 
-		if ( $terms_per_taxonomy === array() ) {
+		if ( $terms_per_taxonomy === [] ) {
 			return;
 		}
 
@@ -168,7 +168,7 @@ class WPSEO_News_Admin_Page {
 			/* translators: %1%s expands to the taxonomy name name. */
 			echo '<h3>' . esc_html( sprintf( __( '%1$s to exclude', 'wordpress-seo-news' ), $taxonomy->labels->name ) ) . '</h3>';
 
-			$taxonomies_list = array();
+			$taxonomies_list = [];
 			foreach ( $terms as $term ) {
 				$taxonomies_list[ $term->taxonomy . '_' . $term->slug . '_for_' . $post_type->name ] = $term->name;
 			}
@@ -185,7 +185,7 @@ class WPSEO_News_Admin_Page {
 	 * @return bool True when currently on a new page.
 	 */
 	protected function is_news_page( $page ) {
-		$news_pages = array( 'wpseo_news' );
+		$news_pages = [ 'wpseo_news' ];
 
 		return in_array( $page, $news_pages, true );
 	}

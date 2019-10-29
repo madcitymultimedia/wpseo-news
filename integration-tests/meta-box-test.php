@@ -21,19 +21,19 @@ class WPSEO_News_Meta_Box_Test extends WPSEO_News_UnitTestCase {
 		$stub = $this
 			->getMockBuilder( 'WPSEO_News_Meta_Box_Double' )
 			->setMethods(
-				array(
+				[
 					'is_post_type_supported',
 					'get_meta_boxes',
 					'do_meta_box',
-				)
+				]
 			)
 			->getMock();
 
 		$stub->method( 'is_post_type_supported' )->willReturn( true );
-		$stub->method( 'get_meta_boxes' )->willReturn( array( 'metakey' => 'metabox' ) );
+		$stub->method( 'get_meta_boxes' )->willReturn( [ 'metakey' => 'metabox' ] );
 		$stub->method( 'do_meta_box' )->willReturn( '[content]' );
 
-		$sections = $stub->add_metabox_section( array() );
+		$sections = $stub->add_metabox_section( [] );
 
 		$this->assertEquals( count( $sections ), 1 );
 
@@ -50,12 +50,12 @@ class WPSEO_News_Meta_Box_Test extends WPSEO_News_UnitTestCase {
 	public function test_add_metabox_section_unsupported_posttype() {
 		$stub = $this
 			->getMockBuilder( 'WPSEO_News_Meta_Box_Double' )
-			->setMethods( array( 'is_post_type_supported' ) )
+			->setMethods( [ 'is_post_type_supported' ] )
 			->getMock();
 
 		$stub->method( 'is_post_type_supported' )->willReturn( false );
 
-		$sections = $stub->add_metabox_section( array() );
+		$sections = $stub->add_metabox_section( [] );
 
 		$this->assertEquals( count( $sections ), 0 );
 	}

@@ -30,9 +30,9 @@ class WPSEO_News_Sitemap {
 	public function __construct() {
 		$this->date = new WPSEO_Date_Helper();
 
-		add_action( 'init', array( $this, 'init' ), 10 );
+		add_action( 'init', [ $this, 'init' ], 10 );
 
-		add_action( 'save_post', array( $this, 'invalidate_sitemap' ) );
+		add_action( 'save_post', [ $this, 'invalidate_sitemap' ] );
 
 		add_action( 'wpseo_news_schedule_sitemap_clear', 'yoast_wpseo_news_clear_sitemap_cache' );
 	}
@@ -68,19 +68,19 @@ class WPSEO_News_Sitemap {
 		$this->basename = self::get_sitemap_name( false );
 
 		// Setting stylesheet for cached sitemap.
-		add_action( 'wpseo_sitemap_stylesheet_cache_' . $this->basename, array( $this, 'set_stylesheet_cache' ) );
+		add_action( 'wpseo_sitemap_stylesheet_cache_' . $this->basename, [ $this, 'set_stylesheet_cache' ] );
 
 		if ( isset( $GLOBALS['wpseo_sitemaps'] ) ) {
-			add_filter( 'wpseo_sitemap_index', array( $this, 'add_to_index' ) );
+			add_filter( 'wpseo_sitemap_index', [ $this, 'add_to_index' ] );
 
 			$this->yoast_wpseo_news_schedule_clear();
 
 			// We might consider deprecating/removing this, because we are using a static xsl file.
-			$GLOBALS['wpseo_sitemaps']->register_sitemap( $this->basename, array( $this, 'build' ) );
+			$GLOBALS['wpseo_sitemaps']->register_sitemap( $this->basename, [ $this, 'build' ] );
 			if ( method_exists( $GLOBALS['wpseo_sitemaps'], 'register_xsl' ) ) {
 				$xsl_rewrite_rule = sprintf( '^%s-sitemap.xsl$', $this->basename );
 
-				$GLOBALS['wpseo_sitemaps']->register_xsl( $this->basename, array( $this, 'build_news_sitemap_xsl' ), $xsl_rewrite_rule );
+				$GLOBALS['wpseo_sitemaps']->register_xsl( $this->basename, [ $this, 'build_news_sitemap_xsl' ], $xsl_rewrite_rule );
 			}
 		}
 	}
@@ -218,7 +218,7 @@ class WPSEO_News_Sitemap {
 		$post_types = WPSEO_News::get_included_post_types();
 
 		if ( empty( $post_types ) ) {
-			return array();
+			return [];
 		}
 
 		$replacements   = $post_types;
@@ -275,7 +275,7 @@ class WPSEO_News_Sitemap {
 		 */
 		$sitemap_name = apply_filters_deprecated(
 			'wpseo_news_sitemap_name',
-			array( self::news_sitemap_basename() ),
+			[ self::news_sitemap_basename() ],
 			'YoastSEO News 12.5.0',
 			'Yoast\WP\News\sitemap_name'
 		);

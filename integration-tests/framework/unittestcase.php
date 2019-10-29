@@ -57,7 +57,7 @@ class WPSEO_News_UnitTestCase extends WP_UnitTestCase {
 	 *
 	 * @return mixed Method return.
 	 */
-	public function invoke_method( &$object, $method_name, array $parameters = array() ) {
+	public function invoke_method( &$object, $method_name, array $parameters = [] ) {
 		$reflection = new ReflectionClass( get_class( $object ) );
 		$method     = $reflection->getMethod( $method_name );
 
