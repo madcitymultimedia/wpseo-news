@@ -40,7 +40,7 @@ if ( defined( 'WP_DEVELOP_DIR' ) ) {
 	}
 }
 elseif ( file_exists( '../../../../tests/phpunit/includes/bootstrap.php' ) ) {
-	require '../../../../integration-tests/phpunit/includes/bootstrap.php';
+	require '../../../../tests/phpunit/includes/bootstrap.php';
 }
 else {
 	echo PHP_EOL, 'ERROR: The WordPress native unit test bootstrap file could not be found. Please set the WP_DEVELOP_DIR environment variable either in your OS or in a custom phpunit.xml file.', PHP_EOL;
