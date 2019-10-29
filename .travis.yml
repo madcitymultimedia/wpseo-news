@@ -91,6 +91,7 @@ install:
     # Install phpcov so we can combine the coverage results of unit and integration tests.
     composer require phpunit/phpcov ^3.1
   fi
+- composer dump-autoload
 - phpenv local --unset
 - if [[ "$SECURITY" == "1" ]]; then wget -P $SECURITYCHECK_DIR https://get.sensiolabs.org/security-checker.phar && chmod +x $SECURITYCHECK_DIR/security-checker.phar;fi
 
