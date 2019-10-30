@@ -21,7 +21,19 @@ class WPSEO_News_Head {
 	 * WPSEO_News_Head Constructor.
 	 */
 	public function __construct() {
-		do_action( 'wpseo_news_head' );
+		/**
+		 * Allow for running additional code before adding the News header tags.
+		 *
+		 * @deprecated 12.5.0 Use the {@see 'Yoast\WP\News\head'} action instead.
+		 */
+		do_action_deprecated( 'wpseo_news_head', array(), 'YoastSEO News 12.5.0', 'Yoast\WP\News\head' );
+
+		/**
+		 * Allow for running additional code before adding the News header tags.
+		 *
+		 * @since 12.5.0
+		 */
+		do_action( 'Yoast\WP\News\head' );
 
 		add_action( 'wpseo_head', array( $this, 'add_head_tags' ) );
 	}
