@@ -60,11 +60,31 @@ class WPSEO_News_Head {
 		/**
 		 * Filter: 'wpseo_news_head_display_noindex' - Allow preventing of outputting noindex tag.
 		 *
+		 * @deprecated 12.5.0. Use the {@see 'Yoast\WP\News\head_display_noindex'} filter instead.
+		 *
 		 * @api string $meta_robots The noindex tag.
 		 *
 		 * @param object $post The post.
 		 */
-		if ( apply_filters( 'wpseo_news_head_display_noindex', true, $this->post ) ) {
+		$display_noindex = apply_filters_deprecated(
+			'wpseo_news_head_display_noindex',
+			array( true, $this->post ),
+			'YoastSEO News 12.5.0',
+			'Yoast\WP\News\head_display_noindex'
+		);
+
+		/**
+		 * Filter: 'Yoast\WP\News\head_display_noindex' - Allow preventing of outputting noindex tag.
+		 *
+		 * @since 12.5.0
+		 *
+		 * @api string $meta_robots The noindex tag.
+		 *
+		 * @param object $post The post.
+		 */
+		$display_noindex = apply_filters( 'Yoast\WP\News\head_display_noindex', $display_noindex, $this->post );
+
+		if ( $display_noindex === true ) {
 			$robots_index = WPSEO_Meta::get_value( 'newssitemap-robots-index', $this->post->ID );
 			if ( ! empty( $robots_index ) ) {
 				echo '<meta name="Googlebot-News" content="noindex" />' . "\n";
