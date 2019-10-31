@@ -41,6 +41,9 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	 * Verifies that the news sitemap is correctly added to the sitemap index when there are news items.
 	 *
 	 * @covers WPSEO_News_Sitemap::add_to_index
+	 *
+	 * Prior to PHP 5.5.10, timezone offsets were not supported by `DateTimeZone` causing the test to fail.
+	 * @requires PHP 5.5.10
 	 */
 	public function test_add_to_index() {
 

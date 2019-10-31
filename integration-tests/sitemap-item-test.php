@@ -46,6 +46,9 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 	 * @covers WPSEO_News_Sitemap_Item::get_publication_date
 	 * @covers WPSEO_News_Sitemap_Item::is_valid_datetime
 	 * @covers WPSEO_News_Sitemap_Item::format_date_with_timezone
+	 *
+	 * Prior to PHP 5.5.10, timezone offsets were not supported by `DateTimeZone` causing the test to fail.
+	 * @requires PHP 5.5.10
 	 */
 	public function test_get_publication_date_returning_correct_post_date_when_no_gmt_set() {
 		$base_time       = time();
