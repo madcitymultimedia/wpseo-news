@@ -113,7 +113,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 			'@type'           => 'NewsArticle',
 			'copyrightYear'   => $this->date->format( 'Y' ),
 			'copyrightHolder' => array(
-				'@id' => 'http://example.org#organization',
+				'@id' => 'http://example.org/#organization',
 			),
 		);
 		$actual   = $this->default_mock->change_article( array() );
@@ -146,7 +146,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 		$expected = array(
 			'copyrightYear'   => $this->date->format( 'Y' ),
 			'copyrightHolder' => array(
-				'@id' => 'http://example.org#organization',
+				'@id' => 'http://example.org/#organization',
 			),
 		);
 		$actual   = $this->default_mock->change_article( array() );
