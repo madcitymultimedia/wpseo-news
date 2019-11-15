@@ -155,16 +155,13 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 			'post_type'  => 'post',
 		);
 		$test_seo_title = self::factory()->post->create_and_get( $post_details );
-
 		$test_options = WPSEO_News::get_options();
-
-		WPSEO_Meta::set_value( 'title', 'SEO title of the post', $test_seo_title->ID );
 		$instance = new WPSEO_News_Sitemap_Item_Double( $test_seo_title, $test_options );
 
 		$title_output = $instance->get_item_title( $test_seo_title );
 
 		// Check if correct post_title is returned.
-		$this->assertSame( 'SEO title of the post', $title_output );
+		$this->assertSame( 'Post with SEO title', $title_output );
 	}
 }
 
