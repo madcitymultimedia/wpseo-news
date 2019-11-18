@@ -16,14 +16,13 @@
         "source": "https://github.com/Yoast/wpseo-news"
     },
     "require": {
-        "php": ">=5.2",
-        "xrstf/composer-php52": "^1.0.20",
+        "php": ">=5.6",
         "yoast/wp-helpscout": "^1.0||^2.0",
         "yoast/i18n-module": "^3.1.1"
     },
     "require-dev": {
         "yoast/yoastcs": "^0.4.3",
-        "phpunit/phpunit": "^4.5 || ^5.7 || ^6.0 || ^7.0",
+        "phpunit/phpunit": "^5.7 || ^6.0 || ^7.0",
         "brain/monkey": "^2.3"
     },
     "minimum-stability": "dev",
@@ -45,7 +44,7 @@
             "@php ./vendor/squizlabs/php_codesniffer/scripts/phpcs --config-set default_standard Yoast"
         ],
         "check-cs": [
-            "@php ./vendor/squizlabs/php_codesniffer/scripts/phpcs"
+            "@php ./vendor/squizlabs/php_codesniffer/scripts/phpcs --runtime-set ignore_warnings_on_exit 1"
         ],
         "fix-cs": [
             "@php ./vendor/squizlabs/php_codesniffer/scripts/phpcbf"
@@ -55,15 +54,6 @@
         ],
         "integration-test": [
             "@php ./vendor/phpunit/phpunit/phpunit -c phpunit-integration.xml.dist"
-        ],
-        "post-install-cmd": [
-            "xrstf\\Composer52\\Generator::onPostInstallCmd"
-        ],
-        "post-update-cmd": [
-            "xrstf\\Composer52\\Generator::onPostInstallCmd"
-        ],
-        "post-autoload-dump": [
-            "xrstf\\Composer52\\Generator::onPostInstallCmd"
         ]
     }
 }
