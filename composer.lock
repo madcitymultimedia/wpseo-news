@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "97a7f90a76f14df3658f395e94fb63e3",
+    "content-hash": "53ea38a30ee649b68ea13a52f2856416",
     "packages": [
         {
             "name": "yoast/i18n-module",
@@ -50,43 +50,6 @@
                 "wordpress"
             ],
             "time": "2019-05-07T06:45:05+00:00"
-        },
-        {
-            "name": "yoast/wp-helpscout",
-            "version": "2.0.4",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Yoast/wp-helpscout.git",
-                "reference": "15549e900f67d62dbd0dd0b7fb72b7d064b65204"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wp-helpscout/zipball/15549e900f67d62dbd0dd0b7fb72b7d064b65204",
-                "reference": "15549e900f67d62dbd0dd0b7fb72b7d064b65204",
-                "shasum": ""
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ],
-                "files": [
-                    "src/functions.php"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-3.0+"
-            ],
-            "authors": [
-                {
-                    "name": "Team Yoast",
-                    "email": "support@yoast.com",
-                    "homepage": "https://yoast.com"
-                }
-            ],
-            "description": "A package to integrate the helpscout beacon into WordPress",
-            "time": "2018-10-31T09:37:07+00:00"
         }
     ],
     "packages-dev": [
