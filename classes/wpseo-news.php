@@ -66,19 +66,10 @@ class WPSEO_News {
 	 * Loading the hooks, which will be lead to methods withing this class.
 	 */
 	private function set_hooks() {
-		// Add plugin links.
 		add_filter( 'plugin_action_links', array( $this, 'plugin_links' ), 10, 2 );
-
-		// Add subitem to menu.
 		add_filter( 'wpseo_submenu_pages', array( $this, 'add_submenu_pages' ) );
-
-		// Register settings.
 		add_action( 'admin_init', array( $this, 'register_settings' ) );
-
-		// Only initialize Helpscout Beacon when the License Manager is present.
-		if ( class_exists( 'Yoast_Plugin_License_Manager' ) ) {
-			add_action( 'admin_init', array( $this, 'init_helpscout_beacon' ) );
-		}
+		add_action( 'admin_init', array( $this, 'init_helpscout_beacon' ) );
 	}
 
 	/**
@@ -324,15 +315,13 @@ class WPSEO_News {
 	 * Initializes the helpscout beacon.
 	 */
 	public function init_helpscout_beacon() {
-		$page      = filter_input( INPUT_GET, 'page' );
-		$query_var = ( ! empty( $page ) ) ? $page : '';
+		$helpscout = new WPSEO_HelpScout(
+			'161a6b32-9360-4613-bd04-d8098b283a0f',
+			[ 'wpseo_news' ],
+			[ WPSEO_Addon_Manager::NEWS_SLUG ]
+		);
 
-		// Only add the helpscout beacon on Yoast SEO pages.
-		if ( $query_var === 'wpseo_news' ) {
-			$beacon = yoast_get_helpscout_beacon( $query_var );
-			$beacon->add_setting( new WPSEO_News_Beacon_Setting() );
-			$beacon->register_hooks();
-		}
+		$helpscout->register_hooks();
 	}
 
 	/**
