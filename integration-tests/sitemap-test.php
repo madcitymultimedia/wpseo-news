@@ -104,7 +104,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output .= "\t\t\t<news:language>en</news:language>\n";
 		$expected_output .= "\t\t</news:publication>\n";
 		$expected_output .= "\t\t<news:publication_date>" . get_the_date( DATE_ATOM, $post_id ) . "</news:publication_date>\n";
-		$expected_output .= "\t\t<news:title><![CDATA[generate rss - " . get_bloginfo( 'name' ) . "]]></news:title>\n";
+		$expected_output .= "\t\t<news:title><![CDATA[generate rss]]></news:title>\n";
 		$expected_output .= "\t</news:news>\n";
 		$expected_output .= '</url>';
 
@@ -296,10 +296,10 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$output = $this->instance->build_sitemap();
 
 		// Check if the $output contains the $expected_output.
-		$this->assertContains( "\t\t<news:title><![CDATA[Newest post - " . get_bloginfo( 'name' ) . "]]></news:title>\n", $output );
-		$this->assertContains( "\t\t<news:title><![CDATA[New-ish post - " . get_bloginfo( 'name' ) . "]]></news:title>\n", $output );
+		$this->assertContains( "\t\t<news:title><![CDATA[Newest post]]></news:title>\n", $output );
+		$this->assertContains( "\t\t<news:title><![CDATA[New-ish post]]></news:title>\n", $output );
 
-		$this->assertNotContains( "\t\t<news:title><![CDATA[Too old Post - " . get_bloginfo( 'name' ) . "]]></news:title>\n", $output );
+		$this->assertNotContains( "\t\t<news:title><![CDATA[Too old Post]]></news:title>\n", $output );
 	}
 
 	/**

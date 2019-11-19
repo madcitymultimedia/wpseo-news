@@ -120,31 +120,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		$blogname     = get_bloginfo( 'name' );
 
 		// Check if correct post_title - blogname is returned.
-		$this->assertSame( 'Post without SEO title - ' . $blogname, $title_output );
-	}
-
-	/**
-	 * Checks if the post title output for the sitemap defaults to only the post title when no SEO title is present
-	 * and no SEO title defaults are set.
-	 *
-	 * @covers WPSEO_News_Sitemap_Item::get_item_title
-	 */
-	public function test_get_item_title_when_no_seo_title_set_and_no_default_is_set() {
-		$post_details   = array(
-			'post_title' => 'Post without SEO title and no default set',
-			'post_type'  => 'test_post_type',
-		);
-		$test_seo_title = self::factory()->post->create_and_get( $post_details );
-
-		$test_options = WPSEO_News::get_options();
-		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_seo_title, $test_options );
-		$title_output = $instance->get_item_title( $test_seo_title );
-
-		// Set the default SEO title for this post type to empty, to force it to return just the post_title.
-		WPSEO_Options::set( 'title-' . $test_seo_title->post_type, '' );
-
-		// Check if correct post_title is returned.
-		$this->assertSame( 'Post without SEO title and no default set', $title_output );
+		$this->assertSame( 'Post without SEO title', $title_output );
 	}
 
 	/**
@@ -179,16 +155,13 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 			'post_type'  => 'post',
 		);
 		$test_seo_title = self::factory()->post->create_and_get( $post_details );
-
 		$test_options = WPSEO_News::get_options();
-
-		WPSEO_Meta::set_value( 'title', 'SEO title of the post', $test_seo_title->ID );
 		$instance = new WPSEO_News_Sitemap_Item_Double( $test_seo_title, $test_options );
 
 		$title_output = $instance->get_item_title( $test_seo_title );
 
 		// Check if correct post_title is returned.
-		$this->assertSame( 'SEO title of the post', $title_output );
+		$this->assertSame( 'Post with SEO title', $title_output );
 	}
 }
 
