@@ -102,7 +102,7 @@ class WPSEO_News {
 	 */
 	protected function check_dependencies( $wp_version ) {
 		// When WordPress function is too low.
-		if ( version_compare( $wp_version, '4.9', '<' ) ) {
+		if ( version_compare( $wp_version, '5.2', '<' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wp' ) );
 
 			return false;
@@ -117,8 +117,8 @@ class WPSEO_News {
 			return false;
 		}
 
-		// At least 11.9, in which we've refactored the metabox API for addons.
-		if ( version_compare( $wordpress_seo_version, '11.9-RC0', '<' ) ) {
+		// At least 12.6, in which we implemented the new HelpScout Beacon.
+		if ( version_compare( $wordpress_seo_version, '12.6-RC0', '<' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wpseo' ) );
 
 			return false;
