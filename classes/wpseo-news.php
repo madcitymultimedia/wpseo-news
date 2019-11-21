@@ -315,6 +315,10 @@ class WPSEO_News {
 	 * Initializes the helpscout beacon.
 	 */
 	public function init_helpscout_beacon() {
+		if ( ! class_exists( 'WPSEO_HelpScout' ) ) {
+			return;
+		}
+
 		$helpscout = new WPSEO_HelpScout(
 			'161a6b32-9360-4613-bd04-d8098b283a0f',
 			[ 'wpseo_news' ],
