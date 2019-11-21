@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 5.2
 Tested up to: 5.3
-Stable tag: 12.2
+Stable tag: 12.3-RC1
 Requires PHP: 5.6.20
 Depends: Yoast SEO
 
@@ -30,6 +30,16 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 12.3: November 26th, 2019
+Enhancements:
+* Replaces the HelpScout Beacon 1.0 on the News SEO admin page with the Beacon 2.0.
+
+Bugfixes:
+* Fixes a bug where the News sitemap would contain the SEO title instead of the post title.
+
+Other:
+* Sets the minimum required WordPress version to 5.2, the minimum PHP version to 5.6.20, and the minimum required Yoast SEO version to 12.6.
+
 ### 12.2: October 15th, 2019
 Enhancements:
 * Shows a floating `Save changes` button on the Yoast SEO News admin page when the normal button is not visible in the browser window.
