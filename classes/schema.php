@@ -60,7 +60,7 @@ class WPSEO_News_Schema {
 			if ( ! $this->is_post_excluded( $post ) ) {
 				$data['@type'] = 'NewsArticle';
 			}
-			
+	
 			$data['copyrightYear']   = $this->date->format( $post->post_date_gmt, 'Y' );
 			$data['copyrightHolder'] = array( '@id' => trailingslashit( WPSEO_Utils::get_home_url() ) . WPSEO_Schema_IDs::ORGANIZATION_HASH );
 		}
