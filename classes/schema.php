@@ -13,7 +13,7 @@ class WPSEO_News_Schema {
 	/**
 	 * The date helper.
 	 *
-	 * @var Date_Helper
+	 * @var WPSEO_Date_Helper
 	 */
 	protected $date;
 
@@ -23,7 +23,7 @@ class WPSEO_News_Schema {
 	 * @codeCoverageIgnore
 	 */
 	public function __construct() {
-		$this->date = new Date_Helper();
+		$this->date = new WPSEO_Date_Helper();
 
 		add_filter( 'wpseo_schema_article_post_types', array( $this, 'article_post_types' ) );
 		add_filter( 'wpseo_schema_article', array( $this, 'change_article' ) );
