@@ -11,6 +11,13 @@
 class WPSEO_News_Sitemap {
 
 	/**
+	 * The date helper.
+	 *
+	 * @var WPSEO_Date_Helper
+	 */
+	protected $date;
+
+	/**
 	 * Options.
 	 *
 	 * @var array
@@ -29,6 +36,7 @@ class WPSEO_News_Sitemap {
 	 */
 	public function __construct() {
 		$this->options = WPSEO_News::get_options();
+		$this->date    = new WPSEO_Date_Helper();
 
 		add_action( 'init', array( $this, 'init' ), 10 );
 
@@ -52,11 +60,9 @@ class WPSEO_News_Sitemap {
 			return $str;
 		}
 
-		$date = new DateTime( get_lastpostdate( 'gmt' ), new DateTimeZone( 'UTC' ) );
-
 		$str .= '<sitemap>' . "\n";
 		$str .= '<loc>' . self::get_sitemap_name() . '</loc>' . "\n";
-		$str .= '<lastmod>' . htmlspecialchars( $date->format( 'c' ), ENT_COMPAT, get_bloginfo( 'charset' ), false ) . '</lastmod>' . "\n";
+		$str .= '<lastmod>' . htmlspecialchars( $this->date->format( get_lastpostdate( 'gmt' ) ), ENT_COMPAT, get_bloginfo( 'charset' ), false ) . '</lastmod>' . "\n";
 		$str .= '</sitemap>' . "\n";
 
 		return $str;
