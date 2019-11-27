@@ -120,8 +120,8 @@ class WPSEO_News {
 			return false;
 		}
 
-		// At least 12.6, in which we implemented the new HelpScout Beacon.
-		if ( version_compare( $wordpress_seo_version, '12.6-RC0', '<' ) ) {
+		// At least 12.6.1, in which we implemented the new HelpScout Beacon.
+		if ( version_compare( $wordpress_seo_version, '12.6.1-RC0', '<' ) ) {
 			add_action( 'all_admin_notices', array( $this, 'error_upgrade_wpseo' ) );
 
 			return false;

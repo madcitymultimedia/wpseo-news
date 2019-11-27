@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 5.2
 Tested up to: 5.3
-Stable tag: 12.3-RC2
+Stable tag: 12.3
 Requires PHP: 5.6.20
 Depends: Yoast SEO
 
@@ -30,7 +30,7 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
-### 12.3: November 26th, 2019
+### 12.3: November 27th, 2019
 Enhancements:
 * Replaces the HelpScout Beacon 1.0 on the News SEO admin page with the Beacon 2.0.
 
