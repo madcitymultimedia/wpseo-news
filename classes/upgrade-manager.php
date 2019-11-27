@@ -146,7 +146,7 @@ class WPSEO_News_Upgrade_Manager {
 	 * Removes the timezone notice when set.
 	 */
 	private function upgrade_124() {
-		Yoast_Notification_Center::get()->remove_notification_by_id('wpseo-news_timezone_format_empty');
+		Yoast_Notification_Center::get()->remove_notification_by_id( 'wpseo-news_timezone_format_empty' );
 	}
 
 	/**
