@@ -56,6 +56,11 @@ class WPSEO_News_Upgrade_Manager {
 		if ( version_compare( $current_version, '8.3', '<' ) ) {
 			$this->upgrade_83();
 		}
+
+		// Upgrade to version 12.4.
+		if ( version_compare( $current_version, '12.4-RC0', '<' ) ) {
+			$this->upgrade_124();
+		}
 	}
 
 	/**
@@ -135,6 +140,13 @@ class WPSEO_News_Upgrade_Manager {
 
 		// Update options.
 		update_option( 'wpseo_news', $options );
+	}
+
+	/**
+	 * Removes the timezone notice when set.
+	 */
+	private function upgrade_124() {
+		Yoast_Notification_Center::get()->remove_notification_by_id('wpseo-news_timezone_format_empty');
 	}
 
 	/**
