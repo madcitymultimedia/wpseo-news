@@ -11,6 +11,13 @@
 class WPSEO_News_Sitemap_Item {
 
 	/**
+	 * The date helper.
+	 *
+	 * @var WPSEO_Date_Helper
+	 */
+	protected $date;
+
+	/**
 	 * The output which will be returned.
 	 *
 	 * @var string
@@ -40,6 +47,7 @@ class WPSEO_News_Sitemap_Item {
 	public function __construct( $item, $options ) {
 		$this->item    = $item;
 		$this->options = $options;
+		$this->date    = new WPSEO_Date_Helper();
 
 		// Check if item should be skipped.
 		if ( ! $this->skip_build_item() ) {
@@ -209,12 +217,12 @@ class WPSEO_News_Sitemap_Item {
 	 * @return string
 	 */
 	protected function get_publication_date( $item ) {
-		if ( $this->is_valid_datetime( $item->post_date_gmt ) ) {
-			return $this->format_date_with_timezone( $item->post_date_gmt, 'UTC' );
+		if ( $this->date->is_valid_datetime( $item->post_date_gmt ) ) {
+			return $this->date->format( $item->post_date_gmt );
 		}
 
 		// Fallback: post_date.
-		if ( $this->is_valid_datetime( $item->post_date ) ) {
+		if ( $this->date->is_valid_datetime( $item->post_date ) ) {
 			return $this->format_date_with_timezone( $item->post_date, new WPSEO_News_Sitemap_Timezone() );
 		}
 
@@ -301,20 +309,5 @@ class WPSEO_News_Sitemap_Item {
 	 */
 	private function get_item_images() {
 		$this->output .= new WPSEO_News_Sitemap_Images( $this->item, $this->options );
-	}
-
-	/**
-	 * Wrapper function to check if we have a valid datetime (Uses a new util in WPSEO).
-	 *
-	 * @param string $datetime Datetime to check.
-	 *
-	 * @return bool
-	 */
-	private function is_valid_datetime( $datetime ) {
-		if ( method_exists( 'WPSEO_Utils', 'is_valid_datetime' ) ) {
-			return WPSEO_Utils::is_valid_datetime( $datetime );
-		}
-
-		return true;
 	}
 }
