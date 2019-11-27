@@ -38,7 +38,7 @@ Bugfixes:
 * Fixes a bug where the News sitemap would contain the SEO title instead of the post title.
 
 Other:
-* Sets the minimum required WordPress version to 5.2, the minimum PHP version to 5.6.20, and the minimum required Yoast SEO version to 12.6.
+* Sets the minimum required WordPress version to 5.2, the minimum PHP version to 5.6.20, and the minimum required Yoast SEO version to 12.6.1.
 
 ### 12.2: October 15th, 2019
 Enhancements:
