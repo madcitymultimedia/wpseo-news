@@ -172,7 +172,7 @@ class WPSEO_News_Sitemap {
 		// Make the browser cache this file properly.
 		header( 'Pragma: public' );
 		header( 'Cache-Control: maxage=' . YEAR_IN_SECONDS );
-		header( 'Expires: ' . $this->date->format_timestamp( time() +  YEAR_IN_SECONDS, 'D, d M Y H:i:s' ) . ' GMT' );
+		header( 'Expires: ' . $this->date->format_timestamp( (time() + YEAR_IN_SECONDS), 'D, d M Y H:i:s' ) . ' GMT' );
 
 		readfile( dirname( WPSEO_NEWS_FILE ) . '/assets/xml-news-sitemap.xsl' );
 		die();
