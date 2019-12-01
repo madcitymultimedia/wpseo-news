@@ -34,12 +34,18 @@
 	-->
 
 	<rule ref="Yoast">
-		<!-- Set the custom test class whitelist for all sniffs which use it in one go.
-			 Ref: https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Customizable-sniff-properties#custom-unit-test-classes
-		-->
 		<properties>
+			<!-- Set the custom test class whitelist for all sniffs which use it in one go.
+				 Ref: https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Customizable-sniff-properties#custom-unit-test-classes
+			-->
 			<property name="custom_test_class_whitelist" type="array">
 				<element value="WPSEO_News_UnitTestCase"/>
+			</property>
+
+			<!-- Provide the plugin specific prefixes for all naming related sniffs. -->
+			<property name="prefixes" type="array">
+				<element value="Yoast\WP\News"/>
+				<element value="yoast_news"/>
 			</property>
 		</properties>
 
@@ -68,7 +74,7 @@
 			<!-- Don't trigger on the main file as renaming it would deactivate the plugin.
 				 Also leave the main WPSEO_News class and associated test files alone as
 				 after removing the prefix, there would be nothing left. -->
-			<property name="exclude" type="array">
+			<property name="excluded_files_strict_check" type="array">
 				<element value="wpseo-news.php"/>
 				<element value="classes/wpseo-news.php"/>
 				<element value="integration-tests/wpseo-news-test.php"/>
@@ -76,31 +82,12 @@
 			</property>
 
 			<!-- Remove the following prefixes from the names of object structures. -->
-			<property name="prefixes" type="array">
+			<property name="oo_prefixes" type="array">
 				<element value="wpseo_news"/>
 				<element value="yoast_wpseo_news"/>
 				<element value="yoast_news"/>
 			</property>
 		</properties>
-	</rule>
-
-	<!-- Verify that everything in the global namespace is prefixed with a plugin specific prefix. -->
-	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
-		<properties>
-			<!-- Provide the prefixes to look for. -->
-			<property name="prefixes" type="array">
-				<element value="wpseo_news"/>
-				<element value="yoast_wpseo_news"/>
-
-				<!-- These are the new prefixes which all code should comply with in the future. -->
-				<element value="yoast_news"/>
-				<element value="Yoast\WP\News"/>
-			</property>
-		</properties>
-
-		<!-- Valid usage: For testing purposes, some non-prefixed globals are being created. -->
-		<exclude-pattern>/tests/bootstrap\.php$</exclude-pattern>
-		<exclude-pattern>/integration-tests/bootstrap\.php$</exclude-pattern>
 	</rule>
 
 	<rule ref="Yoast.Files.TestDoubles">
@@ -142,6 +129,12 @@
 		<exclude-pattern>/integration-tests/doubles/*-double\.php$</exclude-pattern>
 	</rule>
 
+	<!-- Valid usage: For testing purposes, some non-prefixed globals are being created. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<exclude-pattern>/tests/bootstrap\.php$</exclude-pattern>
+		<exclude-pattern>/integration-tests/bootstrap\.php$</exclude-pattern>
+	</rule>
+
 
 	<!--
 	#############################################################################
@@ -149,6 +142,18 @@
 	Adjustments which should be removed once the associated issue has been resolved.
 	#############################################################################
 	-->
+
+	<!-- Until all prefixes are fixed, some exceptions are allowed to the PrefixAllGlobals sniff. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<!-- Provide the prefixes to look for. -->
+			<property name="prefixes" type="array" extend="true">
+				<element value="wpseo_news"/>
+				<element value="yoast_wpseo_news"/>
+			</property>
+		</properties>
+	</rule>
+
 
 	<!-- Usage of non-cached direct database query. Should be reviewed.
 		 Ticket: https://github.com/Yoast/wpseo-news/issues/585 -->
