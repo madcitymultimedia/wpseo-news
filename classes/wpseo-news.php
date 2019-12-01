@@ -39,7 +39,7 @@ class WPSEO_News {
 	public function __construct() {
 		// Check if module can work.
 		global $wp_version;
-		if ( false === $this->check_dependencies( $wp_version ) ) {
+		if ( $this->check_dependencies( $wp_version ) === false ) {
 			return;
 		}
 
@@ -348,7 +348,7 @@ class WPSEO_News {
 			// Get supported post types.
 			$post_types = array();
 			foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $post_type ) {
-				if ( isset( $options[ 'newssitemap_include_' . $post_type->name ] ) && ( 'on' === $options[ 'newssitemap_include_' . $post_type->name ] ) ) {
+				if ( isset( $options[ 'newssitemap_include_' . $post_type->name ] ) && ( $options[ 'newssitemap_include_' . $post_type->name ] === 'on' ) ) {
 					$post_types[] = $post_type->name;
 				}
 			}
