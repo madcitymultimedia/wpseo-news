@@ -20,7 +20,7 @@
         "yoast/i18n-module": "^3.1.1"
     },
     "require-dev": {
-        "yoast/yoastcs": "^0.4.3",
+        "yoast/yoastcs": "^1.3.0",
         "phpunit/phpunit": "^5.7 || ^6.0 || ^7.0",
         "brain/monkey": "^2.4"
     },
@@ -39,14 +39,14 @@
     },
     "scripts": {
         "config-yoastcs": [
-            "@php ./vendor/squizlabs/php_codesniffer/scripts/phpcs --config-set installed_paths ../../../vendor/wp-coding-standards/wpcs,../../../vendor/yoast/yoastcs",
-            "@php ./vendor/squizlabs/php_codesniffer/scripts/phpcs --config-set default_standard Yoast"
+            "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run",
+            "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --config-set default_standard Yoast"
         ],
         "check-cs": [
-            "@php ./vendor/squizlabs/php_codesniffer/scripts/phpcs --runtime-set ignore_warnings_on_exit 1"
+            "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --runtime-set testVersion 5.6- --runtime-set ignore_warnings_on_exit 1"
         ],
         "fix-cs": [
-            "@php ./vendor/squizlabs/php_codesniffer/scripts/phpcbf"
+            "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf"
         ],
         "test": [
             "@php ./vendor/phpunit/phpunit/phpunit -c phpunit.xml.dist"
