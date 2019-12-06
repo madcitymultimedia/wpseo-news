@@ -58,10 +58,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		$output = $this->instance->add_to_index( '' );
 
-		$output_date      = new DateTime(
-			get_lastpostdate( 'gmt' ),
-			new DateTimeZone( new WPSEO_News_Sitemap_Timezone() )
-		);
+		$output_date      = new DateTime( get_lastpostdate( 'gmt' ) );
 		$expected_output  = '<sitemap>' . "\n";
 		$expected_output .= '<loc>' . home_url( 'news-sitemap.xml' ) . '</loc>' . "\n";
 		$expected_output .= '<lastmod>' . htmlspecialchars( $output_date->format( 'c' ), ENT_COMPAT, 'UTF-8', false ) . '</lastmod>' . "\n";

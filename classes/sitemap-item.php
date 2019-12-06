@@ -11,6 +11,13 @@
 class WPSEO_News_Sitemap_Item {
 
 	/**
+	 * The date helper.
+	 *
+	 * @var WPSEO_Date_Helper
+	 */
+	protected $date;
+
+	/**
 	 * The output which will be returned.
 	 *
 	 * @var string
@@ -40,6 +47,7 @@ class WPSEO_News_Sitemap_Item {
 	public function __construct( $item, $options ) {
 		$this->item    = $item;
 		$this->options = $options;
+		$this->date    = new WPSEO_Date_Helper();
 
 		// Check if item should be skipped.
 		if ( ! $this->skip_build_item() ) {
@@ -209,77 +217,11 @@ class WPSEO_News_Sitemap_Item {
 	 * @return string
 	 */
 	protected function get_publication_date( $item ) {
-		if ( $this->is_valid_datetime( $item->post_date_gmt ) ) {
-			return $this->format_date_with_timezone( $item->post_date_gmt, 'UTC' );
-		}
-
-		// Fallback: post_date.
-		if ( $this->is_valid_datetime( $item->post_date ) ) {
-			return $this->format_date_with_timezone( $item->post_date, new WPSEO_News_Sitemap_Timezone() );
+		if ( $this->date->is_valid_datetime( $item->post_date_gmt ) ) {
+			return $this->date->format( $item->post_date_gmt );
 		}
 
 		return '';
-	}
-
-	/**
-	 * Format a date string with a timezone.
-	 *
-	 * @param string                             $item_date Date to parse.
-	 * @param string|WPSEO_News_Sitemap_Timezone $time_zone Timezone to parse.
-	 *
-	 * @return string The formatted date string.
-	 */
-	private function format_date_with_timezone( $item_date, $time_zone ) {
-
-		// Create a DateTime object date in the correct timezone.
-		$datetime = new DateTime( $item_date, new DateTimeZone( $time_zone ) );
-
-		return $datetime->format( $this->get_date_format() );
-	}
-
-	/**
-	 * Checks if a DateTimeZone string is usable, either as a known timezone or as a numeric entry.
-	 *
-	 * @param string $timezone_string DateTimeZone string to check.
-	 *
-	 * @return bool
-	 */
-	private function is_timezone_usable( $timezone_string ) {
-		if ( $timezone_string === '' ) {
-			return false;
-		}
-
-		if ( in_array( $timezone_string, DateTimeZone::listIdentifiers(), true ) ) {
-			return true;
-		}
-
-		// Checks if the string matches a valid numeric DateTimeZone, for example "+0200".
-		return ( preg_match( '/[+-][0-9]{4}/', $timezone_string ) === 1 );
-	}
-
-	/**
-	 * When the timezone string option in WordPress is empty, just return YYYY-MM-DD as format.
-	 *
-	 * @return string
-	 */
-	private function get_date_format() {
-		static $timezone_format;
-
-		if ( $timezone_format === null ) {
-			// Set a default.
-			$timezone_format = 'Y-m-d';
-
-			// Get the timezone string.
-			$timezone_option = new WPSEO_News_Sitemap_Timezone();
-			$timezone_string = $timezone_option->wp_get_timezone_string();
-
-			// Is there a usable timezone string and does it exist in the list of 'valid' timezones.
-			if ( $this->is_timezone_usable( $timezone_string ) ) {
-				$timezone_format = DateTime::W3C;
-			}
-		}
-
-		return $timezone_format;
 	}
 
 	/**
@@ -301,20 +243,5 @@ class WPSEO_News_Sitemap_Item {
 	 */
 	private function get_item_images() {
 		$this->output .= new WPSEO_News_Sitemap_Images( $this->item, $this->options );
-	}
-
-	/**
-	 * Wrapper function to check if we have a valid datetime (Uses a new util in WPSEO).
-	 *
-	 * @param string $datetime Datetime to check.
-	 *
-	 * @return bool
-	 */
-	private function is_valid_datetime( $datetime ) {
-		if ( method_exists( 'WPSEO_Utils', 'is_valid_datetime' ) ) {
-			return WPSEO_Utils::is_valid_datetime( $datetime );
-		}
-
-		return true;
 	}
 }

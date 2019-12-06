@@ -26,9 +26,6 @@ class WPSEO_News_Admin_Page {
 		if ( $this->is_news_page( filter_input( INPUT_GET, 'page' ) ) ) {
 			$this->register_i18n_promo_class();
 		}
-
-		// When the timezone is an empty string.
-		$this->add_timezone_notice();
 	}
 
 	/**
@@ -223,37 +220,5 @@ class WPSEO_News_Admin_Page {
 		$news_pages = array( 'wpseo_news' );
 
 		return in_array( $page, $news_pages, true );
-	}
-
-	/**
-	 * Shows a notice when the timezone is in UTC format.
-	 */
-	private function add_timezone_notice() {
-		if ( ! class_exists( 'Yoast_Notification_Center' ) ) {
-			return;
-		}
-
-		$notification_message = sprintf(
-			/* translators: %1$s resolves to the opening tag of the link to the general settings page, %1$s resolves to the closing tag for the link */
-			__( 'Your timezone settings should reflect your real timezone, not a UTC offset, please change this on the %1$sGeneral Settings page%2$s.', 'wordpress-seo-news' ),
-			'<a href="' . esc_url( admin_url( 'options-general.php' ) ) . '">',
-			'</a>'
-		);
-
-		$notification_options = array(
-			'type'         => Yoast_Notification::ERROR,
-			'id'           => 'wpseo-news_timezone_format_empty',
-		);
-
-		$timezone_notification = new Yoast_Notification( $notification_message, $notification_options );
-
-		$notification_center = Yoast_Notification_Center::get();
-
-		if ( get_option( 'timezone_string' ) === '' ) {
-			$notification_center->add_notification( $timezone_notification );
-		}
-		else {
-			$notification_center->remove_notification( $timezone_notification );
-		}
 	}
 }

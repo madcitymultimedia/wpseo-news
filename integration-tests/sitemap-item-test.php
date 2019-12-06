@@ -14,8 +14,6 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 	 * Checks if the time output for the sitemap is correct when there is a post_date_gmt set.
 	 *
 	 * @covers WPSEO_News_Sitemap_Item::get_publication_date
-	 * @covers WPSEO_News_Sitemap_Item::is_valid_datetime
-	 * @covers WPSEO_News_Sitemap_Item::format_date_with_timezone
 	 */
 	public function test_get_publication_date_returning_correct_UTC_time() {
 		$base_time       = time();
@@ -44,8 +42,6 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 	 * Checks if the time output for the sitemap is correct when there is no post_date_gmt set.
 	 *
 	 * @covers WPSEO_News_Sitemap_Item::get_publication_date
-	 * @covers WPSEO_News_Sitemap_Item::is_valid_datetime
-	 * @covers WPSEO_News_Sitemap_Item::format_date_with_timezone
 	 *
 	 * Prior to PHP 5.5.10, timezone offsets were not supported by `DateTimeZone` causing the test to fail.
 	 * @requires PHP 5.5.10
@@ -68,7 +64,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		$test_options = WPSEO_News::get_options();
 		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_post_date, $test_options );
 
-		$original_post_date          = gmdate( $timezone_format, $base_time );
+		$original_post_date          = '';
 		$get_publication_date_output = $instance->get_publication_date( $test_post_date );
 
 		// Check if post_date is the same as the output of get_publication_date().
