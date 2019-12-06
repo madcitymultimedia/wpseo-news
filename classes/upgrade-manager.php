@@ -58,7 +58,7 @@ class WPSEO_News_Upgrade_Manager {
 		}
 
 		// Upgrade to version 12.4.
-		if ( version_compare( $current_version, '12.4-RC0', '<' ) ) {
+		if ( version_compare( $current_version, '12.4-RC0', '<=' ) ) {
 			$this->upgrade_124();
 		}
 	}
