@@ -98,6 +98,11 @@ class WPSEO_News_Sitemap {
 			return;
 		}
 
+		// Bail if this is a multisite installation and the site has been switched.
+		if ( is_multisite() && ms_is_switched() ) {
+			return;
+		}
+
 		// Only invalidate when we are in a News Post Type object.
 		if ( ! in_array( get_post_type( $post_id ), WPSEO_News::get_included_post_types(), true ) ) {
 			return;
