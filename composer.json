@@ -22,7 +22,7 @@
     "require-dev": {
         "yoast/yoastcs": "^0.4.3",
         "phpunit/phpunit": "^5.7 || ^6.0 || ^7.0",
-        "brain/monkey": "^2.3"
+        "brain/monkey": "^2.4"
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
