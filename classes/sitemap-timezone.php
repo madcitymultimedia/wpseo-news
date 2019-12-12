@@ -37,7 +37,7 @@ class WPSEO_News_Sitemap_Timezone {
 	 * @return string Valid PHP timezone string.
 	 */
 	public function wp_get_timezone_string() {
-		_deprecated_function( __METHOD, 'WPSEO News 12.4' );
+		_deprecated_function( __METHOD__, 'WPSEO News 12.4' );
 
 		// If site timezone string exists, return it.
 		$timezone = get_option( 'timezone_string' );
