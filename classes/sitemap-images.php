@@ -84,7 +84,7 @@ class WPSEO_News_Sitemap_Images {
 
 		// Also check if the featured image value is set.
 		$post_thumbnail_id = get_post_thumbnail_id( $this->item->ID );
-		if ( '' !== $post_thumbnail_id ) {
+		if ( $post_thumbnail_id !== '' ) {
 			$this->get_item_featured_image( $post_thumbnail_id );
 		}
 	}
