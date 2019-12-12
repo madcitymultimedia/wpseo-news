@@ -42,6 +42,9 @@
 				<element value="WPSEO_News_UnitTestCase"/>
 			</property>
 		</properties>
+
+		<!-- Short arrays will be demanded as of YoastCS 2.0, so ignore for now. -->
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
 	</rule>
 
 
