@@ -138,4 +138,18 @@
 		<exclude-pattern>/integration-tests/doubles/*-double\.php$</exclude-pattern>
 	</rule>
 
+
+	<!--
+	#############################################################################
+	TEMPORARY ADJUSTMENTS
+	Adjustments which should be removed once the associated issue has been resolved.
+	#############################################################################
+	-->
+
+	<!-- Usage of non-cached direct database query. Should be reviewed.
+		 Ticket: https://github.com/Yoast/wpseo-news/issues/585 -->
+	<rule ref="WordPress.DB.DirectDatabaseQuery">
+		<exclude-pattern>/classes/sitemap\.php$</exclude-pattern>
+	</rule>
+
 </ruleset>
