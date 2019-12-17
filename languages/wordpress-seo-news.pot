@@ -2,9 +2,9 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yoast SEO: News 12.3\n"
+"Project-Id-Version: Yoast SEO: News 12.4-RC1\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
-"POT-Creation-Date: 2019-11-27 09:53:18+00:00\n"
+"POT-Creation-Date: 2019-12-17 08:03:10+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -24,58 +24,50 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: classes/admin-page.php:42
+#: classes/admin-page.php:39
 msgid ""
 "You will generally only need a News Sitemap when your website is included "
 "in Google News."
 msgstr ""
 
-#: classes/admin-page.php:46
+#: classes/admin-page.php:43
 #. translators: %1$s opening tag of the link to the News Sitemap, %2$s closing
 #. tag for the link.
 msgid "%1$sView your News Sitemap%2$s."
 msgstr ""
 
-#: classes/admin-page.php:52
+#: classes/admin-page.php:49
 msgid "General settings"
 msgstr ""
 
-#: classes/admin-page.php:54
+#: classes/admin-page.php:51
 msgid "News Sitemap settings"
 msgstr ""
 
-#: classes/admin-page.php:57
+#: classes/admin-page.php:54
 msgid "Google News Publication Name"
 msgstr ""
 
-#: classes/admin-page.php:62
+#: classes/admin-page.php:59
 msgid "Default Genre"
 msgstr ""
 
-#: classes/admin-page.php:103
+#: classes/admin-page.php:100
 msgid "Post Types to include in News Sitemap"
 msgstr ""
 
-#: classes/admin-page.php:104
+#: classes/admin-page.php:101
 msgid "Post Types to include:"
 msgstr ""
 
-#: classes/admin-page.php:195
+#: classes/admin-page.php:192
 #. translators: %1%s expands to the post type name.
 msgid "Terms to exclude for %1$s"
 msgstr ""
 
-#: classes/admin-page.php:202
+#: classes/admin-page.php:199
 #. translators: %1%s expands to the taxonomy name name.
 msgid "%1$s to exclude"
-msgstr ""
-
-#: classes/admin-page.php:238
-#. translators: %1$s resolves to the opening tag of the link to the general
-#. settings page, %1$s resolves to the closing tag for the link
-msgid ""
-"Your timezone settings should reflect your real timezone, not a UTC offset, "
-"please change this on the %1$sGeneral Settings page%2$s."
 msgstr ""
 
 #: classes/javascript-strings.php:26
