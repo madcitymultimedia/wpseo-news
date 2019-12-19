@@ -31,10 +31,6 @@ class WPSEO_News_Sitemap {
 		$this->options = WPSEO_News::get_options();
 
 		add_action( 'init', array( $this, 'init' ), 10 );
-
-		add_action( 'save_post', array( $this, 'invalidate_sitemap' ) );
-
-		add_action( 'wpseo_news_schedule_sitemap_clear', 'yoast_wpseo_news_clear_sitemap_cache' );
 	}
 
 	/**
@@ -43,6 +39,8 @@ class WPSEO_News_Sitemap {
 	 * @param string $str String with Index sitemap content.
 	 *
 	 * @return string
+	 *
+	 * @throws Exception
 	 */
 	public function add_to_index( $str ) {
 
@@ -85,25 +83,6 @@ class WPSEO_News_Sitemap {
 				$GLOBALS['wpseo_sitemaps']->register_xsl( $this->basename, array( $this, 'build_news_sitemap_xsl' ), $xsl_rewrite_rule );
 			}
 		}
-	}
-
-	/**
-	 * Method to invalidate the sitemap.
-	 *
-	 * @param integer $post_id Post ID to invalidate for.
-	 */
-	public function invalidate_sitemap( $post_id ) {
-		// If this is just a revision, don't invalidate the sitemap cache yet.
-		if ( wp_is_post_revision( $post_id ) ) {
-			return;
-		}
-
-		// Only invalidate when we are in a News Post Type object.
-		if ( ! in_array( get_post_type( $post_id ), WPSEO_News::get_included_post_types(), true ) ) {
-			return;
-		}
-
-		WPSEO_Sitemaps_Cache::invalidate( $this->basename );
 	}
 
 	/**

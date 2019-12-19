@@ -21,7 +21,6 @@ class WPSEO_News_Wrappers {
 	 * @return mixed
 	 */
 	public static function admin_header( $form = true, $option_long_name = 'yoast_wpseo_options', $option = 'wpseo', $contains_files = false ) {
-
 		if ( method_exists( 'Yoast_Form', 'admin_header' ) ) {
 			Yoast_Form::get_instance()->admin_header( $form, $option, $contains_files, $option_long_name );
 
@@ -40,7 +39,6 @@ class WPSEO_News_Wrappers {
 	 * @return mixed
 	 */
 	public static function admin_footer( $submit = true, $show_sidebar = true ) {
-
 		if ( method_exists( 'Yoast_Form', 'admin_footer' ) ) {
 			Yoast_Form::get_instance()->admin_footer( $submit, $show_sidebar );
 

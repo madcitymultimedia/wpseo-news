@@ -41,7 +41,6 @@ if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload_52.php' ) ) {
 	require dirname( __FILE__ ) . '/vendor/autoload_52.php';
 }
 
-
 /**
  * Load text domain.
  */
@@ -58,40 +57,3 @@ function __wpseo_news_main() {
 	new WPSEO_News();
 }
 add_action( 'plugins_loaded', '__wpseo_news_main' );
-
-/**
- * Clear the news sitemap.
- */
-function yoast_wpseo_news_clear_sitemap_cache() {
-	if ( class_exists( 'WPSEO_Sitemaps_Cache' ) && method_exists( 'WPSEO_Sitemaps_Cache', 'clear' ) ) {
-		WPSEO_Sitemaps_Cache::clear( array( WPSEO_News_Sitemap::get_sitemap_name() ) );
-	}
-}
-
-/**
- * Clear the news sitemap when we activate the plugin.
- */
-function yoast_wpseo_news_activate() {
-	yoast_wpseo_news_clear_sitemap_cache();
-}
-
-/**
- * Clear the news sitemap when we activate the plugin.
- */
-function yoast_wpseo_news_deactivate() {
-	yoast_wpseo_news_clear_sitemap_cache();
-}
-
-/**
- * Activate the license automatically.
- *
- * @deprecated 10.1
- * @codeCoverageIgnore
- */
-function wpseo_news_activate_license() {
-	_deprecated_function( __FUNCTION__, '10.1' );
-}
-
-register_activation_hook( WPSEO_NEWS_FILE, 'yoast_wpseo_news_activate' );
-
-register_deactivation_hook( WPSEO_NEWS_FILE, 'yoast_wpseo_news_deactivate' );
