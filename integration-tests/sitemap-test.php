@@ -88,6 +88,8 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	 * @covers WPSEO_News_Sitemap::build_sitemap
 	 */
 	public function test_sitemap_NOT_empty() {
+		WPSEO_Options::set( 'news_sitemap_name', 'Test Blog' );
+
 		$post_id = $this->factory->post->create( array( 'post_title' => 'generate rss' ) );
 
 		$output = $this->instance->build_sitemap();
