@@ -132,35 +132,7 @@ class WPSEO_News_Admin_Page {
 	private function get_excluded_post_type_taxonomies( $post_type ) {
 		$excludable_taxonomies = new WPSEO_News_Excludable_Taxonomies( $post_type->name );
 
-		$taxonomy_terms = array_map( array( $this, 'get_terms_for_taxonomy' ), $excludable_taxonomies->get() );
-
-		return array_filter( $taxonomy_terms );
-	}
-
-	/**
-	 * Gets a list of terms for the given taxonomy, and returns them along with the taxonomy in an array.
-	 *
-	 * @param WP_Taxonomy $taxonomy The taxonomy to get the terms for.
-	 *
-	 * @return array An array containing both the taxonomy and its terms.
-	 */
-	protected function get_terms_for_taxonomy( WP_Taxonomy $taxonomy ) {
-		$terms = get_terms(
-			array(
-				'taxonomy'   => $taxonomy->name,
-				'hide_empty' => false,
-				'show_ui'    => true,
-			)
-		);
-
-		if ( count( $terms ) === 0 ) {
-			return null;
-		}
-
-		return array(
-			'taxonomy' => $taxonomy,
-			'terms'    => $terms,
-		);
+		return $excludable_taxonomies->get_terms();
 	}
 
 	/**
