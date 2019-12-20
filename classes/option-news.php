@@ -110,7 +110,7 @@ class WPSEO_Option_News extends WPSEO_Option {
 
 		foreach ( $clean as $key => $value ) {
 			switch ( $key ) {
-				case 'news-version':
+				case 'news_version':
 					$clean[ $key ] = WPSEO_NEWS_VERSION;
 				break;
 				case 'news_sitemap_name':

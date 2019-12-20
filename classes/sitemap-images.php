@@ -34,10 +34,11 @@ class WPSEO_News_Sitemap_Images {
 	/**
 	 * Setting properties and build the item.
 	 *
-	 * @param object $item News post object.
+	 * @param object $item    News post object.
+	 * @param null   $options Deprecated. The options.
 	 */
-	public function __construct( $item ) {
-		if ( func_get_arg( 1 ) ) {
+	public function __construct( $item, $options = null ) {
+		if ( $options !== null ) {
 			_deprecated_argument( __METHOD__, 'WPSEO News: 12.4', 'The options argument is deprecated' );
 		}
 
