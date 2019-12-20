@@ -59,9 +59,6 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 	 *
 	 * @covers WPSEO_News_Schema::article_post_types
 	 * @covers WPSEO_News_Schema::is_post_excluded
-	 * @covers WPSEO_News::is_excluded_through_sitemap
-	 * @covers WPSEO_News::is_excluded_through_terms
-	 * @covers WPSEO_News::get_terms_for_post
 	 */
 	public function test_article_post_types() {
 		$this->default_mock
@@ -78,17 +75,11 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 	 *
 	 * @covers WPSEO_News_Schema::article_post_types
 	 * @covers WPSEO_News_Schema::is_post_excluded
-	 * @covers WPSEO_News::is_excluded_through_sitemap
-	 * @covers WPSEO_News::is_excluded_through_terms
-	 * @covers WPSEO_News::get_terms_for_post
 	 */
 	public function test_article_post_types_with_excluded_term() {
 		$this->default_mock
 			->expects( $this->once() )
 			->method( 'get_post' );
-
-		// Add the term exclusion in the options.
-		add_filter( 'wpseo_news_options', array( $this, 'filter_options_exclude_uncategorized' ) );
 
 		$actual = $this->default_mock->article_post_types( array() );
 
@@ -100,9 +91,6 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 	 *
 	 * @covers WPSEO_News_Schema::change_article
 	 * @covers WPSEO_News_Schema::is_post_excluded
-	 * @covers WPSEO_News::is_excluded_through_sitemap
-	 * @covers WPSEO_News::is_excluded_through_terms
-	 * @covers WPSEO_News::get_terms_for_post
 	 */
 	public function test_change_article() {
 		$this->default_mock
@@ -127,17 +115,11 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 	 *
 	 * @covers WPSEO_News_Schema::change_article
 	 * @covers WPSEO_News_Schema::is_post_excluded
-	 * @covers WPSEO_News::is_excluded_through_sitemap
-	 * @covers WPSEO_News::is_excluded_through_terms
-	 * @covers WPSEO_News::get_terms_for_post
 	 */
 	public function test_change_article_with_an_excluded_term() {
 		$this->default_mock
 			->expects( $this->once() )
 			->method( 'get_post' );
-
-		// Add the term exclusion in the options.
-		add_filter( 'wpseo_news_options', array( $this, 'filter_options_exclude_uncategorized' ) );
 
 		/*
 		 * Note there is no `@type` expected here. This is because we do not __override__ it.
@@ -152,17 +134,5 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 		$actual   = $this->default_mock->change_article( array() );
 
 		$this->assertEquals( $expected, $actual );
-	}
-
-	/**
-	 * Adds the options to exclude uncategorized posts. This is a filter function.
-	 *
-	 * @param array $options The options that get passed through the filter.
-	 *
-	 * @return array $options
-	 */
-	public function filter_options_exclude_uncategorized( $options ) {
-		$options['term_exclude_category_uncategorized_for_post'] = true;
-		return $options;
 	}
 }
