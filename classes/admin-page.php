@@ -91,7 +91,8 @@ class WPSEO_News_Admin_Page {
 		echo '<h2>' . esc_html__( 'Post Types to include in News Sitemap', 'wordpress-seo-news' ) . '</h2>';
 		echo '<fieldset><legend class="screen-reader-text">' . esc_html__( 'Post Types to include:', 'wordpress-seo-news' ) . '</legend>';
 
-		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
+		$post_types = get_post_types( array( 'public' => true ), 'objects' );
+		foreach ( $post_types as $posttype ) {
 			Yoast_Form::get_instance()->checkbox( 'news_sitemap_include_post_type_' . $posttype->name, $posttype->labels->name . ' (<code>' . $posttype->name . '</code>)', false );
 		}
 
