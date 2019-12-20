@@ -35,7 +35,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 
 		$this->default_mock = $this
 			->getMockBuilder( 'WPSEO_News_Schema_Double' )
-			->setMethods( array( 'get_post' ) )
+			->setMethods( array( 'get_post', 'is_post_excluded' ) )
 			->getMock();
 
 		$this->default_mock
@@ -81,6 +81,11 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 			->expects( $this->once() )
 			->method( 'get_post' );
 
+		$this->default_mock
+			->expects( $this->once() )
+			->method( 'is_post_excluded' )
+			->willReturn( $this->returnValue( true ) );
+
 		$actual = $this->default_mock->article_post_types( array() );
 
 		$this->assertEquals( array(), $actual );
@@ -120,6 +125,11 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 		$this->default_mock
 			->expects( $this->once() )
 			->method( 'get_post' );
+
+		$this->default_mock
+			->expects( $this->once() )
+			->method( 'is_post_excluded' )
+			->willReturn( $this->returnValue( true ) );
 
 		/*
 		 * Note there is no `@type` expected here. This is because we do not __override__ it.

@@ -71,11 +71,13 @@ class WPSEO_News_Schema {
 	/**
 	 * Checks if the given post should be excluded or not.
 	 *
+	 * @codeCoverageIgnore It just wraps logic.
+	 *
 	 * @param WP_Post $post The post to check for.
 	 *
 	 * @return bool True if the post should be excluded.
 	 */
-	private function is_post_excluded( $post ) {
+	protected function is_post_excluded( $post ) {
 		return (
 			WPSEO_News::is_excluded_through_sitemap( $post->ID )
 			|| WPSEO_News::is_excluded_through_terms( $post->ID, $post->post_type )
