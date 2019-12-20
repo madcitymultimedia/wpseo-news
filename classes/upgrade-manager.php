@@ -19,16 +19,26 @@ class WPSEO_News_Upgrade_Manager {
 	 */
 	public function check_update() {
 		// Get options.
-		$options = WPSEO_News::get_options();
+		$options = get_option( 'wpseo_news' );
+
+		if ( ! isset( $options['news_version'] ) && isset( $options['version'] ) ) {
+			$options['news_version'] = $options['version'];
+
+			unset( $options['version'] );
+
+			update_option( 'wpseo_news', $options );
+		}
 
 		// Check if update is required.
-		if ( version_compare( WPSEO_News::VERSION, $options['version'], '>' ) ) {
+		if ( version_compare( WPSEO_News::VERSION, $options['news_version'], '>' ) ) {
+
 			// Do update.
-			$this->do_update( $options['version'] );
+			$this->do_update( $options['news_version'] );
 
 			// Update version code.
 			$this->update_current_version_code();
 		}
+
 	}
 
 	/**
@@ -67,8 +77,9 @@ class WPSEO_News_Upgrade_Manager {
 	 * Update the current version code.
 	 */
 	private function update_current_version_code() {
-		$options            = WPSEO_News::get_options();
-		$options['version'] = WPSEO_News::VERSION;
+		$options = get_option( 'wpseo_news' );
+		$options['news_version'] = WPSEO_News::VERSION;
+
 		update_option( 'wpseo_news', $options );
 	}
 
@@ -81,8 +92,8 @@ class WPSEO_News_Upgrade_Manager {
 
 		// Set new options.
 		$new_options = array(
-			'name'          => ( ( isset( $current_options['newssitemapname'] ) ) ? $current_options['newssitemapname'] : '' ),
-			'default_genre' => ( ( isset( $current_options['newssitemap_default_genre'] ) ) ? $current_options['newssitemap_default_genre'] : '' ),
+			'news_sitemap_name'          => ( ( isset( $current_options['newssitemapname'] ) ) ? $current_options['newssitemapname'] : '' ),
+			'news_sitemap_default_genre' => ( ( isset( $current_options['newssitemap_default_genre'] ) ) ? $current_options['newssitemap_default_genre'] : '' ),
 		);
 
 		// Save new options.
@@ -94,14 +105,11 @@ class WPSEO_News_Upgrade_Manager {
 	 */
 	private function upgrade_204() {
 		// Remove unused option.
-		$news_options = WPSEO_News::get_options();
+		$news_options = get_option( 'wpseo_news' );
 		unset( $news_options['ep_image_title'] );
 
 		// Update options.
 		update_option( 'wpseo_news', $news_options );
-
-		// Reset variable.
-		$news_options = null;
 	}
 
 	/**
@@ -134,7 +142,7 @@ class WPSEO_News_Upgrade_Manager {
 			}
 
 			$slug                                        = str_replace( 'catexclude_', '', $key );
-			$options[ 'term_exclude_category_' . $slug ] = $value;
+			$options[ 'news_sitemap_exclude_term_category_' . $slug ] = $value;
 			unset( $options[ $key ] );
 		}
 
@@ -147,6 +155,40 @@ class WPSEO_News_Upgrade_Manager {
 	 */
 	private function upgrade_124() {
 		Yoast_Notification_Center::get()->remove_notification_by_id( 'wpseo-news_timezone_format_empty' );
+
+		$options = get_option( 'wpseo_news' );
+
+		if ( isset( $options['name'] ) && ! isset( $options['news_sitemap_name'] ) ) {
+			$options['news_sitemap_name'] = $options['name'];
+
+			unset( $options['name'] );
+		}
+
+		if ( isset( $options['default_genre'] ) && ! isset( $options['news_sitemap_default_genre'] ) ) {
+			$options['news_sitemap_default_genre'] = $options['default_genre'];
+
+			unset( $options['default_genre'] );
+		}
+
+		foreach( $options as $option_name => $option_value ) {
+			if ( strpos( $option_name, 'newssitemap_include_' ) === 0 ) {
+				$options[ str_replace( 'newssitemap_include_', 'news_sitemap_include_post_type_', $option_name ) ] = $option_value;
+
+				unset( $options[ $option_name ] );
+
+				continue;
+			}
+
+			if ( strpos( $option_name, 'term_exclude_' ) === 0 ) {
+				$options[ str_replace( 'term_exclude_', 'news_sitemap_exclude_term_', $option_name ) ] = $option_value;
+
+				unset( $options[ $option_name ] );
+
+				continue;
+			}
+		}
+
+		update_option( 'wpseo_news', $options );
 	}
 
 	/**
