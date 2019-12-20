@@ -8,7 +8,7 @@
 /**
  * Class representing the wpseo_news options.
  */
-class WPSEO_Option_News extends WPSEO_Option {
+class WPSEO_News_Option extends WPSEO_Option {
 
 	/**
 	 * The option name.
@@ -135,7 +135,7 @@ class WPSEO_Option_News extends WPSEO_Option {
 							$clean[ $key ] = 'on';
 						}
 						else {
-							unset ( $clean[ $key ] );
+							unset( $clean[ $key ] );
 						}
 					}
 

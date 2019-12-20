@@ -47,7 +47,7 @@ class WPSEO_News {
 		add_filter( 'plugin_action_links', array( $this, 'plugin_links' ), 10, 2 );
 		add_filter( 'wpseo_submenu_pages', array( $this, 'add_submenu_pages' ) );
 		add_action( 'admin_init', array( $this, 'init_helpscout_beacon' ) );
-		add_action( 'init', array( 'WPSEO_Option_News', 'register_option' ), 1 );
+		add_action( 'init', array( 'WPSEO_News_Option', 'register_option' ), 1 );
 
 		// Enable Yoast usage tracking.
 		add_filter( 'wpseo_enable_tracking', '__return_true' );
