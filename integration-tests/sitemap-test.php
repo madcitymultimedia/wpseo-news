@@ -190,41 +190,6 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Checks what happens if there is one post added with a image in its content.
-	 *
-	 * @covers WPSEO_News_Sitemap::build_sitemap
-	 */
-	public function test_sitemap_WITH_featured_image_restricted() {
-
-		add_action( 'wpseo_news_options', array( $this, 'restrict_featured_image' ) );
-
-		$this->instance = new WPSEO_News_Sitemap();
-
-		$image        = home_url( 'tests/assets/yoast.png' );
-		$post_details = array(
-			'post_title'   => 'featured image',
-			'post_content' => '<img src="' . $image . '" />',
-		);
-		$post_id      = $this->factory->post->create( $post_details );
-
-		$featured_image = home_url( 'tests/assets/yoast_featured.png' );
-		$thumbnail_id   = $this->create_attachment( $featured_image, $post_id );
-
-		update_post_meta( $post_id, '_thumbnail_id', $thumbnail_id );
-
-		$output = $this->instance->build_sitemap();
-
-		$expected_output  = "\t</news:news>\n";
-		$expected_output .= "\t<image:image>\n";
-		$expected_output .= "\t\t<image:loc>" . $featured_image . "</image:loc>\n";
-		$expected_output .= "\t\t<image:title>attachment</image:title>\n";
-		$expected_output .= "\t</image:image>\n";
-
-		// Check if the $output contains the $expected_output.
-		$this->assertContains( $expected_output, $output );
-	}
-
-	/**
 	 * Checks that the sitemap uses the default name of news when no news post type is present.
 	 *
 	 * @covers WPSEO_News_Sitemap::news_sitemap_basename
@@ -297,19 +262,6 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$this->assertContains( "\t\t<news:title><![CDATA[New-ish post]]></news:title>\n", $output );
 
 		$this->assertNotContains( "\t\t<news:title><![CDATA[Too old Post]]></news:title>\n", $output );
-	}
-
-	/**
-	 * Test helper. Filter the option return value.
-	 *
-	 * @param array $options Current value of the option.
-	 *
-	 * @return array Adjusted option value.
-	 */
-	public function restrict_featured_image( $options ) {
-		$options['restrict_sitemap_featured_img'] = true;
-
-		return $options;
 	}
 
 	/**
