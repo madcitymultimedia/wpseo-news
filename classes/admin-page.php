@@ -11,18 +11,9 @@
 class WPSEO_News_Admin_Page {
 
 	/**
-	 * Options.
-	 *
-	 * @var array
-	 */
-	private $options = array();
-
-	/**
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->options = WPSEO_News::get_options();
-
 		if ( $this->is_news_page( filter_input( INPUT_GET, 'page' ) ) ) {
 			$this->register_i18n_promo_class();
 		}

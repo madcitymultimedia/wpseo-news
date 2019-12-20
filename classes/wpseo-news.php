@@ -12,28 +12,6 @@ class WPSEO_News {
 	const VERSION = WPSEO_NEWS_VERSION;
 
 	/**
-	 * Get WPSEO News options.
-	 *
-	 * @return array
-	 */
-	public static function get_options() {
-		$defaults = array(
-			'name'          => '',
-			'default_genre' => array(),
-			'ep_image_src'  => '',
-			'version'       => '0',
-		);
-		$options  = wp_parse_args( get_option( 'wpseo_news', array() ), $defaults );
-
-		/**
-		 * Filter: 'wpseo_news_options' - Allow modifying of Yoast News SEO options.
-		 *
-		 * @api array $wpseo_news_options The Yoast News SEO options.
-		 */
-		return apply_filters( 'wpseo_news_options', $options );
-	}
-
-	/**
 	 * Initializes the plugin.
 	 */
 	public function __construct() {
@@ -344,8 +322,6 @@ class WPSEO_News {
 		static $post_types;
 
 		if ( $post_types === null ) {
-			$options = self::get_options();
-
 			// Get supported post types.
 			$post_types = array();
 			foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $post_type ) {
@@ -400,7 +376,6 @@ class WPSEO_News {
 	 * @return bool True if the post is excluded.
 	 */
 	public static function is_excluded_through_terms( $post_id, $post_type ) {
-		$options = self::get_options();
 		$terms   = self::get_terms_for_post( $post_id, $post_type );
 
 		foreach ( $terms as $term ) {

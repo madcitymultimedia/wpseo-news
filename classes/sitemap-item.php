@@ -32,22 +32,17 @@ class WPSEO_News_Sitemap_Item {
 	private $item;
 
 	/**
-	 * The options.
-	 *
-	 * @var array
-	 */
-	private $options;
-
-	/**
 	 * Setting properties and build the item.
 	 *
 	 * @param object $item    The post.
-	 * @param array  $options The options.
 	 */
-	public function __construct( $item, $options ) {
-		$this->item    = $item;
-		$this->options = $options;
-		$this->date    = new WPSEO_Date_Helper();
+	public function __construct( $item ) {
+		if ( func_get_arg( 1 ) ) {
+			_deprecated_argument( __METHOD__, 'WPSEO News: 12.4', 'The options argument is deprecated' );
+		}
+
+		$this->item = $item;
+		$this->date = new WPSEO_Date_Helper();
 
 		// Check if item should be skipped.
 		if ( ! $this->skip_build_item() ) {

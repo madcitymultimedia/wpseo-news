@@ -11,19 +11,10 @@
 class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
 	/**
-	 * Options.
-	 *
-	 * @var array
-	 */
-	private $options;
-
-	/**
 	 * WPSEO_News_Meta_Box constructor.
 	 */
 	public function __construct() {
 		global $pagenow;
-
-		$this->options = WPSEO_News::get_options();
 
 		add_filter( 'wpseo_save_metaboxes', array( $this, 'save' ), 10, 1 );
 		add_action( 'add_meta_boxes', array( $this, 'add_tab_hooks' ) );
