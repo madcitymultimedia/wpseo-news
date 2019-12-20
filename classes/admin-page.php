@@ -51,11 +51,11 @@ class WPSEO_News_Admin_Page {
 		echo '<fieldset><legend class="screen-reader-text">' . esc_html__( 'News Sitemap settings', 'wordpress-seo-news' ) . '</legend>';
 
 		// Google News Publication Name.
-		Yoast_Form::get_instance()->textinput( 'name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );
+		Yoast_Form::get_instance()->textinput( 'news_sitemap_name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );
 
 		// Default Genre.
 		Yoast_Form::get_instance()->select(
-			'default_genre',
+			'news_sitemap_default_genre',
 			__( 'Default Genre', 'wordpress-seo-news' ),
 			WPSEO_News::list_genres()
 		);
@@ -101,7 +101,7 @@ class WPSEO_News_Admin_Page {
 		echo '<fieldset><legend class="screen-reader-text">' . esc_html__( 'Post Types to include:', 'wordpress-seo-news' ) . '</legend>';
 
 		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
-			Yoast_Form::get_instance()->checkbox( 'newssitemap_include_' . $posttype->name, $posttype->labels->name . ' (<code>' . $posttype->name . '</code>)', false );
+			Yoast_Form::get_instance()->checkbox( 'news_sitemap_include_post_type_' . $posttype->name, $posttype->labels->name . ' (<code>' . $posttype->name . '</code>)', false );
 		}
 
 		echo '</fieldset><br>';
@@ -127,9 +127,7 @@ class WPSEO_News_Admin_Page {
 	 * @return bool Whether or not the post type should be included in the sitemap.
 	 */
 	protected function filter_included_post_type( $post_type ) {
-		$option_key = 'newssitemap_include_' . $post_type->name;
-
-		return isset( $this->options[ $option_key ] ) && $this->options[ $option_key ] === 'on';
+		return WPSEO_Options::get( 'news_sitemap_include_post_type_' . $post_type->name ) === 'on';
 	}
 
 	/**
@@ -201,7 +199,7 @@ class WPSEO_News_Admin_Page {
 			foreach ( $terms as $term ) {
 
 				Yoast_Form::get_instance()->checkbox(
-					'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type->name,
+					'news_sitemap_exclude_term_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type->name,
 					$term->name,
 					false
 				);

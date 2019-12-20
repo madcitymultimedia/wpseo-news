@@ -146,7 +146,7 @@ class WPSEO_News_Sitemap_Item {
 	 * Builds the publication tag.
 	 */
 	private function build_publication_tag() {
-		$publication_name = ! empty( $this->options['name'] ) ? $this->options['name'] : get_bloginfo( 'name' );
+		$publication_name = WPSEO_Options::get( 'news_sitemap_name', get_bloginfo( 'name' ) );
 		$publication_lang = $this->get_publication_lang();
 
 		$this->output .= "\t\t<news:publication>\n";
@@ -182,8 +182,9 @@ class WPSEO_News_Sitemap_Item {
 			$genre = implode( ',', $genre );
 		}
 
-		if ( $genre === '' && isset( $this->options['default_genre'] ) && $this->options['default_genre'] !== '' ) {
-			$genre = is_array( $this->options['default_genre'] ) ? implode( ',', $this->options['default_genre'] ) : $this->options['default_genre'];
+		$default_genre = WPSEO_Options::get( 'news_sitemap_default_genre' );
+		if ( $genre === '' && $default_genre ) {
+			$genre = is_array( $default_genre ) ? implode( ',', $default_genre ) : $default_genre;
 		}
 
 		$genre = trim( preg_replace( '/^none,?/', '', $genre ) );

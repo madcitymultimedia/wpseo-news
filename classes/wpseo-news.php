@@ -349,7 +349,7 @@ class WPSEO_News {
 			// Get supported post types.
 			$post_types = array();
 			foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $post_type ) {
-				if ( isset( $options[ 'newssitemap_include_' . $post_type->name ] ) && ( $options[ 'newssitemap_include_' . $post_type->name ] === 'on' ) ) {
+				if ( WPSEO_Options::get( 'news_sitemap_include_post_type_' . $post_type->name ) === 'on' ) {
 					$post_types[] = $post_type->name;
 				}
 			}
@@ -404,7 +404,7 @@ class WPSEO_News {
 		$terms   = self::get_terms_for_post( $post_id, $post_type );
 
 		foreach ( $terms as $term ) {
-			$term_exclude_option = 'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type;
+			$term_exclude_option = WPSEO_Options::get( 'news_sitemap_exclude_term_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type );
 
 			if ( isset( $options[ $term_exclude_option ] ) ) {
 				return true;

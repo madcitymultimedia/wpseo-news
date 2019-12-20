@@ -54,7 +54,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 			'newssitemap-genre'        => array(
 				'name'        => 'newssitemap-genre',
 				'type'        => 'multiselect',
-				'std'         => ( ( isset( $this->options['default_genre'] ) ) ? $this->options['default_genre'] : 'blog' ),
+				'std'         => WPSEO_Options::get( 'news_sitemap_default_genre', 'blog' ),
 				'title'       => __( 'Google News Genre', 'wordpress-seo-news' ),
 				'description' => __( 'Genre to show in Google News Sitemap.', 'wordpress-seo-news' ),
 				'options'     => WPSEO_News::list_genres(),
