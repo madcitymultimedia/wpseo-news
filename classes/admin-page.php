@@ -24,7 +24,7 @@ class WPSEO_News_Admin_Page {
 	 */
 	public function display() {
 		// Admin header.
-		Yoast_Form::get_instance()->admin_header( true, 'wpseo_news', false, 'yoast_wpseo_news_options' );
+		Yoast_Form::get_instance()->admin_header( true, 'wpseo_news' );
 
 		// Introduction.
 		echo '<p>' . esc_html__( 'You will generally only need a News Sitemap when your website is included in Google News.', 'wordpress-seo-news' ) . '</p>';

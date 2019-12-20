@@ -46,7 +46,6 @@ class WPSEO_News {
 	private function set_hooks() {
 		add_filter( 'plugin_action_links', array( $this, 'plugin_links' ), 10, 2 );
 		add_filter( 'wpseo_submenu_pages', array( $this, 'add_submenu_pages' ) );
-		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_init', array( $this, 'init_helpscout_beacon' ) );
 		add_action( 'admin_init', array( 'WPSEO_Option_News', 'register_option' ), 1 );
 
@@ -145,26 +144,6 @@ class WPSEO_News {
 		}
 
 		return $links;
-	}
-
-	/**
-	 * Register the premium settings.
-	 */
-	public function register_settings() {
-		register_setting( 'yoast_wpseo_news_options', 'wpseo_news', array( $this, 'sanitize_options' ) );
-	}
-
-	/**
-	 * Sanitize options.
-	 *
-	 * @param array $options The options to sanitize.
-	 *
-	 * @return mixed
-	 */
-	public function sanitize_options( $options ) {
-		$options['version'] = self::VERSION;
-
-		return $options;
 	}
 
 	/**
