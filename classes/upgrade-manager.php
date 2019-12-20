@@ -170,7 +170,7 @@ class WPSEO_News_Upgrade_Manager {
 			unset( $options['default_genre'] );
 		}
 
-		foreach( $options as $option_name => $option_value ) {
+		foreach ( $options as $option_name => $option_value ) {
 			if ( strpos( $option_name, 'newssitemap_include_' ) === 0 ) {
 				$options[ str_replace( 'newssitemap_include_', 'news_sitemap_include_post_type_', $option_name ) ] = $option_value;
 
