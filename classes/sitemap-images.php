@@ -25,13 +25,6 @@ class WPSEO_News_Sitemap_Images {
 	private $output = '';
 
 	/**
-	 * The options.
-	 *
-	 * @var array
-	 */
-	private $options;
-
-	/**
 	 * Storage for the images.
 	 *
 	 * @var array
@@ -41,12 +34,14 @@ class WPSEO_News_Sitemap_Images {
 	/**
 	 * Setting properties and build the item.
 	 *
-	 * @param object $item    News post object.
-	 * @param array  $options The options.
+	 * @param object $item News post object.
 	 */
-	public function __construct( $item, $options ) {
-		$this->item    = $item;
-		$this->options = $options;
+	public function __construct( $item ) {
+		if ( func_get_arg( 1 ) ) {
+			_deprecated_argument( __METHOD__, 'WPSEO News: 12.4', 'The options argument is deprecated' );
+		}
+
+		$this->item = $item;
 
 		$this->parse_item_images();
 	}
@@ -77,8 +72,7 @@ class WPSEO_News_Sitemap_Images {
 	 * Getting the images for the given $item.
 	 */
 	private function get_item_images() {
-		$restrict_sitemap_featured_img = isset( $this->options['restrict_sitemap_featured_img'] ) ? $this->options['restrict_sitemap_featured_img'] : false;
-		if ( ! $restrict_sitemap_featured_img && preg_match_all( '/<img [^>]+>/', $this->item->post_content, $matches ) ) {
+		if ( preg_match_all( '/<img [^>]+>/', $this->item->post_content, $matches ) ) {
 			$this->get_images_from_content( $matches );
 		}
 

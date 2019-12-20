@@ -242,6 +242,6 @@ class WPSEO_News_Sitemap_Item {
 	 * Getting the images for current item.
 	 */
 	private function get_item_images() {
-		$this->output .= new WPSEO_News_Sitemap_Images( $this->item, $this->options );
+		$this->output .= new WPSEO_News_Sitemap_Images( $this->item );
 	}
 }
