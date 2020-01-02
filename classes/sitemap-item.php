@@ -197,6 +197,7 @@ class WPSEO_News_Sitemap_Item {
 	 * @return string
 	 */
 	private function get_publication_lang() {
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WPSEO hook.
 		$locale = apply_filters( 'wpseo_locale', get_locale() );
 
 		// Fallback to 'en', if the length of the locale is less than 2 characters.

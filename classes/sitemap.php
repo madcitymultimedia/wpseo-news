@@ -179,7 +179,14 @@ class WPSEO_News_Sitemap {
 		header( 'Cache-Control: maxage=' . YEAR_IN_SECONDS );
 		header( 'Expires: ' . $this->date->format_timestamp( ( time() + YEAR_IN_SECONDS ), 'D, d M Y H:i:s' ) . ' GMT' );
 
+		/*
+		 * Using `readfile()` rather than `include` to prevent issues with XSL being interpreted as PHP
+		 * on systems where the PHP ini directived `short_open_tags` is turned on.
+		 * phpcs:disable WordPress.WP.AlternativeFunctions.file_system_read_readfile
+		 */
 		readfile( dirname( WPSEO_NEWS_FILE ) . '/assets/xml-news-sitemap.xsl' );
+		// phpcs:enable
+
 		die();
 	}
 

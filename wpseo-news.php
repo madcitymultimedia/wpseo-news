@@ -11,7 +11,7 @@
  * Description: Google News plugin for the Yoast SEO plugin
  * Author:      Team Yoast
  * Author URI:  http://yoast.com/
- * Text Domain: wpseo_news
+ * Text Domain: wordpress-seo-news
  * Domain Path: /languages/
  * Depends:     Yoast SEO
  * License:     GPL v3
@@ -54,11 +54,13 @@ add_action( 'init', 'wpseo_news_load_textdomain' );
 
 /**
  * Load Yoast SEO: News.
+ *
+ * @phpcs:disable PHPCompatibility.FunctionNameRestrictions.ReservedFunctionNames.FunctionDoubleUnderscore,WordPress.NamingConventions.ValidFunctionName.FunctionDoubleUnderscore,WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedFunctionFound -- Function name change would be BC-break.
  */
-// @codingStandardsIgnoreLine
 function __wpseo_news_main() {
 	new WPSEO_News();
 }
+// phpcs:enable
 add_action( 'plugins_loaded', '__wpseo_news_main' );
 
 /**

@@ -1,0 +1,155 @@
+<?xml version="1.0"?>
+<ruleset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	name="Yoast SEO: News"
+	xsi:noNamespaceSchemaLocation="./vendor/squizlabs/php_codesniffer/phpcs.xsd">
+
+	<description>Yoast SEO: News rules for PHP_CodeSniffer</description>
+
+	<!--
+	#############################################################################
+	COMMAND LINE ARGUMENTS
+	https://github.com/squizlabs/PHP_CodeSniffer/wiki/Annotated-ruleset.xml
+	#############################################################################
+	-->
+
+	<file>.</file>
+
+	<!-- Only check PHP files. -->
+	<arg name="extensions" value="php"/>
+
+	<!-- Show progress, show the error codes for each message (source). -->
+	<arg value="ps"/>
+
+	<!-- Strip the filepaths down to the relevant bit. -->
+	<arg name="basepath" value="./"/>
+
+	<!-- Check up to 8 files simultaneously. -->
+	<arg name="parallel" value="8"/>
+
+
+	<!--
+	#############################################################################
+	USE THE YoastCS RULESET
+	#############################################################################
+	-->
+
+	<rule ref="Yoast">
+		<!-- Set the custom test class whitelist for all sniffs which use it in one go.
+			 Ref: https://github.com/WordPress-Coding-Standards/WordPress-Coding-Standards/wiki/Customizable-sniff-properties#custom-unit-test-classes
+		-->
+		<properties>
+			<property name="custom_test_class_whitelist" type="array">
+				<element value="WPSEO_News_UnitTestCase"/>
+			</property>
+		</properties>
+
+		<!-- Short arrays will be demanded as of YoastCS 2.0, so ignore for now. -->
+		<exclude name="Generic.Arrays.DisallowShortArraySyntax"/>
+	</rule>
+
+
+	<!--
+	#############################################################################
+	SNIFF SPECIFIC CONFIGURATION
+	#############################################################################
+	-->
+
+	<!-- Verify that all gettext calls use the correct text domain. -->
+	<rule ref="WordPress.WP.I18n">
+		<properties>
+			<property name="text_domain" type="array">
+				<element value="wordpress-seo-news"/>
+			</property>
+		</properties>
+	</rule>
+
+	<rule ref="Yoast.Files.FileName">
+		<properties>
+			<!-- Don't trigger on the main file as renaming it would deactivate the plugin.
+				 Also leave the main WPSEO_News class and associated test files alone as
+				 after removing the prefix, there would be nothing left. -->
+			<property name="exclude" type="array">
+				<element value="wpseo-news.php"/>
+				<element value="classes/wpseo-news.php"/>
+				<element value="integration-tests/wpseo-news-test.php"/>
+				<element value="integration-tests/doubles/wpseo-news-double.php"/>
+			</property>
+
+			<!-- Remove the following prefixes from the names of object structures. -->
+			<property name="prefixes" type="array">
+				<element value="wpseo_news"/>
+				<element value="yoast_wpseo_news"/>
+				<element value="yoast_news"/>
+			</property>
+		</properties>
+	</rule>
+
+	<!-- Verify that everything in the global namespace is prefixed with a plugin specific prefix. -->
+	<rule ref="WordPress.NamingConventions.PrefixAllGlobals">
+		<properties>
+			<!-- Provide the prefixes to look for. -->
+			<property name="prefixes" type="array">
+				<element value="wpseo_news"/>
+				<element value="yoast_wpseo_news"/>
+
+				<!-- These are the new prefixes which all code should comply with in the future. -->
+				<element value="yoast_news"/>
+				<element value="Yoast\WP\News"/>
+			</property>
+		</properties>
+
+		<!-- Valid usage: For testing purposes, some non-prefixed globals are being created. -->
+		<exclude-pattern>/tests/bootstrap\.php$</exclude-pattern>
+		<exclude-pattern>/integration-tests/bootstrap\.php$</exclude-pattern>
+	</rule>
+
+	<rule ref="Yoast.Files.TestDoubles">
+		<properties>
+			<property name="doubles_path" type="array">
+				<element value="/integration-tests/doubles"/>
+			</property>
+		</properties>
+	</rule>
+
+
+	<!--
+	#############################################################################
+	SELECTIVE EXCLUSIONS
+	Exclude specific files for specific sniffs and/or exclude sub-groups in sniffs.
+	#############################################################################
+	-->
+
+	<!-- Allow for the double/mock classes to override methods just to change the visibility. -->
+	<rule ref="Generic.CodeAnalysis.UselessOverridingMethod.Found">
+		<exclude-pattern>/integration-tests/doubles/*-double\.php$</exclude-pattern>
+	</rule>
+
+	<!-- Allow for select unit test files to use less secure code. -->
+	<rule ref="WordPress.Security">
+		<exclude-pattern>/integration-tests/bootstrap\.php$</exclude-pattern>
+		<exclude-pattern>/integration-tests/framework/unittestcase\.php$</exclude-pattern>
+	</rule>
+
+	<!-- For documentation of the double/mock classes, please refer to the _real_ classes. -->
+	<rule ref="Generic.Commenting.DocComment.MissingShort">
+		<exclude-pattern>/integration-tests/doubles/*-double\.php$</exclude-pattern>
+	</rule>
+	<rule ref="Squiz.Commenting.FunctionComment.MissingParamTag">
+		<exclude-pattern>/integration-tests/doubles/*-double\.php$</exclude-pattern>
+	</rule>
+
+
+	<!--
+	#############################################################################
+	TEMPORARY ADJUSTMENTS
+	Adjustments which should be removed once the associated issue has been resolved.
+	#############################################################################
+	-->
+
+	<!-- Usage of non-cached direct database query. Should be reviewed.
+		 Ticket: https://github.com/Yoast/wpseo-news/issues/585 -->
+	<rule ref="WordPress.DB.DirectDatabaseQuery">
+		<exclude-pattern>/classes/sitemap\.php$</exclude-pattern>
+	</rule>
+
+</ruleset>

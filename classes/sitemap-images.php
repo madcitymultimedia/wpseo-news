@@ -173,7 +173,7 @@ class WPSEO_News_Sitemap_Images {
 		 *
 		 * @param object $item The post item.
 		 */
-		$src = apply_filters( 'wpseo_xml_sitemap_img_src', $src, $this->item );
+		$src = apply_filters( 'wpseo_xml_sitemap_img_src', $src, $this->item ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WPSEO hook.
 
 		$encoding      = get_bloginfo( 'charset' );
 		$this->output .= "\t<image:image>\n";
