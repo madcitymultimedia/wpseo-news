@@ -12,28 +12,6 @@ class WPSEO_News {
 	const VERSION = WPSEO_NEWS_VERSION;
 
 	/**
-	 * Get WPSEO News options.
-	 *
-	 * @return array
-	 */
-	public static function get_options() {
-		$defaults = array(
-			'name'          => '',
-			'default_genre' => array(),
-			'ep_image_src'  => '',
-			'version'       => '0',
-		);
-		$options  = wp_parse_args( get_option( 'wpseo_news', array() ), $defaults );
-
-		/**
-		 * Filter: 'wpseo_news_options' - Allow modifying of Yoast News SEO options.
-		 *
-		 * @api array $wpseo_news_options The Yoast News SEO options.
-		 */
-		return apply_filters( 'wpseo_news_options', $options );
-	}
-
-	/**
 	 * Initializes the plugin.
 	 */
 	public function __construct() {
@@ -68,8 +46,8 @@ class WPSEO_News {
 	private function set_hooks() {
 		add_filter( 'plugin_action_links', array( $this, 'plugin_links' ), 10, 2 );
 		add_filter( 'wpseo_submenu_pages', array( $this, 'add_submenu_pages' ) );
-		add_action( 'admin_init', array( $this, 'register_settings' ) );
 		add_action( 'admin_init', array( $this, 'init_helpscout_beacon' ) );
+		add_action( 'init', array( 'WPSEO_News_Option', 'register_option' ), 1 );
 
 		// Enable Yoast usage tracking.
 		add_filter( 'wpseo_enable_tracking', '__return_true' );
@@ -166,26 +144,6 @@ class WPSEO_News {
 		}
 
 		return $links;
-	}
-
-	/**
-	 * Register the premium settings.
-	 */
-	public function register_settings() {
-		register_setting( 'yoast_wpseo_news_options', 'wpseo_news', array( $this, 'sanitize_options' ) );
-	}
-
-	/**
-	 * Sanitize options.
-	 *
-	 * @param array $options The options to sanitize.
-	 *
-	 * @return mixed
-	 */
-	public function sanitize_options( $options ) {
-		$options['version'] = self::VERSION;
-
-		return $options;
 	}
 
 	/**
@@ -343,12 +301,10 @@ class WPSEO_News {
 		static $post_types;
 
 		if ( $post_types === null ) {
-			$options = self::get_options();
-
 			// Get supported post types.
 			$post_types = array();
 			foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $post_type ) {
-				if ( isset( $options[ 'newssitemap_include_' . $post_type->name ] ) && ( $options[ 'newssitemap_include_' . $post_type->name ] === 'on' ) ) {
+				if ( WPSEO_Options::get( 'news_sitemap_include_post_type_' . $post_type->name ) === 'on' ) {
 					$post_types[] = $post_type->name;
 				}
 			}
@@ -399,13 +355,10 @@ class WPSEO_News {
 	 * @return bool True if the post is excluded.
 	 */
 	public static function is_excluded_through_terms( $post_id, $post_type ) {
-		$options = self::get_options();
 		$terms   = self::get_terms_for_post( $post_id, $post_type );
 
 		foreach ( $terms as $term ) {
-			$term_exclude_option = 'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type;
-
-			if ( isset( $options[ $term_exclude_option ] ) ) {
+			if ( WPSEO_Options::get( 'news_sitemap_exclude_term_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type ) === 'on' ) {
 				return true;
 			}
 		}

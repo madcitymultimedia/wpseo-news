@@ -18,13 +18,6 @@ class WPSEO_News_Sitemap {
 	protected $date;
 
 	/**
-	 * Options.
-	 *
-	 * @var array
-	 */
-	private $options;
-
-	/**
 	 * The sitemap basename.
 	 *
 	 * @var string
@@ -35,8 +28,7 @@ class WPSEO_News_Sitemap {
 	 * Constructor. Set options, basename and add actions.
 	 */
 	public function __construct() {
-		$this->options = WPSEO_News::get_options();
-		$this->date    = new WPSEO_Date_Helper();
+		$this->date = new WPSEO_Date_Helper();
 
 		add_action( 'init', array( $this, 'init' ), 10 );
 
@@ -255,7 +247,7 @@ class WPSEO_News_Sitemap {
 	private function build_items( $items ) {
 		$output = '';
 		foreach ( $items as $item ) {
-			$output .= new WPSEO_News_Sitemap_Item( $item, $this->options );
+			$output .= new WPSEO_News_Sitemap_Item( $item );
 		}
 
 		return $output;
