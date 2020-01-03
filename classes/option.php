@@ -54,6 +54,7 @@ class WPSEO_News_Option extends WPSEO_Option {
 
 		return self::$instance;
 	}
+
 	/**
 	 * Add dynamically created default options based on available post types and taxonomies.
 	 *
@@ -112,25 +113,25 @@ class WPSEO_News_Option extends WPSEO_Option {
 			switch ( $key ) {
 				case 'news_version':
 					$clean[ $key ] = WPSEO_NEWS_VERSION;
-				break;
+					break;
 				case 'news_sitemap_name':
 					if ( isset( $dirty[ $key ] ) && $dirty[ $key ] !== '' ) {
 						$clean[ $key ] = WPSEO_Utils::sanitize_text_field( $dirty[ $key ] );
 					}
 					break;
-				case 'news_sitemap_default_genre' :
+				case 'news_sitemap_default_genre':
 					if ( isset( $dirty[ $key ] ) && is_array( $dirty[ $key ] ) ) {
 						$clean[ $key ] = array_map( [ 'WPSEO_Utils', 'sanitize_text_field' ], $dirty[ $key ] );
 					}
 
-					if ( isset( $dirty[ $key ] ) &&  is_string( $dirty[ $key ] ) ) {
+					if ( isset( $dirty[ $key ] ) && is_string( $dirty[ $key ] ) ) {
 						$clean[ $key ] = WPSEO_Utils::sanitize_text_field( $dirty[ $key ] );
 					}
 
 					break;
 
-				default :
-					if ( stripos( $key, 'news_sitemap_include_post_type_' ) === 0 || stripos( $key, 'news_sitemap_exclude_term_' ) === 0  ) {
+				default:
+					if ( stripos( $key, 'news_sitemap_include_post_type_' ) === 0 || stripos( $key, 'news_sitemap_exclude_term_' ) === 0 ) {
 						if ( ! empty( $dirty[ $key ] ) ) {
 							$clean[ $key ] = 'on';
 						}

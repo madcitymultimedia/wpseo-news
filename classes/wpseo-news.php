@@ -355,7 +355,7 @@ class WPSEO_News {
 	 * @return bool True if the post is excluded.
 	 */
 	public static function is_excluded_through_terms( $post_id, $post_type ) {
-		$terms   = self::get_terms_for_post( $post_id, $post_type );
+		$terms = self::get_terms_for_post( $post_id, $post_type );
 
 		foreach ( $terms as $term ) {
 			if ( WPSEO_Options::get( 'news_sitemap_exclude_term_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type ) === 'on' ) {

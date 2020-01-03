@@ -26,7 +26,7 @@
     },
     "minimum-stability": "dev",
     "prefer-stable": true,
-    "autoload": {
+    "autoload": {5
         "classmap": [
             "classes/"
         ]

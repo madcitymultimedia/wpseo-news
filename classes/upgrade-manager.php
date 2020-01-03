@@ -38,7 +38,6 @@ class WPSEO_News_Upgrade_Manager {
 			// Update version code.
 			$this->update_current_version_code();
 		}
-
 	}
 
 	/**
@@ -77,7 +76,7 @@ class WPSEO_News_Upgrade_Manager {
 	 * Update the current version code.
 	 */
 	private function update_current_version_code() {
-		$options = get_option( 'wpseo_news' );
+		$options                 = get_option( 'wpseo_news' );
 		$options['news_version'] = WPSEO_News::VERSION;
 
 		update_option( 'wpseo_news', $options );
@@ -141,7 +140,7 @@ class WPSEO_News_Upgrade_Manager {
 				continue;
 			}
 
-			$slug                                        = str_replace( 'catexclude_', '', $key );
+			$slug                                                     = str_replace( 'catexclude_', '', $key );
 			$options[ 'news_sitemap_exclude_term_category_' . $slug ] = $value;
 			unset( $options[ $key ] );
 		}
