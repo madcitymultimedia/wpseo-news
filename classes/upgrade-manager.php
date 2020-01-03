@@ -140,7 +140,7 @@ class WPSEO_News_Upgrade_Manager {
 				continue;
 			}
 
-			$slug                                                     = str_replace( 'catexclude_', '', $key );
+			$slug = str_replace( 'catexclude_', '', $key );
 			$options[ 'news_sitemap_exclude_term_category_' . $slug ] = $value;
 			unset( $options[ $key ] );
 		}
