@@ -1,14 +1,14 @@
-# Copyright (C) 2019 Team Yoast
+# Copyright (C) 2020 Team Yoast
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yoast SEO: News 12.4-RC1\n"
+"Project-Id-Version: Yoast SEO: News 12.4-RC2\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
-"POT-Creation-Date: 2019-12-17 08:03:10+00:00\n"
+"POT-Creation-Date: 2020-01-03 07:50:28+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2019-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2020-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Yoast Translate Team <translations@yoast.com>\n"
 "Language-Team: Yoast Translate <translations@yoast.com>\n"
 "Language: en\n"
@@ -24,48 +24,48 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: classes/admin-page.php:39
+#: classes/admin-page.php:30
 msgid ""
 "You will generally only need a News Sitemap when your website is included "
 "in Google News."
 msgstr ""
 
-#: classes/admin-page.php:43
+#: classes/admin-page.php:34
 #. translators: %1$s opening tag of the link to the News Sitemap, %2$s closing
 #. tag for the link.
 msgid "%1$sView your News Sitemap%2$s."
 msgstr ""
 
-#: classes/admin-page.php:49
+#: classes/admin-page.php:40
 msgid "General settings"
 msgstr ""
 
-#: classes/admin-page.php:51
+#: classes/admin-page.php:42
 msgid "News Sitemap settings"
 msgstr ""
 
-#: classes/admin-page.php:54
+#: classes/admin-page.php:45
 msgid "Google News Publication Name"
 msgstr ""
 
-#: classes/admin-page.php:59
+#: classes/admin-page.php:50
 msgid "Default Genre"
 msgstr ""
 
-#: classes/admin-page.php:100
+#: classes/admin-page.php:91
 msgid "Post Types to include in News Sitemap"
 msgstr ""
 
-#: classes/admin-page.php:101
+#: classes/admin-page.php:92
 msgid "Post Types to include:"
 msgstr ""
 
-#: classes/admin-page.php:192
+#: classes/admin-page.php:154
 #. translators: %1%s expands to the post type name.
 msgid "Terms to exclude for %1$s"
 msgstr ""
 
-#: classes/admin-page.php:199
+#: classes/admin-page.php:161
 #. translators: %1%s expands to the taxonomy name name.
 msgid "%1$s to exclude"
 msgstr ""
@@ -74,27 +74,27 @@ msgstr ""
 msgid "Choose image."
 msgstr ""
 
-#: classes/meta-box.php:51
+#: classes/meta-box.php:42
 msgid "News Sitemap"
 msgstr ""
 
-#: classes/meta-box.php:52
+#: classes/meta-box.php:43
 msgid "Exclude from News Sitemap"
 msgstr ""
 
-#: classes/meta-box.php:58
+#: classes/meta-box.php:49
 msgid "Google News Genre"
 msgstr ""
 
-#: classes/meta-box.php:59
+#: classes/meta-box.php:50
 msgid "Genre to show in Google News Sitemap."
 msgstr ""
 
-#: classes/meta-box.php:67
+#: classes/meta-box.php:58
 msgid "Stock Tickers"
 msgstr ""
 
-#: classes/meta-box.php:68
+#: classes/meta-box.php:59
 msgid ""
 "A comma-separated list of up to 5 stock tickers of the companies, mutual "
 "funds, or other financial entities that are the main subject of the "
@@ -103,23 +103,23 @@ msgid ""
 "(but not \"NASD:AMAT\"), or \"BOM:500325\" (but not \"BOM:RIL\")."
 msgstr ""
 
-#: classes/meta-box.php:78
+#: classes/meta-box.php:69
 msgid "Googlebot-News index"
 msgstr ""
 
-#: classes/meta-box.php:79
+#: classes/meta-box.php:70
 msgid "Using noindex allows you to prevent articles from appearing in Google News."
 msgstr ""
 
-#: classes/meta-box.php:144
+#: classes/meta-box.php:135
 msgid "Google News"
 msgstr ""
 
-#: classes/wpseo-news.php:163
+#: classes/wpseo-news.php:141
 msgid "Settings"
 msgstr ""
 
-#: classes/wpseo-news.php:268
+#: classes/wpseo-news.php:226
 #. translators: %1$s resolves to the link to search for Yoast SEO, %2$s
 #. resolves to the closing tag for this link, %3$s resolves to Yoast SEO, %4$s
 #. resolves to News SEO
@@ -128,45 +128,45 @@ msgid ""
 "functionality to allow the %4$s module to work."
 msgstr ""
 
-#: classes/wpseo-news.php:289
+#: classes/wpseo-news.php:247
 #. translators: %1$s resolves to News SEO
 msgid ""
 "Please upgrade WordPress to the latest version to allow WordPress and the "
 "%1$s module to work properly."
 msgstr ""
 
-#: classes/wpseo-news.php:307
+#: classes/wpseo-news.php:265
 #. translators: %1$s resolves to Yoast SEO, %2$s resolves to News SEO
 msgid ""
 "Please upgrade the %1$s plugin to the latest version to allow the %2$s "
 "module to work."
 msgstr ""
 
-#: classes/wpseo-news.php:372
+#: classes/wpseo-news.php:328
 msgid "None"
 msgstr ""
 
-#: classes/wpseo-news.php:373
+#: classes/wpseo-news.php:329
 msgid "Press Release"
 msgstr ""
 
-#: classes/wpseo-news.php:374
+#: classes/wpseo-news.php:330
 msgid "Satire"
 msgstr ""
 
-#: classes/wpseo-news.php:375
+#: classes/wpseo-news.php:331
 msgid "Blog"
 msgstr ""
 
-#: classes/wpseo-news.php:376
+#: classes/wpseo-news.php:332
 msgid "Op-Ed"
 msgstr ""
 
-#: classes/wpseo-news.php:377
+#: classes/wpseo-news.php:333
 msgid "Opinion"
 msgstr ""
 
-#: classes/wpseo-news.php:378
+#: classes/wpseo-news.php:334
 msgid "User Generated"
 msgstr ""
 
