@@ -11,18 +11,9 @@
 class WPSEO_News_Admin_Page {
 
 	/**
-	 * Options.
-	 *
-	 * @var array
-	 */
-	private $options = array();
-
-	/**
 	 * Constructor.
 	 */
 	public function __construct() {
-		$this->options = WPSEO_News::get_options();
-
 		if ( $this->is_news_page( filter_input( INPUT_GET, 'page' ) ) ) {
 			$this->register_i18n_promo_class();
 		}
@@ -33,7 +24,7 @@ class WPSEO_News_Admin_Page {
 	 */
 	public function display() {
 		// Admin header.
-		Yoast_Form::get_instance()->admin_header( true, 'wpseo_news', false, 'yoast_wpseo_news_options' );
+		Yoast_Form::get_instance()->admin_header( true, 'wpseo_news' );
 
 		// Introduction.
 		echo '<p>' . esc_html__( 'You will generally only need a News Sitemap when your website is included in Google News.', 'wordpress-seo-news' ) . '</p>';
@@ -51,11 +42,11 @@ class WPSEO_News_Admin_Page {
 		echo '<fieldset><legend class="screen-reader-text">' . esc_html__( 'News Sitemap settings', 'wordpress-seo-news' ) . '</legend>';
 
 		// Google News Publication Name.
-		Yoast_Form::get_instance()->textinput( 'name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );
+		Yoast_Form::get_instance()->textinput( 'news_sitemap_name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );
 
 		// Default Genre.
 		Yoast_Form::get_instance()->select(
-			'default_genre',
+			'news_sitemap_default_genre',
 			__( 'Default Genre', 'wordpress-seo-news' ),
 			WPSEO_News::list_genres()
 		);
@@ -100,8 +91,9 @@ class WPSEO_News_Admin_Page {
 		echo '<h2>' . esc_html__( 'Post Types to include in News Sitemap', 'wordpress-seo-news' ) . '</h2>';
 		echo '<fieldset><legend class="screen-reader-text">' . esc_html__( 'Post Types to include:', 'wordpress-seo-news' ) . '</legend>';
 
-		foreach ( get_post_types( array( 'public' => true ), 'objects' ) as $posttype ) {
-			Yoast_Form::get_instance()->checkbox( 'newssitemap_include_' . $posttype->name, $posttype->labels->name . ' (<code>' . $posttype->name . '</code>)', false );
+		$post_types = get_post_types( array( 'public' => true ), 'objects' );
+		foreach ( $post_types as $posttype ) {
+			Yoast_Form::get_instance()->checkbox( 'news_sitemap_include_post_type_' . $posttype->name, $posttype->labels->name . ' (<code>' . $posttype->name . '</code>)', false );
 		}
 
 		echo '</fieldset><br>';
@@ -127,9 +119,7 @@ class WPSEO_News_Admin_Page {
 	 * @return bool Whether or not the post type should be included in the sitemap.
 	 */
 	protected function filter_included_post_type( $post_type ) {
-		$option_key = 'newssitemap_include_' . $post_type->name;
-
-		return isset( $this->options[ $option_key ] ) && $this->options[ $option_key ] === 'on';
+		return WPSEO_Options::get( 'news_sitemap_include_post_type_' . $post_type->name ) === 'on';
 	}
 
 	/**
@@ -143,35 +133,7 @@ class WPSEO_News_Admin_Page {
 	private function get_excluded_post_type_taxonomies( $post_type ) {
 		$excludable_taxonomies = new WPSEO_News_Excludable_Taxonomies( $post_type->name );
 
-		$taxonomy_terms = array_map( array( $this, 'get_terms_for_taxonomy' ), $excludable_taxonomies->get() );
-
-		return array_filter( $taxonomy_terms );
-	}
-
-	/**
-	 * Gets a list of terms for the given taxonomy, and returns them along with the taxonomy in an array.
-	 *
-	 * @param WP_Taxonomy $taxonomy The taxonomy to get the terms for.
-	 *
-	 * @return array An array containing both the taxonomy and its terms.
-	 */
-	protected function get_terms_for_taxonomy( WP_Taxonomy $taxonomy ) {
-		$terms = get_terms(
-			array(
-				'taxonomy'   => $taxonomy->name,
-				'hide_empty' => false,
-				'show_ui'    => true,
-			)
-		);
-
-		if ( count( $terms ) === 0 ) {
-			return null;
-		}
-
-		return array(
-			'taxonomy' => $taxonomy,
-			'terms'    => $terms,
-		);
+		return $excludable_taxonomies->get_terms();
 	}
 
 	/**
@@ -201,7 +163,7 @@ class WPSEO_News_Admin_Page {
 			foreach ( $terms as $term ) {
 
 				Yoast_Form::get_instance()->checkbox(
-					'term_exclude_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type->name,
+					'news_sitemap_exclude_term_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type->name,
 					$term->name,
 					false
 				);

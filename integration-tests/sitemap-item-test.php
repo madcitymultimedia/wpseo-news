@@ -28,8 +28,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 			)
 		);
 
-		$test_options = WPSEO_News::get_options();
-		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_post_date_gmt, $test_options );
+		$instance = new WPSEO_News_Sitemap_Item_Double( $test_post_date_gmt );
 
 		$original_post_utc_time      = gmdate( $timezone_format, $base_time );
 		$get_publication_date_output = $instance->get_publication_date( $test_post_date_gmt );
@@ -61,8 +60,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		// Manually set post_date_gmt to an invalid string, because at creation WP forces a valid string.
 		$test_post_date->post_date_gmt = 'This is an invalid string';
 
-		$test_options = WPSEO_News::get_options();
-		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_post_date, $test_options );
+		$instance = new WPSEO_News_Sitemap_Item_Double( $test_post_date );
 
 		$original_post_date          = '';
 		$get_publication_date_output = $instance->get_publication_date( $test_post_date );
@@ -88,8 +86,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		$test_post_date_gmt->post_date     = -10;
 		$test_post_date_gmt->post_date_gmt = -10;
 
-		$test_options = WPSEO_News::get_options();
-		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_post_date_gmt, $test_options );
+		$instance = new WPSEO_News_Sitemap_Item_Double( $test_post_date_gmt );
 
 		$get_publication_date_output = $instance->get_publication_date( $test_post_date_gmt );
 
@@ -110,8 +107,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		);
 		$test_seo_title = self::factory()->post->create_and_get( $post_details );
 
-		$test_options = WPSEO_News::get_options();
-		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_seo_title, $test_options );
+		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_seo_title );
 		$title_output = $instance->get_item_title( $test_seo_title );
 		$blogname     = get_bloginfo( 'name' );
 
@@ -131,8 +127,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		);
 		$test_seo_title = self::factory()->post->create_and_get( $post_details );
 
-		$test_options = WPSEO_News::get_options();
-		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_seo_title, $test_options );
+		$instance = new WPSEO_News_Sitemap_Item_Double( $test_seo_title );
 
 		$title_output = $instance->get_item_title( null );
 
@@ -151,8 +146,7 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 			'post_type'  => 'post',
 		);
 		$test_seo_title = self::factory()->post->create_and_get( $post_details );
-		$test_options   = WPSEO_News::get_options();
-		$instance       = new WPSEO_News_Sitemap_Item_Double( $test_seo_title, $test_options );
+		$instance       = new WPSEO_News_Sitemap_Item_Double( $test_seo_title );
 
 		$title_output = $instance->get_item_title( $test_seo_title );
 

@@ -25,13 +25,12 @@ class WPSEO_News_Sitemap_Images_Test extends WPSEO_News_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		// Create a post and retrieve options so the new object can actually be created.
+		// Create a post, so the new object can actually be created.
 		// Neither is actually used for the current unit tests.
 		$post_id = $this->factory->post->create();
 		$post    = get_post( $post_id );
-		$options = WPSEO_News::get_options();
 
-		$this->instance = new WPSEO_News_Sitemap_Images( $post, $options );
+		$this->instance = new WPSEO_News_Sitemap_Images( $post );
 	}
 
 	/**

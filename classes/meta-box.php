@@ -11,19 +11,10 @@
 class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
 	/**
-	 * Options.
-	 *
-	 * @var array
-	 */
-	private $options;
-
-	/**
 	 * WPSEO_News_Meta_Box constructor.
 	 */
 	public function __construct() {
 		global $pagenow;
-
-		$this->options = WPSEO_News::get_options();
 
 		add_filter( 'wpseo_save_metaboxes', array( $this, 'save' ), 10, 1 );
 		add_action( 'add_meta_boxes', array( $this, 'add_tab_hooks' ) );
@@ -55,7 +46,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 			'newssitemap-genre'        => array(
 				'name'        => 'newssitemap-genre',
 				'type'        => 'multiselect',
-				'std'         => ( ( isset( $this->options['default_genre'] ) ) ? $this->options['default_genre'] : 'blog' ),
+				'std'         => WPSEO_Options::get( 'news_sitemap_default_genre', 'blog' ),
 				'title'       => __( 'Google News Genre', 'wordpress-seo-news' ),
 				'description' => __( 'Genre to show in Google News Sitemap.', 'wordpress-seo-news' ),
 				'options'     => WPSEO_News::list_genres(),
