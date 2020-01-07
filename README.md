@@ -31,9 +31,11 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 ### 12.4: January 7th, 2020
+Bugfixes:
+* Fixes a bug where the sitemap could be invalidated twice on multisite with MultilingualPress.
+
 Other:
 * Show dates in UTC+0 format everywhere.
-* Fixes a bug where the sitemap could be invalidated twice on multisite with MultilingualPress.
 
 ### 12.3: November 27th, 2019
 Enhancements:
