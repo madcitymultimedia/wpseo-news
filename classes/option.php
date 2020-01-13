@@ -31,13 +31,6 @@ class WPSEO_News_Option extends WPSEO_Option {
 	);
 
 	/**
-	 * Used for "caching" during pageload.
-	 *
-	 * @var array
-	 */
-	protected $enriched_defaults;
-
-	/**
 	 * Registers the option to the WPSEO Options framework.
 	 */
 	public static function register_option() {
@@ -55,47 +48,6 @@ class WPSEO_News_Option extends WPSEO_Option {
 		}
 
 		return self::$instance;
-	}
-	/**
-	 * Add dynamically created default options based on available post types and taxonomies.
-	 *
-	 * @return void
-	 */
-	public function enrich_defaults() {
-		$enriched_defaults = $this->enriched_defaults;
-		if ( $enriched_defaults !== null ) {
-			$this->defaults += $enriched_defaults;
-			return;
-		}
-
-		$enriched_defaults = [];
-
-		/*
-		 * Retrieve all the relevant post type and taxonomy arrays.
-		 *
-		 * WPSEO_Post_Type::get_accessible_post_types() should *not* be used here.
-		 * These are the defaults and can be prepared for any public post type.
-		 */
-		$post_types = get_post_types( [ 'public' => true ], 'objects' );
-
-		if ( $post_types ) {
-			foreach ( $post_types as $post_type ) {
-				$enriched_defaults[ 'news_sitemap_include_post_type_' . $post_type->name ] = '';
-
-				$excludable_taxonomies = new WPSEO_News_Excludable_Taxonomies( $post_type->name );
-
-				foreach ( $excludable_taxonomies->get_terms() as $data ) {
-					$terms = $data['terms'];
-
-					foreach ( $terms as $term ) {
-						$enriched_defaults[ 'news_sitemap_exclude_term_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type->name ] = '';
-					}
-				}
-			}
-		}
-
-		$this->enriched_defaults = $enriched_defaults;
-		$this->defaults         += $enriched_defaults;
 	}
 
 	/**
@@ -142,18 +94,6 @@ class WPSEO_News_Option extends WPSEO_Option {
 							}
 						}
 					}
-					break;
-
-				default :
-					if ( stripos( $key, 'news_sitemap_include_post_type_' ) === 0 || stripos( $key, 'news_sitemap_exclude_term_' ) === 0  ) {
-						if ( ! empty( $dirty[ $key ] ) ) {
-							$clean[ $key ] = 'on';
-						}
-						else {
-							unset( $clean[ $key ] );
-						}
-					}
-
 					break;
 			}
 		}
