@@ -122,7 +122,12 @@ class WPSEO_News_Admin_Page {
 	 * @return bool Whether or not the post type should be included in the sitemap.
 	 */
 	protected function filter_included_post_type( $post_type ) {
-		return WPSEO_Options::get( 'news_sitemap_include_post_type_' . $post_type->name ) === 'on';
+		static $included_post_types;
+		if ( ! $included_post_types ) {
+			$included_post_types = WPSEO_Options::get( 'news_sitemap_include_post_types' );
+		}
+
+		return array_key_exists( $post_type->name, $included_post_types );
 	}
 
 	/**
