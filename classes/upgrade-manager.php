@@ -71,6 +71,11 @@ class WPSEO_News_Upgrade_Manager {
 		if ( version_compare( $current_version, '12.4-RC0', '<=' ) ) {
 			$this->upgrade_124();
 		}
+
+		// Upgrade to version 12.4.1.
+		if ( version_compare( $current_version, '12.4.1-RC0', '<=' ) ) {
+			$this->upgrade_1241();
+		}
 	}
 
 	/**
@@ -187,6 +192,49 @@ class WPSEO_News_Upgrade_Manager {
 				continue;
 			}
 		}
+
+		update_option( 'wpseo_news', $options );
+	}
+
+	/**
+	 * Makes the options converted in 12.4 an array.
+	 */
+	private function upgrade_1241() {
+		$options = get_option( 'wpseo_news' );
+
+		$included_post_types = array();
+		$excluded_terms      = array();
+
+		if ( isset( $options['news_sitemap_include_post_types'] ) && is_array( $options['news_sitemap_include_post_types'] ) ) {
+			$included_post_types = $options['news_sitemap_include_post_types'];
+		}
+
+		if ( isset( $options['news_sitemap_exclude_terms'] ) && is_array( $options['news_sitemap_exclude_terms'] ) ) {
+			$excluded_terms = $options['news_sitemap_exclude_terms'];
+		}
+
+		foreach ( $options as $option_name => $option_value ) {
+			if ( strpos( $option_name, 'news_sitemap_include_post_type_' ) === 0 ) {
+				$post_type_to_include                         = str_replace( 'news_sitemap_include_post_type_', '', $option_name );
+				$included_post_types[ $post_type_to_include ] = 'on';
+
+				unset( $options[ $option_name ] );
+
+				continue;
+			}
+
+			if ( strpos( $option_name, 'news_sitemap_exclude_term_' ) === 0 ) {
+				$term_to_exclude                    = str_replace( 'news_sitemap_exclude_term_', '', $option_name );
+				$excluded_terms[ $term_to_exclude ] = 'on';
+
+				unset( $options[ $option_name ] );
+
+				continue;
+			}
+		}
+
+		$options['news_sitemap_include_post_types'] = $included_post_types;
+		$options['news_sitemap_exclude_terms']      = $excluded_terms;
 
 		update_option( 'wpseo_news', $options );
 	}
