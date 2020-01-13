@@ -72,7 +72,7 @@ class WPSEO_News_Upgrade_Manager {
 			$this->upgrade_124();
 		}
 
-		// Upgrade to version 12.4.1
+		// Upgrade to version 12.4.1.
 		if ( version_compare( $current_version, '12.4.1-RC0', '<=' ) ) {
 			$this->upgrade_1241();
 		}
@@ -205,12 +205,12 @@ class WPSEO_News_Upgrade_Manager {
 		$included_post_types = array();
 		$excluded_terms      = array();
 
-		if ( isset( $options[ 'news_sitemap_include_post_types' ] ) && is_array( $options[ 'news_sitemap_include_post_types' ] ) ) {
-			$included_post_types = $options[ 'news_sitemap_include_post_types' ];
+		if ( isset( $options['news_sitemap_include_post_types'] ) && is_array( $options['news_sitemap_include_post_types'] ) ) {
+			$included_post_types = $options['news_sitemap_include_post_types'];
 		}
 
-		if ( isset( $options[ 'news_sitemap_exclude_terms' ] ) && is_array( $options[ 'news_sitemap_exclude_terms' ] ) ) {
-			$excluded_terms = $options[ 'news_sitemap_exclude_terms' ];
+		if ( isset( $options['news_sitemap_exclude_terms'] ) && is_array( $options['news_sitemap_exclude_terms'] ) ) {
+			$excluded_terms = $options['news_sitemap_exclude_terms'];
 		}
 
 		foreach ( $options as $option_name => $option_value ) {
@@ -236,10 +236,6 @@ class WPSEO_News_Upgrade_Manager {
 		$options['news_sitemap_include_post_types'] = $included_post_types;
 		$options['news_sitemap_exclude_terms']      = $excluded_terms;
 
-
-		echo "<pre>";
-		print_r( $options );
-		exit;
 		update_option( 'wpseo_news', $options );
 	}
 

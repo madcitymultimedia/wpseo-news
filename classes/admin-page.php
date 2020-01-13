@@ -124,7 +124,7 @@ class WPSEO_News_Admin_Page {
 	protected function filter_included_post_type( $post_type ) {
 		static $included_post_types;
 		if ( ! $included_post_types ) {
-			$included_post_types = WPSEO_Options::get( 'news_sitemap_include_post_types' );
+			$included_post_types = (array) WPSEO_Options::get( 'news_sitemap_include_post_types', [] );
 		}
 
 		return array_key_exists( $post_type->name, $included_post_types );
