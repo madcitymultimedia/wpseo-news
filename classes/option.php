@@ -23,9 +23,11 @@ class WPSEO_News_Option extends WPSEO_Option {
 	 * @var array
 	 */
 	protected $defaults = array(
-		'news_sitemap_name'          => '',
-		'news_sitemap_default_genre' => '',
-		'news_version'               => '0',
+		'news_sitemap_name'               => '',
+		'news_sitemap_default_genre'      => '',
+		'news_version'                    => '0',
+		'news_sitemap_include_post_types' => array(),
+		'news_sitemap_exclude_terms'      => array(),
 	);
 
 	/**
@@ -127,6 +129,19 @@ class WPSEO_News_Option extends WPSEO_Option {
 						$clean[ $key ] = WPSEO_Utils::sanitize_text_field( $dirty[ $key ] );
 					}
 
+					break;
+
+				case 'news_sitemap_include_post_types':
+				case 'news_sitemap_exclude_terms':
+					$clean[ $key ] = array();
+
+					if ( isset( $dirty[ $key ] ) && ( is_array( $dirty[ $key ] ) && $dirty[ $key ] !== array() ) ) {
+						foreach ( $dirty[ $key ] as $name => $posted_value ) {
+							if ( is_string( $name ) ) {
+								$clean[ $key ][ $name ] = 'on';
+							}
+						}
+					}
 					break;
 
 				default :
