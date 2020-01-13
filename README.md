@@ -30,6 +30,10 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 12.4.1: January 14th, 2020
+Bugfixes:
+* Fixes a bug where a large amount of WordPress terms or post types would cause significant slowdowns and possible crashes on admin pages.
+
 ### 12.4: January 7th, 2020
 Other:
 * Show dates in UTC+0 format everywhere.
