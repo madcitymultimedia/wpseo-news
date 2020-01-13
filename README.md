@@ -32,7 +32,7 @@ Changelog
 =========
 ### 12.4.1: January 14th, 2020
 Bugfixes:
-* Fixes a bug where a large amount of WordPress terms or post types would cause significant slowdowns and possible crashes on admin pages.
+* Fixes a bug where a large number of WordPress terms or post types would cause significant slowdowns and possible crashes on admin pages.
 
 ### 12.4: January 7th, 2020
 Other:
