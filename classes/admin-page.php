@@ -92,9 +92,12 @@ class WPSEO_News_Admin_Page {
 		echo '<fieldset><legend class="screen-reader-text">' . esc_html__( 'Post Types to include:', 'wordpress-seo-news' ) . '</legend>';
 
 		$post_types = get_post_types( array( 'public' => true ), 'objects' );
-		foreach ( $post_types as $posttype ) {
-			Yoast_Form::get_instance()->checkbox( 'news_sitemap_include_post_type_' . $posttype->name, $posttype->labels->name . ' (<code>' . $posttype->name . '</code>)', false );
+		$post_types_list = array();
+		foreach ( $post_types as $post_type ) {
+			$post_types_list[ $post_type->name ] = $post_type->labels->name . ' (' . $post_type->name . ')';
 		}
+
+		Yoast_Form::get_instance()->checkbox_list( 'news_sitemap_include_post_types', $post_types_list );
 
 		echo '</fieldset><br>';
 	}
@@ -160,14 +163,12 @@ class WPSEO_News_Admin_Page {
 			/* translators: %1%s expands to the taxonomy name name. */
 			echo '<h3>' . esc_html( sprintf( __( '%1$s to exclude', 'wordpress-seo-news' ), $taxonomy->labels->name ) ) . '</h3>';
 
+			$taxonomies_list = array();
 			foreach ( $terms as $term ) {
-
-				Yoast_Form::get_instance()->checkbox(
-					'news_sitemap_exclude_term_' . $term->taxonomy . '_' . $term->slug . '_for_' . $post_type->name,
-					$term->name,
-					false
-				);
+				$taxonomies_list[ $term->taxonomy . '_' . $term->slug . '_for_' . $post_type->name ] = $term->name;
 			}
+
+			Yoast_Form::get_instance()->checkbox_list( 'news_sitemap_exclude_terms', $taxonomies_list );
 		}
 	}
 
