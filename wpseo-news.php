@@ -6,7 +6,7 @@
  *
  * @wordpress-plugin
  * Plugin Name: Yoast SEO: News
- * Version:     12.4.1-RC1
+ * Version:     12.4.1
  * Plugin URI:  https://yoast.com/wordpress/plugins/news-seo/#utm_source=wpadmin&utm_medium=plugin&utm_campaign=wpseonewsplugin
  * Description: Google News plugin for the Yoast SEO plugin
  * Author:      Team Yoast
@@ -37,7 +37,7 @@ if ( ! defined( 'WPSEO_NEWS_FILE' ) ) {
 	define( 'WPSEO_NEWS_FILE', __FILE__ );
 }
 
-define( 'WPSEO_NEWS_VERSION', '12.4.1-RC1' );
+define( 'WPSEO_NEWS_VERSION', '12.4.1' );
 
 if ( file_exists( dirname( __FILE__ ) . '/vendor/autoload.php' ) ) {
 	require dirname( __FILE__ ) . '/vendor/autoload.php';

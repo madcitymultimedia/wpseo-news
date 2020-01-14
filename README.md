@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 5.2
 Tested up to: 5.3.2
-Stable tag: 12.4.1-RC1
+Stable tag: 12.4.1
 Requires PHP: 5.6.20
 Depends: Yoast SEO
 
@@ -33,6 +33,9 @@ Changelog
 ### 12.4.1: January 14th, 2020
 Bugfixes:
 * Fixes a bug where a large number of WordPress terms or post types would cause significant slowdowns and possible crashes on admin pages.
+
+Other:
+* Removes the code tags from the term and post type names on the News SEO settings page. 
 
 ### 12.4: January 7th, 2020
 Bugfixes:
