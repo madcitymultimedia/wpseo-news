@@ -302,7 +302,7 @@ class WPSEO_News {
 
 		if ( $post_types === null ) {
 			// Get supported post types.
-			$post_types = array();
+			$post_types          = array();
 			$included_post_types = (array) WPSEO_Options::get( 'news_sitemap_include_post_types', array() );
 			foreach ( get_post_types( array( 'public' => true ), 'names' ) as $post_type ) {
 				if ( array_key_exists( $post_type, $included_post_types ) && $included_post_types[ $post_type ] === 'on' ) {
@@ -360,7 +360,7 @@ class WPSEO_News {
 		$excluded_terms = (array) WPSEO_Options::get( 'news_sitemap_exclude_terms', array() );
 		foreach ( $terms as $term ) {
 			$option_key = $term->taxonomy . '_' . $term->slug . '_for_' . $post_type;
-			if ( array_key_exists( $option_key, $excluded_terms ) && $excluded_terms[ $option_key ] === 'on'  ) {
+			if ( array_key_exists( $option_key, $excluded_terms ) && $excluded_terms[ $option_key ] === 'on' ) {
 				return true;
 			}
 		}

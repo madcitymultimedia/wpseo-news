@@ -5,6 +5,9 @@ namespace Yoast\WP\News\Tests;
 use WPSEO_News;
 use function Brain\Monkey\Functions\expect;
 
+/**
+ * Test the WPSEO_News class.
+ */
 class News_Test extends TestCase {
 
 	/**
@@ -15,7 +18,7 @@ class News_Test extends TestCase {
 	 * @runInSeparateProcess
 	 */
 	public function test_get_included_post_types() {
-		$options = \Mockery::mock('overload:\WPSEO_Options' );
+		$options = \Mockery::mock( 'overload:\WPSEO_Options' );
 		$options
 			->shouldReceive( 'get' )
 			->with( 'news_sitemap_include_post_types', [] )
@@ -40,7 +43,7 @@ class News_Test extends TestCase {
 	 * @runInSeparateProcess
 	 */
 	public function test_get_included_post_types_with_no_set_post_types() {
-		$options = \Mockery::mock('overload:\WPSEO_Options' );
+		$options = \Mockery::mock( 'overload:\WPSEO_Options' );
 		$options
 			->shouldReceive( 'get' )
 			->with( 'news_sitemap_include_post_types', [] )
@@ -66,12 +69,11 @@ class News_Test extends TestCase {
 		$excluded_terms = (array) WPSEO_Options::get( 'news_sitemap_exclude_terms', array() );
 		foreach ( $terms as $term ) {
 			$option_key = $term->taxonomy . '_' . $term->slug . '_for_' . $post_type;
-			if ( array_key_exists( $option_key, $excluded_terms ) && $excluded_terms[ $option_key ] === 'on'  ) {
+			if ( array_key_exists( $option_key, $excluded_terms ) && $excluded_terms[ $option_key ] === 'on' ) {
 				return true;
 			}
 		}
 
 		return false;
 	}
-
 }
