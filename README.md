@@ -34,6 +34,9 @@ Changelog
 Bugfixes:
 * Fixes a bug where a large number of WordPress terms or post types would cause significant slowdowns and possible crashes on admin pages.
 
+Other:
+* Removes the code tags from the term and post type names on the News SEO settings page. 
+
 ### 12.4: January 7th, 2020
 Other:
 * Show dates in UTC+0 format everywhere.
