@@ -14,7 +14,7 @@ class Option_Test extends TestCase {
 	/**
 	 * The instance.
 	 *
-	 * @var Doubles\Option_Double
+	 * @var \Yoast\WP\News\Tests\Doubles\Option_Double
 	 */
 	protected $instance;
 
