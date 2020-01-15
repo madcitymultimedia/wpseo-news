@@ -107,7 +107,7 @@ class WPSEO_News_Sitemap_Images {
 	 *
 	 * @param string $src Image Source.
 	 *
-	 * @return string|void
+	 * @return string|null
 	 */
 	private function parse_image_source( $src ) {
 
