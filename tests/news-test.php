@@ -3,6 +3,9 @@
 namespace Yoast\WP\News\Tests;
 
 use WPSEO_News;
+use Yoast\WP\News\Tests\TestCase;
+use Mockery;
+
 use function Brain\Monkey\Functions\expect;
 
 /**
@@ -18,7 +21,7 @@ class News_Test extends TestCase {
 	 * @runInSeparateProcess
 	 */
 	public function test_get_included_post_types() {
-		$options = \Mockery::mock( 'overload:\WPSEO_Options' );
+		$options = Mockery::mock( 'overload:\WPSEO_Options' );
 		$options
 			->shouldReceive( 'get' )
 			->with( 'news_sitemap_include_post_types', [] )
@@ -43,7 +46,7 @@ class News_Test extends TestCase {
 	 * @runInSeparateProcess
 	 */
 	public function test_get_included_post_types_with_no_set_post_types() {
-		$options = \Mockery::mock( 'overload:\WPSEO_Options' );
+		$options = Mockery::mock( 'overload:\WPSEO_Options' );
 		$options
 			->shouldReceive( 'get' )
 			->with( 'news_sitemap_include_post_types', [] )
