@@ -32,15 +32,15 @@ abstract class TestCase extends PHPUnit_TestCase {
 				'is_admin'       => false,
 				'is_multisite'   => false,
 				'site_url'       => 'https://www.example.org',
-				'wp_json_encode' => function( $data, $options = 0, $depth = 512 ) {
+				'wp_json_encode' => static function( $data, $options = 0, $depth = 512 ) {
 					// phpcs:ignore Yoast.Yoast.AlternativeFunctions -- Mocks the wp_json_encode function.
 					return \json_encode( $data, $options, $depth );
 				},
 				'wp_slash'       => null,
-				'absint'         => function( $value ) {
+				'absint'         => static function( $value ) {
 					return abs( intval( $value ) );
 				},
-				'wp_parse_args'  => function ( $settings, $defaults ) {
+				'wp_parse_args'  => static function ( $settings, $defaults ) {
 					return \array_merge( $defaults, $settings );
 				},
 			]
