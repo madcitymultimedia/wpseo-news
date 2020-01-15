@@ -1,4 +1,5 @@
 <?php
+
 namespace Yoast\WP\News\Tests;
 
 use PHPUnit\Framework\TestCase as PHPUnit_TestCase;

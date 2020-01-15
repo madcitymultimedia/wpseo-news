@@ -177,7 +177,8 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 * @codeCoverageIgnore
 	 */
 	public function header() {
-		_deprecated_function( __METHOD__, '11.9' );}
+		_deprecated_function( __METHOD__, '11.9' );
+	}
 
 	/**
 	 * The tab content.

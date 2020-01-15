@@ -32,5 +32,4 @@ if ( ! class_exists( 'WPSEO_News_Product', false ) && class_exists( 'Yoast_Produ
 			);
 		}
 	}
-
 }
