@@ -145,7 +145,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 			'post_title'   => 'with images',
 			'post_content' => '<img src="' . $image . '" />',
 		);
-		$post_id      = $this->factory->post->create( $post_details );
+		$this->factory->post->create( $post_details );
 
 		$output = $this->instance->build_sitemap();
 
