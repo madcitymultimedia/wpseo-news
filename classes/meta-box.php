@@ -32,7 +32,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 *
 	 * @param string $post_type The post type to get metaboxes for.
 	 *
-	 * @return array $mbs
+	 * @return array Multi-level array with information on each metabox to display.
 	 */
 	public function get_meta_boxes( $post_type = 'post' ) {
 		$mbs = array(

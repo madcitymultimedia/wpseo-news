@@ -247,7 +247,7 @@ class WPSEO_News_Sitemap {
 	 *
 	 * @param array $items Items to convert to sitemap output.
 	 *
-	 * @return string $output
+	 * @return string
 	 */
 	private function build_items( $items ) {
 		$output = '';
@@ -284,7 +284,7 @@ class WPSEO_News_Sitemap {
 	 *
 	 * @since 3.1
 	 *
-	 * @return string $basename
+	 * @return string Basename for the news sitemap.
 	 */
 	public static function news_sitemap_basename() {
 		$basename = 'news';
