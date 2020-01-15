@@ -191,7 +191,7 @@ class WPSEO_News_Sitemap_Item {
 	/**
 	 * Getting the publication language.
 	 *
-	 * @return string
+	 * @return string Publication language.
 	 */
 	private function get_publication_lang() {
 		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WPSEO hook.
@@ -202,9 +202,7 @@ class WPSEO_News_Sitemap_Item {
 			$locale = 'en';
 		}
 
-		$publication_lang = substr( $locale, 0, 2 );
-
-		return $publication_lang;
+		return substr( $locale, 0, 2 );
 	}
 
 	/**

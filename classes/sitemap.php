@@ -196,14 +196,12 @@ class WPSEO_News_Sitemap {
 	}
 
 	/**
-	 * Getter for stylesheet url.
+	 * Getter for stylesheet URL.
 	 *
-	 * @return string
+	 * @return string Stylesheet URL.
 	 */
 	private function get_stylesheet_line() {
-		$stylesheet_url = "\n" . '<?xml-stylesheet type="text/xsl" href="' . esc_url( $this->get_xsl_url() ) . '"?>';
-
-		return $stylesheet_url;
+		return "\n" . '<?xml-stylesheet type="text/xsl" href="' . esc_url( $this->get_xsl_url() ) . '"?>';
 	}
 
 	/**
