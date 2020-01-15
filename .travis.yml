@@ -33,7 +33,7 @@ jobs:
       env: WP_VERSION=5.2 WP_MULTISITE=1 PHPLINT=1 PHPUNIT=1
       # Use 'trusty' to test against MySQL 5.6, 'xenial' contains 5.7 by default.
       dist: trusty
-    - php: "7.4snapshot"
+    - php: 7.4
       env: WP_VERSION=5.3 PHPLINT=1 PHPUNIT=1
     - php: "nightly"
       env:  PHPLINT=1
@@ -189,7 +189,7 @@ script:
     composer test -- --coverage-php /tmp/coverage/tests.cov
     travis_time_finish && travis_fold end "PHP.coverage.part2"
   fi
-- if [[ $TRAVIS_PHP_VERSION == "5.6" || $TRAVIS_PHP_VERSION == "7.3" ]]; then composer validate --no-check-all; fi
+- if [[ $TRAVIS_PHP_VERSION == "5.6" || $TRAVIS_PHP_VERSION == "7.4" ]]; then composer validate --no-check-all; fi
 # Check for known security vulnerabilities in the currently locked-in dependencies.
 - if [[ "$SECURITY" == "1" ]]; then php $SECURITYCHECK_DIR/security-checker.phar -n security:check $(pwd)/composer.lock;fi
 
