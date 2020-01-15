@@ -13,7 +13,7 @@ class WPSEO_News_Javascript_Strings {
 	/**
 	 * Strings to be made available to javascript.
 	 *
-	 * @var null|array
+	 * @var string[]|null
 	 */
 	private static $strings = null;
 
@@ -30,7 +30,7 @@ class WPSEO_News_Javascript_Strings {
 	/**
 	 * Returns the array with strings.
 	 *
-	 * @return array
+	 * @return string[]
 	 */
 	public static function strings() {
 		if ( self::$strings === null ) {

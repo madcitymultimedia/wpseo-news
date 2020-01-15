@@ -15,12 +15,12 @@ class WPSEO_News_Test extends WPSEO_News_UnitTestCase {
 	 *
 	 * @dataProvider check_dependencies_data
 	 *
+	 * @covers WPSEO_News::check_dependencies
+	 *
 	 * @param bool   $expected              The expected value.
 	 * @param string $wordpress_seo_version The WordPress SEO version to check.
 	 * @param string $wordpress_version     The WordPress version to check.
 	 * @param string $message               Message given by PHPUnit after assertion.
-	 *
-	 * @covers WPSEO_News::check_dependencies
 	 */
 	public function test_check_dependencies( $expected, $wordpress_seo_version, $wordpress_version, $message ) {
 		$class_instance = $this
@@ -46,7 +46,7 @@ class WPSEO_News_Test extends WPSEO_News_UnitTestCase {
 	 * [2]: WordPress Version
 	 * [3]: Message for PHPUnit.
 	 *
-	 * @return array
+	 * @return array[]
 	 */
 	public function check_dependencies_data() {
 		return array(

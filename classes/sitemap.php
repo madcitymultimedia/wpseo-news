@@ -88,7 +88,7 @@ class WPSEO_News_Sitemap {
 	/**
 	 * Method to invalidate the sitemap.
 	 *
-	 * @param integer $post_id Post ID to invalidate for.
+	 * @param int $post_id Post ID to invalidate for.
 	 */
 	public function invalidate_sitemap( $post_id ) {
 		// If this is just a revision, don't invalidate the sitemap cache yet.
@@ -209,7 +209,7 @@ class WPSEO_News_Sitemap {
 	 *
 	 * @param int $limit The limit for the query, default is 1000 items.
 	 *
-	 * @return array|null|object
+	 * @return array|object|null
 	 */
 	private function get_items( $limit = 1000 ) {
 		global $wpdb;
@@ -247,7 +247,7 @@ class WPSEO_News_Sitemap {
 	 *
 	 * @param array $items Items to convert to sitemap output.
 	 *
-	 * @return string $output
+	 * @return string
 	 */
 	private function build_items( $items ) {
 		$output = '';
@@ -263,7 +263,7 @@ class WPSEO_News_Sitemap {
 	 *
 	 * @param bool $full_path Generate a full path.
 	 *
-	 * @return string mixed
+	 * @return string
 	 */
 	public static function get_sitemap_name( $full_path = true ) {
 		// This filter is documented in classes/sitemap.php.
@@ -284,7 +284,7 @@ class WPSEO_News_Sitemap {
 	 *
 	 * @since 3.1
 	 *
-	 * @return string $basename
+	 * @return string Basename for the news sitemap.
 	 */
 	public static function news_sitemap_basename() {
 		$basename = 'news';

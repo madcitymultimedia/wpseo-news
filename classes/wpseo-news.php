@@ -9,6 +9,12 @@
  * Represents the news extension for Yoast SEO.
  */
 class WPSEO_News {
+
+	/**
+	 * Version number of the plugin.
+	 *
+	 * @var string
+	 */
 	const VERSION = WPSEO_NEWS_VERSION;
 
 	/**

@@ -107,7 +107,7 @@ class WPSEO_News_Sitemap_Images {
 	 *
 	 * @param string $src Image Source.
 	 *
-	 * @return string|void
+	 * @return string|null
 	 */
 	private function parse_image_source( $src ) {
 
@@ -137,7 +137,7 @@ class WPSEO_News_Sitemap_Images {
 	 *
 	 * @param string $img Image HTML.
 	 *
-	 * @return array
+	 * @return string[]
 	 */
 	private function parse_image( $img ) {
 		$image = array();
@@ -188,7 +188,7 @@ class WPSEO_News_Sitemap_Images {
 	/**
 	 * Getting the featured image.
 	 *
-	 * @param integer $post_thumbnail_id Thumbnail ID.
+	 * @param int $post_thumbnail_id Thumbnail ID.
 	 *
 	 * @return void
 	 */

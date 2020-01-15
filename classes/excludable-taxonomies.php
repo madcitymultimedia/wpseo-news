@@ -65,7 +65,8 @@ class WPSEO_News_Excludable_Taxonomies {
 	 *
 	 * @param WP_Taxonomy $taxonomy The taxonomy to get the terms for.
 	 *
-	 * @return array An array containing both the taxonomy and its terms.
+	 * @return array|null An array containing both the taxonomy and its terms or null
+	 *                    if no terms are associated with the taxonomy.
 	 */
 	protected function get_terms_for_taxonomy( $taxonomy ) {
 		$terms = get_terms(

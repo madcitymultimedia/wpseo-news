@@ -34,7 +34,7 @@ class WPSEO_News_Schema {
 	 *
 	 * @param array $post_types Supported post types.
 	 *
-	 * @return array $post_types Supported post types.
+	 * @return array Supported post types.
 	 */
 	public function article_post_types( $post_types ) {
 		$post = $this->get_post();
@@ -51,7 +51,7 @@ class WPSEO_News_Schema {
 	 *
 	 * @param array $data Schema Article data.
 	 *
-	 * @return array $data Schema Article data.
+	 * @return array Schema Article data.
 	 */
 	public function change_article( $data ) {
 		$post = $this->get_post();
