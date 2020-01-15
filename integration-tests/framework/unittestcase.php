@@ -61,7 +61,7 @@ class WPSEO_News_UnitTestCase extends WP_UnitTestCase {
 		$reflection = new ReflectionClass( get_class( $object ) );
 		$method     = $reflection->getMethod( $method_name );
 
-		$method->setAccessible( true ); // PHP 5.3.2.
+		$method->setAccessible( true );
 
 		return $method->invokeArgs( $object, $parameters );
 	}
