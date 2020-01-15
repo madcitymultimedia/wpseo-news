@@ -56,7 +56,7 @@ class Option_Test extends TestCase {
 	/**
 	 * Data provider for test_validate_option.
 	 *
-	 * @return array The options.
+	 * @return array[] The options.
 	 */
 	public function validate_option_provider() {
 		return [

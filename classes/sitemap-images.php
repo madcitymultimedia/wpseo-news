@@ -137,7 +137,7 @@ class WPSEO_News_Sitemap_Images {
 	 *
 	 * @param string $img Image HTML.
 	 *
-	 * @return array
+	 * @return string[]
 	 */
 	private function parse_image( $img ) {
 		$image = array();

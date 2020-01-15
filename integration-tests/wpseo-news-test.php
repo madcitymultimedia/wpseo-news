@@ -46,7 +46,7 @@ class WPSEO_News_Test extends WPSEO_News_UnitTestCase {
 	 * [2]: WordPress Version
 	 * [3]: Message for PHPUnit.
 	 *
-	 * @return array
+	 * @return array[]
 	 */
 	public function check_dependencies_data() {
 		return array(
