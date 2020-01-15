@@ -263,7 +263,7 @@ class WPSEO_News_Sitemap {
 	 *
 	 * @param bool $full_path Generate a full path.
 	 *
-	 * @return string mixed
+	 * @return string
 	 */
 	public static function get_sitemap_name( $full_path = true ) {
 		// This filter is documented in classes/sitemap.php.
