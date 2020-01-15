@@ -11,14 +11,14 @@
 class WPSEO_News_Sitemap_Item_Double extends WPSEO_News_Sitemap_Item {
 
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function get_publication_date( $item ) {
 		return parent::get_publication_date( $item );
 	}
 
 	/**
-	 * @inheritdoc
+	 * @inheritDoc
 	 */
 	public function get_item_title( $item = null ) {
 		return parent::get_item_title( $item );
