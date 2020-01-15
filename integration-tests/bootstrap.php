@@ -25,7 +25,7 @@ $GLOBALS['wp_tests_options'] = array(
 	'active_plugins' => array( 'wordpress-seo/wp-seo.php', 'wpseo-news/wpseo-news.php' ),
 );
 
-if ( file_exists( dirname( dirname( __FILE__ ) ) . '/vendor/autoload.php' ) === false ) {
+if ( file_exists( dirname( __DIR__ ) . '/vendor/autoload.php' ) === false ) {
 	echo PHP_EOL, 'ERROR: Run `composer install` to generate the autoload files before running the unit tests.', PHP_EOL;
 	exit( 1 );
 }
@@ -53,4 +53,4 @@ if ( ! defined( 'WP_PLUGIN_DIR' ) || file_exists( WP_PLUGIN_DIR . '/wpseo-news/w
 }
 
 // Include unit test base class.
-require_once dirname( __FILE__ ) . '/framework/unittestcase.php';
+require_once __DIR__ . '/framework/unittestcase.php';
