@@ -34,15 +34,15 @@ class Option_Test extends TestCase {
 	/**
 	 * Tests the validation of the option.
 	 *
+	 * @dataProvider validate_option_provider
+	 *
+	 * @covers WPSEO_News_Option::validate_option
+	 *
 	 * @param string $option_name The option name.
 	 * @param array  $clean       The clean data.
 	 * @param array  $dirty       The data to validate.
 	 * @param array  $expected    The expected value.
 	 * @param string $message     Message to show when test fails.
-	 *
-	 * @dataProvider validate_option_provider
-	 *
-	 * @covers WPSEO_News_Option::validate_option
 	 */
 	public function test_validate_option( $option_name, $clean, $dirty, $expected, $message ) {
 		$clean    = [ $option_name => $clean ];

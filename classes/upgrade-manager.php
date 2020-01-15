@@ -242,9 +242,9 @@ class WPSEO_News_Upgrade_Manager {
 	/**
 	 * Deletes post meta fields by key.
 	 *
-	 * @param string $key The key to delete post meta fields for.
-	 *
 	 * @link https://codex.wordpress.org/Class_Reference/wpdb#DELETE_Rows
+	 *
+	 * @param string $key The key to delete post meta fields for.
 	 */
 	private function delete_meta_by_key( $key ) {
 		global $wpdb;
