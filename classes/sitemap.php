@@ -88,7 +88,7 @@ class WPSEO_News_Sitemap {
 	/**
 	 * Method to invalidate the sitemap.
 	 *
-	 * @param integer $post_id Post ID to invalidate for.
+	 * @param int $post_id Post ID to invalidate for.
 	 */
 	public function invalidate_sitemap( $post_id ) {
 		// If this is just a revision, don't invalidate the sitemap cache yet.

@@ -188,7 +188,7 @@ class WPSEO_News_Sitemap_Images {
 	/**
 	 * Getting the featured image.
 	 *
-	 * @param integer $post_thumbnail_id Thumbnail ID.
+	 * @param int $post_thumbnail_id Thumbnail ID.
 	 *
 	 * @return void
 	 */
