@@ -58,25 +58,4 @@ class News_Test extends TestCase {
 
 		$this->assertEquals( [ 'post' ], WPSEO_News::get_included_post_types() );
 	}
-
-	/**
-	 * Determines if the post is excluded in through a term that is excluded.
-	 *
-	 * @param int    $post_id   The ID of the post.
-	 * @param string $post_type The type of the post.
-	 *
-	 * @return bool True if the post is excluded.
-	 */
-	public static function is_excluded_through_terms( $post_id, $post_type ) {
-		$terms          = self::get_terms_for_post( $post_id, $post_type );
-		$excluded_terms = (array) WPSEO_Options::get( 'news_sitemap_exclude_terms', array() );
-		foreach ( $terms as $term ) {
-			$option_key = $term->taxonomy . '_' . $term->slug . '_for_' . $post_type;
-			if ( array_key_exists( $option_key, $excluded_terms ) && $excluded_terms[ $option_key ] === 'on' ) {
-				return true;
-			}
-		}
-
-		return false;
-	}
 }
