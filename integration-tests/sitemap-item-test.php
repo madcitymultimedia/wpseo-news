@@ -109,7 +109,6 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 
 		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_seo_title );
 		$title_output = $instance->get_item_title( $test_seo_title );
-		$blogname     = get_bloginfo( 'name' );
 
 		// Check if correct post_title - blogname is returned.
 		$this->assertSame( 'Post without SEO title', $title_output );
