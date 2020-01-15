@@ -2,6 +2,9 @@
 
 namespace Yoast\WP\News\Tests;
 
+/**
+ * Test the News Option class.
+ */
 class Option_Test extends TestCase {
 
 	/**
@@ -17,9 +20,9 @@ class Option_Test extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$externalMock = \Mockery::mock('overload:\WPSEO_Option' );
-		$externalMock->option_name = 'wpseo_news';
-		$externalMock->defaults    = [];
+		$external_mock              = \Mockery::mock( 'overload:\WPSEO_Option' );
+		$external_mock->option_name = 'wpseo_news';
+		$external_mock->defaults    = [];
 
 		$this->instance = new Doubles\Option_Double();
 	}
@@ -30,10 +33,12 @@ class Option_Test extends TestCase {
 	 * @param string $option_name The option name.
 	 * @param array  $clean       The clean data.
 	 * @param array  $dirty       The data to validate.
-	 * @param array  $expected    The expected value
+	 * @param array  $expected    The expected value.
 	 * @param string $message     Message to show when test fails.
 	 *
 	 * @dataProvider validate_option_provider
+	 *
+	 * @covers WPSEO_News_Option::validate_option
 	 */
 	public function test_validate_option( $option_name, $clean, $dirty, $expected, $message ) {
 		$clean    = [ $option_name => $clean ];
@@ -44,6 +49,11 @@ class Option_Test extends TestCase {
 		$this->assertEquals( $expected, $actual, $message );
 	}
 
+	/**
+	 * Data provider for test_validate_option.
+	 *
+	 * @return array The options.
+	 */
 	public function validate_option_provider() {
 		return [
 			[

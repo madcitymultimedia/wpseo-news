@@ -106,6 +106,7 @@
 	<rule ref="Yoast.Files.TestDoubles">
 		<properties>
 			<property name="doubles_path" type="array">
+				<element value="/tests/doubles"/>
 				<element value="/integration-tests/doubles"/>
 			</property>
 		</properties>
@@ -121,6 +122,7 @@
 
 	<!-- Allow for the double/mock classes to override methods just to change the visibility. -->
 	<rule ref="Generic.CodeAnalysis.UselessOverridingMethod.Found">
+		<exclude-pattern>/tests/doubles/*-double\.php$</exclude-pattern>
 		<exclude-pattern>/integration-tests/doubles/*-double\.php$</exclude-pattern>
 	</rule>
 
@@ -132,9 +134,11 @@
 
 	<!-- For documentation of the double/mock classes, please refer to the _real_ classes. -->
 	<rule ref="Generic.Commenting.DocComment.MissingShort">
+		<exclude-pattern>/tests/doubles/*-double\.php$</exclude-pattern>
 		<exclude-pattern>/integration-tests/doubles/*-double\.php$</exclude-pattern>
 	</rule>
 	<rule ref="Squiz.Commenting.FunctionComment.MissingParamTag">
+		<exclude-pattern>/tests/doubles/*-double\.php$</exclude-pattern>
 		<exclude-pattern>/integration-tests/doubles/*-double\.php$</exclude-pattern>
 	</rule>
 

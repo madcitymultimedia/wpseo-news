@@ -91,7 +91,7 @@ class WPSEO_News_Admin_Page {
 		echo '<h2>' . esc_html__( 'Post Types to include in News Sitemap', 'wordpress-seo-news' ) . '</h2>';
 		echo '<fieldset><legend class="screen-reader-text">' . esc_html__( 'Post Types to include:', 'wordpress-seo-news' ) . '</legend>';
 
-		$post_types = get_post_types( array( 'public' => true ), 'objects' );
+		$post_types      = get_post_types( array( 'public' => true ), 'objects' );
 		$post_types_list = array();
 		foreach ( $post_types as $post_type ) {
 			$post_types_list[ $post_type->name ] = $post_type->labels->name . ' (' . $post_type->name . ')';

@@ -1,9 +1,4 @@
 <?php
-/**
- * Test double.
- *
- * @package Yoast\WP\News\Tests\Doubles
- */
 
 namespace Yoast\WP\News\Tests\Doubles;
 
