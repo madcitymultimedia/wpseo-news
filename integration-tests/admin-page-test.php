@@ -26,7 +26,7 @@ class WPSEO_News_Admin_Page_Test extends WPSEO_News_UnitTestCase {
 		// Because is a global $wpseo_admin_pages we have to fill this one with an instance of WPSEO_Admin_Pages.
 		global $wpseo_admin_pages;
 
-		if ( empty( $wpseo_admin_page ) ) {
+		if ( empty( $wpseo_admin_pages ) ) {
 			$wpseo_admin_pages = new WPSEO_Admin_Pages();
 		}
 
