@@ -4,6 +4,7 @@ namespace Yoast\WP\News\Tests;
 
 use PHPUnit\Framework\TestCase as PHPUnit_TestCase;
 use Brain\Monkey;
+use Mockery;
 
 /**
  * TestCase base class.
@@ -48,12 +49,12 @@ abstract class TestCase extends PHPUnit_TestCase {
 
 		Monkey\Functions\expect( 'get_option' )
 			->zeroOrMoreTimes()
-			->with( \Mockery::anyOf( 'wpseo', 'wpseo_titles', 'wpseo_taxonomy_meta', 'wpseo_social', 'wpseo_ms' ) )
+			->with( Mockery::anyOf( 'wpseo', 'wpseo_titles', 'wpseo_taxonomy_meta', 'wpseo_social', 'wpseo_ms' ) )
 			->andReturn( [] );
 
 		Monkey\Functions\expect( 'get_site_option' )
 			->zeroOrMoreTimes()
-			->with( \Mockery::anyOf( 'wpseo', 'wpseo_titles', 'wpseo_taxonomy_meta', 'wpseo_social', 'wpseo_ms' ) )
+			->with( Mockery::anyOf( 'wpseo', 'wpseo_titles', 'wpseo_taxonomy_meta', 'wpseo_social', 'wpseo_ms' ) )
 			->andReturn( [] );
 	}
 

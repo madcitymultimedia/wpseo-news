@@ -2,10 +2,12 @@
 
 namespace Yoast\WP\News\Tests\Doubles;
 
+use WPSEO_News_Option;
+
 /**
  * Class Option_Double
  */
-class Option_Double extends \WPSEO_News_Option {
+class Option_Double extends WPSEO_News_Option {
 
 	/**
 	 * Expose the constructor.

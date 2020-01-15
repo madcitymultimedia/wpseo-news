@@ -2,6 +2,10 @@
 
 namespace Yoast\WP\News\Tests;
 
+use Mockery;
+use Yoast\WP\News\Tests\TestCase;
+use Yoast\WP\News\Tests\Doubles\Option_Double;
+
 /**
  * Test the News Option class.
  */
@@ -20,11 +24,11 @@ class Option_Test extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$external_mock              = \Mockery::mock( 'overload:\WPSEO_Option' );
+		$external_mock              = Mockery::mock( 'overload:\WPSEO_Option' );
 		$external_mock->option_name = 'wpseo_news';
 		$external_mock->defaults    = [];
 
-		$this->instance = new Doubles\Option_Double();
+		$this->instance = new Option_Double();
 	}
 
 	/**
