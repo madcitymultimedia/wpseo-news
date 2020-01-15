@@ -5,9 +5,10 @@
  * @package WPSEO_News
  */
 
+// Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
-} // Exit if accessed directly.
+}
 
 /**
  * Represents the update routine when a newer version has been installed.
