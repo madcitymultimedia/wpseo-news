@@ -39,7 +39,7 @@ abstract class TestCase extends PHPUnit_TestCase {
 				},
 				'wp_slash'       => null,
 				'absint'         => static function( $value ) {
-					return abs( intval( $value ) );
+					return \abs( \intval( $value ) );
 				},
 				'wp_parse_args'  => static function ( $settings, $defaults ) {
 					return \array_merge( $defaults, $settings );
