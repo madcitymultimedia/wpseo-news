@@ -209,7 +209,7 @@ class WPSEO_News_Sitemap {
 	 *
 	 * @param int $limit The limit for the query, default is 1000 items.
 	 *
-	 * @return array|null|object
+	 * @return array|object|null
 	 */
 	private function get_items( $limit = 1000 ) {
 		global $wpdb;
