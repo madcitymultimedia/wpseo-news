@@ -49,7 +49,7 @@ class WPSEO_News_Admin_Page_Test extends WPSEO_News_UnitTestCase {
 		ob_end_clean();
 
 		// We expect this part in the generated HTML.
-		$expected_output = <<<EOT
+		$expected_output = <<<'EOT'
 <p>You will generally only need a News Sitemap when your website is included in Google News.</p><p><a target="_blank" href="http://example.org/news-sitemap.xml">View your News Sitemap</a>.</p>
 EOT;
 
