@@ -21,9 +21,9 @@ if ( getenv( 'WP_PLUGIN_DIR' ) !== false ) {
 	define( 'WP_PLUGIN_DIR', getenv( 'WP_PLUGIN_DIR' ) );
 }
 
-$GLOBALS['wp_tests_options'] = array(
-	'active_plugins' => array( 'wordpress-seo/wp-seo.php', 'wpseo-news/wpseo-news.php' ),
-);
+$GLOBALS['wp_tests_options'] = [
+	'active_plugins' => [ 'wordpress-seo/wp-seo.php', 'wpseo-news/wpseo-news.php' ],
+];
 
 if ( file_exists( dirname( __DIR__ ) . '/vendor/autoload.php' ) === false ) {
 	echo PHP_EOL, 'ERROR: Run `composer install` to generate the autoload files before running the unit tests.', PHP_EOL;

@@ -21,10 +21,10 @@ class WPSEO_News_Javascript_Strings {
 	 * Fills the strings with values.
 	 */
 	private static function fill() {
-		self::$strings = array(
+		self::$strings = [
 			'ajaxurl'      => admin_url( 'admin-ajax.php' ),
 			'choose_image' => __( 'Choose image.', 'wordpress-seo-news' ),
-		);
+		];
 	}
 
 	/**

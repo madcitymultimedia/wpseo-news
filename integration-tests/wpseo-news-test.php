@@ -26,7 +26,7 @@ class WPSEO_News_Test extends WPSEO_News_UnitTestCase {
 		$class_instance = $this
 			->getMockBuilder( 'WPSEO_News_Double' )
 			->disableOriginalConstructor()
-			->setMethods( array( 'get_wordpress_seo_version' ) )
+			->setMethods( [ 'get_wordpress_seo_version' ] )
 			->getMock();
 
 		$class_instance
@@ -49,13 +49,13 @@ class WPSEO_News_Test extends WPSEO_News_UnitTestCase {
 	 * @return array[]
 	 */
 	public function check_dependencies_data() {
-		return array(
-			array( false, '12.7', '3.0', 'WordPress is below the minimal required version.' ),
-			array( false, '12.7', '5.1', 'WordPress is below the minimal required version.' ),
-			array( false, false, '5.3', 'WordPress SEO is not installed.' ),
-			array( false, '8.1', '5.3', 'WordPress SEO is below the minimal required version.' ),
-			array( true, '12.6.1-RC1', '5.2', 'WordPress (5.2) and WordPress SEO have the minimal required versions.' ),
-			array( true, '12.7', '5.3', 'WordPress (5.3) and WordPress SEO have the minimal required versions.' ),
-		);
+		return [
+			[ false, '12.7', '3.0', 'WordPress is below the minimal required version.' ],
+			[ false, '12.7', '5.1', 'WordPress is below the minimal required version.' ],
+			[ false, false, '5.3', 'WordPress SEO is not installed.' ],
+			[ false, '8.1', '5.3', 'WordPress SEO is below the minimal required version.' ],
+			[ true, '12.6.1-RC1', '5.2', 'WordPress (5.2) and WordPress SEO have the minimal required versions.' ],
+			[ true, '12.7', '5.3', 'WordPress (5.3) and WordPress SEO have the minimal required versions.' ],
+		];
 	}
 }

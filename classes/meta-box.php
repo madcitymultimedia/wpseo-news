@@ -16,14 +16,14 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	public function __construct() {
 		global $pagenow;
 
-		add_filter( 'wpseo_save_metaboxes', array( $this, 'save' ), 10, 1 );
-		add_action( 'add_meta_boxes', array( $this, 'add_tab_hooks' ) );
+		add_filter( 'wpseo_save_metaboxes', [ $this, 'save' ], 10, 1 );
+		add_action( 'add_meta_boxes', [ $this, 'add_tab_hooks' ] );
 
 		if ( $pagenow === 'post.php' || $pagenow === 'post-new.php'
 			|| ( isset( $_SERVER['REQUEST_URI'] )
 			&& stristr( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ), '/news-sitemap.xml' ) )
 		) {
-			add_filter( 'add_extra_wpseo_meta_fields', array( $this, 'add_meta_fields_to_wpseo_meta' ) );
+			add_filter( 'add_extra_wpseo_meta_fields', [ $this, 'add_meta_fields_to_wpseo_meta' ] );
 		}
 	}
 
@@ -35,15 +35,15 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 * @return array[] Multi-level array with information on each metabox to display.
 	 */
 	public function get_meta_boxes( $post_type = 'post' ) {
-		$mbs = array(
-			'newssitemap-exclude'      => array(
+		$mbs = [
+			'newssitemap-exclude'      => [
 				'name'  => 'newssitemap-exclude',
 				'type'  => 'checkbox',
 				'std'   => 'on',
 				'title' => __( 'News Sitemap', 'wordpress-seo-news' ),
 				'expl'  => __( 'Exclude from News Sitemap', 'wordpress-seo-news' ),
-			),
-			'newssitemap-genre'        => array(
+			],
+			'newssitemap-genre'        => [
 				'name'        => 'newssitemap-genre',
 				'type'        => 'multiselect',
 				'std'         => WPSEO_Options::get( 'news_sitemap_default_genre', 'blog' ),
@@ -51,26 +51,26 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				'description' => __( 'Genre to show in Google News Sitemap.', 'wordpress-seo-news' ),
 				'options'     => WPSEO_News::list_genres(),
 				'serialized'  => true,
-			),
-			'newssitemap-stocktickers' => array(
+			],
+			'newssitemap-stocktickers' => [
 				'name'        => 'newssitemap-stocktickers',
 				'std'         => '',
 				'type'        => 'text',
 				'title'       => __( 'Stock Tickers', 'wordpress-seo-news' ),
 				'description' => __( 'A comma-separated list of up to 5 stock tickers of the companies, mutual funds, or other financial entities that are the main subject of the article. Each ticker must be prefixed by the name of its stock exchange, and must match its entry in Google Finance. For example, "NASDAQ:AMAT" (but not "NASD:AMAT"), or "BOM:500325" (but not "BOM:RIL").', 'wordpress-seo-news' ),
-			),
-			'newssitemap-robots-index' => array(
+			],
+			'newssitemap-robots-index' => [
 				'type'          => 'radio',
 				'default_value' => '0', // The default value will be 'index'; See the list of options.
 				'std'           => '',
-				'options'       => array(
+				'options'       => [
 					'0' => 'index',
 					'1' => 'noindex',
-				),
+				],
 				'title'         => __( 'Googlebot-News index', 'wordpress-seo-news' ),
 				'description'   => __( 'Using noindex allows you to prevent articles from appearing in Google News.', 'wordpress-seo-news' ),
-			),
-		);
+			],
+		];
 
 		return $mbs;
 	}
@@ -110,7 +110,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 */
 	public function add_tab_hooks() {
 		if ( $this->is_post_type_supported() ) {
-			add_filter( 'yoast_free_additional_metabox_sections', array( $this, 'add_metabox_section' ) );
+			add_filter( 'yoast_free_additional_metabox_sections', [ $this, 'add_metabox_section' ] );
 		}
 	}
 
@@ -131,11 +131,11 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 			$content .= $this->do_meta_box( $meta_box, $meta_key );
 		}
 
-		$sections[] = array(
+		$sections[] = [
 			'name'         => 'news',
 			'link_content' => '<span class="dashicons dashicons-admin-plugins"></span>' . esc_html__( 'Google News', 'wordpress-seo-news' ),
 			'content'      => $content,
-		);
+		];
 
 		return $sections;
 	}

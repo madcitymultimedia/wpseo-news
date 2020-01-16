@@ -55,7 +55,7 @@ class WPSEO_News_Sitemap_Images_Test extends WPSEO_News_UnitTestCase {
 	 * @param string $expected Expected result.
 	 */
 	public function test_parse_image_source( $src, $expected ) {
-		$url = $this->invoke_method( $this->instance, 'parse_image_source', array( $src ) );
+		$url = $this->invoke_method( $this->instance, 'parse_image_source', [ $src ] );
 		$this->assertSame( $expected, $url );
 	}
 
@@ -65,31 +65,31 @@ class WPSEO_News_Sitemap_Images_Test extends WPSEO_News_UnitTestCase {
 	 * @see WPSEO_News_Sitemap_Images_Test::parse_image_source()
 	 */
 	public function provider_parse_image_source() {
-		return array(
+		return [
 			// HTTP.
-			array(
+			[
 				'http://example.org/wp-content/uploads/2018/01/image1.jpg',
 				'http://example.org/wp-content/uploads/2018/01/image1.jpg',
-			),
+			],
 			// HTTPS.
-			array(
+			[
 				'https://example.org/wp-content/uploads/2018/01/image1.jpg',
 				'https://example.org/wp-content/uploads/2018/01/image1.jpg',
-			),
+			],
 			// Relative URL.
-			array(
+			[
 				'/wp-content/uploads/2018/01/image1.jpg',
 				'http://example.org/wp-content/uploads/2018/01/image1.jpg',
-			),
-			array(
+			],
+			[
 				'wp-content/uploads/2018/01/image1.jpg',
 				null,
-			),
+			],
 			// Protocol relative URL.
-			array(
+			[
 				'//example.org/wp-content/uploads/2018/01/image1.jpg',
 				'//example.org/wp-content/uploads/2018/01/image1.jpg',
-			),
-		);
+			],
+		];
 	}
 }

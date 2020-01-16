@@ -25,8 +25,8 @@ class WPSEO_News_Schema {
 	public function __construct() {
 		$this->date = new WPSEO_Date_Helper();
 
-		add_filter( 'wpseo_schema_article_post_types', array( $this, 'article_post_types' ) );
-		add_filter( 'wpseo_schema_article', array( $this, 'change_article' ) );
+		add_filter( 'wpseo_schema_article_post_types', [ $this, 'article_post_types' ] );
+		add_filter( 'wpseo_schema_article', [ $this, 'change_article' ] );
 	}
 
 	/**
@@ -62,7 +62,7 @@ class WPSEO_News_Schema {
 			}
 
 			$data['copyrightYear']   = $this->date->format( $post->post_date_gmt, 'Y' );
-			$data['copyrightHolder'] = array( '@id' => trailingslashit( WPSEO_Utils::get_home_url() ) . WPSEO_Schema_IDs::ORGANIZATION_HASH );
+			$data['copyrightHolder'] = [ '@id' => trailingslashit( WPSEO_Utils::get_home_url() ) . WPSEO_Schema_IDs::ORGANIZATION_HASH ];
 		}
 
 		return $data;

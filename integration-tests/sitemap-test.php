@@ -52,9 +52,9 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		 * We need an item to be present to get output.
 		 */
 		$this->factory->post->create(
-			array(
+			[
 				'post_title' => 'generate rss',
-			)
+			]
 		);
 
 		$output = $this->instance->add_to_index( '' );
@@ -91,7 +91,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	public function test_sitemap_NOT_empty() {
 		WPSEO_Options::set( 'news_sitemap_name', 'Test Blog' );
 
-		$post_id = $this->factory->post->create( array( 'post_title' => 'generate rss' ) );
+		$post_id = $this->factory->post->create( [ 'post_title' => 'generate rss' ] );
 
 		$output = $this->instance->build_sitemap();
 
@@ -142,10 +142,10 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	public function test_sitemap_WITH_image() {
 
 		$image        = home_url( 'tests/assets/yoast.png' );
-		$post_details = array(
+		$post_details = [
 			'post_title'   => 'with images',
 			'post_content' => '<img src="' . $image . '" />',
-		);
+		];
 		$this->factory->post->create( $post_details );
 
 		$output = $this->instance->build_sitemap();
@@ -166,10 +166,10 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	public function test_sitemap_WITHOUT_featured_image_restricted() {
 
 		$image        = home_url( 'tests/assets/yoast.png' );
-		$post_details = array(
+		$post_details = [
 			'post_title'   => 'featured image',
 			'post_content' => '<img src="' . $image . '" />',
-		);
+		];
 		$post_id      = $this->factory->post->create( $post_details );
 
 		$featured_image = home_url( 'tests/assets/yoast_featured.png' );
@@ -231,31 +231,31 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	public function test_sitemap_only_showing_recent_items() {
 		$base_time = time();
 		$this->factory->post->create(
-			array(
+			[
 				'post_title'    => 'Newest post',
 				'post_date'     => gmdate( 'Y-m-d H:i:s', $base_time ),
 				'post_date_gmt' => gmdate( 'Y-m-d H:i:s', $base_time ),
-			)
+			]
 		);
 
 		$two_days_ago = strtotime( '-48 hours' );
 
 		$this->factory->post->create(
-			array(
+			[
 				'post_title'    => 'New-ish post',
 				'post_date'     => gmdate( 'Y-m-d H:i:s', $two_days_ago ),
 				'post_date_gmt' => gmdate( 'Y-m-d H:i:s', $two_days_ago ),
-			)
+			]
 		);
 
 		$two_days_ago_one_minute = strtotime( '-48 hours -1 minute' );
 
 		$this->factory->post->create(
-			array(
+			[
 				'post_title'    => 'Too old Post',
 				'post_date'     => gmdate( 'Y-m-d H:i:s', $two_days_ago_one_minute ),
 				'post_date_gmt' => gmdate( 'Y-m-d H:i:s', $two_days_ago_one_minute ),
-			)
+			]
 		);
 
 		$output = $this->instance->build_sitemap();
@@ -277,14 +277,14 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	 */
 	private function create_attachment( $image, $post_id = 0 ) {
 		return $this->factory->post->create(
-			array(
+			[
 				'post_title'     => 'attachment',
 				'post_name'      => 'attachment',
 				'guid'           => $image,
 				'post_type'      => 'attachment',
 				'post_mime_type' => 'image/png',
 				'parent_id'      => $post_id,
-			)
+			]
 		);
 	}
 }
