@@ -1,8 +1,3 @@
----
-name: Bug report
-about: Create a report to help us improve.
-
----
 ### What did you expect to happen?
 
 ### What happened instead?
