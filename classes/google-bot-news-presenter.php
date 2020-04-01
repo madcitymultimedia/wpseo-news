@@ -19,7 +19,7 @@ class WPSEO_News_Google_Bot_News_Presenter {
 	 *
 	 * @return string The rendered meta tag.
 	 */
-	public function present( Indexable_Presentation $presentation ) {
+	public function present( $presentation ) {
 		if ( $presentation->model->object_type !== 'post' ) {
 			return '';
 		}
