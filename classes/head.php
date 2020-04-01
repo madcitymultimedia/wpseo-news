@@ -17,7 +17,7 @@ class WPSEO_News_Head {
 	 * @codeCoverageIgnore
 	 */
 	public function __construct() {
-		_deprecated_function( __METHOD__, 'WPSEO News 12.5', Google_Bot_News_Presenter::class );
+		_deprecated_function( __METHOD__, 'WPSEO News 12.5', 'WPSEO_News_Google_Bot_News_Presenter' );
 	}
 
 	/**

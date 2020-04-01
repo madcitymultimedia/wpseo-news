@@ -10,7 +10,7 @@ use Yoast\WP\SEO\Presentations\Indexable_Presentation;
 /**
  * Represents the Googlebot-News tag presenter.
  */
-class Google_Bot_News_Presenter {
+class WPSEO_News_Google_Bot_News_Presenter {
 
 	/**
 	 * Renders the Googlebot-News noindex tag when applicable.
@@ -43,7 +43,6 @@ class Google_Bot_News_Presenter {
 		}
 
 		return '';
-
 	}
 
 	/**
@@ -64,7 +63,6 @@ class Google_Bot_News_Presenter {
 		 * @api        string $meta_robots The noindex tag.
 		 *
 		 * @deprecated 12.5.0. Use the {@see 'Yoast\WP\News\head_display_noindex'} filter instead.
-		 *
 		 */
 		$display_noindex = apply_filters_deprecated(
 			'wpseo_news_head_display_noindex',
@@ -81,7 +79,6 @@ class Google_Bot_News_Presenter {
 		 * @api   string $meta_robots The noindex tag.
 		 *
 		 * @since 12.5.0
-		 *
 		 */
 		$display_noindex = apply_filters( 'Yoast\WP\News\head_display_noindex', $display_noindex, $post );
 
