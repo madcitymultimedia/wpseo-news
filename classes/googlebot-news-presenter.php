@@ -10,7 +10,7 @@ use Yoast\WP\SEO\Presentations\Indexable_Presentation;
 /**
  * Represents the Googlebot-News tag presenter.
  */
-class WPSEO_News_Google_Bot_News_Presenter {
+class WPSEO_News_Googlebot_News_Presenter {
 
 	/**
 	 * Renders the Googlebot-News noindex tag when applicable.

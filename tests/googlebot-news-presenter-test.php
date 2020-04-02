@@ -3,20 +3,20 @@
 namespace Yoast\WP\News\Tests;
 
 use Brain\Monkey;
-use WPSEO_News_Google_Bot_News_Presenter;
 use Mockery;
+use WPSEO_News_Googlebot_News_Presenter;
 
 /**
  * Test the WPSEO_News class.
  *
- * @coversDefaultClass WPSEO_News_Google_Bot_News_Presenter
+ * @coversDefaultClass WPSEO_News_Googlebot_News_Presenter
  */
-class WPSEO_News_Google_Bot_News_Presenter_Test extends TestCase {
+class Googlebot_News_Presenter_Test extends TestCase {
 
 	/**
 	 * Represents the instance to test.
 	 *
-	 * @var WPSEO_News_Google_Bot_News_Presenter
+	 * @var WPSEO_News_Googlebot_News_Presenter
 	 */
 	protected $instance;
 
@@ -42,12 +42,12 @@ class WPSEO_News_Google_Bot_News_Presenter_Test extends TestCase {
 	protected $source;
 
 	/**
-	 * @inheritDoc
+	 * Sets the instance.
 	 */
 	public function setUp() {
 		parent::setUp();
 
-		$this->instance = new WPSEO_News_Google_Bot_News_Presenter();
+		$this->instance     = new WPSEO_News_Googlebot_News_Presenter();
 		$this->presentation = Mockery::mock( 'Yoast\WP\SEO\Presentations\Indexable_Presentation' );
 		$this->model        = Mockery::mock();
 		$this->source       = Mockery::mock();
@@ -58,7 +58,8 @@ class WPSEO_News_Google_Bot_News_Presenter_Test extends TestCase {
 
 	/**
 	 * Tests with noindex output for a non post object.
-	 * @covers WPSEO_News_Google_Bot_News_Presenter::present
+	 *
+	 * @covers WPSEO_News_Googlebot_News_Presenter::present
 	 */
 	public function test_present_for_non_post() {
 		$this->model->object_type = 'term';
@@ -69,8 +70,8 @@ class WPSEO_News_Google_Bot_News_Presenter_Test extends TestCase {
 	/**
 	 * Tests with noindex output enabled by filter but disabled by meta value.
 	 *
-	 * @covers WPSEO_News_Google_Bot_News_Presenter::present
-	 * @covers WPSEO_News_Google_Bot_News_Presenter::display_noindex
+	 * @covers WPSEO_News_Googlebot_News_Presenter::present
+	 * @covers WPSEO_News_Googlebot_News_Presenter::display_noindex
 	 */
 	public function test_present_with_noindexing_enabled_by_filter() {
 		$this->model->object_type = 'post';
@@ -99,11 +100,11 @@ class WPSEO_News_Google_Bot_News_Presenter_Test extends TestCase {
 				'wpseo_news_head_display_noindex',
 				[
 					true,
-					$this->source
+					$this->source,
 				],
 				'YoastSEO News 12.5.0',
 				'Yoast\WP\News\head_display_noindex'
-		);
+			);
 
 		Monkey\Filters\expectApplied( 'Yoast\WP\News\head_display_noindex' )
 			->andReturn( true );
@@ -114,8 +115,8 @@ class WPSEO_News_Google_Bot_News_Presenter_Test extends TestCase {
 	/**
 	 * Tests with noindex output disabled by filter.
 	 *
-	 * @covers WPSEO_News_Google_Bot_News_Presenter::present
-	 * @covers WPSEO_News_Google_Bot_News_Presenter::display_noindex
+	 * @covers WPSEO_News_Googlebot_News_Presenter::present
+	 * @covers WPSEO_News_Googlebot_News_Presenter::display_noindex
 	 */
 	public function test_present_with_noindexing_disabled_by_filter() {
 		$this->model->object_type = 'post';
@@ -138,11 +139,11 @@ class WPSEO_News_Google_Bot_News_Presenter_Test extends TestCase {
 				'wpseo_news_head_display_noindex',
 				[
 					true,
-					$this->source
+					$this->source,
 				],
 				'YoastSEO News 12.5.0',
 				'Yoast\WP\News\head_display_noindex'
-		);
+			);
 
 		Monkey\Filters\expectApplied( 'Yoast\WP\News\head_display_noindex' )
 			->andReturn( false );
@@ -153,8 +154,8 @@ class WPSEO_News_Google_Bot_News_Presenter_Test extends TestCase {
 	/**
 	 * Tests the noindex output being enabled by meta value.
 	 *
-	 * @covers WPSEO_News_Google_Bot_News_Presenter::present
-	 * @covers WPSEO_News_Google_Bot_News_Presenter::display_noindex
+	 * @covers WPSEO_News_Googlebot_News_Presenter::present
+	 * @covers WPSEO_News_Googlebot_News_Presenter::display_noindex
 	 */
 	public function test_present_with_noindexing_enabled_by_meta() {
 		$this->model->object_type = 'post';
@@ -183,11 +184,11 @@ class WPSEO_News_Google_Bot_News_Presenter_Test extends TestCase {
 				'wpseo_news_head_display_noindex',
 				[
 					true,
-					$this->source
+					$this->source,
 				],
 				'YoastSEO News 12.5.0',
 				'Yoast\WP\News\head_display_noindex'
-		);
+			);
 
 		Monkey\Filters\expectApplied( 'Yoast\WP\News\head_display_noindex' )
 			->andReturn( true );
