@@ -69,9 +69,8 @@ class WPSEO_News {
 		if ( ! is_array( $presenters ) ) {
 			return $presenters;
 		}
-		$last_presenter = array_pop( $presenters );
-		$presenters[]   = new Google_Bot_News_Presenter();
-		$presenters[]   = $last_presenter;
+
+		$presenters[] = new Google_Bot_News_Presenter();
 
 		return $presenters;
 	}
