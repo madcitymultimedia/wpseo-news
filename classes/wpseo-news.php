@@ -35,9 +35,6 @@ class WPSEO_News {
 		// Sitemap.
 		new WPSEO_News_Sitemap();
 
-		// Head.
-		new WPSEO_News_Head();
-
 		// Schema.
 		new WPSEO_News_Schema();
 
@@ -57,6 +54,25 @@ class WPSEO_News {
 
 		// Enable Yoast usage tracking.
 		add_filter( 'wpseo_enable_tracking', '__return_true' );
+
+		add_filter( 'wpseo_frontend_presenters', [ $this, 'add_frontend_presenter' ] );
+	}
+
+	/**
+	 * Adds the Google Bot News presenter.
+	 *
+	 * @param \Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter[] $presenters The presenter instances.
+	 *
+	 * @return \Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter[] The extended presenters.
+	 */
+	public function add_frontend_presenter( $presenters ) {
+		if ( ! is_array( $presenters ) ) {
+			return $presenters;
+		}
+
+		$presenters[] = new WPSEO_News_Googlebot_News_Presenter();
+
+		return $presenters;
 	}
 
 	/**
@@ -104,8 +120,8 @@ class WPSEO_News {
 			return false;
 		}
 
-		// At least 12.6.1, in which we implemented the new HelpScout Beacon.
-		if ( version_compare( $wordpress_seo_version, '12.6.1-RC0', '<' ) ) {
+		// At least 14.0, in which we implemented the Indexables.
+		if ( version_compare( $wordpress_seo_version, '14.0-RC0', '<' ) ) {
 			add_action( 'all_admin_notices', [ $this, 'error_upgrade_wpseo' ] );
 
 			return false;
