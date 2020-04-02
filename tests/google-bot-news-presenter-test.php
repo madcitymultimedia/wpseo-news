@@ -4,7 +4,6 @@ namespace Yoast\WP\News\Tests;
 
 use Brain\Monkey;
 use WPSEO_News_Google_Bot_News_Presenter;
-use Yoast\WP\News\Tests\TestCase;
 use Mockery;
 
 /**
@@ -49,7 +48,7 @@ class WPSEO_News_Google_Bot_News_Presenter_Test extends TestCase {
 		parent::setUp();
 
 		$this->instance = new WPSEO_News_Google_Bot_News_Presenter();
-		$this->presentation = Mockery::mock();
+		$this->presentation = Mockery::mock( 'Yoast\WP\SEO\Presentations\Indexable_Presentation' );
 		$this->model        = Mockery::mock();
 		$this->source       = Mockery::mock();
 
