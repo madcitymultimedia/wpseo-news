@@ -70,7 +70,7 @@ class WPSEO_News {
 			return $presenters;
 		}
 
-		$presenters[] = new Google_Bot_News_Presenter();
+		$presenters[] = new WPSEO_News_Googlebot_News_Presenter();
 
 		return $presenters;
 	}
