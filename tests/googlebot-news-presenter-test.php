@@ -10,6 +10,8 @@ use WPSEO_News_Googlebot_News_Presenter;
  * Test the WPSEO_News class.
  *
  * @coversDefaultClass WPSEO_News_Googlebot_News_Presenter
+ *
+ * @runTestsInSeparateProcesses
  */
 class Googlebot_News_Presenter_Test extends TestCase {
 
@@ -47,13 +49,16 @@ class Googlebot_News_Presenter_Test extends TestCase {
 	public function setUp() {
 		parent::setUp();
 
+		Mockery::mock( 'overload:\Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter' );
+
 		$this->instance     = new WPSEO_News_Googlebot_News_Presenter();
-		$this->presentation = Mockery::mock( 'Yoast\WP\SEO\Presentations\Indexable_Presentation' );
+		$this->presentation = Mockery::mock();
 		$this->model        = Mockery::mock();
 		$this->source       = Mockery::mock();
 
-		$this->presentation->model  = $this->model;
-		$this->presentation->source = $this->source;
+		$this->presentation->model    = $this->model;
+		$this->presentation->source   = $this->source;
+		$this->instance->presentation = $this->presentation;
 	}
 
 	/**
@@ -64,7 +69,7 @@ class Googlebot_News_Presenter_Test extends TestCase {
 	public function test_present_for_non_post() {
 		$this->model->object_type = 'term';
 
-		$this->assertSame( '', $this->instance->present( $this->presentation ) );
+		$this->assertSame( '', $this->instance->present() );
 	}
 
 	/**
@@ -109,7 +114,7 @@ class Googlebot_News_Presenter_Test extends TestCase {
 		Monkey\Filters\expectApplied( 'Yoast\WP\News\head_display_noindex' )
 			->andReturn( true );
 
-		$this->assertSame( '', $this->instance->present( $this->presentation ) );
+		$this->assertSame( '', $this->instance->present() );
 	}
 
 	/**
@@ -148,7 +153,7 @@ class Googlebot_News_Presenter_Test extends TestCase {
 		Monkey\Filters\expectApplied( 'Yoast\WP\News\head_display_noindex' )
 			->andReturn( false );
 
-		$this->assertSame( '', $this->instance->present( $this->presentation ) );
+		$this->assertSame( '', $this->instance->present() );
 	}
 
 	/**
@@ -193,6 +198,6 @@ class Googlebot_News_Presenter_Test extends TestCase {
 		Monkey\Filters\expectApplied( 'Yoast\WP\News\head_display_noindex' )
 			->andReturn( true );
 
-		$this->assertSame( '<meta name="Googlebot-News" content="noindex" />' . PHP_EOL, $this->instance->present( $this->presentation ) );
+		$this->assertSame( '<meta name="Googlebot-News" content="noindex" />', $this->instance->present() );
 	}
 }
