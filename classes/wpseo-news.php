@@ -66,6 +66,9 @@ class WPSEO_News {
 	 * @return \Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter[] The extended presenters.
 	 */
 	public function add_frontend_presenter( $presenters ) {
+		if ( ! is_array( $presenters ) ) {
+			return $presenters;
+		}
 		$last_presenter = array_pop( $presenters );
 		$presenters[]   = new Google_Bot_News_Presenter();
 		$presenters[]   = $last_presenter;
