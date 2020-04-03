@@ -5,22 +5,20 @@
  * @package WPSEO_News
  */
 
-use Yoast\WP\SEO\Presentations\Indexable_Presentation;
+use Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter;
 
 /**
  * Represents the Googlebot-News tag presenter.
  */
-class WPSEO_News_Googlebot_News_Presenter {
+class WPSEO_News_Googlebot_News_Presenter extends Abstract_Indexable_Presenter {
 
 	/**
 	 * Renders the Googlebot-News noindex tag when applicable.
 	 *
-	 * @param Indexable_Presentation $presentation Presentation to use.
-	 *
 	 * @return string The rendered meta tag.
 	 */
-	public function present( Indexable_Presentation $presentation ) {
-		if ( $presentation->model->object_type !== 'post' ) {
+	public function present() {
+		if ( $this->presentation->model->object_type !== 'post' ) {
 			return '';
 		}
 
@@ -38,8 +36,8 @@ class WPSEO_News_Googlebot_News_Presenter {
 		 */
 		do_action( 'Yoast\WP\News\head' );
 
-		if ( $this->display_noindex( $presentation->source ) ) {
-			return '<meta name="Googlebot-News" content="noindex" />' . PHP_EOL;
+		if ( $this->display_noindex( $this->presentation->source ) ) {
+			return '<meta name="Googlebot-News" content="noindex" />';
 		}
 
 		return '';
