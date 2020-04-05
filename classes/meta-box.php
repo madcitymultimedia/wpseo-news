@@ -35,7 +35,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 * @return array[] Multi-level array with information on each metabox to display.
 	 */
 	public function get_meta_boxes( $post_type = 'post' ) {
-		$mbs = [
+		return [
 			'newssitemap-exclude'      => [
 				'name'  => 'newssitemap-exclude',
 				'type'  => 'checkbox',
@@ -71,8 +71,6 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				'description'   => __( 'Using noindex allows you to prevent articles from appearing in Google News.', 'wordpress-seo-news' ),
 			],
 		];
-
-		return $mbs;
 	}
 
 	/**
