@@ -3,6 +3,7 @@
 namespace Yoast\WP\News\Tests;
 
 use WPSEO_News;
+use Yoast\WP\News\Tests\TestCase;
 use Mockery;
 
 use function Brain\Monkey\Functions\expect;
