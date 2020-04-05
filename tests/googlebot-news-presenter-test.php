@@ -18,28 +18,28 @@ class Googlebot_News_Presenter_Test extends TestCase {
 	/**
 	 * Represents the instance to test.
 	 *
-	 * @var WPSEO_News_Googlebot_News_Presenter
+	 * @var \WPSEO_News_Googlebot_News_Presenter
 	 */
 	protected $instance;
 
 	/**
 	 * Represents the presentation.
 	 *
-	 * @var Mockery\MockInterface
+	 * @var \Mockery\MockInterface
 	 */
 	protected $presentation;
 
 	/**
 	 * Represents the model (indexable).
 	 *
-	 * @var Mockery\MockInterface
+	 * @var \Mockery\MockInterface
 	 */
 	protected $model;
 
 	/**
 	 * Represents the source.
 	 *
-	 * @var Mockery\MockInterface
+	 * @var \Mockery\MockInterface
 	 */
 	protected $source;
 
