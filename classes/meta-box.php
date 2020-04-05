@@ -30,7 +30,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	/**
 	 * The metaboxes to display and save for the tab.
 	 *
-	 * @param string $post_type The post type to get metaboxes for.
+	 * @param string $post_type The post type to get metaboxes for. Unused in this implementation.
 	 *
 	 * @return array[] Multi-level array with information on each metabox to display.
 	 */
@@ -94,7 +94,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 *
 	 * @param array $meta_fields The meta fields to extend.
 	 *
-	 * @return mixed
+	 * @return array
 	 */
 	public function add_meta_fields_to_wpseo_meta( $meta_fields ) {
 

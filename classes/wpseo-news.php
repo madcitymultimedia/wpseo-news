@@ -146,10 +146,10 @@ class WPSEO_News {
 	/**
 	 * Add plugin links.
 	 *
-	 * @param array  $links The plugin links.
-	 * @param string $file  The file name.
+	 * @param string[] $links The plugin links.
+	 * @param string   $file  The file name.
 	 *
-	 * @return mixed
+	 * @return string[]
 	 */
 	public function plugin_links( $links, $file ) {
 		static $this_plugin;
