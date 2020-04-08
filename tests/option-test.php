@@ -3,7 +3,6 @@
 namespace Yoast\WP\News\Tests;
 
 use Mockery;
-use Yoast\WP\News\Tests\TestCase;
 use Yoast\WP\News\Tests\Doubles\Option_Double;
 
 /**
