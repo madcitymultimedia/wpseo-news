@@ -4,6 +4,7 @@ namespace Yoast\WP\News\Tests;
 
 use Brain\Monkey;
 use Mockery;
+use Mockery\MockInterface;
 use WPSEO_News_Googlebot_News_Presenter;
 
 /**
@@ -18,28 +19,28 @@ class Googlebot_News_Presenter_Test extends TestCase {
 	/**
 	 * Represents the instance to test.
 	 *
-	 * @var \WPSEO_News_Googlebot_News_Presenter
+	 * @var WPSEO_News_Googlebot_News_Presenter
 	 */
 	protected $instance;
 
 	/**
 	 * Represents the presentation.
 	 *
-	 * @var \Mockery\MockInterface
+	 * @var MockInterface
 	 */
 	protected $presentation;
 
 	/**
 	 * Represents the model (indexable).
 	 *
-	 * @var \Mockery\MockInterface
+	 * @var MockInterface
 	 */
 	protected $model;
 
 	/**
 	 * Represents the source.
 	 *
-	 * @var \Mockery\MockInterface
+	 * @var MockInterface
 	 */
 	protected $source;
 
