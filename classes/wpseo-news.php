@@ -5,6 +5,8 @@
  * @package WPSEO_News
  */
 
+use Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter;
+
 /**
  * Represents the news extension for Yoast SEO.
  */
@@ -61,9 +63,9 @@ class WPSEO_News {
 	/**
 	 * Adds the Google Bot News presenter.
 	 *
-	 * @param \Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter[] $presenters The presenter instances.
+	 * @param Abstract_Indexable_Presenter[] $presenters The presenter instances.
 	 *
-	 * @return \Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter[] The extended presenters.
+	 * @return Abstract_Indexable_Presenter[] The extended presenters.
 	 */
 	public function add_frontend_presenter( $presenters ) {
 		if ( ! is_array( $presenters ) ) {

@@ -15,7 +15,7 @@ class WPSEO_News_Sitemap_Images_Test extends WPSEO_News_UnitTestCase {
 	/**
 	 * Instance of the WPSEO_News_Sitemap_Images class.
 	 *
-	 * @var \WPSEO_News_Sitemap_Images
+	 * @var WPSEO_News_Sitemap_Images
 	 */
 	protected $instance;
 

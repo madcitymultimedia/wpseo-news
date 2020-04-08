@@ -13,7 +13,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 	/**
 	 * Instance of the WPSEO_News_Sitemap class.
 	 *
-	 * @var \WPSEO_News_Sitemap
+	 * @var WPSEO_News_Sitemap
 	 */
 	private $instance;
 
