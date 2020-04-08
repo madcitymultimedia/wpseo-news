@@ -5,7 +5,6 @@ namespace Yoast\WP\News\Tests;
 use Brain\Monkey;
 use Mockery;
 use WPSEO_News_Googlebot_News_Presenter;
-use Yoast\WP\News\Tests\TestCase;
 
 /**
  * Test the WPSEO_News class.
