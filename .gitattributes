@@ -5,6 +5,7 @@
 # https://www.reddit.com/r/PHP/comments/2jzp6k/i_dont_need_your_tests_in_my_production
 # https://blog.madewithlove.be/post/gitattributes/
 #
+.cache export-ignore
 .github export-ignore
 grunt export-ignore
 tests export-ignore

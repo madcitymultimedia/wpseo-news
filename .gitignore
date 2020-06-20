@@ -8,3 +8,4 @@ phpunit.xml
 css/dist
 phpcs.xml
 .phpcs.xml
+.cache/phpcs.cache
