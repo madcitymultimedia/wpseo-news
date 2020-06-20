@@ -75,7 +75,9 @@ before_install:
 
 install:
 - |
-  if [[ "$PHPCS" == "1" || "$PHPUNIT" == "1" || "$COVERAGE" == "1" ]]; then
+  if [[ $TRAVIS_PHP_VERSION == "nightly" && "$PHPLINT" == "1" ]]; then
+    composer install --no-interaction --ignore-platform-reqs
+  elif [[ "$PHPCS" == "1" || "$PHPUNIT" == "1" || "$COVERAGE" == "1" || "$PHPLINT" == "1" ]]; then
     composer install --no-interaction
   elif [[ "$TRAVIS_BUILD_STAGE_NAME" == "deploy-to-github-dist" ]]; then
     composer install --no-dev --no-interaction
@@ -152,7 +154,7 @@ script:
 - |
   if [[ "$PHPLINT" == "1" ]]; then
     travis_fold start "PHP.check" && travis_time_start
-    find -L . -path ./vendor -prune -o -path ./node_modules -prune -o -name '*.php' -print0 | xargs -0 -n 1 -P 4 php -l
+    composer lint
     travis_time_finish && travis_fold end "PHP.check"
   fi
 # PHP Code Style
