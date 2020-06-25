@@ -4,6 +4,8 @@ node_modules/*
 /.idea
 /artifact
 artifact.zip
+assets/*.min.js
+assets/*.min.js.map
 phpunit.xml
 css/dist
 phpcs.xml
