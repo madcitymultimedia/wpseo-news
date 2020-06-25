@@ -46,10 +46,10 @@ class WPSEO_News_Googlebot_News_Presenter extends Abstract_Indexable_Presenter {
 	/**
 	 * This method is not used, but required to fulfil the abstract class interface.
 	 *
-	 * @return string|array The raw value.
+	 * @return string The raw value.
 	 */
 	public function get() {
-		return "";
+		return '';
 	}
 
 	/**
