@@ -31,8 +31,6 @@ module.exports = function( grunt ) {
 			},
 			grunt: "grunt/",
 			js: "assets/",
-			css: "css/dist/",
-			sass: "css/src/",
 			languages: "languages/",
 			logs: "logs/",
 			vendor: "vendor/",
@@ -42,13 +40,6 @@ module.exports = function( grunt ) {
 			js: [
 				"assets/**/*.js",
 				"!assets/**/*.min.js",
-			],
-			sass: [ "<%= paths.sass %>*.scss" ],
-			css: [
-				"css/dist/*.css",
-			],
-			cssMap: [
-				"css/dist/*.css.map",
 			],
 			php: [
 				"*.php",
@@ -72,9 +63,6 @@ module.exports = function( grunt ) {
 				return project.paths.theme + "changelog.txt";
 			},
 			grunt: "Gruntfile.js",
-		},
-		sassFiles: {
-			"css/dist/admin-metabox-<%= pluginVersionSlug %><%= pluginAssetSuffix %>.css": [ "css/src/admin-metabox.scss" ],
 		},
 		pkg: grunt.file.readJSON( "package.json" ),
 	};

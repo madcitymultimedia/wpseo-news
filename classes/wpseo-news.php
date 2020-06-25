@@ -94,8 +94,6 @@ class WPSEO_News {
 				WPSEO_News_Sitemap::get_sitemap_name( false )
 			);
 		}
-
-		add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 	}
 
 	/**
@@ -207,17 +205,6 @@ class WPSEO_News {
 			$parts[] = '0';
 		}
 		return implode( '', $parts );
-	}
-
-	/**
-	 * Enqueues the plugin scripts.
-	 */
-	public function enqueue_scripts() {
-		global $pagenow;
-
-		if ( $pagenow === 'post.php' || $pagenow === 'post-new.php' ) {
-			wp_enqueue_style( 'wpseo-news-admin-metabox-css', plugins_url( 'css/dist/admin-metabox-' . $this->flatten_version( WPSEO_NEWS_VERSION ) . WPSEO_CSSJS_SUFFIX . '.css', WPSEO_NEWS_FILE ), [], WPSEO_NEWS_VERSION );
-		}
 	}
 
 	/**
