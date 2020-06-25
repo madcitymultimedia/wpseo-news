@@ -31,7 +31,7 @@ class WPSEO_News_Meta_Box_Test extends WPSEO_News_UnitTestCase {
 
 		$stub->method( 'is_post_type_supported' )->willReturn( true );
 		$stub->method( 'get_meta_boxes' )->willReturn( [ 'metakey' => 'metabox' ] );
-		$stub->method( 'do_meta_box' )->willReturn( '<div class="wpseo-meta-section-content">[content]</div>' );
+		$stub->method( 'do_meta_box' )->willReturn( '[content]' );
 
 		$sections = $stub->add_metabox_section( [] );
 
@@ -39,7 +39,7 @@ class WPSEO_News_Meta_Box_Test extends WPSEO_News_UnitTestCase {
 
 		$this->assertEquals( $sections[0]['name'], 'news' );
 		$this->assertEquals( $sections[0]['link_content'], '<span class="dashicons dashicons-admin-plugins"></span>Google News' );
-		$this->assertEquals( $sections[0]['content'], '[content]' );
+		$this->assertEquals( $sections[0]['content'], '<div class="wpseo-meta-section-content">[content]</div>' );
 	}
 
 	/**
