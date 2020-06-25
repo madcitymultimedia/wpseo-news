@@ -15,8 +15,6 @@ module.exports = function( grunt ) {
 	const project = {
 		developmentBuild,
 		pluginVersion,
-		pluginVersionSlug: flattenVersionForFile( pluginVersion ),
-		pluginAssetSuffix: developmentBuild ? "" : ".min",
 		pluginSlug: "wpseo-news",
 		pluginMainFile: "wpseo-news.php",
 		pluginVersionConstant: "WPSEO_NEWS_VERSION",
