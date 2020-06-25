@@ -44,6 +44,15 @@ class WPSEO_News_Googlebot_News_Presenter extends Abstract_Indexable_Presenter {
 	}
 
 	/**
+	 * This method is not used, but required to fulfil the abstract class interface.
+	 *
+	 * @return string The raw value.
+	 */
+	public function get() {
+		return '';
+	}
+
+	/**
 	 * Shows the meta-tag with noindex when it has been decided to exclude the post from Google News.
 	 *
 	 * @see https://support.google.com/news/publisher/answer/93977?hl=en
