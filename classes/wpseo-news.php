@@ -193,21 +193,6 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Flattens a version number for use in a filename.
-	 *
-	 * @param string $version The original version number.
-	 *
-	 * @return string The flattened version number.
-	 */
-	public function flatten_version( $version ) {
-		$parts = explode( '.', $version );
-		if ( count( $parts ) === 2 && preg_match( '/^\d+$/', $parts[1] ) === 1 ) {
-			$parts[] = '0';
-		}
-		return implode( '', $parts );
-	}
-
-	/**
 	 * Enqueue admin page JS.
 	 */
 	public function enqueue_admin_page() {
