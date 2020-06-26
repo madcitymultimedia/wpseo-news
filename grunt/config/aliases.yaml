@@ -3,7 +3,6 @@
 # Build everything
 build:
   - 'build:js'
-  - 'build:css'
   - 'build:i18n'
 
 # Build JavaScript from assets to production
