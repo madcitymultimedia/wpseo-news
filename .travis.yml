@@ -119,9 +119,9 @@ before_script:
 #
 - |
   if [[ "$PHPUNIT" == "1" || "$COVERAGE" == "1" ]]; then
-    git clone --depth=1 --branch="trunk" https://github.com/Yoast/wordpress-seo.git $WP_DEVELOP_DIR/src/wp-content/plugins/wordpress-seo
+    git clone --depth=1 --branch="trunk" https://github.com/Yoast-dist/wordpress-seo.git $WP_DEVELOP_DIR/src/wp-content/plugins/wordpress-seo
     cd /tmp/wordpress/src/wp-content/plugins/wordpress-seo
-    composer install --no-dev --no-interaction --ignore-platform-reqs
+    composer install --no-dev --no-scripts --no-interaction --ignore-platform-reqs
     cd -
   fi
 
