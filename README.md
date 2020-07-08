@@ -30,6 +30,10 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 12.5: July 21st, 2020
+Other:
+* Sets the minimum WordPress version to 5.3.
+
 ### 12.4.1: January 14th, 2020
 Bugfixes:
 * Fixes a bug where a large number of WordPress terms or post types would cause significant slowdowns and possible crashes on admin pages.
