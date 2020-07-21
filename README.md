@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 5.2
 Tested up to: 5.4
-Stable tag: 12.4.1
+Stable tag: 12.5
 Requires PHP: 5.6.20
 Depends: Yoast SEO
 
@@ -30,6 +30,10 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 12.5: July 21st, 2020
+Other:
+* Sets the minimum WordPress version to 5.3.
+
 ### 12.4.1: January 14th, 2020
 Bugfixes:
 * Fixes a bug where a large number of WordPress terms or post types would cause significant slowdowns and possible crashes on admin pages.
