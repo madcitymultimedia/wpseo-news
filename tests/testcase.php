@@ -2,9 +2,9 @@
 
 namespace Yoast\WP\News\Tests;
 
-use PHPUnit\Framework\TestCase as PHPUnit_TestCase;
 use Brain\Monkey;
 use Mockery;
+use PHPUnit\Framework\TestCase as PHPUnit_TestCase;
 
 /**
  * TestCase base class.
