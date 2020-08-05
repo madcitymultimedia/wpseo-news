@@ -76,6 +76,8 @@ function yoast_wpseo_news_clear_sitemap_cache() {
  * Clear the news sitemap when we activate the plugin.
  */
 function yoast_wpseo_news_activate() {
+	// Enable tracking.
+	WPSEO_Options::set( 'tracking', true );
 	yoast_wpseo_news_clear_sitemap_cache();
 }
 
