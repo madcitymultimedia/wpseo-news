@@ -30,6 +30,11 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+### 12.6: August 18th, 2020
+Other:
+* Enables tracking when activating the plugin. It can be disabled in the Yoast SEO configuration wizard.
+* Sets the minimum supported WordPress version to 5.4.
+
 ### 12.5: July 21st, 2020
 Other:
 * Sets the minimum WordPress version to 5.3.
