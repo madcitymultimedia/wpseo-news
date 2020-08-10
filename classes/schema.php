@@ -58,7 +58,11 @@ class WPSEO_News_Schema {
 		if ( $post !== null && in_array( $post->post_type, WPSEO_News::get_included_post_types(), true ) ) {
 			// Change the `@type` to `NewsArticle` only when the news article is not excluded.
 			if ( ! $this->is_post_excluded( $post ) ) {
-				$data['@type'] = 'NewsArticle';
+				// Make sure that we are dealing with an array of types.
+				if ( ! is_array( $data['@type'] ) ) {
+					$data['@type'] = [ $data['@type'] ];
+				}
+				$data['@type'][] = 'NewsArticle';
 			}
 
 			$data['copyrightYear']   = $this->date->format( $post->post_date_gmt, 'Y' );
