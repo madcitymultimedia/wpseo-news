@@ -103,7 +103,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 			->method( 'get_post' );
 
 		$expected = [
-			'@type'           => 'NewsArticle',
+			'@type'           => [ 'NewsArticle' ],
 			'copyrightYear'   => $this->date->format( 'Y' ),
 			'copyrightHolder' => [
 				'@id' => 'http://example.org/#organization',
