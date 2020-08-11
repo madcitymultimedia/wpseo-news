@@ -59,7 +59,7 @@ class WPSEO_News_Schema {
 			// Change the `@type` to `NewsArticle` only when the news article is not excluded.
 			if ( ! $this->is_post_excluded( $post ) ) {
 				// Make sure that we are dealing with an array of types.
-				if ( ! is_array( $data['@type'] ) ) {
+				if ( array_key_exists( '@type', $data ) && ! is_array( $data['@type'] ) ) {
 					$data['@type'] = [ $data['@type'] ];
 				}
 				$data['@type'][] = 'NewsArticle';
