@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 5.4
 Tested up to: 5.5
-Stable tag: 12.6-RC1
+Stable tag: 12.6-RC2
 Requires PHP: 5.6.20
 Depends: Yoast SEO
 
@@ -31,6 +31,9 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 ### 12.6: August 18th, 2020
+Bugfixes:
+* Fixes a bug where the schema article type would be overwritten instead of added to.
+
 Other:
 * Enables tracking when activating the plugin. It can be disabled in the Yoast SEO configuration wizard.
 * Sets the minimum supported WordPress version to 5.4.
