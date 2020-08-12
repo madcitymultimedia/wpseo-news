@@ -31,8 +31,8 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 ### 12.6: August 18th, 2020
-Bugfixes:
-* Fixes a bug where the schema article type would be overwritten instead of added to.
+Enhancements:
+* Adds 'Article' as `@type` to articles that are set to be included in the news sitemap. This results in a `@type` array with at least 'Article' and 'NewsArticle'.
 
 Other:
 * Enables tracking when activating the plugin. It can be disabled in the Yoast SEO configuration wizard.
