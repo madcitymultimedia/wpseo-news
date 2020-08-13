@@ -30,28 +30,12 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 	public function setUp() {
 		parent::setUp();
 
-		$this->date  = date_create();
-		$date_string = $this->date->format( DateTime::W3C );
+		$this->date = date_create();
 
 		$this->default_mock = $this
 			->getMockBuilder( 'WPSEO_News_Schema_Double' )
 			->setMethods( [ 'get_post', 'is_post_excluded' ] )
 			->getMock();
-
-		$this->default_mock
-			->method( 'get_post' )
-			->will(
-				$this->returnValue(
-					self::factory()->post->create_and_get(
-						[
-							'post_title'    => 'Newest post',
-							'post_date'     => $date_string,
-							'post_date_gmt' => $date_string,
-							'post_type'     => 'post',
-						]
-					)
-				)
-			);
 	}
 
 	/**
@@ -61,6 +45,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 	 * @covers WPSEO_News_Schema::is_post_excluded
 	 */
 	public function test_article_post_types() {
+		$this->set_post_mock();
 		$this->default_mock
 			->expects( $this->once() )
 			->method( 'get_post' );
@@ -77,6 +62,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 	 * @covers WPSEO_News_Schema::is_post_excluded
 	 */
 	public function test_article_post_types_with_excluded_term() {
+		$this->set_post_mock();
 		$this->default_mock
 			->expects( $this->once() )
 			->method( 'get_post' );
@@ -84,7 +70,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 		$this->default_mock
 			->expects( $this->once() )
 			->method( 'is_post_excluded' )
-			->willReturn( $this->returnValue( true ) );
+			->willReturn( true );
 
 		$actual = $this->default_mock->article_post_types( [] );
 
@@ -92,36 +78,55 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Tests whether the @type in the schema is correctly changed to NewsArticle.
+	 * Tests the copyright information.
 	 *
-	 * @covers WPSEO_News_Schema::change_article
-	 * @covers WPSEO_News_Schema::is_post_excluded
+	 * @covers WPSEO_News_Schema::add_copyright_information
+	 * @covers WPSEO_News_Schema::is_post_type_included
 	 */
-	public function test_change_article() {
+	public function test_add_copyright_information() {
+		$this->set_post_mock();
 		$this->default_mock
 			->expects( $this->once() )
 			->method( 'get_post' );
 
-		$expected = [
-			'@type'           => [ 'NewsArticle' ],
-			'copyrightYear'   => $this->date->format( 'Y' ),
-			'copyrightHolder' => [
-				'@id' => 'http://example.org/#organization',
+		$this->assertEquals(
+			[
+				'copyrightYear'   => $this->date->format( 'Y' ),
+				'copyrightHolder' => [
+					'@id' => 'http://example.org/#organization',
+				],
 			],
-		];
-		$actual   = $this->default_mock->change_article( [] );
-
-		$this->assertEquals( $expected, $actual );
+			$this->default_mock->add_copyright_information( [] )
+		);
 	}
 
 	/**
-	 * Tests whether the schema output is generated correctly if one of the terms that is
-	 * attached to a post is excluded from the news sitemap.
+	 * Tests no copyright information is added when the post type is not included.
 	 *
-	 * @covers WPSEO_News_Schema::change_article
+	 * @covers WPSEO_News_Schema::add_copyright_information
+	 * @covers WPSEO_News_Schema::is_post_type_included
+	 */
+	public function test_add_copyright_information_post_type_not_included() {
+		$this->set_post_mock( 'other_post_type' );
+		$this->default_mock
+			->expects( $this->once() )
+			->method( 'get_post' );
+
+		$this->assertEquals(
+			[],
+			$this->default_mock->add_copyright_information( [] )
+		);
+	}
+
+	/**
+	 * Tests the news article type.
+	 *
+	 * @covers WPSEO_News_Schema::add_news_article_type
+	 * @covers WPSEO_News_Schema::is_post_type_included
 	 * @covers WPSEO_News_Schema::is_post_excluded
 	 */
-	public function test_change_article_with_an_excluded_term() {
+	public function test_add_news_article_type() {
+		$this->set_post_mock();
 		$this->default_mock
 			->expects( $this->once() )
 			->method( 'get_post' );
@@ -129,20 +134,125 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 		$this->default_mock
 			->expects( $this->once() )
 			->method( 'is_post_excluded' )
-			->willReturn( $this->returnValue( true ) );
+			->willReturn( false );
 
-		/*
-		 * Note there is no `@type` expected here. This is because we do not __override__ it.
-		 * Yoast SEO is setting the default of `Article` in the output of the actual page.
-		 */
-		$expected = [
-			'copyrightYear'   => $this->date->format( 'Y' ),
-			'copyrightHolder' => [
-				'@id' => 'http://example.org/#organization',
-			],
-		];
-		$actual   = $this->default_mock->change_article( [] );
+		$this->assertEquals(
+			[ 'Article', 'NewsArticle' ],
+			$this->default_mock->add_news_article_type( [ 'Article' ] )
+		);
+	}
 
-		$this->assertEquals( $expected, $actual );
+	/**
+	 * Tests that news article type changes None to Article.
+	 *
+	 * @covers WPSEO_News_Schema::add_news_article_type
+	 * @covers WPSEO_News_Schema::is_post_type_included
+	 * @covers WPSEO_News_Schema::is_post_excluded
+	 */
+	public function test_add_news_article_type_change_none() {
+		$this->set_post_mock();
+		$this->default_mock
+			->expects( $this->once() )
+			->method( 'get_post' );
+
+		$this->default_mock
+			->expects( $this->once() )
+			->method( 'is_post_excluded' )
+			->willReturn( false );
+
+		$this->assertEquals(
+			[ 'Article', 'NewsArticle' ],
+			$this->default_mock->add_news_article_type( [ 'None' ] )
+		);
+	}
+
+	/**
+	 * Tests that news article type handling type as string.
+	 *
+	 * @covers WPSEO_News_Schema::add_news_article_type
+	 * @covers WPSEO_News_Schema::is_post_type_included
+	 * @covers WPSEO_News_Schema::is_post_excluded
+	 */
+	public function test_add_news_article_type_handle_string() {
+		$this->set_post_mock();
+		$this->default_mock
+			->expects( $this->once() )
+			->method( 'get_post' );
+
+		$this->default_mock
+			->expects( $this->once() )
+			->method( 'is_post_excluded' )
+			->willReturn( false );
+
+		$this->assertEquals(
+			[ 'Article', 'NewsArticle' ],
+			$this->default_mock->add_news_article_type( 'None' )
+		);
+	}
+
+	/**
+	 * Tests that news article type is not changed when the post type is not included.
+	 *
+	 * @covers WPSEO_News_Schema::add_news_article_type
+	 * @covers WPSEO_News_Schema::is_post_type_included
+	 */
+	public function test_add_news_article_type_post_type_not_included() {
+		$this->set_post_mock( 'other_post_type' );
+		$this->default_mock
+			->expects( $this->once() )
+			->method( 'get_post' );
+
+		$this->assertEquals(
+			'None',
+			$this->default_mock->add_news_article_type( 'None' )
+		);
+	}
+
+	/**
+	 * Tests that news article type is not changed when the post is excluded.
+	 *
+	 * @covers WPSEO_News_Schema::add_news_article_type
+	 * @covers WPSEO_News_Schema::is_post_type_included
+	 * @covers WPSEO_News_Schema::is_post_excluded
+	 */
+	public function test_add_news_article_type_post_excluded() {
+		$this->set_post_mock();
+		$this->default_mock
+			->expects( $this->once() )
+			->method( 'get_post' );
+
+		$this->default_mock
+			->expects( $this->once() )
+			->method( 'is_post_excluded' )
+			->willReturn( true );
+
+		$this->assertEquals(
+			'None',
+			$this->default_mock->add_news_article_type( 'None' )
+		);
+	}
+
+	/**
+	 * Mocks `get_post` for ease of testing.
+	 *
+	 * @param string $post_type The post type for the mocked post.
+	 */
+	protected function set_post_mock( $post_type = 'post' ) {
+		$date_string = $this->date->format( DateTime::W3C );
+
+		$this->default_mock
+			->method( 'get_post' )
+			->will(
+				$this->returnValue(
+					self::factory()->post->create_and_get(
+						[
+							'post_title'    => 'Newest post',
+							'post_date'     => $date_string,
+							'post_date_gmt' => $date_string,
+							'post_type'     => $post_type,
+						]
+					)
+				)
+			);
 	}
 }
