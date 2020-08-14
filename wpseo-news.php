@@ -77,7 +77,10 @@ function yoast_wpseo_news_clear_sitemap_cache() {
  */
 function yoast_wpseo_news_activate() {
 	// Enable tracking.
-	WPSEO_Options::set( 'tracking', true );
+	if ( class_exists( 'WPSEO_Options' ) && method_exists( 'WPSEO_Options', 'set' ) ) {
+		WPSEO_Options::set( 'tracking', true );
+	}
+
 	yoast_wpseo_news_clear_sitemap_cache();
 }
 
