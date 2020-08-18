@@ -20,6 +20,6 @@
     "@yoast/grunt-plugin-tasks": "^1.7.2"
   },
   "yoast": {
-    "pluginVersion": "12.6-RC4"
+    "pluginVersion": "12.6"
   }
 }
