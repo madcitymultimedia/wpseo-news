@@ -76,7 +76,7 @@ class WPSEO_News_Schema {
 		 * This is to keep it consistent with post types that already include an Article.
 		 */
 		$type = array_map(
-			function ( $value ) {
+			static function ( $value ) {
 				return ( $value === 'None' ) ? 'Article' : $value;
 			},
 			$type
