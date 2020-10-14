@@ -49,7 +49,7 @@ class Option_Test extends TestCase {
 		$expected = [ $option_name => $expected ];
 		$actual   = $this->instance->validate_option( $dirty, $clean, [] );
 
-		$this->assertEquals( $expected, $actual, $message );
+		$this->assertSame( $expected, $actual, $message );
 	}
 
 	/**

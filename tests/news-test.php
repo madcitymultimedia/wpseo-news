@@ -34,7 +34,7 @@ class News_Test extends TestCase {
 		expect( 'get_post_types' )
 			->andReturn( [ 'post', 'page' ] );
 
-		$this->assertEquals( [ 'post' ], WPSEO_News::get_included_post_types() );
+		$this->assertSame( [ 'post' ], WPSEO_News::get_included_post_types() );
 	}
 
 	/**
@@ -55,6 +55,6 @@ class News_Test extends TestCase {
 		expect( 'get_post_types' )
 			->andReturn( [ 'page' ] );
 
-		$this->assertEquals( [ 'post' ], WPSEO_News::get_included_post_types() );
+		$this->assertSame( [ 'post' ], WPSEO_News::get_included_post_types() );
 	}
 }
