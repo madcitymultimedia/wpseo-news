@@ -5,6 +5,11 @@ build:
   - 'build:js'
   - 'build:i18n'
 
+'build-watch':
+  - 'shell:composer-install'
+  - 'build:js'
+  - 'watch'
+
 # Build JavaScript from assets to production
 'build:js':
   - 'clean:build-assets-js'
