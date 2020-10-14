@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "06943f1f1489d91a04c82da4d2dadfb9",
+    "content-hash": "2430e5a2555988f109bbab98845a135c",
     "packages": [
         {
             "name": "yoast/i18n-module",
@@ -1205,6 +1205,7 @@
             "keywords": [
                 "tokenizer"
             ],
+            "abandoned": true,
             "time": "2017-12-04T08:55:13+00:00"
         },
         {
@@ -2188,5 +2189,8 @@
         "php": ">=5.6"
     },
     "platform-dev": [],
+    "platform-overrides": {
+        "php": "5.6.40"
+    },
     "plugin-api-version": "1.1.0"
 }
