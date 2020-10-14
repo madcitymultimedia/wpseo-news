@@ -36,19 +36,25 @@
     "autoload-dev": {
         "classmap": [
             "integration-tests/",
-            "tests/"
+            "tests/",
+            "config/"
         ]
     },
     "scripts": {
         "lint": [
             "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude node_modules --exclude .git"
         ],
-        "config-yoastcs": [
-            "Dealerdirect\\Composer\\Plugin\\Installers\\PHPCodeSniffer\\Plugin::run",
-            "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --config-set default_standard Yoast"
+        "cs": [
+            "Yoast\\WP\\News\\Composer\\Actions::check_coding_standards"
         ],
         "check-cs": [
-            "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs --runtime-set ignore_warnings_on_exit 1"
+            "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs"
+        ],
+        "check-staged-cs": [
+            "@check-cs-warnings --filter=GitStaged"
+        ],
+        "check-branch-cs": [
+            "Yoast\\WP\\News\\Composer\\Actions::check_branch_cs"
         ],
         "fix-cs": [
             "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf"
