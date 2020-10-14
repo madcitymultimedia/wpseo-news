@@ -2,7 +2,7 @@
 const path = require( "path" );
 const loadGruntConfig = require( "load-grunt-config" );
 const timeGrunt = require( "time-grunt" );
-const { flattenVersionForFile } = require( "./grunt/modules/version.js" );
+const { flattenVersionForFile } = require( "./config/grunt/lib/version.js" );
 
 module.exports = function( grunt ) {
 	timeGrunt( grunt );
@@ -25,15 +25,24 @@ module.exports = function( grunt ) {
 			 * @returns {string} Config path.
 			 */
 			get config() {
-				return this.grunt + "config/";
+				return this.grunt + "task-config/";
 			},
-			grunt: "grunt/",
+			grunt: "config/grunt/",
 			js: "assets/",
 			languages: "languages/",
 			logs: "logs/",
 			vendor: "vendor/",
 		},
 		files: {
+			/**
+			 * Gets the config path glob.
+			 *
+			 * @returns {string} Config path glob.
+			 */
+			get config() {
+				return project.paths.config + "*.js";
+			},
+			grunt: "Gruntfile.js",
 			artifact: "artifact",
 			js: [
 				"assets/**/*.js",
@@ -44,26 +53,15 @@ module.exports = function( grunt ) {
 				"classes/**/*.php",
 			],
 			phptests: "tests/**/*.php",
-			/**
-			 * Gets the config path glob.
-			 *
-			 * @returns {string} Config path glob.
-			 */
-			get config() {
-				return project.paths.config + "*.js";
-			},
-			/**
-			 * Gets the changelog path file.
-			 *
-			 * @returns {string} Changelog path file.
-			 */
-			get changelog() {
-				return project.paths.theme + "changelog.txt";
-			},
-			grunt: "Gruntfile.js",
+			sass: [
+				// Work-around to avoid grunt-watch misconfiguration.
+				"non-existing-file",
+			],
 		},
 		pkg: grunt.file.readJSON( "package.json" ),
 	};
+
+	project.pluginVersionSlug = flattenVersionForFile( pluginVersion );
 
 	/* eslint-disable camelcase */
 	// Load Grunt configurations and tasks.
