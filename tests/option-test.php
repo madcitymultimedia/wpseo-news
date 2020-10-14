@@ -59,7 +59,7 @@ class Option_Test extends TestCase {
 	 */
 	public function validate_option_provider() {
 		return [
-			[
+			'include_post_type_with_valid_data' => [
 				'option_name' => 'news_sitemap_include_post_types',
 				'clean'       => [
 					'page' => 'on',
@@ -72,7 +72,7 @@ class Option_Test extends TestCase {
 				],
 				'message'     => 'Tests the include post type options with valid data.',
 			],
-			[
+			'include_post_type_with_invalid_data' => [
 				'option_name' => 'news_sitemap_include_post_types',
 				'clean'       => [
 					'page' => 'on',
@@ -83,7 +83,7 @@ class Option_Test extends TestCase {
 				'expected'    => [],
 				'message'     => 'Tests the include post type options with valid invalid data.',
 			],
-			[
+			'excluded_terms_with_valid_data' => [
 				'option_name' => 'news_sitemap_exclude_terms',
 				'clean'       => [
 					'term' => 'on',
@@ -96,7 +96,7 @@ class Option_Test extends TestCase {
 				],
 				'message'     => 'Tests the excluded terms options with valid data.',
 			],
-			[
+			'excluded_terms_with_invalid_data' => [
 				'option_name' => 'news_sitemap_exclude_terms',
 				'clean'       => [
 					'term' => 'on',
