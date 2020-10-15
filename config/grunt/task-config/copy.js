@@ -19,6 +19,8 @@ module.exports = {
 					"classes/**",
 					// Files to copy.
 					"wpseo-news.php",
+					"**/index.php",
+					"!node_modules/**/index.php",
 					"assets/xml-news-sitemap.xsl",
 					"assets/*.min.js",
 					"README.md",
