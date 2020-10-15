@@ -51,7 +51,7 @@
             "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs"
         ],
         "check-staged-cs": [
-            "@check-cs-warnings --filter=GitStaged"
+            "@check-cs --filter=GitStaged"
         ],
         "check-branch-cs": [
             "Yoast\\WP\\News\\Composer\\Actions::check_branch_cs"
