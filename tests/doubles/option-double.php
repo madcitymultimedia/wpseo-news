@@ -23,4 +23,3 @@ class Option_Double extends WPSEO_News_Option {
 		return parent::validate_option( $dirty, $clean, $old );
 	}
 }
-
