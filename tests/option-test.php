@@ -20,8 +20,8 @@ class Option_Test extends TestCase {
 	/**
 	 * Sets the instance.
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		$external_mock              = Mockery::mock( 'overload:\WPSEO_Option' );
 		$external_mock->option_name = 'wpseo_news';

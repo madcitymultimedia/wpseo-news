@@ -4,46 +4,25 @@ namespace Yoast\WP\News\Tests;
 
 use Brain\Monkey;
 use Mockery;
-use PHPUnit\Framework\TestCase as PHPUnit_TestCase;
+use Yoast\WPTestUtils\BrainMonkey\YoastTestCase;
 
 /**
  * TestCase base class.
  */
-abstract class TestCase extends PHPUnit_TestCase {
+abstract class TestCase extends YoastTestCase {
 
 	/**
 	 * Test setup.
 	 */
-	protected function setUp() {
+	protected function set_up() {
+		parent::set_up();
 
-		parent::setUp();
-		Monkey\setUp();
+		$this->stubEscapeFunctions();
+		$this->stubTranslationFunctions();
 
 		Monkey\Functions\stubs(
 			[
-				// Passing "null" makes the function return it's first argument.
-				'esc_attr'       => null,
-				'esc_html'       => null,
-				'esc_textarea'   => null,
-				'__'             => null,
-				'_x'             => null,
-				'esc_html__'     => null,
-				'esc_html_x'     => null,
-				'esc_attr_x'     => null,
 				'is_admin'       => false,
-				'is_multisite'   => false,
-				'site_url'       => 'https://www.example.org',
-				'wp_json_encode' => static function( $data, $options = 0, $depth = 512 ) {
-					// phpcs:ignore Yoast.Yoast.AlternativeFunctions -- Mocks the wp_json_encode function.
-					return \json_encode( $data, $options, $depth );
-				},
-				'wp_slash'       => null,
-				'absint'         => static function( $value ) {
-					return \abs( \intval( $value ) );
-				},
-				'wp_parse_args'  => static function ( $settings, $defaults ) {
-					return \array_merge( $defaults, $settings );
-				},
 			]
 		);
 
@@ -56,13 +35,5 @@ abstract class TestCase extends PHPUnit_TestCase {
 			->zeroOrMoreTimes()
 			->with( Mockery::anyOf( 'wpseo', 'wpseo_titles', 'wpseo_taxonomy_meta', 'wpseo_social', 'wpseo_ms' ) )
 			->andReturn( [] );
-	}
-
-	/**
-	 * Test tear down.
-	 */
-	protected function tearDown() {
-		Monkey\tearDown();
-		parent::tearDown();
 	}
 }
