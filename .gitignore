@@ -10,3 +10,4 @@ phpunit.xml
 phpcs.xml
 .phpcs.xml
 .cache/phpcs.cache
+.phpunit.result.cache
