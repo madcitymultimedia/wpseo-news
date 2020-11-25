@@ -47,8 +47,8 @@ class Googlebot_News_Presenter_Test extends TestCase {
 	/**
 	 * Sets the instance.
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		Mockery::mock( 'overload:\Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter' );
 
