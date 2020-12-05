@@ -52,7 +52,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 
 		$actual = $this->default_mock->article_post_types( [] );
 
-		$this->assertEquals( [ 'post' ], $actual );
+		$this->assertSame( [ 'post' ], $actual );
 	}
 
 	/**
@@ -74,7 +74,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 
 		$actual = $this->default_mock->article_post_types( [] );
 
-		$this->assertEquals( [], $actual );
+		$this->assertSame( [], $actual );
 	}
 
 	/**
@@ -89,7 +89,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 			->expects( $this->once() )
 			->method( 'get_post' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			[
 				'copyrightYear'   => $this->date->format( 'Y' ),
 				'copyrightHolder' => [
@@ -112,7 +112,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 			->expects( $this->once() )
 			->method( 'get_post' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			[],
 			$this->default_mock->add_copyright_information( [] )
 		);
@@ -136,7 +136,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 			->method( 'is_post_excluded' )
 			->willReturn( false );
 
-		$this->assertEquals(
+		$this->assertSame(
 			[ 'Article', 'NewsArticle' ],
 			$this->default_mock->add_news_article_type( [ 'Article' ] )
 		);
@@ -160,7 +160,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 			->method( 'is_post_excluded' )
 			->willReturn( false );
 
-		$this->assertEquals(
+		$this->assertSame(
 			[ 'Article', 'NewsArticle' ],
 			$this->default_mock->add_news_article_type( [ 'None' ] )
 		);
@@ -184,7 +184,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 			->method( 'is_post_excluded' )
 			->willReturn( false );
 
-		$this->assertEquals(
+		$this->assertSame(
 			[ 'Article', 'NewsArticle' ],
 			$this->default_mock->add_news_article_type( 'None' )
 		);
@@ -202,7 +202,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 			->expects( $this->once() )
 			->method( 'get_post' );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'None',
 			$this->default_mock->add_news_article_type( 'None' )
 		);
@@ -226,7 +226,7 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 			->method( 'is_post_excluded' )
 			->willReturn( true );
 
-		$this->assertEquals(
+		$this->assertSame(
 			'None',
 			$this->default_mock->add_news_article_type( 'None' )
 		);

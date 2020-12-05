@@ -35,11 +35,11 @@ class WPSEO_News_Meta_Box_Test extends WPSEO_News_UnitTestCase {
 
 		$sections = $stub->add_metabox_section( [] );
 
-		$this->assertEquals( count( $sections ), 1 );
+		$this->assertCount( 1, $sections );
 
-		$this->assertEquals( $sections[0]['name'], 'news' );
-		$this->assertEquals( $sections[0]['link_content'], '<span class="dashicons dashicons-admin-plugins"></span>Google News' );
-		$this->assertEquals( $sections[0]['content'], '<div class="wpseo-meta-section-content">[content]</div>' );
+		$this->assertSame( 'news', $sections[0]['name'] );
+		$this->assertSame( '<span class="dashicons dashicons-admin-plugins"></span>Google News', $sections[0]['link_content'] );
+		$this->assertSame( '<div class="wpseo-meta-section-content">[content]</div>', $sections[0]['content'] );
 	}
 
 	/**
@@ -57,6 +57,6 @@ class WPSEO_News_Meta_Box_Test extends WPSEO_News_UnitTestCase {
 
 		$sections = $stub->add_metabox_section( [] );
 
-		$this->assertEquals( count( $sections ), 0 );
+		$this->assertCount( 0, $sections );
 	}
 }
