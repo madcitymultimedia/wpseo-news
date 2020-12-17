@@ -53,10 +53,6 @@ module.exports = function( grunt ) {
 				"classes/**/*.php",
 			],
 			phptests: "tests/**/*.php",
-			sass: [
-				// Work-around to avoid grunt-watch misconfiguration.
-				"non-existing-file",
-			],
 		},
 		pkg: grunt.file.readJSON( "package.json" ),
 	};
