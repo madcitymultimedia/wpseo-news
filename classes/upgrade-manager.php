@@ -248,6 +248,11 @@ class WPSEO_News_Upgrade_Manager {
 	 * Performs the upgrade routine for Yoast SEO News 12.7.
 	 */
 	private function upgrade_127() {
+		// Remove the default genre setting from the database.
+		$options = get_option( 'wpseo_news' );
+		unset( $options['news_sitemap_default_genre'] );
+		update_option( 'wpseo_news', $options );
+
 		// Remove the genre settings from the database.
 		$this->delete_meta_by_key( '_yoast_wpseo_newssitemap-genre' );
 	}
