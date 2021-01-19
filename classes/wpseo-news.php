@@ -316,23 +316,6 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Listing the genres.
-	 *
-	 * @return array
-	 */
-	public static function list_genres() {
-		return [
-			'none'          => __( 'None', 'wordpress-seo-news' ),
-			'pressrelease'  => __( 'Press Release', 'wordpress-seo-news' ),
-			'satire'        => __( 'Satire', 'wordpress-seo-news' ),
-			'blog'          => __( 'Blog', 'wordpress-seo-news' ),
-			'oped'          => __( 'Op-Ed', 'wordpress-seo-news' ),
-			'opinion'       => __( 'Opinion', 'wordpress-seo-news' ),
-			'usergenerated' => __( 'User Generated', 'wordpress-seo-news' ),
-		];
-	}
-
-	/**
 	 * Determines whether the post is excluded in the news sitemap (and therefore schema) output.
 	 *
 	 * @param int $post_id The ID of the post to check for.
@@ -387,5 +370,26 @@ class WPSEO_News {
 		}
 
 		return $terms;
+	}
+
+	/**
+	 * Listing the genres.
+	 *
+	 * @deprecated 12.7 News genres are deprecated.
+	 *
+	 * @return array
+	 */
+	public static function list_genres() {
+		_deprecated_function( __METHOD__, 'WPSEO News 12.7' );
+
+		return [
+			'none'          => __( 'None', 'wordpress-seo-news' ),
+			'pressrelease'  => __( 'Press Release', 'wordpress-seo-news' ),
+			'satire'        => __( 'Satire', 'wordpress-seo-news' ),
+			'blog'          => __( 'Blog', 'wordpress-seo-news' ),
+			'oped'          => __( 'Op-Ed', 'wordpress-seo-news' ),
+			'opinion'       => __( 'Opinion', 'wordpress-seo-news' ),
+			'usergenerated' => __( 'User Generated', 'wordpress-seo-news' ),
+		];
 	}
 }
