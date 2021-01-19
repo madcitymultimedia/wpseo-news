@@ -376,6 +376,7 @@ class WPSEO_News {
 	 * Listing the genres.
 	 *
 	 * @deprecated 12.7 News genres are deprecated.
+	 * @codeCoverageIgnore
 	 *
 	 * @return array
 	 */
