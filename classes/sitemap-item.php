@@ -116,17 +116,12 @@ class WPSEO_News_Sitemap_Item {
 	private function build_news_tag() {
 
 		$title         = $this->get_item_title( $this->item );
-		$genre         = $this->get_item_genre();
 		$stock_tickers = $this->get_item_stock_tickers( $this->item->ID );
 
 		$this->output .= "\t<news:news>\n";
 
 		// Build the publication tag.
 		$this->build_publication_tag();
-
-		if ( ! empty( $genre ) ) {
-			$this->output .= "\t\t<news:genres><![CDATA[" . $genre . ']]></news:genres>' . "\n";
-		}
 
 		$this->output .= "\t\t<news:publication_date>" . $this->get_publication_date( $this->item ) . '</news:publication_date>' . "\n";
 		$this->output .= "\t\t<news:title><![CDATA[" . $title . ']]></news:title>' . "\n";
@@ -165,27 +160,6 @@ class WPSEO_News_Sitemap_Item {
 		}
 
 		return $item->post_title;
-	}
-
-	/**
-	 * Getting the genre for given $item_id.
-	 *
-	 * @return string
-	 */
-	private function get_item_genre() {
-		$genre = WPSEO_Meta::get_value( 'newssitemap-genre', $this->item->ID );
-		if ( is_array( $genre ) ) {
-			$genre = implode( ',', $genre );
-		}
-
-		$default_genre = WPSEO_Options::get( 'news_sitemap_default_genre' );
-		if ( $genre === '' && $default_genre ) {
-			$genre = is_array( $default_genre ) ? implode( ',', $default_genre ) : $default_genre;
-		}
-
-		$genre = trim( preg_replace( '/^none,?/', '', $genre ) );
-
-		return $genre;
 	}
 
 	/**

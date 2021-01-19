@@ -81,7 +81,6 @@
 						<thead>
 							<tr>
 								<th width="55%">Title</th>
-								<th width="15%">Genre(s)</th>
 								<th width="15%"># Images</th>
 								<th width="15%">Publication Date</th>
 							</tr>
@@ -96,9 +95,6 @@
 										<a href="{$itemURL}">
 											<xsl:value-of select="n:news/n:title"/>
 										</a>
-									</td>
-									<td>
-										<xsl:value-of select="n:news/n:genres"/>
 									</td>
 									<td>
 										<xsl:value-of select="count(image:image)"/>
