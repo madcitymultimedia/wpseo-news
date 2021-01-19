@@ -76,6 +76,11 @@ class WPSEO_News_Upgrade_Manager {
 		if ( version_compare( $current_version, '12.4.1-RC0', '<=' ) ) {
 			$this->upgrade_1241();
 		}
+
+		// Upgrade to version 12.7.
+		if ( version_compare( $current_version, '12.7', '<=' ) ) {
+			$this->upgrade_127();
+		}
 	}
 
 	/**
@@ -237,6 +242,14 @@ class WPSEO_News_Upgrade_Manager {
 		$options['news_sitemap_exclude_terms']      = $excluded_terms;
 
 		update_option( 'wpseo_news', $options );
+	}
+
+	/**
+	 * Performs the upgrade routine for Yoast SEO News 12.7.
+	 */
+	private function upgrade_127() {
+		// Remove the genre settings from the database.
+		$this->delete_meta_by_key( '_yoast_wpseo_newssitemap-genre' );
 	}
 
 	/**
