@@ -43,15 +43,6 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 				'title' => __( 'News Sitemap', 'wordpress-seo-news' ),
 				'expl'  => __( 'Exclude from News Sitemap', 'wordpress-seo-news' ),
 			],
-			'newssitemap-genre'        => [
-				'name'        => 'newssitemap-genre',
-				'type'        => 'multiselect',
-				'std'         => WPSEO_Options::get( 'news_sitemap_default_genre', 'blog' ),
-				'title'       => __( 'Google News Genre', 'wordpress-seo-news' ),
-				'description' => __( 'Genre to show in Google News Sitemap.', 'wordpress-seo-news' ),
-				'options'     => WPSEO_News::list_genres(),
-				'serialized'  => true,
-			],
 			'newssitemap-stocktickers' => [
 				'name'        => 'newssitemap-stocktickers',
 				'std'         => '',

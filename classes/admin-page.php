@@ -44,13 +44,6 @@ class WPSEO_News_Admin_Page {
 		// Google News Publication Name.
 		Yoast_Form::get_instance()->textinput( 'news_sitemap_name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );
 
-		// Default Genre.
-		Yoast_Form::get_instance()->select(
-			'news_sitemap_default_genre',
-			__( 'Default Genre', 'wordpress-seo-news' ),
-			WPSEO_News::list_genres()
-		);
-
 		echo '</fieldset>';
 
 		// Post Types to include in News Sitemap.
