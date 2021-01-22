@@ -289,7 +289,9 @@ class WPSEO_News {
 	}
 
 	/**
+	 * Adds a Notification to the Notification Center.
 	 *
+	 * @return void
 	 */
 	public function notification_center_notification() {
 		$notification_center = Yoast_Notification_Center::get();
