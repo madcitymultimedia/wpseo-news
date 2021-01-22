@@ -297,17 +297,17 @@ class WPSEO_News {
 		$notification_center = Yoast_Notification_Center::get();
 
 		$notification_msg_a         = sprintf(
-		/* translators: %s expands to Yoast SEO Video */
-			__( 'Changed settings in %s:', 'yoast-video-seo', 'wordpress-seo-news' ),
-			'Yoast SEO Video'
+		/* translators: %s expands to Yoast SEO News */
+			__( 'Changed settings in %s:', 'yoast-news-seo' ),
+			'Yoast SEO News'
 		);
 		$notification_msg_b         = sprintf(
-		/* translators: %s expands to Yoast SEO Video */
-			__( 'You\'ve just updated %s, but have you already noticed that we\'ve changed some settings?', 'yoast-video-seo', 'wordpress-seo-news' ),
-			'Yoast SEO Video'
+		/* translators: %s expands to Yoast SEO News */
+			__( 'You\'ve just updated %s, but have you already noticed that we\'ve changed some settings?', 'yoast-news-seo' ),
+			'Yoast SEO News'
 		);
-		$notification_info_url      = WPSEO_Shortlinker::get( 'https://yoa.st/video-changes' );
-		$notification_info_linktext = __( 'Read everything about it here', 'yoast-video-seo', 'wordpress-seo-news' );
+		$notification_info_url      = WPSEO_Shortlinker::get( 'https://yoa.st/news-changes' );
+		$notification_info_linktext = __( 'Read everything about it here', 'yoast-news-seo' );
 
 		$notification_message = sprintf(
 			'<b>%s</b> %s <a href="%s" target="_blank">%s</a>.',
@@ -320,7 +320,7 @@ class WPSEO_News {
 		$notification = new Yoast_Notification(
 			$notification_message,
 			[
-				'id'   => 'wpseo-updates-video',
+				'id'   => 'wpseo-updates-news',
 				'type' => Yoast_Notification::UPDATED,
 			]
 		);
