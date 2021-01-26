@@ -298,16 +298,16 @@ class WPSEO_News {
 
 		$notification_msg_a = sprintf(
 		/* translators: %s expands to Yoast SEO News */
-			__( 'Changed settings in %s:', 'yoast-news-seo' ),
+			__( 'Changed settings in %s:', 'wordpress-seo-news' ),
 			'Yoast SEO News'
 		);
 		$notification_msg_b = sprintf(
 		/* translators: %s expands to Yoast SEO News */
-			__( 'You\'ve just updated %s, but have you already noticed that we\'ve changed some settings?', 'yoast-news-seo' ),
+			__( 'You\'ve just updated %s, but have you already noticed that we\'ve changed some settings?', 'wordpress-seo-news' ),
 			'Yoast SEO News'
 		);
 		$notification_info_url      = WPSEO_Shortlinker::get( 'https://yoa.st/news-changes' );
-		$notification_info_linktext = __( 'Read everything about it here', 'yoast-news-seo' );
+		$notification_info_linktext = __( 'Read everything about it here', 'wordpress-seo-news' );
 
 		$notification_message = sprintf(
 			'<b>%s</b> %s <a href="%s" target="_blank">%s</a>.',
