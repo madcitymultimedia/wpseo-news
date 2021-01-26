@@ -296,12 +296,12 @@ class WPSEO_News {
 	public function notification_center_notification() {
 		$notification_center = Yoast_Notification_Center::get();
 
-		$notification_msg_a         = sprintf(
+		$notification_msg_a = sprintf(
 		/* translators: %s expands to Yoast SEO News */
 			__( 'Changed settings in %s:', 'yoast-news-seo' ),
 			'Yoast SEO News'
 		);
-		$notification_msg_b         = sprintf(
+		$notification_msg_b = sprintf(
 		/* translators: %s expands to Yoast SEO News */
 			__( 'You\'ve just updated %s, but have you already noticed that we\'ve changed some settings?', 'yoast-news-seo' ),
 			'Yoast SEO News'
