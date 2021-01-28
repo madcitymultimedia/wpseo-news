@@ -68,10 +68,10 @@ class WPSEO_News_Admin_Page {
 				'project_slug'   => 'news-seo',
 				'plugin_name'    => 'WordPress SEO News',
 				'hook'           => 'wpseo_admin_promo_footer',
-				'glotpress_url'  => 'http://translate.yoast.com/gp/',
+				'glotpress_url'  => 'https://translate.yoast.com/gp/',
 				'glotpress_name' => 'Yoast Translate',
-				'glotpress_logo' => 'http://translate.yoast.com/gp-templates/images/Yoast_Translate.svg',
-				'register_url'   => 'http://translate.yoast.com/gp/projects#utm_source=plugin&utm_medium=promo-box&utm_campaign=wpseo-news-i18n-promo',
+				'glotpress_logo' => 'https://translate.yoast.com/gp-templates/images/Yoast_Translate.svg',
+				'register_url'   => 'https://translate.yoast.com/register/#utm_source=plugin&utm_medium=promo-box&utm_campaign=wpseo-news-i18n-promo',
 			]
 		);
 	}
