@@ -17,13 +17,16 @@
     "url": "https://github.com/Yoast/wpseo-news"
   },
   "devDependencies": {
+    "@wordpress/babel-plugin-makepot": "^4.0.0",
     "@wordpress/dependency-extraction-webpack-plugin": "^3.0.1",
     "@yoast/grunt-plugin-tasks": "^2.0.0",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
     "babel-plugin-transform-react-jsx": "^6.24.1",
     "babel-preset-env": "^1.7.0",
     "case-sensitive-paths-webpack-plugin": "^2.3.0",
+    "grunt-po2json": "^0.3.0",
     "grunt-webpack": "^4.0.2",
     "lodash": "^4.17.20",
     "webpack": "^4.15.1",
