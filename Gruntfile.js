@@ -54,6 +54,12 @@ module.exports = function( grunt ) {
 				"classes/**/*.php",
 			],
 			phptests: "tests/**/*.php",
+			pot: {
+				plugin: "<%= pkg.plugin.textdomain %>.pot",
+				php: "<%= pkg.plugin.textdomain %>php.pot",
+				js: "<%= pkg.plugin.textdomain %>js.pot",
+				makepot: "gettext.pot",
+			},
 		},
 		pkg: grunt.file.readJSON( "package.json" ),
 	};

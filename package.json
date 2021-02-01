@@ -32,6 +32,9 @@
     "webpack": "^4.15.1",
     "webpack-cli": "^3.0.8"
   },
+  "scripts": {
+    "i18n-wordpress-seo-news": "NODE_ENV=production babel assets --plugins=@wordpress/babel-plugin-makepot > /dev/null"
+  },
   "yoast": {
     "pluginVersion": "12.6"
   }
