@@ -51,11 +51,11 @@ class WPSEO_News {
 	private function set_hooks() {
 		add_filter( 'plugin_action_links', [ $this, 'plugin_links' ], 10, 2 );
 		add_filter( 'wpseo_submenu_pages', [ $this, 'add_submenu_pages' ] );
-		add_action( 'admin_init', [ $this, 'init_helpscout_beacon' ] );
 		add_action( 'init', [ 'WPSEO_News_Option', 'register_option' ] );
 
 		// Enable Yoast usage tracking.
 		add_filter( 'wpseo_enable_tracking', '__return_true' );
+		add_filter( 'wpseo_helpscout_beacon_settings', [ $this, 'filter_helpscout_beacon' ] );
 
 		add_filter( 'wpseo_frontend_presenters', [ $this, 'add_frontend_presenter' ] );
 	}
@@ -269,20 +269,17 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Initializes the helpscout beacon.
+	 * Makes sure the News settings page has a HelpScout beacon.
+	 *
+	 * @param array $helpscout_settings The HelpScout settings.
+	 *
+	 * @return array $helpscout_settings The HelpScout settings with the News SEO beacon added.
 	 */
-	public function init_helpscout_beacon() {
-		if ( ! class_exists( 'WPSEO_HelpScout' ) ) {
-			return;
-		}
+	public function filter_helpscout_beacon( $helpscout_settings ) {
+		$helpscout_settings['pages_ids']['wpseo_news'] = '161a6b32-9360-4613-bd04-d8098b283a0f';
+		$helpscout_settings['products'][]              = WPSEO_Addon_Manager::NEWS_SLUG;
 
-		$helpscout = new WPSEO_HelpScout(
-			'161a6b32-9360-4613-bd04-d8098b283a0f',
-			[ 'wpseo_news' ],
-			[ WPSEO_Addon_Manager::NEWS_SLUG ]
-		);
-
-		$helpscout->register_hooks();
+		return $helpscout_settings;
 	}
 
 	/**
