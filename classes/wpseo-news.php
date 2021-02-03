@@ -277,7 +277,7 @@ class WPSEO_News {
 	 */
 	public function filter_helpscout_beacon( $helpscout_settings ) {
 		$helpscout_settings['pages_ids']['wpseo_news'] = '161a6b32-9360-4613-bd04-d8098b283a0f';
-		$helpscout_settings['products'][] = WPSEO_Addon_Manager::NEWS_SLUG;
+		$helpscout_settings['products'][]              = WPSEO_Addon_Manager::NEWS_SLUG;
 
 		return $helpscout_settings;
 	}
