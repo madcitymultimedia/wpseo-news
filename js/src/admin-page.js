@@ -2,7 +2,6 @@
 /* global wpseonews */
 // Taken and adapted from http://www.webmaster-source.com/2013/02/06/using-the-wordpress-3-5-media-uploader-in-your-plugin-or-theme/
 jQuery( document ).ready( function( $ ) {
-	console.log( "yoast seo news is working" );
 	var WPSEOCustomUploader;
 	$( ".wpseo_image_upload_button" ).click( function( e ) {
 		var wpseo_target_id = $( this ).attr( "id" ).replace( /_button$/, "" );
