@@ -12,7 +12,7 @@ module.exports = {
 		"<%= paths.languages %>*.pot",
 	],
 	"build-assets-js": [
-		"<%= paths.js %>*.map",
+		"<%= paths.js %>/dist*",
 	],
 	artifact: [
 		"<%= files.artifact %>",

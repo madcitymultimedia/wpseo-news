@@ -28,7 +28,7 @@ module.exports = function( grunt ) {
 				return this.grunt + "task-config/";
 			},
 			grunt: "config/grunt/",
-			js: "js/src/",
+			js: "js/",
 			languages: "languages/",
 			logs: "logs/",
 			vendor: "vendor/",
@@ -46,7 +46,6 @@ module.exports = function( grunt ) {
 			artifact: "artifact",
 			js: [
 				"js/src/**/*.js",
-				"!js/**/*.min.js",
 			],
 			php: [
 				"*.php",

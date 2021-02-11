@@ -2,14 +2,20 @@
   "presets": [ [ "env" ] ],
   "plugins": [
     [
-      "transform-react-jsx"
+      "transform-react-jsx",
+      {
+        "pragma": "wp.element.createElement"
+      }
     ]
   ],
   "env": {
     "test": {
       "plugins": [
         [
-          "transform-react-jsx"
+          "transform-react-jsx",
+          {
+            "pragma": "wp.element.createElement"
+          }
         ]
       ]
     }

@@ -13,7 +13,7 @@ build:
 # Build JavaScript from assets to production
 'build:js':
   - 'clean:build-assets-js'
-  - 'uglify'
+  - 'webpack:buildDev'
 
 # Build internationalisation features
 'build:i18n':

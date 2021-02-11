@@ -22,7 +22,7 @@ module.exports = {
 					"**/index.php",
 					"!node_modules/**/index.php",
 					"assets/xml-news-sitemap.xsl",
-					"assets/*.min.js",
+					"js/dist/*.js",
 					"README.md",
 					"license.txt",
 				],
