@@ -1,9 +1,17 @@
 {
   "presets": [ [ "env" ] ],
-  "plugins": [],
+  "plugins": [
+    [
+      "transform-react-jsx"
+    ]
+  ],
   "env": {
     "test": {
-      "plugins": []
+      "plugins": [
+        [
+          "transform-react-jsx"
+        ]
+      ]
     }
   },
   "comments": true

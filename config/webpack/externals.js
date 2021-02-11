@@ -1,3 +1,5 @@
+const { camelCaseDash } = require( "@wordpress/dependency-extraction-webpack-plugin/lib/util" );
+
 const externals = {
 	lodash: "window.lodash",
 	react: "React",
@@ -5,8 +7,23 @@ const externals = {
 };
 
 /**
+ * WordPress dependencies.
+ */
+const wordpressPackages = [
+	"@wordpress/element",
+];
+
+const wordpressExternals = wordpressPackages.reduce( ( memo, packageName ) => {
+	const name = camelCaseDash( packageName.replace( "@wordpress/", "" ) );
+
+	memo[ packageName ] = `window.wp.${ name }`;
+	return memo;
+}, {} );
+
+/**
  * Export the data.
  */
 module.exports = {
 	externals,
+	wordpressExternals,
 };
