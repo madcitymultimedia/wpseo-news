@@ -10,6 +10,7 @@ const externals = {
  * WordPress dependencies.
  */
 const wordpressPackages = [
+	"@wordpress/data",
 	"@wordpress/element",
 ];
 
