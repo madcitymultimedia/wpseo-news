@@ -11,6 +11,7 @@ const externals = {
  */
 const wordpressPackages = [
 	"@wordpress/data",
+	"@wordpress/dom-ready",
 	"@wordpress/element",
 ];
 

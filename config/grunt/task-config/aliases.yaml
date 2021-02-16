@@ -24,7 +24,7 @@ build:
 'artifact':
   - 'shell:composer-install-production'
   - 'update-version'
-  - 'build'
+  - 'release'
   - 'clean:artifact'
   - 'copy:artifact'
   - 'compress:artifact'
@@ -36,4 +36,9 @@ default:
 
 # Get the project ready for release
 release:
-  - 'build'
+  - 'release:js'
+  - 'build:i18n'
+
+'release:js':
+  - 'clean:build-assets-js'
+  - 'webpack:buildProd'

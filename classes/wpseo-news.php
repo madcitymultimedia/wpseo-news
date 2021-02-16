@@ -208,12 +208,19 @@ class WPSEO_News {
 	public function enqueue_admin_page() {
 		$version = $this->get_version();
 
+		$dependencies = [
+			'wp-data',
+			'wp-dom-ready',
+			'wp-element',
+		];
+
 		wp_enqueue_media(); // Enqueue files needed for upload functionality.
 
 		wp_enqueue_script(
 			'wpseo-news-admin-page',
 			plugins_url( 'js/dist/yoast-seo-news-plugin-' . $version . '.js', WPSEO_NEWS_FILE ),
 			[ 'jquery' ],
+			$dependencies,
 			self::VERSION,
 			true
 		);
