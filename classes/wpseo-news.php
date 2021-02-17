@@ -193,16 +193,33 @@ class WPSEO_News {
 	}
 
 	/**
+	 * Retrieves a flatten version.
+	 *
+	 * @return string The flatten version.
+	 */
+	protected function get_version() {
+		$asset_manager = new WPSEO_Admin_Asset_Manager();
+		return $asset_manager->flatten_version( self::VERSION );
+	}
+
+	/**
 	 * Enqueue admin page JS.
 	 */
 	public function enqueue_admin_page() {
+		$version = $this->get_version();
+
+		$dependencies = [
+			'wp-data',
+			'wp-dom-ready',
+			'wp-element',
+		];
 
 		wp_enqueue_media(); // Enqueue files needed for upload functionality.
 
 		wp_enqueue_script(
 			'wpseo-news-admin-page',
-			plugins_url( 'assets/admin-page.min.js', WPSEO_NEWS_FILE ),
-			[ 'jquery' ],
+			plugins_url( 'js/dist/yoast-seo-news-plugin-' . $version . '.js', WPSEO_NEWS_FILE ),
+			$dependencies,
 			self::VERSION,
 			true
 		);
