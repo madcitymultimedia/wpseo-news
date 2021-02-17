@@ -80,6 +80,7 @@ module.exports = function( grunt ) {
 				"update-version": "./node_modules/@yoast/grunt-plugin-tasks/tasks/update-version.js",
 				"set-version": "./node_modules/@yoast/grunt-plugin-tasks/tasks/set-version.js",
 			},
+			customTasksDir: "config/grunt/custom-tasks",
 		},
 	} );
 	/* eslint-enable camelcase */

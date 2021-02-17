@@ -11,6 +11,9 @@ module.exports = {
 		"!<%= paths.languages %><%= files.pot.plugin %>",
 		// Keep the MO files for the zip.
 		"!<%= paths.languages %>*.mo",
+		// Keep the JavaScript JSON files for the zip.
+		"!<%= paths.languages %><%= pkg.plugin.textdomain %>js.json",
+		"!<%= paths.languages %><%= pkg.plugin.textdomain %>js-*.json",
 	],
 	"after-po-download": [
 		"<%= paths.languages %><%= pkg.plugin.textdomain %>-*-{formal,informal,ao90}.{po,json}",

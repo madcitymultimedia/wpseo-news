@@ -25,7 +25,10 @@ module.exports = function( grunt ) {
 						"<%= paths.jsDist %>*.js",
 						"README.md",
 						"license.txt",
+						// Translations to copy: MO for PHP and JSON for JS.
 						"<%= paths.languages %>*.mo",
+						"<%= paths.languages %><%= pkg.plugin.textdomain %>js.json",
+						"<%= paths.languages %><%= pkg.plugin.textdomain %>js-*.json",
 					],
 					dest: "artifact",
 				},
@@ -35,6 +38,21 @@ module.exports = function( grunt ) {
 		"makepot-wordpress-seo-news": {
 			src: "<%= files.pot.makepot %>",
 			dest: "<%= paths.languages %><%= files.pot.js %>",
+		},
+		"json-translations": {
+			files: [
+				{
+					expand: true,
+					cwd: "<%= paths.languages %>",
+					src: "<%= pkg.plugin.textdomain %>-*.json",
+					dest: "<%= paths.languages %>",
+					rename: ( dest, src ) => {
+						const textdomain = grunt.config.get( "pkg.plugin.textdomain" );
+
+						return dest + src.replace( textdomain, `${ textdomain }js` );
+					},
+				},
+			],
 		},
 	};
 };
