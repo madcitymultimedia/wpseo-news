@@ -219,7 +219,6 @@ class WPSEO_News {
 		wp_enqueue_script(
 			'wpseo-news-admin-page',
 			plugins_url( 'js/dist/yoast-seo-news-plugin-' . $version . '.js', WPSEO_NEWS_FILE ),
-			[ 'jquery' ],
 			$dependencies,
 			self::VERSION,
 			true
