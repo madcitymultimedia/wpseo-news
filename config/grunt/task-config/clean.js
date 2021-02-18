@@ -3,9 +3,14 @@ module.exports = {
 	"language-files": [
 		"<%= paths.languages %>*",
 		"!<%= paths.languages %>index.php",
+		"<%= files.pot.makepot %>",
 	],
 	"after-build-language-files": [
+		// Remove the @wordpress/babel-plugin-makepot output.
+		"<%= files.pot.makepot %>",
+		// Remove the contents of the language folder, with some exceptions.
 		"<%= paths.languages %>*",
+		// Keep the "Nothing to see here" index.php file.
 		"!<%= paths.languages %>index.php",
 		// Keep the plugin pot file for GitHub.
 		"!<%= paths.languages %><%= files.pot.plugin %>",
