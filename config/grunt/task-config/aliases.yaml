@@ -18,7 +18,22 @@ build:
 # Build internationalisation features
 'build:i18n':
   - 'addtextdomain'
+  - 'clean:language-files'
+  - 'build:i18n:potFiles'
+  - 'build:i18n:translations'
+  - 'clean:after-build-language-files'
+# Create the relevant POT files and combine to one
+'build:i18n:potFiles':
   - 'makepot'
+  - 'shell:makepot-wordpress-seo-news'
+  - 'copy:makepot-wordpress-seo-news'
+  - 'shell:combine-pot-files'
+# Download and build the latest translations: MO for PHP and JSON for JS
+'build:i18n:translations':
+  - 'glotpress_download'
+  - 'copy:json-translations'
+  - 'po2json'
+  - 'i18n-clean-json'
 
 # Create a zipped artifact from a fresh build
 'artifact':

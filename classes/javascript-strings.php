@@ -11,32 +11,53 @@
 class WPSEO_News_Javascript_Strings {
 
 	/**
-	 * Strings to be made available to javascript.
+	 * Localizes the given script with the JavaScript translations.
 	 *
-	 * @var string[]|null
+	 * @param string $script_handle The script handle to localize for.
+	 *
+	 * @return void
 	 */
-	private static $strings = null;
+	public function localize_script( $script_handle ) {
+		$translations = [
+			'wordpress-seo-news' => $this->get_translations( 'wordpress-seo-newsjs' ),
+		];
+
+		\wp_localize_script( $script_handle, 'wpseoNewsJSL10n', $translations );
+	}
 
 	/**
-	 * Fills the strings with values.
+	 * Returns translations necessary for JS files.
+	 *
+	 * @param string $component The component to retrieve the translations for.
+	 *
+	 * @return object The translations in a Jed format for JS files.
 	 */
-	private static function fill() {
-		self::$strings = [
-			'ajaxurl'      => admin_url( 'admin-ajax.php' ),
-			'choose_image' => __( 'Choose image.', 'wordpress-seo-news' ),
-		];
+	protected function get_translations( $component ) {
+		$locale = \get_user_locale();
+
+		$file = \plugin_dir_path( WPSEO_NEWS_FILE ) . 'languages/' . $component . '-' . $locale . '.json';
+		if ( \file_exists( $file ) ) {
+			// phpcs:ignore WordPress.WP.AlternativeFunctions.file_get_contents_file_get_contents -- Retrieving a local file.
+			$file = \file_get_contents( $file );
+			if ( \is_string( $file ) && $file !== '' ) {
+				return \json_decode( $file, true );
+			}
+		}
+
+		return null;
 	}
 
 	/**
 	 * Returns the array with strings.
 	 *
+	 * @codeCoverageIgnore
+	 * @deprecated 12.7 Use WPSEO_News_Javascript_Strings\localize_script instead.
+	 *
 	 * @return string[]
 	 */
 	public static function strings() {
-		if ( self::$strings === null ) {
-			self::fill();
-		}
+		_deprecated_function( __METHOD__, 'WPSEO News 12.7' );
 
-		return self::$strings;
+		return [];
 	}
 }
