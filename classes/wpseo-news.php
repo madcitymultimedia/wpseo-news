@@ -215,6 +215,8 @@ class WPSEO_News {
 			'wp-data',
 			'wp-dom-ready',
 			'wp-element',
+			'wp-i18n',
+			'yoast-seo-editor-modules',
 		];
 
 		wp_enqueue_media(); // Enqueue files needed for upload functionality.
@@ -227,7 +229,8 @@ class WPSEO_News {
 			true
 		);
 
-		wp_localize_script( 'wpseo-news-admin-page', 'wpseonews', WPSEO_News_Javascript_Strings::strings() );
+		$javascript_strings = new WPSEO_News_Javascript_Strings();
+		$javascript_strings->localize_script( 'wpseo-news-admin-page' );
 	}
 
 	/**

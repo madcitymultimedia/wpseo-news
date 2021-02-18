@@ -13,6 +13,7 @@ const wordpressPackages = [
 	"@wordpress/data",
 	"@wordpress/dom-ready",
 	"@wordpress/element",
+	"@wordpress/i18n",
 ];
 
 const wordpressExternals = wordpressPackages.reduce( ( memo, packageName ) => {
