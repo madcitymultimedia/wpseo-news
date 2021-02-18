@@ -13,8 +13,12 @@ module.exports = function( grunt ) {
 		},
 
 		"makepot-wordpress-seo-news": {
-			// Creates `gettext.pot` file with the translations from the JS code.
-			command: "yarn i18n-wordpress-seo-news",
+			command: [
+				// Ensure the minimum makepot file exists, even when there are no JS translations.
+				"echo 'msgid \"\"\nmsgstr \"Content-Type: text/plain; charset=utf-8\"\n' > <%= files.pot.makepot %>",
+				// Creates `gettext.pot` file with the translations from the JS code.
+				"yarn i18n-wordpress-seo-news",
+			].join( "&&" ),
 		},
 		"combine-pot-files": {
 			fromFiles: [
