@@ -58,6 +58,9 @@ class WPSEO_News {
 		add_filter( 'wpseo_helpscout_beacon_settings', [ $this, 'filter_helpscout_beacon' ] );
 
 		add_filter( 'wpseo_frontend_presenters', [ $this, 'add_frontend_presenter' ] );
+
+		$editor_reactification_alert = new WPSEO_News_Settings_Genre_Removal_Alert();
+		$editor_reactification_alert->register_hooks();
 	}
 
 	/**
