@@ -123,8 +123,8 @@ class WPSEO_News {
 			return false;
 		}
 
-		// At least 14.0, in which we implemented the Indexables.
-		if ( version_compare( $wordpress_seo_version, '14.0-RC0', '<' ) ) {
+		// At least 16.0, in which we implemented the Dismissable Alert.
+		if ( version_compare( $wordpress_seo_version, '16.0-RC0', '<' ) ) {
 			add_action( 'all_admin_notices', [ $this, 'error_upgrade_wpseo' ] );
 
 			return false;
