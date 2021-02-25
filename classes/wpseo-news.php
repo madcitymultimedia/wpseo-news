@@ -344,7 +344,8 @@ class WPSEO_News {
 	 * @return bool Whether or not the post is excluded.
 	 */
 	public static function is_excluded_through_sitemap( $post_id ) {
-		return WPSEO_Meta::get_value( 'newssitemap-exclude', $post_id ) === 'on';
+		// Check the specific WordPress SEO News no-index value.
+		return WPSEO_Meta::get_value( 'newssitemap-robots-index', $post_id ) === '1';
 	}
 
 	/**
