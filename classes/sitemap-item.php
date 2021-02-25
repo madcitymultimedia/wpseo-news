@@ -89,7 +89,7 @@ class WPSEO_News_Sitemap_Item {
 			return true;
 		}
 
-		return apply_filters( 'Yoast\WP\News\skip_build_item', $this->item->ID );
+		return apply_filters( 'Yoast\WP\News\skip_build_item', false, $this->item->ID );
 	}
 
 	/**
