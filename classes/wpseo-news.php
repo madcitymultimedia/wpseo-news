@@ -224,7 +224,7 @@ class WPSEO_News {
 
 		wp_enqueue_script(
 			'wpseo-news-admin-page',
-			plugins_url( 'js/dist/yoast-seo-news-plugin-' . $version . '.js', WPSEO_NEWS_FILE ),
+			plugins_url( 'js/dist/yoast-seo-news-settings-' . $version . '.js', WPSEO_NEWS_FILE ),
 			$dependencies,
 			self::VERSION,
 			true
