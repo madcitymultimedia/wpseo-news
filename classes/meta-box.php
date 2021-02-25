@@ -61,6 +61,10 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		if ( $is_elementor_edit_page ) {
 			add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		}
+
+		// Register the dismissible alert.
+		$editor_changes_alert = new WPSEO_News_Editor_Changes_Alert();
+		$editor_changes_alert->register_hooks();
 	}
 
 	/**
