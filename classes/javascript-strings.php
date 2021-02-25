@@ -30,7 +30,7 @@ class WPSEO_News_Javascript_Strings {
 	 *
 	 * @param string $component The component to retrieve the translations for.
 	 *
-	 * @return object The translations in a Jed format for JS files.
+	 * @return object|null The translations in a Jed format for JS files.
 	 */
 	protected function get_translations( $component ) {
 		$locale = \get_user_locale();

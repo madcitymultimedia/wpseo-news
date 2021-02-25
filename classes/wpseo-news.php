@@ -320,7 +320,7 @@ class WPSEO_News {
 	 *
 	 * @param array $helpscout_settings The HelpScout settings.
 	 *
-	 * @return array $helpscout_settings The HelpScout settings with the News SEO beacon added.
+	 * @return array The HelpScout settings with the News SEO beacon added.
 	 */
 	public function filter_helpscout_beacon( $helpscout_settings ) {
 		$helpscout_settings['pages_ids']['wpseo_news'] = '161a6b32-9360-4613-bd04-d8098b283a0f';
