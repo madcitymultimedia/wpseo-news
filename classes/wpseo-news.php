@@ -32,7 +32,8 @@ class WPSEO_News {
 		$this->set_hooks();
 
 		// Meta box.
-		new WPSEO_News_Meta_Box();
+		$meta_box = new WPSEO_News_Meta_Box( $this->get_version() );
+		$meta_box->register_hooks();
 
 		// Sitemap.
 		new WPSEO_News_Sitemap();

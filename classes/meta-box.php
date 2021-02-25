@@ -5,25 +5,49 @@
  * @package WPSEO_News
  */
 
+use Yoast\WP\SEO\Presenters\Admin\Meta_Fields_Presenter;
+
 /**
  * Represents the Yoast SEO: News metabox.
  */
 class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
 	/**
-	 * WPSEO_News_Meta_Box constructor.
+	 * Holds the flattened version to use with enqueueing the scripts.
+	 *
+	 * @var string
 	 */
-	public function __construct() {
+	protected $script_version;
+
+	/**
+	 * Constructs WPSEO_News_Meta_Box.
+	 *
+	 * @param string $script_version The version to use for the script.
+	 *
+	 * @noinspection PhpMissingParentConstructorInspection The parent constructor only has unwanted side-effects.
+	 */
+	public function __construct( $script_version ) {
+		$this->script_version = $script_version;
+	}
+
+	/**
+	 * Registers the hooks.
+	 */
+	public function register_hooks() {
 		global $pagenow;
 
-		add_filter( 'wpseo_save_metaboxes', [ $this, 'save' ], 10, 1 );
-		add_action( 'add_meta_boxes', [ $this, 'add_tab_hooks' ] );
+		// Register the fields as meta.
+		add_filter( 'add_extra_wpseo_meta_fields', [ $this, 'add_meta_fields_to_wpseo_meta' ] );
 
-		if ( $pagenow === 'post.php' || $pagenow === 'post-new.php'
-			|| ( isset( $_SERVER['REQUEST_URI'] )
-			&& stristr( sanitize_text_field( wp_unslash( $_SERVER['REQUEST_URI'] ) ), '/news-sitemap.xml' ) )
-		) {
-			add_filter( 'add_extra_wpseo_meta_fields', [ $this, 'add_meta_fields_to_wpseo_meta' ] );
+		// Register the fields for saving.
+		add_filter( 'wpseo_save_metaboxes', [ $this, 'save' ], 10, 1 );
+
+		// Render the fields alongside other hidden inputs.
+		add_filter( 'wpseo_content_meta_section_content', [ $this, 'add_news_fields_to_the_content' ] );
+		add_filter( 'wpseo_elementor_hidden_fields', [ $this, 'add_news_fields_to_the_content' ] );
+
+		// Register the meta box tab.
+		add_filter( 'yoast_free_additional_metabox_sections', [ $this, 'add_metabox_section' ] );
 		}
 	}
 
@@ -88,19 +112,9 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 * @return array
 	 */
 	public function add_meta_fields_to_wpseo_meta( $meta_fields ) {
-
 		$meta_fields['news'] = $this->get_meta_boxes();
 
 		return $meta_fields;
-	}
-
-	/**
-	 * Only add the tab header and content actions when the post is supported.
-	 */
-	public function add_tab_hooks() {
-		if ( $this->is_post_type_supported() ) {
-			add_filter( 'yoast_free_additional_metabox_sections', [ $this, 'add_metabox_section' ] );
-		}
 	}
 
 	/**
@@ -127,6 +141,17 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		];
 
 		return $sections;
+	}
+
+	/**
+	 * Adds the News meta fields to the content.
+	 *
+	 * @param string $content The content.
+	 *
+	 * @return string The content with the rendered News meta fields.
+	 */
+	public function add_news_fields_to_the_content( $content ) {
+		return $content . new Meta_Fields_Presenter( $this->get_metabox_post(), 'news' );
 	}
 
 	/**
@@ -158,6 +183,20 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	}
 
 	/* ********************* DEPRECATED METHODS ********************* */
+
+	/**
+	 * Only add the tab header and content actions when the post is supported.
+	 *
+	 * @deprecated 12.7
+	 * @codeCoverageIgnore
+	 */
+	public function add_tab_hooks() {
+		_deprecated_function( __METHOD__, 'WPSEO News 12.7' );
+
+		if ( $this->is_post_type_supported() ) {
+			add_filter( 'yoast_free_additional_metabox_sections', [ $this, 'add_metabox_section' ] );
+		}
+	}
 
 	/**
 	 * The tab header.
