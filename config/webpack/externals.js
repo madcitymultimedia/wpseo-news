@@ -6,14 +6,22 @@ const externals = {
 	"react-dom": "ReactDOM",
 };
 
+const yoastExternals = {
+	"@yoast/components": "window.yoast.componentsNew",
+};
+
 /**
  * WordPress dependencies.
  */
 const wordpressPackages = [
+	"@wordpress/components",
+	"@wordpress/compose",
 	"@wordpress/data",
 	"@wordpress/dom-ready",
 	"@wordpress/element",
+	'@wordpress/hooks',
 	"@wordpress/i18n",
+	"@wordpress/plugins",
 ];
 
 const wordpressExternals = wordpressPackages.reduce( ( memo, packageName ) => {
@@ -29,4 +37,5 @@ const wordpressExternals = wordpressPackages.reduce( ( memo, packageName ) => {
 module.exports = {
 	externals,
 	wordpressExternals,
+	yoastExternals,
 };

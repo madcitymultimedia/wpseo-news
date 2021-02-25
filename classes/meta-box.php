@@ -48,6 +48,18 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
 		// Register the meta box tab.
 		add_filter( 'yoast_free_additional_metabox_sections', [ $this, 'add_metabox_section' ] );
+
+		// Load the editor script when on an edit post or new post page.
+		$is_post_edit_page = $pagenow === 'post.php' || $pagenow === 'post-new.php';
+		if ( $is_post_edit_page ) {
+			add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
+		}
+
+		// Load the editor script when on an elementor edit page.
+		$get_action             = \filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
+		$is_elementor_edit_page = $pagenow === 'post.php' && $get_action === 'elementor';
+		if ( $is_elementor_edit_page ) {
+			add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
 		}
 	}
 
@@ -129,15 +141,10 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 			return $sections;
 		}
 
-		$content = '';
-		foreach ( $this->get_meta_boxes() as $meta_key => $meta_box ) {
-			$content .= $this->do_meta_box( $meta_box, $meta_key );
-		}
-
 		$sections[] = [
 			'name'         => 'news',
 			'link_content' => '<span class="dashicons dashicons-admin-plugins"></span>' . esc_html__( 'Google News', 'wordpress-seo-news' ),
-			'content'      => '<div class="wpseo-meta-section-content">' . $content . '</div>',
+			'content'      => '<div class="wpseo-meta-section-content"><div id="wpseo-news-metabox-root"></div></div>',
 		];
 
 		return $sections;
@@ -152,6 +159,44 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 */
 	public function add_news_fields_to_the_content( $content ) {
 		return $content . new Meta_Fields_Presenter( $this->get_metabox_post(), 'news' );
+	}
+
+	/**
+	 * Enqueues the editor scripts when the post type is supported.
+	 */
+	public function enqueue_scripts() {
+		if ( ! $this->is_post_type_supported() ) {
+			return;
+		}
+
+		$script_handle = 'wpseo-news-editor';
+		$dependencies  = [
+			'wp-components',
+			'wp-compose',
+			'wp-data',
+			'wp-dom-ready',
+			'wp-element',
+			'wp-hooks',
+			'wp-i18n',
+			'wp-plugins',
+			'yoast-seo-editor-modules',
+		];
+
+		wp_enqueue_script(
+			$script_handle,
+			plugins_url( 'js/dist/yoast-seo-news-editor-' . $this->script_version . '.js', WPSEO_NEWS_FILE ),
+			$dependencies,
+			WPSEO_News::VERSION,
+			true
+		);
+
+		$javascript_strings = new WPSEO_News_Javascript_Strings();
+		$javascript_strings->localize_script( $script_handle );
+
+		\wp_localize_script( $script_handle, 'wpseoNewsScriptData', [
+			'isBlockEditor'        => WP_Screen::get()->is_block_editor(),
+			'newsChangesAlertLink' => WPSEO_Shortlinker::get( 'https://yoa.st/news-changes' ),
+		] );
 	}
 
 	/**
