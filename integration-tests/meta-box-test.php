@@ -37,7 +37,7 @@ class WPSEO_News_Meta_Box_Test extends WPSEO_News_UnitTestCase {
 		$this->assertCount( 1, $sections );
 
 		$this->assertSame( 'news', $sections[0]['name'] );
-		$this->assertSame( '<span class="dashicons dashicons-admin-plugins"></span>Google News', $sections[0]['link_content'] );
+		$this->assertSame( '<span class="dashicons dashicons-admin-plugins"></span>News', $sections[0]['link_content'] );
 		$this->assertSame( '<div class="wpseo-meta-section-content"><div id="wpseo-news-metabox-root"></div></div>', $sections[0]['content'] );
 	}
 
