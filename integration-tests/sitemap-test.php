@@ -122,7 +122,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$post_id = $this->factory->post->create();
 
 		// Set meta value to exclude.
-		update_post_meta( $post_id, '_yoast_wpseo_newssitemap-exclude', 'on' );
+		update_post_meta( $post_id, '_yoast_wpseo_newssitemap-robots-index', '1' );
 
 		$output = $this->instance->build_sitemap();
 

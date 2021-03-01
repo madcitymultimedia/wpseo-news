@@ -190,10 +190,14 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		$javascript_strings = new WPSEO_News_Javascript_Strings();
 		$javascript_strings->localize_script( $script_handle );
 
-		\wp_localize_script( $script_handle, 'wpseoNewsScriptData', [
-			'isBlockEditor'        => WP_Screen::get()->is_block_editor(),
-			'newsChangesAlertLink' => WPSEO_Shortlinker::get( 'https://yoa.st/news-changes' ),
-		] );
+		\wp_localize_script(
+			$script_handle,
+			'wpseoNewsScriptData',
+			[
+				'isBlockEditor'        => WP_Screen::get()->is_block_editor(),
+				'newsChangesAlertLink' => WPSEO_Shortlinker::get( 'https://yoa.st/news-changes' ),
+			]
+		);
 	}
 
 	/**
