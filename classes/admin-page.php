@@ -27,7 +27,7 @@ class WPSEO_News_Admin_Page {
 		Yoast_Form::get_instance()->admin_header( true, 'wpseo_news' );
 
 		// Introduction.
-		echo '<div id="wpseo-news-genre-removal-alert"></div>';
+		echo '<div id="wpseo-news-genre-removal-alert" style="max-width: 600px;"></div>';
 		echo '<p>', esc_html__( 'You will generally only need a News Sitemap when your website is included in Google News.', 'wordpress-seo-news' ), '</p>';
 		echo '<p>';
 		printf(

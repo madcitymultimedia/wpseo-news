@@ -141,7 +141,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		$sections[] = [
 			'name'         => 'news',
 			'link_content' => '<span class="dashicons dashicons-admin-plugins"></span>' . esc_html__( 'News', 'wordpress-seo-news' ),
-			'content'      => '<div class="wpseo-meta-section-content"><div id="wpseo-news-metabox-root"></div></div>',
+			'content'      => '<div id="wpseo-news-metabox-root" class="wpseo-meta-section-content"></div>',
 		];
 
 		return $sections;

@@ -10,15 +10,13 @@ const genreRemovalAlertElement = document.getElementById( "wpseo-news-genre-remo
  */
 export default function initializeSettingsPage() {
 	render(
-		<li style={{ listStyle: "none", }}>
-			<PersistentDismissableAlert
-				store="yoast-seo/settings"
-				type="info"
-				alertKey="news-settings-genre-removal-alert"
-			>
-				{ __( "Google no longer supports 'Genres' for articles in Google News, therefore we decided to remove the 'Default genre' setting below.", "wordpress-seo-news" ) }
-			</PersistentDismissableAlert>
-		</li>,
-		genreRemovalAlertElement
+		<PersistentDismissableAlert
+			store="yoast-seo/settings"
+			type="info"
+			alertKey="news-settings-genre-removal-alert"
+		>
+			{ __( "Google no longer supports 'Genres' for articles in Google News, therefore we decided to remove the 'Default genre' setting below.", "wordpress-seo-news" ) }
+		</PersistentDismissableAlert>,
+		genreRemovalAlertElement,
 	);
 }
