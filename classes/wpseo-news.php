@@ -32,7 +32,8 @@ class WPSEO_News {
 		$this->set_hooks();
 
 		// Meta box.
-		new WPSEO_News_Meta_Box();
+		$meta_box = new WPSEO_News_Meta_Box( $this->get_version() );
+		$meta_box->register_hooks();
 
 		// Sitemap.
 		new WPSEO_News_Sitemap();
@@ -223,7 +224,7 @@ class WPSEO_News {
 
 		wp_enqueue_script(
 			'wpseo-news-admin-page',
-			plugins_url( 'js/dist/yoast-seo-news-plugin-' . $version . '.js', WPSEO_NEWS_FILE ),
+			plugins_url( 'js/dist/yoast-seo-news-settings-' . $version . '.js', WPSEO_NEWS_FILE ),
 			$dependencies,
 			self::VERSION,
 			true
@@ -343,7 +344,8 @@ class WPSEO_News {
 	 * @return bool Whether or not the post is excluded.
 	 */
 	public static function is_excluded_through_sitemap( $post_id ) {
-		return WPSEO_Meta::get_value( 'newssitemap-exclude', $post_id ) === 'on';
+		// Check the specific WordPress SEO News no-index value.
+		return WPSEO_Meta::get_value( 'newssitemap-robots-index', $post_id ) === '1';
 	}
 
 	/**

@@ -2,7 +2,7 @@ const CaseSensitivePathsPlugin = require( "case-sensitive-paths-webpack-plugin" 
 const path = require( "path" );
 const { isString, mapValues } = require( "lodash" );
 const webpack = require( "webpack" );
-const { externals, wordpressExternals } = require( "./externals" );
+const { externals, wordpressExternals, yoastExternals } = require( "./externals" );
 const { flattenVersionForFile } = require( "../grunt/lib/version.js" );
 const paths = require( "./paths" );
 
@@ -63,6 +63,7 @@ module.exports = function( env ) {
 		externals: {
 			...externals,
 			...wordpressExternals,
+			...yoastExternals,
 		},
 		optimization: {
 			minimize: true,

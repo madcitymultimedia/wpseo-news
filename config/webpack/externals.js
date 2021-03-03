@@ -10,10 +10,14 @@ const externals = {
  * WordPress dependencies.
  */
 const wordpressPackages = [
+	"@wordpress/components",
+	"@wordpress/compose",
 	"@wordpress/data",
 	"@wordpress/dom-ready",
 	"@wordpress/element",
+	'@wordpress/hooks',
 	"@wordpress/i18n",
+	"@wordpress/plugins",
 ];
 
 const wordpressExternals = wordpressPackages.reduce( ( memo, packageName ) => {
@@ -23,10 +27,15 @@ const wordpressExternals = wordpressPackages.reduce( ( memo, packageName ) => {
 	return memo;
 }, {} );
 
+const yoastExternals = {
+	"@yoast/components": "window.yoast.componentsNew",
+};
+
 /**
  * Export the data.
  */
 module.exports = {
 	externals,
 	wordpressExternals,
+	yoastExternals,
 };
