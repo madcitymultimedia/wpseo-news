@@ -78,7 +78,7 @@ class WPSEO_News {
 	/**
 	 * Populates static properties from options so they have to be queries each time we need them.
 	 */
-	public static function read_options(){
+	public static function read_options() {
 		self::$included_post_types = (array) WPSEO_Options::get( 'news_sitemap_include_post_types', [] );
 		self::$excluded_terms      = (array) WPSEO_Options::get( 'news_sitemap_exclude_terms', [] );
 	}
