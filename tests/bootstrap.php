@@ -6,6 +6,7 @@
  */
 
 define( 'WPSEO_INDEXABLES', true );
+define( 'WPSEO_NEWS_VERSION', '12.6' );
 
 if ( file_exists( dirname( __DIR__ ) . '/vendor/autoload.php' ) === false ) {
 	echo PHP_EOL, 'ERROR: Run `composer install` to generate the autoload files before running the unit tests.', PHP_EOL;
