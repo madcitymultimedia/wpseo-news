@@ -24,14 +24,14 @@ class WPSEO_News {
 	 *
 	 * @var array
 	 */
-	public static $included_post_types = [];
+	protected static $included_post_types = [];
 
 	/**
 	 * Excluded terms.
 	 *
 	 * @var array
 	 */
-	public static $excluded_terms = [];
+	protected static $excluded_terms = [];
 
 	/**
 	 * Initializes the plugin.
@@ -76,7 +76,7 @@ class WPSEO_News {
 	}
 
 	/**
-	 * Populates static properties from options so they have to be queries each time we need them.
+	 * Populates static properties from options so they don't have to be queried each time we need them.
 	 */
 	public static function read_options() {
 		self::$included_post_types = (array) WPSEO_Options::get( 'news_sitemap_include_post_types', [] );
