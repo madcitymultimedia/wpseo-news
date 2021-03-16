@@ -20,6 +20,20 @@ class WPSEO_News {
 	const VERSION = WPSEO_NEWS_VERSION;
 
 	/**
+	 * Included post types.
+	 *
+	 * @var array
+	 */
+	protected static $included_post_types = [];
+
+	/**
+	 * Excluded terms.
+	 *
+	 * @var array
+	 */
+	protected static $excluded_terms = [];
+
+	/**
 	 * Initializes the plugin.
 	 */
 	public function __construct() {
@@ -52,12 +66,21 @@ class WPSEO_News {
 		add_filter( 'plugin_action_links', [ $this, 'plugin_links' ], 10, 2 );
 		add_filter( 'wpseo_submenu_pages', [ $this, 'add_submenu_pages' ] );
 		add_action( 'init', [ 'WPSEO_News_Option', 'register_option' ] );
+		add_action( 'init', [ 'WPSEO_News', 'read_options' ] );
 
 		// Enable Yoast usage tracking.
 		add_filter( 'wpseo_enable_tracking', '__return_true' );
 		add_filter( 'wpseo_helpscout_beacon_settings', [ $this, 'filter_helpscout_beacon' ] );
 
 		add_filter( 'wpseo_frontend_presenters', [ $this, 'add_frontend_presenter' ] );
+	}
+
+	/**
+	 * Populates static properties from options so they don't have to be queried each time we need them.
+	 */
+	public static function read_options() {
+		self::$included_post_types = (array) WPSEO_Options::get( 'news_sitemap_include_post_types', [] );
+		self::$excluded_terms      = (array) WPSEO_Options::get( 'news_sitemap_exclude_terms', [] );
 	}
 
 	/**
@@ -294,11 +317,9 @@ class WPSEO_News {
 		static $post_types;
 
 		if ( $post_types === null ) {
-			// Get supported post types.
-			$post_types          = [];
-			$included_post_types = (array) WPSEO_Options::get( 'news_sitemap_include_post_types', [] );
+			$post_types = [];
 			foreach ( get_post_types( [ 'public' => true ], 'names' ) as $post_type ) {
-				if ( array_key_exists( $post_type, $included_post_types ) && $included_post_types[ $post_type ] === 'on' ) {
+				if ( array_key_exists( $post_type, self::$included_post_types ) && self::$included_post_types[ $post_type ] === 'on' ) {
 					$post_types[] = $post_type;
 				}
 			}
@@ -332,11 +353,10 @@ class WPSEO_News {
 	 * @return bool True if the post is excluded.
 	 */
 	public static function is_excluded_through_terms( $post_id, $post_type ) {
-		$terms          = self::get_terms_for_post( $post_id, $post_type );
-		$excluded_terms = (array) WPSEO_Options::get( 'news_sitemap_exclude_terms', [] );
+		$terms = self::get_terms_for_post( $post_id, $post_type );
 		foreach ( $terms as $term ) {
 			$option_key = $term->taxonomy . '_' . $term->slug . '_for_' . $post_type;
-			if ( array_key_exists( $option_key, $excluded_terms ) && $excluded_terms[ $option_key ] === 'on' ) {
+			if ( array_key_exists( $option_key, self::$excluded_terms ) && self::$excluded_terms[ $option_key ] === 'on' ) {
 				return true;
 			}
 		}
