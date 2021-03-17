@@ -148,7 +148,7 @@ class WPSEO_News {
 		}
 
 		// At least 16.1, which includes the @yoast/components checkbox.
-		if ( version_compare( $wordpress_seo_version, '16.1-RC0', '<' ) ) {
+		if ( version_compare( $wordpress_seo_version, '16.1-beta0', '<' ) ) {
 			add_action( 'all_admin_notices', [ $this, 'error_upgrade_wpseo' ] );
 
 			return false;
