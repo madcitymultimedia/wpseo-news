@@ -80,11 +80,6 @@ class WPSEO_News_Sitemap_Item {
 			return true;
 		}
 
-		// Check the specific WordPress SEO News no-index value.
-		if ( WPSEO_Meta::get_value( 'newssitemap-robots-index', $this->item->ID ) === '1' ) {
-			return true;
-		}
-
 		if ( WPSEO_News::is_excluded_through_terms( $this->item->ID, $this->item->post_type ) ) {
 			return true;
 		}

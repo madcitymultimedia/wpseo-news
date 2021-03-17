@@ -28,10 +28,12 @@ module.exports = function( grunt ) {
 				return this.grunt + "task-config/";
 			},
 			grunt: "config/grunt/",
-			js: "assets/",
+			jsSrc: "js/src/",
+			jsDist: "js/dist/",
 			languages: "languages/",
 			logs: "logs/",
 			vendor: "vendor/",
+			vendorYoast: "vendor/yoast/",
 		},
 		files: {
 			/**
@@ -45,14 +47,19 @@ module.exports = function( grunt ) {
 			grunt: "Gruntfile.js",
 			artifact: "artifact",
 			js: [
-				"assets/**/*.js",
-				"!assets/**/*.min.js",
+				"<%= paths.jsSrc %>**/*.js",
 			],
 			php: [
 				"*.php",
 				"classes/**/*.php",
 			],
 			phptests: "tests/**/*.php",
+			pot: {
+				plugin: "<%= pkg.plugin.textdomain %>.pot",
+				php: "<%= pkg.plugin.textdomain %>php.pot",
+				js: "<%= pkg.plugin.textdomain %>js.pot",
+				makepot: "gettext.pot",
+			},
 		},
 		pkg: grunt.file.readJSON( "package.json" ),
 	};
@@ -73,6 +80,7 @@ module.exports = function( grunt ) {
 				"update-version": "./node_modules/@yoast/grunt-plugin-tasks/tasks/update-version.js",
 				"set-version": "./node_modules/@yoast/grunt-plugin-tasks/tasks/set-version.js",
 			},
+			customTasksDir: "config/grunt/custom-tasks",
 		},
 	} );
 	/* eslint-enable camelcase */

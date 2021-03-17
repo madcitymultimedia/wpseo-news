@@ -27,7 +27,8 @@ class WPSEO_News_Admin_Page {
 		Yoast_Form::get_instance()->admin_header( true, 'wpseo_news' );
 
 		// Introduction.
-		echo '<p>' . esc_html__( 'You will generally only need a News Sitemap when your website is included in Google News.', 'wordpress-seo-news' ) . '</p>';
+		echo '<div id="wpseo-news-genre-removal-alert" style="max-width: 600px;"></div>';
+		echo '<p>', esc_html__( 'You will generally only need a News Sitemap when your website is included in Google News.', 'wordpress-seo-news' ), '</p>';
 		echo '<p>';
 		printf(
 			/* translators: %1$s opening tag of the link to the News Sitemap, %2$s closing tag for the link. */
@@ -37,9 +38,9 @@ class WPSEO_News_Admin_Page {
 		);
 		echo '</p>';
 
-		echo '<h2>' . esc_html__( 'General settings', 'wordpress-seo-news' ) . '</h2>';
+		echo '<h2>', esc_html__( 'General settings', 'wordpress-seo-news' ), '</h2>';
 
-		echo '<fieldset><legend class="screen-reader-text">' . esc_html__( 'News Sitemap settings', 'wordpress-seo-news' ) . '</legend>';
+		echo '<fieldset><legend class="screen-reader-text">', esc_html__( 'News Sitemap settings', 'wordpress-seo-news' ), '</legend>';
 
 		// Google News Publication Name.
 		Yoast_Form::get_instance()->textinput( 'news_sitemap_name', __( 'Google News Publication Name', 'wordpress-seo-news' ) );

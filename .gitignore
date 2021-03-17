@@ -4,10 +4,13 @@ node_modules/*
 /.idea
 /artifact
 artifact.zip
-assets/*.min.js
-assets/*.min.js.map
+js/dist/
 phpunit.xml
 phpcs.xml
 .phpcs.xml
 .cache/phpcs.cache
 .phpunit.result.cache
+!/languages/index.php
+!/languages/wordpress-seo-news.pot
+/languages
+gettext.pot

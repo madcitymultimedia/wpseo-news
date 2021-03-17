@@ -255,6 +255,9 @@ class WPSEO_News_Upgrade_Manager {
 
 		// Remove the genre settings from the database.
 		$this->delete_meta_by_key( '_yoast_wpseo_newssitemap-genre' );
+
+		// Remove the News sitemap exclude settings from the database.
+		$this->delete_meta_by_key( '_yoast_wpseo_newssitemap-exclude' );
 	}
 
 	/**

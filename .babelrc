@@ -1,0 +1,25 @@
+{
+  "presets": [ [ "env" ] ],
+  "plugins": [
+    [
+      "transform-react-jsx",
+      {
+        "pragma": "wp.element.createElement"
+      }
+    ],
+    "transform-object-rest-spread"
+  ],
+  "env": {
+    "test": {
+      "plugins": [
+        [
+          "transform-react-jsx",
+          {
+            "pragma": "wp.element.createElement"
+          }
+        ]
+      ]
+    }
+  },
+  "comments": true
+}

@@ -1,33 +1,58 @@
-module.exports = {
-	artifact: {
-		files: [
-			{
-				expand: true,
-				cwd: ".",
-				src: [
-					// Folders to copy.
-					"vendor/**",
-					"!vendor/bin",
-					"!vendor/composer/installed.json",
-					"!vendor/xrstf/composer-php52/composer.json",
-					"!vendor/xrstf/composer-php52/README.md",
-					"!vendor/yoast/i18n-module/composer.json",
-					"!vendor/yoast/i18n-module/README.md",
-					"!vendor/yoast/i18n-module/LICENSE",
-					"!vendor/yoast/wp-helpscout/composer.json",
-					"languages/*.mo",
-					"classes/**",
-					// Files to copy.
-					"wpseo-news.php",
-					"**/index.php",
-					"!node_modules/**/index.php",
-					"assets/xml-news-sitemap.xsl",
-					"assets/*.min.js",
-					"README.md",
-					"license.txt",
-				],
-				dest: "artifact",
-			},
-		],
-	},
+module.exports = function( grunt ) {
+	return {
+		artifact: {
+			files: [
+				{
+					expand: true,
+					cwd: ".",
+					src: [
+						// Folders to copy.
+						"<%= paths.vendor %>**",
+						"!<%= paths.vendor %>bin",
+						"!<%= paths.vendor %>composer/installed.json",
+						"!<%= paths.vendor %>xrstf/composer-php52/composer.json",
+						"!<%= paths.vendor %>xrstf/composer-php52/README.md",
+						"!<%= paths.vendorYoast %>i18n-module/composer.json",
+						"!<%= paths.vendorYoast %>i18n-module/README.md",
+						"!<%= paths.vendorYoast %>i18n-module/LICENSE",
+						"!<%= paths.vendorYoast %>wp-helpscout/composer.json",
+						"classes/**",
+						// Files to copy.
+						"wpseo-news.php",
+						"**/index.php",
+						"!node_modules/**/index.php",
+						"assets/xml-news-sitemap.xsl",
+						"<%= paths.jsDist %>*.js",
+						"README.md",
+						"license.txt",
+						// Translations to copy: MO for PHP and JSON for JS.
+						"<%= paths.languages %>*.mo",
+						"<%= paths.languages %><%= pkg.plugin.textdomain %>js.json",
+						"<%= paths.languages %><%= pkg.plugin.textdomain %>js-*.json",
+					],
+					dest: "artifact",
+				},
+			],
+		},
+
+		"makepot-wordpress-seo-news": {
+			src: "<%= files.pot.makepot %>",
+			dest: "<%= paths.languages %><%= files.pot.js %>",
+		},
+		"json-translations": {
+			files: [
+				{
+					expand: true,
+					cwd: "<%= paths.languages %>",
+					src: "<%= pkg.plugin.textdomain %>-*.json",
+					dest: "<%= paths.languages %>",
+					rename: ( dest, src ) => {
+						const textdomain = grunt.config.get( "pkg.plugin.textdomain" );
+
+						return dest + src.replace( textdomain, `${ textdomain }js` );
+					},
+				},
+			],
+		},
+	};
 };

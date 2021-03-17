@@ -46,7 +46,8 @@ class WPSEO_News {
 		$this->set_hooks();
 
 		// Meta box.
-		new WPSEO_News_Meta_Box();
+		$meta_box = new WPSEO_News_Meta_Box( $this->get_version() );
+		$meta_box->register_hooks();
 
 		// Sitemap.
 		new WPSEO_News_Sitemap();
@@ -73,6 +74,9 @@ class WPSEO_News {
 		add_filter( 'wpseo_helpscout_beacon_settings', [ $this, 'filter_helpscout_beacon' ] );
 
 		add_filter( 'wpseo_frontend_presenters', [ $this, 'add_frontend_presenter' ] );
+
+		$editor_reactification_alert = new WPSEO_News_Settings_Genre_Removal_Alert();
+		$editor_reactification_alert->register_hooks();
 	}
 
 	/**
@@ -143,8 +147,8 @@ class WPSEO_News {
 			return false;
 		}
 
-		// At least 14.0, in which we implemented the Indexables.
-		if ( version_compare( $wordpress_seo_version, '14.0-RC0', '<' ) ) {
+		// At least 16.0, in which we implemented the Dismissable Alert.
+		if ( version_compare( $wordpress_seo_version, '16.0-RC0', '<' ) ) {
 			add_action( 'all_admin_notices', [ $this, 'error_upgrade_wpseo' ] );
 
 			return false;
@@ -216,21 +220,41 @@ class WPSEO_News {
 	}
 
 	/**
+	 * Retrieves a flatten version.
+	 *
+	 * @return string The flatten version.
+	 */
+	protected function get_version() {
+		$asset_manager = new WPSEO_Admin_Asset_Manager();
+		return $asset_manager->flatten_version( self::VERSION );
+	}
+
+	/**
 	 * Enqueue admin page JS.
 	 */
 	public function enqueue_admin_page() {
+		$version = $this->get_version();
+
+		$dependencies = [
+			'wp-data',
+			'wp-dom-ready',
+			'wp-element',
+			'wp-i18n',
+			'yoast-seo-editor-modules',
+		];
 
 		wp_enqueue_media(); // Enqueue files needed for upload functionality.
 
 		wp_enqueue_script(
 			'wpseo-news-admin-page',
-			plugins_url( 'assets/admin-page.min.js', WPSEO_NEWS_FILE ),
-			[ 'jquery' ],
+			plugins_url( 'js/dist/yoast-seo-news-settings-' . $version . '.js', WPSEO_NEWS_FILE ),
+			$dependencies,
 			self::VERSION,
 			true
 		);
 
-		wp_localize_script( 'wpseo-news-admin-page', 'wpseonews', WPSEO_News_Javascript_Strings::strings() );
+		$javascript_strings = new WPSEO_News_Javascript_Strings();
+		$javascript_strings->localize_script( 'wpseo-news-admin-page' );
 	}
 
 	/**
@@ -341,7 +365,8 @@ class WPSEO_News {
 	 * @return bool Whether or not the post is excluded.
 	 */
 	public static function is_excluded_through_sitemap( $post_id ) {
-		return WPSEO_Meta::get_value( 'newssitemap-exclude', $post_id ) === 'on';
+		// Check the specific WordPress SEO News no-index value.
+		return WPSEO_Meta::get_value( 'newssitemap-robots-index', $post_id ) === '1';
 	}
 
 	/**
