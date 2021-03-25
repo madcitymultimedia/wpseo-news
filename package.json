@@ -37,7 +37,7 @@
     "i18n-wordpress-seo-news": "NODE_ENV=production babel js/src --plugins=@wordpress/babel-plugin-makepot > /dev/null"
   },
   "yoast": {
-    "pluginVersion": "12.7-RC1"
+    "pluginVersion": "12.7-RC2"
   },
   "dependencies": {
     "prop-types": "^15.7.2"
