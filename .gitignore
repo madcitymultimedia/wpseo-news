@@ -4,7 +4,6 @@ node_modules/*
 /.idea
 /artifact
 artifact.zip
-js/dist/
 phpunit.xml
 phpcs.xml
 .phpcs.xml
