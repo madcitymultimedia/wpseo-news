@@ -34,7 +34,7 @@ Changelog
 Enhancements:
 
 * Adds News to the Yoast SEO sidebar in the Elementor editor and the block editor.
-* Merges the `Exclude from News sitemap` and the `Googlebot-News index` settings from the News meta box into one setting: `Exclude this post from Google News`.
+* Merges the `Exclude from News sitemap` and the `Googlebot-News index` settings from the News meta box into one setting: `Exclude this post from Google News`. Because both settings served the same purpose, to exclude your content from the News sitemap.
 * Removes the `Default genre` setting from the News sitemap and settings because Google no longer supports `Genres` for articles in Google News.
 
 Other:
