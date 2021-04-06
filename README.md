@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 5.6
 Tested up to: 5.7
-Stable tag: 12.7-RC4
+Stable tag: 12.7
 Requires PHP: 5.6.20
 Depends: Yoast SEO
 
@@ -33,9 +33,9 @@ Changelog
 ### 12.7: April 6th, 2021
 Enhancements:
 
-* Adds News to our sidebar in the block editor as well as in our Elementor integration.
-* Merges the `Exclude from News sitemap` and the `Google-bot news index` options into one.
-* Removes the news genre from the News sitemap and settings.
+* Adds News to the Yoast SEO sidebar in the Elementor editor and the block editor.
+* Merges the `Exclude from News sitemap` and the `Googlebot-News index` settings from the News meta box into one setting: `Exclude this post from Google News`. Because both settings served the same purpose, to exclude your content from the News sitemap.
+* Removes the `Default genre` setting from the News sitemap and settings because Google no longer supports `Genres` for articles in Google News.
 
 Other:
 
