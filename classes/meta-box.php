@@ -56,7 +56,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		}
 
 		// Load the editor script when on an elementor edit page.
-		$get_action             = \filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
+		$get_action             = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
 		$is_elementor_edit_page = $pagenow === 'post.php' && $get_action === 'elementor';
 		if ( $is_elementor_edit_page ) {
 			add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
@@ -190,7 +190,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		$javascript_strings = new WPSEO_News_Javascript_Strings();
 		$javascript_strings->localize_script( $script_handle );
 
-		\wp_localize_script(
+		wp_localize_script(
 			$script_handle,
 			'wpseoNewsScriptData',
 			[
