@@ -2,10 +2,9 @@
 
 namespace Yoast\WP\News\Tests;
 
+use Brain\Monkey\Functions;
 use Mockery;
 use WPSEO_News;
-
-use function Brain\Monkey\Functions\expect;
 
 /**
  * Test the WPSEO_News class.
@@ -31,7 +30,7 @@ class News_Test extends TestCase {
 				]
 			);
 
-		expect( 'get_post_types' )
+		Functions\expect( 'get_post_types' )
 			->andReturn( [ 'post', 'page' ] );
 
 		$this->assertSame( [ 'post' ], WPSEO_News::get_included_post_types() );
@@ -52,7 +51,7 @@ class News_Test extends TestCase {
 			->once()
 			->andReturn( [] );
 
-		expect( 'get_post_types' )
+		Functions\expect( 'get_post_types' )
 			->andReturn( [ 'page' ] );
 
 		$this->assertSame( [ 'post' ], WPSEO_News::get_included_post_types() );
