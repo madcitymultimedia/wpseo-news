@@ -322,10 +322,10 @@
   resolved "https://registry.yarnpkg.com/@yoast/browserslist-config/-/browserslist-config-1.2.2.tgz#ebe69768f5b352b5814111cb010867a024667d69"
   integrity sha512-ri5c2daBpAiKhN5pgcylw8rYWu1MGK+Uz6h/DtqqZEjE6rEjHxdPGv+0hL88is1HEdubyhZTcK9Y5gzcnY6f8A==
 
-"@yoast/grunt-plugin-tasks@^2.0.0":
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/@yoast/grunt-plugin-tasks/-/grunt-plugin-tasks-2.0.0.tgz#77c33c1b3fd8087075b611e49c4654b21e86ca15"
-  integrity sha512-RL2Rx0vJfITcKAYOQoMa8xa+AqBK9nW4N75ybkRMIxVcGjuHyeoWWiviy47BqLfketGWecJScVZBRg1spVBoaA==
+"@yoast/grunt-plugin-tasks@^2.1.1":
+  version "2.1.1"
+  resolved "https://registry.yarnpkg.com/@yoast/grunt-plugin-tasks/-/grunt-plugin-tasks-2.1.1.tgz#9528d8158b4f60f5d1bce773acad89807ef1302c"
+  integrity sha512-3ICPw2LP3tgk3LklPRmmRHfScbq8QR5vxlXo9DtQ7hca5bI2etWXUrOAxrYMdU5yppcg02zG5REcARQWdz4u2w==
   dependencies:
     "@yoast/browserslist-config" "^1.0.0"
     autoprefixer "^9.7.2"
@@ -2699,6 +2699,11 @@ dot-prop@^5.2.0:
   dependencies:
     is-obj "^2.0.0"
 
+dotenv@^8.2.0:
+  version "8.6.0"
+  resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-8.6.0.tgz#061af664d19f7f4d8fc6e4ff9b584ce237adcb8b"
+  integrity sha512-IrPdXQsk2BbzvCBGBOTmmSH5SodmqZNt4ERAZDmW4CT+tL8VtvinqywuANaFu4bOMWki16nqf0e4oC0QIaDr/g==
+
 download@^6.2.2:
   version "6.2.5"
   resolved "https://registry.yarnpkg.com/download/-/download-6.2.5.tgz#acd6a542e4cd0bb42ca70cfc98c9e43b07039714"
@@ -3523,6 +3528,14 @@ flatted@^2.0.0:
   resolved "https://registry.yarnpkg.com/flatted/-/flatted-2.0.2.tgz#4575b21e2bcee7434aa9be662f4b7b5f9c2b5138"
   integrity sha512-r5wGx7YeOwNWNlCA0wQ86zKyDLMQr+/RB8xy74M4hTphfmjlijTSSXGuH8rnvKZnfT9i+75zmd8jcKdMR4O6jA==
 
+flopmang@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/flopmang/-/flopmang-1.0.0.tgz#22c82f12b537d5d440d5f0ad87ac39109ff31e26"
+  integrity sha512-WQsI7/o5g8NC/VCKbAJQcxSm77k1hd5beC0qikWOvz9iDqwKiwB0xfSGIgAOpHck00enCiJKUrzsGN775FQzdw==
+  dependencies:
+    underscore "^1.9.1"
+    underscore.string "^3.3.5"
+
 flush-write-stream@^1.0.0:
   version "1.1.1"
   resolved "https://registry.yarnpkg.com/flush-write-stream/-/flush-write-stream-1.1.1.tgz#8dd7d873a1babc207d94ead0c2e0e44276ebf2e8"
@@ -4026,9 +4039,16 @@ grunt-eslint@^21.0.0:
     chalk "^2.1.0"
     eslint "^5.16.0"
 
-"grunt-glotpress@https://github.com/Yoast/grunt-glotpress.git#master":
+grunt-git@^1.0.14:
+  version "1.0.14"
+  resolved "https://registry.yarnpkg.com/grunt-git/-/grunt-git-1.0.14.tgz#6d27d76c243d9ff71a562ec6c9899b14d95b930c"
+  integrity sha512-cjavNWMysd7qnNMfGArtSdRRbtCUkvDoY/IM0MRcQJCGEEr7B/Onbz53ke7uM/EZroXEOMWtdc647m8TnevoaQ==
+  dependencies:
+    flopmang "^1.0.0"
+
+"grunt-glotpress@git+https://github.com/Yoast/grunt-glotpress.git#master":
   version "0.3.0"
-  resolved "https://github.com/Yoast/grunt-glotpress.git#e6ccc69c2532d126f5d8a30397ffd012e55b6eec"
+  resolved "git+https://github.com/Yoast/grunt-glotpress.git#e6ccc69c2532d126f5d8a30397ffd012e55b6eec"
   dependencies:
     request "^2.88.0"
     request-promise-native "^1.0.7"
@@ -4889,7 +4909,7 @@ is-retry-allowed@^1.0.0, is-retry-allowed@^1.1.0:
   resolved "https://registry.yarnpkg.com/is-retry-allowed/-/is-retry-allowed-1.2.0.tgz#d778488bd0a4666a3be8a1482b9f2baafedea8b4"
   integrity sha512-RUbUeKwvm3XG2VYamhJL1xFktgjvPzL0Hq8C+6yrWIswDy3BIXGqCxhxkc30N9jqK311gVU137K8Ei55/zVJRg==
 
-is-stream@^1.0.0, is-stream@^1.1.0:
+is-stream@^1.0.0, is-stream@^1.0.1, is-stream@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/is-stream/-/is-stream-1.1.0.tgz#12d4a3dd4e68e0b79ceb8dbc84173ae80d91ca44"
   integrity sha1-EtSj3U5o4Lec6428hBc66A2RykQ=
@@ -5684,6 +5704,14 @@ node-abi@^2.7.0:
   integrity sha512-9xZrlyfvKhWme2EXFKQhZRp1yNWT/uI1luYPr3sFl+H4keYY4xR+1jO7mvTTijIsHf1M+QDe9uWuKeEpLInIlg==
   dependencies:
     semver "^5.4.1"
+
+node-fetch@^1.0.1:
+  version "1.7.3"
+  resolved "https://registry.yarnpkg.com/node-fetch/-/node-fetch-1.7.3.tgz#980f6f72d85211a5347c6b2bc18c5b84c3eb47ef"
+  integrity sha512-NhZ4CsKx7cYm2vSrBAr2PvFOe6sWDf0UYLRqA6svUYg7+/TSfVAu49jYC4BvQ4Sms9SZgdqGBgroqfDhJdTyKQ==
+  dependencies:
+    encoding "^0.1.11"
+    is-stream "^1.0.1"
 
 node-libs-browser@^2.2.1:
   version "2.2.1"
@@ -8243,13 +8271,18 @@ unc-path-regex@^0.1.2:
   resolved "https://registry.yarnpkg.com/unc-path-regex/-/unc-path-regex-0.1.2.tgz#e73dd3d7b0d7c5ed86fbac6b0ae7d8c6a69d50fa"
   integrity sha1-5z3T17DXxe2G+6xrCufYxqadUPo=
 
-underscore.string@~3.3.5:
+underscore.string@^3.3.5, underscore.string@~3.3.5:
   version "3.3.5"
   resolved "https://registry.yarnpkg.com/underscore.string/-/underscore.string-3.3.5.tgz#fc2ad255b8bd309e239cbc5816fd23a9b7ea4023"
   integrity sha512-g+dpmgn+XBneLmXXo+sGlW5xQEt4ErkS3mgeN2GFbremYeMBSJKr9Wf2KJplQVaiPY/f7FN6atosWYNm9ovrYg==
   dependencies:
     sprintf-js "^1.0.3"
     util-deprecate "^1.0.2"
+
+underscore@^1.9.1:
+  version "1.13.1"
+  resolved "https://registry.yarnpkg.com/underscore/-/underscore-1.13.1.tgz#0c1c6bd2df54b6b69f2314066d65b6cde6fcf9d1"
+  integrity sha512-hzSoAVtJF+3ZtiFX0VgfFPHEDRm7Y/QPjGyNo4TVdnDTdft3tr8hEkD25a1jC+TjTuE7tkHGKkhwCgs9dgBB2g==
 
 underscore@~1.6.0:
   version "1.6.0"

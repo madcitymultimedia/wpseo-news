@@ -9,10 +9,10 @@ module.exports = {
 		options: {
 			// Premium header:
 			// ### 15.9: February 23rd, 2021
-			readmeFile: "./changelog.md",
+			readmeFile: "./README.md",
 			releaseInChangelog: /[#] \d+\.\d+(\.\d+)?\: /g,
-			matchChangelogHeader: /^/ig,
-			newHeadertemplate: "### " + "VERSIONNUMBER" + ": " + "DATESTRING"  + "\n",
+			matchChangelogHeader: /Changelog\n=========\n\n/ig,
+			newHeadertemplate: "Changelog\n=========\n\n" + "### " + "VERSIONNUMBER" + ": " + "DATESTRING"  + "\n",
 			matchCorrectLines: "### " + "VERSIONNUMBER" + "(.|\\n)*?(?=(### \\d+[\.\\d]+\: |$))",
 			matchCorrectHeader: "### " + "VERSIONNUMBER" + "(.|\\n)*?\\n(?=(\\w\+?:\\n|### \\d+[\.\\d]+\: |$))",
 			matchCleanedChangelog: "### " + "VERSIONNUMBER" + "(.|\\n)*$",
@@ -20,6 +20,7 @@ module.exports = {
 			defaultChangelogEntries: "",
 			useANewLineAfterHeader: false,
 			useEditDistanceCompare: true,
+			commitChangelog: false,
 		},
 	},
 };

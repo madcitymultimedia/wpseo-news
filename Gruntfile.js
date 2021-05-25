@@ -3,6 +3,7 @@ const path = require( "path" );
 const loadGruntConfig = require( "load-grunt-config" );
 const timeGrunt = require( "time-grunt" );
 const { flattenVersionForFile } = require( "./config/grunt/lib/version.js" );
+require( "dotenv" ).config();
 
 module.exports = function( grunt ) {
 	timeGrunt( grunt );
