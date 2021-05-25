@@ -5,10 +5,8 @@
 // Rem defaultChangelogEntrys: "Other:\n* Includes every change in Yoast SEO core " + "VERSIONNUMBER" + ". See the [core changelog](https://wordpress.org/plugins/wordpress-seo/#developers).\n",
 
 module.exports = {
-	"wordpress-seo-premium": {
+	"wpseo-news": {
 		options: {
-			// Premium header:
-			// ### 15.9: February 23rd, 2021
 			readmeFile: "./README.md",
 			releaseInChangelog: /[#] \d+\.\d+(\.\d+)?\: /g,
 			matchChangelogHeader: /Changelog\n=========\n/ig,
