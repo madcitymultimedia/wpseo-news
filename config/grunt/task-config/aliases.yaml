@@ -45,6 +45,22 @@ build:
   - 'compress:artifact'
   - 'shell:composer-install-dev'
 
+'update-changelog:file':
+  - 'get-latest-pr-texts'
+  - 'update-changelog-with-latest-pr-texts'
+
+'update-changelog:qa':
+  - 'get-latest-pr-texts'
+  - 'download-qa-changelog'
+  - 'build-qa-changelog'
+
+'update-changelog:all':
+  - 'get-latest-pr-texts'
+  - 'update-changelog-with-latest-pr-texts'
+  - 'download-qa-changelog'
+  - 'build-qa-changelog'
+
+
 # Default task
 default:
   - build
