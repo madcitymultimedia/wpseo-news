@@ -89,8 +89,8 @@ class WPSEO_News_Sitemap_Item {
 		/**
 		 * Filter: 'Yoast\WP\News\skip_build_item' - Allow override of decision to skip adding this item to the news sitemap.
 		 *
-		 * @param bool $skip_build_item Whether this item should be built for the sitemap.
-		 * @param int  $item_id         ID of the current item to be skipped or not.
+		 * @param bool   $skip_build_item Whether this item should be built for the sitemap.
+		 * @param string $item_id         ID of the current item to be skipped or not.
 		 *
 		 * @since 12.8.0
 		 */
