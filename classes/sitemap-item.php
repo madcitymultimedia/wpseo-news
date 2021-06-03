@@ -94,7 +94,9 @@ class WPSEO_News_Sitemap_Item {
 		 *
 		 * @since 12.8.0
 		 */
-		return apply_filters( 'Yoast\WP\News\skip_build_item', $skip_build_item, $this->item->ID );
+		$skip_build_item = apply_filters( 'Yoast\WP\News\skip_build_item', $skip_build_item, $this->item->ID );
+
+		return is_bool( $skip_build_item ) && $skip_build_item;
 	}
 
 	/**
