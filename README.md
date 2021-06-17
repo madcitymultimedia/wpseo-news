@@ -53,3 +53,6 @@ Enhancements:
 Other:
 * Enables tracking when activating the plugin. It can be disabled in the Yoast SEO configuration wizard.
 * Sets the minimum supported WordPress version to 5.4.
+
+### Earlier versions
+For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/news-seo-changelog).
