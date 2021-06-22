@@ -227,7 +227,7 @@ class WPSEO_News_Sitemap {
 		// Get posts for the last two days only, credit to Alex Moss for this code.
 		$items = $wpdb->get_results(
 			$wpdb->prepare(
-				"SELECT ID, post_content, post_name, post_author, post_parent, post_date_gmt, post_date, post_date_gmt, post_title, post_type
+				"SELECT ID, post_content, post_name, post_author, post_parent, post_date_gmt, post_date, post_title, post_type
 				FROM {$wpdb->posts}
 				WHERE post_status='publish'
 					AND ( TIMESTAMPDIFF( MINUTE, post_date_gmt, UTC_TIMESTAMP() ) <= ( 48 * 60 ) )

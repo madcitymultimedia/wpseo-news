@@ -66,25 +66,37 @@ class WPSEO_News_Sitemap_Item {
 	 * @return bool True if the item has to be skipped.
 	 */
 	private function skip_build_item() {
+		$skip_build_item = false;
+
 		if ( WPSEO_News::is_excluded_through_sitemap( $this->item->ID ) ) {
-			return true;
+			$skip_build_item = true;
 		}
 
 		$item_noindex = WPSEO_Meta::get_value( 'meta-robots-noindex', $this->item->ID );
 
 		if ( $item_noindex === '1' ) {
-			return true;
+			$skip_build_item = true;
 		}
 
 		if ( $item_noindex === '0' && WPSEO_Options::get( 'noindex-' . $this->item->post_type ) === true ) {
-			return true;
+			$skip_build_item = true;
 		}
 
 		if ( WPSEO_News::is_excluded_through_terms( $this->item->ID, $this->item->post_type ) ) {
-			return true;
+			$skip_build_item = true;
 		}
 
-		return false;
+		/**
+		 * Filter: 'Yoast\WP\News\skip_build_item' - Allow override of decision to skip adding this item to the news sitemap.
+		 *
+		 * @param bool   $skip_build_item Whether this item should be built for the sitemap.
+		 * @param string $item_id         ID of the current item to be skipped or not.
+		 *
+		 * @since 12.8.0
+		 */
+		$skip_build_item = apply_filters( 'Yoast\WP\News\skip_build_item', $skip_build_item, $this->item->ID );
+
+		return is_bool( $skip_build_item ) && $skip_build_item;
 	}
 
 	/**
