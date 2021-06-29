@@ -238,7 +238,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 			]
 		);
 
-		$two_days_ago = strtotime( '-48 hours' );
+		$two_days_ago = strtotime( '-47 hours -59 minutes' );
 
 		$this->factory->post->create(
 			[
