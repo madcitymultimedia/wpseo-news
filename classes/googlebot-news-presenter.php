@@ -5,13 +5,13 @@
  * @package WPSEO_News
  */
 
-use Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter;
+use Yoast\WP\SEO\Presenters\Abstract_Indexable_Tag_Presenter;
 
 /**
  * Represents the Googlebot-News tag presenter.
  */
 class WPSEO_News_Googlebot_News_Presenter extends Abstract_Indexable_Tag_Presenter {
-	
+
 	/**
 	 * The tag key name.
 	 *
