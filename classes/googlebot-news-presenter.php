@@ -31,7 +31,7 @@ class WPSEO_News_Googlebot_News_Presenter extends Abstract_Indexable_Tag_Present
      *
      * @var string
      */
-	protected $escaping = 'attribute';
+    protected $escaping = 'attribute';
 
 	/**
 	 * Get the value for the Googlebot-news meta value.
