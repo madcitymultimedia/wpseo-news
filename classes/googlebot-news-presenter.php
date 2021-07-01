@@ -10,24 +10,31 @@ use Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter;
 /**
  * Represents the Googlebot-News tag presenter.
  */
-class WPSEO_News_Googlebot_News_Presenter extends Abstract_Indexable_Presenter {
+class WPSEO_News_Googlebot_News_Presenter extends Abstract_Indexable_Tag_Presenter {
+	
+	/**
+	 * The tag key name.
+	 *
+	 * @var string
+	 */
+	protected $key = 'Googlebot-News';
 
 	/**
-	 * Renders the Googlebot-News noindex tag when applicable.
+	 * The tag format including placeholders.
 	 *
-	 * @return string The rendered meta tag.
+	 * @var string
 	 */
-	public function present() {
+	protected $tag_format = self::META_NAME_CONTENT;
+
+	/**
+	 * Get the value for the Googlebot-news meta value.
+	 *
+	 * @return string The raw value.
+	 */
+	public function get() {
 		if ( $this->presentation->model->object_type !== 'post' ) {
 			return '';
 		}
-
-		/**
-		 * Allow for running additional code before adding the News header tags.
-		 *
-		 * @deprecated 12.5.0 Use the {@see 'Yoast\WP\News\head'} action instead.
-		 */
-		do_action_deprecated( 'wpseo_news_head', [], 'YoastSEO News 12.5.0', 'Yoast\WP\News\head' );
 
 		/**
 		 * Allow for running additional code before adding the News header tags.
@@ -37,18 +44,9 @@ class WPSEO_News_Googlebot_News_Presenter extends Abstract_Indexable_Presenter {
 		do_action( 'Yoast\WP\News\head' );
 
 		if ( $this->display_noindex( $this->presentation->source ) ) {
-			return '<meta name="Googlebot-News" content="noindex" />';
+			return 'noindex';
 		}
 
-		return '';
-	}
-
-	/**
-	 * This method is not used, but required to fulfil the abstract class interface.
-	 *
-	 * @return string The raw value.
-	 */
-	public function get() {
 		return '';
 	}
 
@@ -61,7 +59,7 @@ class WPSEO_News_Googlebot_News_Presenter extends Abstract_Indexable_Presenter {
 	 *
 	 * @return bool True when noindex tag should be rendered.
 	 */
-	private function display_noindex( $post ) {
+	protected function display_noindex( $post ) {
 		/**
 		 * Filter: 'wpseo_news_head_display_noindex' - Allow preventing of outputting noindex tag.
 		 *
