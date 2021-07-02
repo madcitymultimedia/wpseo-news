@@ -67,7 +67,7 @@ class WPSEO_News_Googlebot_News_Presenter extends Abstract_Indexable_Tag_Present
 	 * @return bool True when noindex tag should be rendered.
 	 */
 	protected function display_noindex( $post ) {
-        $display_noindex = true;
+		$display_noindex = true;
 
 		/**
 		 * Filter: 'Yoast\WP\News\head_display_noindex' - Allow preventing of outputting noindex tag.

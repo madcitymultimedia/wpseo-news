@@ -123,7 +123,7 @@ class Googlebot_News_Presenter_Test extends TestCase {
 		$this->model->object_type = 'post';
 		$this->source->ID         = 1337;
 
-        $this->stubEscapeFunctions();
+		$this->stubEscapeFunctions();
 
 		$meta = Mockery::mock( 'overload:WPSEO_Meta' );
 		$meta

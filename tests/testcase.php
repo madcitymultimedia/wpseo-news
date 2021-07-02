@@ -34,28 +34,28 @@ abstract class TestCase extends YoastTestCase {
 			->andReturn( [] );
 	}
 
-    /**
-     * Stub the WP native escaping functions.
-     *
-     * The stubs created by this function return the original input string unchanged.
-     *
-     * Alternative to the BrainMonkey `Monkey\Functions\stubEscapeFunctions()` function
-     * which does apply some form of escaping to the input.
-     *
-     * @return void
-     */
-    public function stubEscapeFunctions() {
-        Monkey\Functions\stubs(
-            [
-                'esc_js',
-                'esc_sql',
-                'esc_attr',
-                'esc_html',
-                'esc_textarea',
-                'esc_url',
-                'esc_url_raw',
-                'esc_xml',
-            ]
-        );
-    }
+	/**
+	 * Stub the WP native escaping functions.
+	 *
+	 * The stubs created by this function return the original input string unchanged.
+	 *
+	 * Alternative to the BrainMonkey `Monkey\Functions\stubEscapeFunctions()` function
+	 * which does apply some form of escaping to the input.
+	 *
+	 * @return void
+	 */
+	public function stubEscapeFunctions() {
+		Monkey\Functions\stubs(
+			[
+				'esc_js',
+				'esc_sql',
+				'esc_attr',
+				'esc_html',
+				'esc_textarea',
+				'esc_url',
+				'esc_url_raw',
+				'esc_xml',
+			]
+		);
+	}
 }
