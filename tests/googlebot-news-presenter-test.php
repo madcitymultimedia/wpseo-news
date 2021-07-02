@@ -50,8 +50,6 @@ class Googlebot_News_Presenter_Test extends TestCase {
 	public function set_up() {
 		parent::set_up();
 
-		Mockery::mock( 'overload:\Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter' );
-
 		$this->instance     = new WPSEO_News_Googlebot_News_Presenter();
 		$this->presentation = Mockery::mock();
 		$this->model        = Mockery::mock();
@@ -70,7 +68,7 @@ class Googlebot_News_Presenter_Test extends TestCase {
 	public function test_present_for_non_post() {
 		$this->model->object_type = 'term';
 
-		$this->assertSame( '', $this->instance->present() );
+		$this->assertSame( '', $this->instance->get() );
 	}
 
 	/**
@@ -89,33 +87,12 @@ class Googlebot_News_Presenter_Test extends TestCase {
 			->with( 'newssitemap-robots-index', 1337 )
 			->andReturnFalse();
 
-		Monkey\Functions\expect( 'do_action_deprecated' )
-			->once()
-			->with(
-				'wpseo_news_head',
-				[],
-				'YoastSEO News 12.5.0',
-				'Yoast\WP\News\head'
-			);
-
 		Monkey\Actions\expectDone( 'Yoast\WP\News\head' );
-
-		Monkey\Functions\expect( 'apply_filters_deprecated' )
-			->once()
-			->with(
-				'wpseo_news_head_display_noindex',
-				[
-					true,
-					$this->source,
-				],
-				'YoastSEO News 12.5.0',
-				'Yoast\WP\News\head_display_noindex'
-			);
 
 		Monkey\Filters\expectApplied( 'Yoast\WP\News\head_display_noindex' )
 			->andReturn( true );
 
-		$this->assertSame( '', $this->instance->present() );
+		$this->assertSame( '', $this->instance->get() );
 	}
 
 	/**
@@ -128,33 +105,12 @@ class Googlebot_News_Presenter_Test extends TestCase {
 		$this->model->object_type = 'post';
 		$this->source->ID         = 1337;
 
-		Monkey\Functions\expect( 'do_action_deprecated' )
-			->once()
-			->with(
-				'wpseo_news_head',
-				[],
-				'YoastSEO News 12.5.0',
-				'Yoast\WP\News\head'
-			);
-
 		Monkey\Actions\expectDone( 'Yoast\WP\News\head' );
-
-		Monkey\Functions\expect( 'apply_filters_deprecated' )
-			->once()
-			->with(
-				'wpseo_news_head_display_noindex',
-				[
-					true,
-					$this->source,
-				],
-				'YoastSEO News 12.5.0',
-				'Yoast\WP\News\head_display_noindex'
-			);
 
 		Monkey\Filters\expectApplied( 'Yoast\WP\News\head_display_noindex' )
 			->andReturn( false );
 
-		$this->assertSame( '', $this->instance->present() );
+		$this->assertSame( '', $this->instance->get() );
 	}
 
 	/**
@@ -167,34 +123,14 @@ class Googlebot_News_Presenter_Test extends TestCase {
 		$this->model->object_type = 'post';
 		$this->source->ID         = 1337;
 
+        $this->stubEscapeFunctions();
+
 		$meta = Mockery::mock( 'overload:WPSEO_Meta' );
 		$meta
 			->expects( 'get_value' )
 			->with( 'newssitemap-robots-index', 1337 )
 			->andReturnTrue();
-
-		Monkey\Functions\expect( 'do_action_deprecated' )
-			->once()
-			->with(
-				'wpseo_news_head',
-				[],
-				'YoastSEO News 12.5.0',
-				'Yoast\WP\News\head'
-			);
-
 		Monkey\Actions\expectDone( 'Yoast\WP\News\head' );
-
-		Monkey\Functions\expect( 'apply_filters_deprecated' )
-			->once()
-			->with(
-				'wpseo_news_head_display_noindex',
-				[
-					true,
-					$this->source,
-				],
-				'YoastSEO News 12.5.0',
-				'Yoast\WP\News\head_display_noindex'
-			);
 
 		Monkey\Filters\expectApplied( 'Yoast\WP\News\head_display_noindex' )
 			->andReturn( true );
