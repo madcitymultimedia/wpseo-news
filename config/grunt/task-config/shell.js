@@ -8,7 +8,7 @@ module.exports = function( grunt ) {
 		"php-lint": {
 			command: "composer lint",
 		},
-		phpcs: {
+		"phpcs": {
 			command: "composer check-cs",
 		},
 
