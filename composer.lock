@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "0cfad9b1562a93887962c0efba572b4f",
+    "content-hash": "05c68b3cc6f9baf165bf515778d617be",
     "packages": [
         {
             "name": "yoast/i18n-module",
@@ -2472,25 +2472,25 @@
         },
         {
             "name": "yoast/phpunit-polyfills",
-            "version": "0.2.0",
+            "version": "1.0.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/PHPUnit-Polyfills.git",
-                "reference": "c48e4cf0c44b2d892540846aff19fb0468627bab"
+                "reference": "5d257d5a6977137016f3df440ce640ce72ffd61a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/PHPUnit-Polyfills/zipball/c48e4cf0c44b2d892540846aff19fb0468627bab",
-                "reference": "c48e4cf0c44b2d892540846aff19fb0468627bab",
+                "url": "https://api.github.com/repos/Yoast/PHPUnit-Polyfills/zipball/5d257d5a6977137016f3df440ce640ce72ffd61a",
+                "reference": "5d257d5a6977137016f3df440ce640ce72ffd61a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5",
+                "php": ">=5.4",
                 "phpunit/phpunit": "^4.8.36 || ^5.7.21 || ^6.0 || ^7.0 || ^8.0 || ^9.0"
             },
             "require-dev": {
                 "php-parallel-lint/php-console-highlighter": "^0.5",
-                "php-parallel-lint/php-parallel-lint": "^1.2.0",
+                "php-parallel-lint/php-parallel-lint": "^1.3.0",
                 "yoast/yoastcs": "^2.1.0"
             },
             "type": "library",
@@ -2531,20 +2531,20 @@
                 "issues": "https://github.com/Yoast/PHPUnit-Polyfills/issues",
                 "source": "https://github.com/Yoast/PHPUnit-Polyfills"
             },
-            "time": "2020-11-25T02:59:57+00:00"
+            "time": "2021-06-21T03:13:22+00:00"
         },
         {
             "name": "yoast/wordpress-seo",
-            "version": "16.7-RC3",
+            "version": "dev-trunk",
             "source": {
                 "type": "git",
-                "url": "https://github.com/Yoast-dist/wordpress-seo.git",
-                "reference": "bca4340144dedaaafbfd107aac3c0fb5c439639c"
+                "url": "https://github.com/Yoast/wordpress-seo.git",
+                "reference": "9068995f79f198a47bcc9bfb58c7ab94dd402465"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast-dist/wordpress-seo/zipball/bca4340144dedaaafbfd107aac3c0fb5c439639c",
-                "reference": "bca4340144dedaaafbfd107aac3c0fb5c439639c",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/9068995f79f198a47bcc9bfb58c7ab94dd402465",
+                "reference": "9068995f79f198a47bcc9bfb58c7ab94dd402465",
                 "shasum": ""
             },
             "require": {
@@ -2566,6 +2566,7 @@
                 "yoast/wp-test-utils": "^0.2.1",
                 "yoast/yoastcs": "^2.1.0"
             },
+            "default-branch": true,
             "type": "wordpress-plugin",
             "autoload": {
                 "classmap": [
@@ -2576,7 +2577,90 @@
                     "lib/"
                 ]
             },
-            "notification-url": "https://packagist.org/downloads/",
+            "autoload-dev": {
+                "classmap": [
+                    "tests/",
+                    "config/"
+                ]
+            },
+            "scripts": {
+                "test": [
+                    "@php ./vendor/phpunit/phpunit/phpunit"
+                ],
+                "integration-test": [
+                    "@php ./vendor/phpunit/phpunit/phpunit -c phpunit-integration.xml.dist"
+                ],
+                "lint": [
+                    "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --exclude vendor --exclude vendor_prefixed --exclude node_modules --exclude .git"
+                ],
+                "lint-files": [
+                    "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint"
+                ],
+                "lint-branch": [
+                    "Yoast\\WP\\SEO\\Composer\\Actions::lint_branch"
+                ],
+                "lint-staged": [
+                    "Yoast\\WP\\SEO\\Composer\\Actions::lint_staged"
+                ],
+                "cs": [
+                    "Yoast\\WP\\SEO\\Composer\\Actions::check_coding_standards"
+                ],
+                "check-cs-thresholds": [
+                    "@putenv YOASTCS_THRESHOLD_ERRORS=276",
+                    "@putenv YOASTCS_THRESHOLD_WARNINGS=223",
+                    "Yoast\\WP\\SEO\\Composer\\Actions::check_cs_thresholds"
+                ],
+                "check-cs-summary": [
+                    "@check-cs-warnings --report=summary"
+                ],
+                "check-cs": [
+                    "@check-cs-warnings -n"
+                ],
+                "check-cs-errors": [
+                    "echo You can now just use check-cs, running that command now.",
+                    "composer check-cs"
+                ],
+                "check-cs-warnings": [
+                    "@php ./vendor/squizlabs/php_codesniffer/bin/phpcs"
+                ],
+                "check-staged-cs": [
+                    "@check-cs-warnings --filter=GitStaged"
+                ],
+                "check-branch-cs": [
+                    "Yoast\\WP\\SEO\\Composer\\Actions::check_branch_cs"
+                ],
+                "fix-cs": [
+                    "@php ./vendor/squizlabs/php_codesniffer/bin/phpcbf"
+                ],
+                "prefix-dependencies": [
+                    "composer prefix-oauth2-client",
+                    "composer prefix-symfony"
+                ],
+                "prefix-oauth2-client": [
+                    "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=YoastSEO_Vendor --output-dir=./vendor_prefixed/league/oauth2-client --config=config/php-scoper/oauth2-client.inc.php --force --quiet",
+                    "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=YoastSEO_Vendor --output-dir=./vendor_prefixed/guzzlehttp --config=config/php-scoper/guzzlehttp.inc.php --force --quiet",
+                    "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=YoastSEO_Vendor --output-dir=./vendor_prefixed/psr --config=config/php-scoper/psr.inc.php --force --quiet"
+                ],
+                "prefix-symfony": [
+                    "@php ./vendor/humbug/php-scoper/bin/php-scoper add-prefix --prefix=YoastSEO_Vendor --output-dir=./vendor_prefixed/symfony/dependency-injection --config=config/php-scoper/dependency-injection.inc.php --force --quiet"
+                ],
+                "compile-di": [
+                    "rm -f ./src/generated/container.php",
+                    "rm -f ./src/generated/container.php.meta",
+                    "composer du --no-scripts",
+                    "Yoast\\WP\\SEO\\Composer\\Actions::compile_dependency_injection_container"
+                ],
+                "post-autoload-dump": [
+                    "Yoast\\WP\\SEO\\Composer\\Actions::prefix_dependencies",
+                    "composer compile-di"
+                ],
+                "generate-migration": [
+                    "Yoast\\WP\\SEO\\Composer\\Actions::generate_migration"
+                ],
+                "generate-unit-test": [
+                    "Yoast\\WP\\SEO\\Composer\\Actions::generate_unit_test"
+                ]
+            },
             "license": [
                 "GPL-2.0-or-later"
             ],
@@ -2594,35 +2678,35 @@
                 "wordpress"
             ],
             "support": {
-                "forum": "https://wordpress.org/support/plugin/wordpress-seo",
                 "issues": "https://github.com/Yoast/wordpress-seo/issues",
-                "source": "https://github.com/Yoast/wordpress-seo",
-                "wiki": "https://github.com/Yoast/wordpress-seo/wiki"
+                "forum": "https://wordpress.org/support/plugin/wordpress-seo",
+                "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
+                "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2021-06-30T13:13:21+00:00"
+            "time": "2021-07-02T14:18:41+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
-            "version": "0.2.1",
+            "version": "0.2.2",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wp-test-utils.git",
-                "reference": "c5cdabd58f2aa6f2a93f734cf48125f880c90101"
+                "reference": "896f7640d86162ff7a0dc6ce59f8837f284521c5"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wp-test-utils/zipball/c5cdabd58f2aa6f2a93f734cf48125f880c90101",
-                "reference": "c5cdabd58f2aa6f2a93f734cf48125f880c90101",
+                "url": "https://api.github.com/repos/Yoast/wp-test-utils/zipball/896f7640d86162ff7a0dc6ce59f8837f284521c5",
+                "reference": "896f7640d86162ff7a0dc6ce59f8837f284521c5",
                 "shasum": ""
             },
             "require": {
                 "brain/monkey": "^2.6.0",
                 "php": ">=5.6",
-                "yoast/phpunit-polyfills": "^0.2.0"
+                "yoast/phpunit-polyfills": "^1.0.0"
             },
             "require-dev": {
                 "php-parallel-lint/php-console-highlighter": "^0.5",
-                "php-parallel-lint/php-parallel-lint": "^1.2.0",
+                "php-parallel-lint/php-parallel-lint": "^1.3.0",
                 "yoast/yoastcs": "^2.1.0"
             },
             "type": "library",
@@ -2665,7 +2749,7 @@
                 "issues": "https://github.com/Yoast/wp-test-utils/issues",
                 "source": "https://github.com/Yoast/wp-test-utils"
             },
-            "time": "2020-12-09T15:26:02+00:00"
+            "time": "2021-06-21T03:45:02+00:00"
         },
         {
             "name": "yoast/yoastcs",
@@ -2725,7 +2809,9 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "yoast/wordpress-seo": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
