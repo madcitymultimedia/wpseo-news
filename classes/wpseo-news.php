@@ -5,8 +5,6 @@
  * @package WPSEO_News
  */
 
-use Yoast\WP\SEO\Presenters\Abstract_Indexable_Presenter;
-
 /**
  * Represents the news extension for Yoast SEO.
  */
@@ -147,8 +145,8 @@ class WPSEO_News {
 			return false;
 		}
 
-		// At least 16.1, which includes the @yoast/components checkbox.
-		if ( version_compare( $wordpress_seo_version, '16.1-beta0', '<' ) ) {
+		// At least 16.7, which includes the new Abstract_Indexable_Tag_Presenter.
+		if ( version_compare( $wordpress_seo_version, '16.7-RC0', '<' ) ) {
 			add_action( 'all_admin_notices', [ $this, 'error_upgrade_wpseo' ] );
 
 			return false;

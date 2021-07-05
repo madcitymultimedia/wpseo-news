@@ -1,6 +1,7 @@
 // See https://github.com/sindresorhus/grunt-shell
 module.exports = function( grunt ) {
 	return {
+		
 		"composer-install": {
 			command: "composer install",
 		},
@@ -8,7 +9,7 @@ module.exports = function( grunt ) {
 		"php-lint": {
 			command: "composer lint",
 		},
-		phpcs: {
+		"phpcs": {
 			command: "composer check-cs",
 		},
 
