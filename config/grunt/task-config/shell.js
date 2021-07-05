@@ -1,6 +1,7 @@
 // See https://github.com/sindresorhus/grunt-shell
 module.exports = function( grunt ) {
 	return {
+		
 		"composer-install": {
 			command: "composer install",
 		},
