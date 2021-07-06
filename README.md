@@ -34,12 +34,14 @@ Changelog
 Enhancements:
 * Adds a filter to override the decision to omit an item from the news sitemap. Props to [joneslloyd](https://github.com/joneslloyd).
 * Improves the performance of the news sitemap. Props to [archon810](https://github.com/archon810).
-
-Other:
-* Sets the minimum WordPress version to 5.6.
+* Adds News SEO data to the new json head fields.
 
 Bugfixes:
 * Fixes a bug where a database query including duplicate column names would fail on certain database systems.
+* removed a duplicate column selection
+
+Other:
+* Sets the minimum WordPress version to 5.6.
 
 ### 12.7: April 6th, 2021
 Enhancements:
