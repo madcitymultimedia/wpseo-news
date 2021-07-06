@@ -32,15 +32,14 @@ Changelog
 =========
 ### 12.8: July 13th, 2021
 Enhancements:
-* Adds a filter to override the decision to omit an item from the news sitemap. Props to [joneslloyd](https://github.com/joneslloyd).
+* Adds key/value pairs of all News SEO meta tags to our REST API.
 * Improves the performance of the news sitemap. Props to [archon810](https://github.com/archon810).
-* Adds News SEO data to the new json head fields.
 
 Bugfixes:
 * Fixes a bug where a database query including duplicate column names would fail on certain database systems.
-* removed a duplicate column selection
 
 Other:
+* Adds a filter to override the decision to omit an item from the news sitemap. Props to [joneslloyd](https://github.com/joneslloyd).
 * Sets the minimum WordPress version to 5.6.
 
 ### 12.7: April 6th, 2021
