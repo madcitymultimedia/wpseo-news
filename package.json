@@ -19,7 +19,7 @@
   "devDependencies": {
     "@wordpress/babel-plugin-makepot": "^4.0.0",
     "@wordpress/dependency-extraction-webpack-plugin": "^3.0.1",
-    "@yoast/grunt-plugin-tasks": "^2.1.1",
+    "@yoast/grunt-plugin-tasks": "^2.1.2",
     "babel-cli": "^6.26.0",
     "babel-core": "^6.26.3",
     "babel-loader": "^7.1.5",
@@ -40,7 +40,7 @@
     "i18n-wordpress-seo-news": "NODE_ENV=production babel js/src --plugins=@wordpress/babel-plugin-makepot > /dev/null"
   },
   "yoast": {
-    "pluginVersion": "12.8-RC2"
+    "pluginVersion": "12.8"
   },
   "dependencies": {
     "prop-types": "^15.7.2"
