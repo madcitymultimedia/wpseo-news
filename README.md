@@ -30,6 +30,11 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 
 Changelog
 =========
+
+### 12.9: August 17th, 2021
+Bugfixes:
+* Fixes a bug where a duplicate News section would be shown in the Yoast sidebar in the post editor when Yoast SEO Premium is active.
+
 ### 12.8: July 13th, 2021
 Enhancements:
 * Adds key/value pairs of all News SEO meta tags to our REST API.
@@ -41,22 +46,6 @@ Bugfixes:
 Other:
 * Adds a filter to override the decision to omit an item from the news sitemap. Props to [joneslloyd](https://github.com/joneslloyd).
 * Sets the minimum WordPress version to 5.6.
-
-### 12.7: April 6th, 2021
-Enhancements:
-
-* Adds News to the Yoast SEO sidebar in the Elementor editor and the block editor.
-* Merges the `Exclude from News sitemap` and the `Googlebot-News index` settings from the News meta box into one setting: `Exclude this post from Google News`. Because both settings served the same purpose, to exclude your content from the News sitemap.
-* Removes the `Default genre` setting from the News sitemap and settings because Google no longer supports `Genres` for articles in Google News.
-
-Other:
-
-* Sets the WordPress tested up to version to 5.7 and minimum supported WordPress version to 5.6.
-
-Bugfixes:
-
-* Fixes a bug where certain conditions (e.g. using a different admin language) would result in an endless loop.
-* Fixes "mixed content" warnings on the News SEO options page.
 
 ### Earlier versions
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/news-seo-changelog).
