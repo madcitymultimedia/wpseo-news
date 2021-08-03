@@ -145,8 +145,8 @@ class WPSEO_News {
 			return false;
 		}
 
-		// At least 16.7, which includes the new Abstract_Indexable_Tag_Presenter.
-		if ( version_compare( $wordpress_seo_version, '16.7-RC0', '<' ) ) {
+		// At least 16.9-RC6, which fixes duplicate News sidebar items on WP 5.8.
+		if ( version_compare( $wordpress_seo_version, '16.9-RC6', '<' ) ) {
 			add_action( 'all_admin_notices', [ $this, 'error_upgrade_wpseo' ] );
 
 			return false;
