@@ -11,7 +11,7 @@ const { SidebarItem, SidebarCollapsible } = window.yoast.editorModules.component
 export default function Sidebar( { fillName = "YoastSidebar" } ) {
 	return (
 		<Fill name={ fillName }>
-			<SidebarItem renderPriority={ 33 }>
+			<SidebarItem key="news" renderPriority={ 33 }>
 				<SidebarCollapsible title="News">
 					<NewsEditorContainer />
 				</SidebarCollapsible>
