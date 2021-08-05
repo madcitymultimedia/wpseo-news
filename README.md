@@ -31,9 +31,9 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
-### 12.9: August 17th, 2021
+### 12.9: August 10th, 2021
 Bugfixes:
-* Fixes a bug where a duplicate News section would be shown in the Yoast sidebar in the post editor when Yoast SEO Premium is active.
+* Fixes a bug where a duplicate News section would be shown in the Yoast sidebar in the post editor when Yoast SEO Premium is active in combination with WP 5.8.
 
 ### 12.8: July 13th, 2021
 Enhancements:
