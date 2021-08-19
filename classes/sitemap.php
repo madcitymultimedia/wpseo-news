@@ -222,16 +222,18 @@ class WPSEO_News_Sitemap {
 		$limit = max( 1, min( 1000, $limit ) );
 
 		// Get posts from the last two days only.
-		$query = new \WP_Query( [
-			'post_status'    => 'publish',
-			'post_type'      => [ $post_types ],
-			'date_query'     => [
-				'after' => '2 days ago',
-			],
-			'order_by'       => 'date',
-			'order'          => 'DESC',
-			'posts_per_page' => $limit
-		] );
+		$query = new \WP_Query(
+			[
+				'post_status'    => 'publish',
+				'post_type'      => [ $post_types ],
+				'date_query'     => [
+					'after' => '2 days ago',
+				],
+				'order_by'       => 'date',
+				'order'          => 'DESC',
+				'posts_per_page' => $limit,
+			]
+		);
 
 		return $query->get_posts();
 	}
