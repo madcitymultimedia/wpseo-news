@@ -212,8 +212,6 @@ class WPSEO_News_Sitemap {
 	 * @return array|object|null
 	 */
 	private function get_items( $limit = 1000 ) {
-		global $wpdb;
-
 		// Get supported post types.
 		$post_types = WPSEO_News::get_included_post_types();
 
@@ -221,25 +219,21 @@ class WPSEO_News_Sitemap {
 			return [];
 		}
 
-		$replacements   = $post_types;
-		$replacements[] = max( 1, min( 1000, $limit ) );
+		$limit = max( 1, min( 1000, $limit ) );
 
-		// Get posts for the last two days only, credit to Alex Moss for this code.
-		$items = $wpdb->get_results(
-			$wpdb->prepare(
-				"SELECT ID, post_content, post_name, post_author, post_parent, post_date_gmt, post_date, post_title, post_type
-				FROM {$wpdb->posts}
-				WHERE post_status='publish'
-					AND post_date_gmt >= NOW() - INTERVAL 48 HOUR
-					AND post_type IN (" . implode( ',', array_fill( 0, count( $post_types ), '%s' ) ) . ')
-				ORDER BY post_date_gmt DESC
-				LIMIT 0, %d
-				',
-				$replacements
-			)
-		);
+		// Get posts from the last two days only.
+		$query = new \WP_Query( [
+			'post_status'    => 'publish',
+			'post_type'      => [ $post_types ],
+			'date_query'     => [
+				'after' => '2 days ago',
+			],
+			'order_by'       => 'date',
+			'order'          => 'DESC',
+			'posts_per_page' => $limit
+		] );
 
-		return $items;
+		return $query->get_posts();
 	}
 
 	/**
