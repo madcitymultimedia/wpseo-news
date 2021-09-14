@@ -24,7 +24,7 @@ if ( ! class_exists( 'WPSEO_News_Product', false ) && class_exists( 'Yoast_Produ
 				'News SEO',
 				$slug,
 				WPSEO_News::VERSION,
-				'https://yoast.com/wordpress/plugins/news-seo/',
+				WPSEO_Shortlinker::get( 'https://yoa.st/4fg' ),
 				'admin.php?page=wpseo_licenses#top#licenses',
 				'wordpress-seo-news',
 				'Yoast',
