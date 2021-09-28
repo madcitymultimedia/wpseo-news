@@ -39,8 +39,6 @@ jobs:
       env: WP_VERSION=latest PHPLINT=1 PHPUNIT=1
     - php: 8.0
       env: WP_VERSION=latest PHPLINT=1 PHPUNIT=1
-    - php: "nightly"
-      env: PHPLINT=1
     - stage: deploy-to-github-dist
       env: WP_VERSION=latest
       if: tag IS present
@@ -70,7 +68,6 @@ jobs:
           all_branches: true
   allow_failures:
     # Allow failures for unstable builds.
-    - php: "nightly"
     - php: 7.3
       env: WP_VERSION=master PHPUNIT=1
 
