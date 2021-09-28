@@ -27,8 +27,8 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 	/**
 	 * Setting up the instance of WPSEO_News_Schema.
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		$this->date = date_create();
 
