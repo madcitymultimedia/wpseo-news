@@ -57,7 +57,7 @@ class WPSEO_News_Option extends WPSEO_Option {
 	 * @param array $clean Clean value for the option, normally the defaults.
 	 * @param array $old   Old value of the option.
 	 *
-	 * @return $clean The cleaned an validated option.
+	 * @return array The cleaned and validated option.
 	 */
 	protected function validate_option( $dirty, $clean, $old ) {
 
