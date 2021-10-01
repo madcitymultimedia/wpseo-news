@@ -66,8 +66,6 @@ class WPSEO_News {
 		add_filter( 'wpseo_submenu_pages', [ $this, 'add_submenu_pages' ] );
 		add_action( 'init', [ 'WPSEO_News_Option', 'register_option' ] );
 		add_action( 'init', [ 'WPSEO_News', 'read_options' ] );
-		add_filter( 'wpseo_schema_article_types', [ $this, 'schema_add_news_types' ] );
-		add_filter( 'wpseo_schema_article_types_labels', [ $this, 'schema_add_news_types_labels' ] );
 		// Enable Yoast usage tracking.
 		add_filter( 'wpseo_enable_tracking', '__return_true' );
 		add_filter( 'wpseo_helpscout_beacon_settings', [ $this, 'filter_helpscout_beacon' ] );
@@ -76,62 +74,6 @@ class WPSEO_News {
 
 		$editor_reactification_alert = new WPSEO_News_Settings_Genre_Removal_Alert();
 		$editor_reactification_alert->register_hooks();
-	}
-
-	/**
-	 * Add schema article types.
-	 *
-	 * @param array $schema_article_types Schema article types.
-	 *
-	 * @return array $schema_article_types Schema article types.
-	 */
-	public function schema_add_news_types( $schema_article_types ) {
-		return array_merge( $schema_article_types, [
-			'AnalysisNewsArticle'   => '',
-			'AskPublicNewsArticle'  => '',
-			'BackgroundNewsArticle' => '',
-			'OpinionNewsArticle'    => '',
-			'ReportageNewsArticle'  => '',
-			'ReviewNewsArticle'     => '',
-		] );
-	}
-
-	/**
-	 * Add schema article types with labels.
-	 *
-	 * @param array $schema_article_types_labels Schema article types with labels.
-	 *
-	 * @return array $schema_article_types_labels Schema article types with labels.
-	 */
-	public function schema_add_news_types_labels( $schema_article_types_labels ) {
-		return array_merge( $schema_article_types_labels,
-			[
-				[
-					'name'  => __( 'News: Analysis article', 'wordpress-seo-news' ),
-					'value' => 'AnalysisNewsArticle'
-				],
-				[
-					'name'  => __( 'News: Ask The Public article', 'wordpress-seo-news' ),
-					'value' => 'AskPublicNewsArticle'
-				],
-				[
-					'name'  => __( 'News: Background article', 'wordpress-seo-news' ),
-					'value' => 'BackgroundNewsArticle'
-				],
-				[
-					'name'  => __( 'News: Opinion article', 'wordpress-seo-news' ),
-					'value' => 'OpinionNewsArticle'
-				],
-				[
-					'name'  => __( 'News: Reportage article', 'wordpress-seo-news' ),
-					'value' => 'ReportageNewsArticle'
-				],
-				[
-					'name'  => __( 'News: Review article', 'wordpress-seo-news' ),
-					'value' => 'ReviewNewsArticle'
-				],
-			]
-		);
 	}
 
 	/**
