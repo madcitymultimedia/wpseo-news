@@ -66,7 +66,8 @@ class WPSEO_News {
 		add_filter( 'wpseo_submenu_pages', [ $this, 'add_submenu_pages' ] );
 		add_action( 'init', [ 'WPSEO_News_Option', 'register_option' ] );
 		add_action( 'init', [ 'WPSEO_News', 'read_options' ] );
-
+		add_filter( 'wpseo_schema_article_types', [ $this, 'schema_add_news_types' ] );
+		add_filter( 'wpseo_schema_article_types_labels', [ $this, 'schema_add_news_types_labels' ] );
 		// Enable Yoast usage tracking.
 		add_filter( 'wpseo_enable_tracking', '__return_true' );
 		add_filter( 'wpseo_helpscout_beacon_settings', [ $this, 'filter_helpscout_beacon' ] );
@@ -75,6 +76,62 @@ class WPSEO_News {
 
 		$editor_reactification_alert = new WPSEO_News_Settings_Genre_Removal_Alert();
 		$editor_reactification_alert->register_hooks();
+	}
+
+	/**
+	 * Add schema article types.
+	 *
+	 * @param array $schema_article_types Schema article types.
+	 *
+	 * @return array $schema_article_types Schema article types.
+	 */
+	public function schema_add_news_types( $schema_article_types ) {
+		return array_merge( $schema_article_types, [
+			'AnalysisNewsArticle'   => '',
+			'AskPublicNewsArticle'  => '',
+			'BackgroundNewsArticle' => '',
+			'OpinionNewsArticle'    => '',
+			'ReportageNewsArticle'  => '',
+			'ReviewNewsArticle'     => '',
+		] );
+	}
+
+	/**
+	 * Add schema article types with labels.
+	 *
+	 * @param array $schema_article_types_labels Schema article types with labels.
+	 *
+	 * @return array $schema_article_types_labels Schema article types with labels.
+	 */
+	public function schema_add_news_types_labels( $schema_article_types_labels ) {
+		return array_merge( $schema_article_types_labels,
+			[
+				[
+					'name'  => __( 'News: Analysis article', 'wordpress-seo-news' ),
+					'value' => 'AnalysisNewsArticle'
+				],
+				[
+					'name'  => __( 'News: Ask The Public article', 'wordpress-seo-news' ),
+					'value' => 'AskPublicNewsArticle'
+				],
+				[
+					'name'  => __( 'News: Background article', 'wordpress-seo-news' ),
+					'value' => 'BackgroundNewsArticle'
+				],
+				[
+					'name'  => __( 'News: Opinion article', 'wordpress-seo-news' ),
+					'value' => 'OpinionNewsArticle'
+				],
+				[
+					'name'  => __( 'News: Reportage article', 'wordpress-seo-news' ),
+					'value' => 'ReportageNewsArticle'
+				],
+				[
+					'name'  => __( 'News: Review article', 'wordpress-seo-news' ),
+					'value' => 'ReviewNewsArticle'
+				],
+			]
+		);
 	}
 
 	/**
@@ -112,7 +169,7 @@ class WPSEO_News {
 
 		// Setting action for removing the transient on update options.
 		if ( class_exists( 'WPSEO_Sitemaps_Cache' )
-			&& method_exists( 'WPSEO_Sitemaps_Cache', 'register_clear_on_option_update' )
+			 && method_exists( 'WPSEO_Sitemaps_Cache', 'register_clear_on_option_update' )
 		) {
 			WPSEO_Sitemaps_Cache::register_clear_on_option_update(
 				'wpseo_news',
@@ -224,6 +281,7 @@ class WPSEO_News {
 	 */
 	protected function get_version() {
 		$asset_manager = new WPSEO_Admin_Asset_Manager();
+
 		return $asset_manager->flatten_version( self::VERSION );
 	}
 
@@ -263,7 +321,7 @@ class WPSEO_News {
 	public function error_missing_wpseo() {
 		echo '<div class="error"><p>';
 		printf(
-			/* translators: %1$s resolves to the link to search for Yoast SEO, %2$s resolves to the closing tag for this link, %3$s resolves to Yoast SEO, %4$s resolves to News SEO */
+		/* translators: %1$s resolves to the link to search for Yoast SEO, %2$s resolves to the closing tag for this link, %3$s resolves to Yoast SEO, %4$s resolves to News SEO */
 			esc_html__(
 				'Please %1$sinstall &amp; activate %3$s%2$s and then enable its XML sitemap functionality to allow the %4$s module to work.',
 				'wordpress-seo-news'
@@ -284,7 +342,7 @@ class WPSEO_News {
 	public function error_upgrade_wp() {
 		echo '<div class="error"><p>';
 		printf(
-			/* translators: %1$s resolves to News SEO */
+		/* translators: %1$s resolves to News SEO */
 			esc_html__(
 				'Please upgrade WordPress to the latest version to allow WordPress and the %1$s module to work properly.',
 				'wordpress-seo-news'
@@ -302,7 +360,7 @@ class WPSEO_News {
 	public function error_upgrade_wpseo() {
 		echo '<div class="error"><p>';
 		printf(
-			/* translators: %1$s resolves to Yoast SEO, %2$s resolves to News SEO */
+		/* translators: %1$s resolves to Yoast SEO, %2$s resolves to News SEO */
 			esc_html__(
 				'Please upgrade the %1$s plugin to the latest version to allow the %2$s module to work.',
 				'wordpress-seo-news'
@@ -415,10 +473,10 @@ class WPSEO_News {
 	/**
 	 * Listing the genres.
 	 *
+	 * @return array
 	 * @deprecated 12.7 News genres are deprecated.
 	 * @codeCoverageIgnore
 	 *
-	 * @return array
 	 */
 	public static function list_genres() {
 		_deprecated_function( __METHOD__, 'WPSEO News 12.7' );
