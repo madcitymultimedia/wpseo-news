@@ -66,6 +66,7 @@ class WPSEO_News {
 		add_filter( 'wpseo_submenu_pages', [ $this, 'add_submenu_pages' ] );
 		add_action( 'init', [ 'WPSEO_News_Option', 'register_option' ] );
 		add_action( 'init', [ 'WPSEO_News', 'read_options' ] );
+
 		// Enable Yoast usage tracking.
 		add_filter( 'wpseo_enable_tracking', '__return_true' );
 		add_filter( 'wpseo_helpscout_beacon_settings', [ $this, 'filter_helpscout_beacon' ] );
