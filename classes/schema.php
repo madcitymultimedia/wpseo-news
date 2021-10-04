@@ -51,7 +51,6 @@ class WPSEO_News_Schema {
 		return $post_types;
 	}
 
-
 	/**
 	 * Adds copyright information.
 	 *
@@ -120,14 +119,17 @@ class WPSEO_News_Schema {
 	 * @return array $schema_article_types Schema article types.
 	 */
 	public function schema_add_news_types( $schema_article_types ) {
-		return array_merge( $schema_article_types, [
-			'AnalysisNewsArticle'   => '',
-			'AskPublicNewsArticle'  => '',
-			'BackgroundNewsArticle' => '',
-			'OpinionNewsArticle'    => '',
-			'ReportageNewsArticle'  => '',
-			'ReviewNewsArticle'     => '',
-		] );
+		return array_merge(
+			$schema_article_types,
+			[
+				'AnalysisNewsArticle'   => '',
+				'AskPublicNewsArticle'  => '',
+				'BackgroundNewsArticle' => '',
+				'OpinionNewsArticle'    => '',
+				'ReportageNewsArticle'  => '',
+				'ReviewNewsArticle'     => '',
+			]
+		);
 	}
 
 	/**
@@ -138,31 +140,32 @@ class WPSEO_News_Schema {
 	 * @return array $schema_article_types_labels Schema article types with labels.
 	 */
 	public function schema_add_news_types_labels( $schema_article_types_labels ) {
-		return array_merge( $schema_article_types_labels,
+		return array_merge(
+			$schema_article_types_labels,
 			[
 				[
 					'name'  => __( 'News: Analysis article', 'wordpress-seo-news' ),
-					'value' => 'AnalysisNewsArticle'
+					'value' => 'AnalysisNewsArticle',
 				],
 				[
 					'name'  => __( 'News: Ask The Public article', 'wordpress-seo-news' ),
-					'value' => 'AskPublicNewsArticle'
+					'value' => 'AskPublicNewsArticle',
 				],
 				[
 					'name'  => __( 'News: Background article', 'wordpress-seo-news' ),
-					'value' => 'BackgroundNewsArticle'
+					'value' => 'BackgroundNewsArticle',
 				],
 				[
 					'name'  => __( 'News: Opinion article', 'wordpress-seo-news' ),
-					'value' => 'OpinionNewsArticle'
+					'value' => 'OpinionNewsArticle',
 				],
 				[
 					'name'  => __( 'News: Reportage article', 'wordpress-seo-news' ),
-					'value' => 'ReportageNewsArticle'
+					'value' => 'ReportageNewsArticle',
 				],
 				[
 					'name'  => __( 'News: Review article', 'wordpress-seo-news' ),
-					'value' => 'ReviewNewsArticle'
+					'value' => 'ReviewNewsArticle',
 				],
 			]
 		);
