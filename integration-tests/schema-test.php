@@ -119,116 +119,58 @@ class WPSEO_News_Schema_Test extends WPSEO_News_UnitTestCase {
 	}
 
 	/**
-	 * Tests the news article type.
+	 * Tests the Schema news types.
 	 *
-	 * @covers WPSEO_News_Schema::add_news_article_type
-	 * @covers WPSEO_News_Schema::is_post_type_included
-	 * @covers WPSEO_News_Schema::is_post_excluded
+	 * @covers WPSEO_News_Schema::schema_add_news_types
 	 */
-	public function test_add_news_article_type() {
-		$this->set_post_mock();
-		$this->default_mock
-			->expects( $this->once() )
-			->method( 'get_post' );
-
-		$this->default_mock
-			->expects( $this->once() )
-			->method( 'is_post_excluded' )
-			->willReturn( false );
-
+	public function test_schema_add_news_types() {
 		$this->assertSame(
-			[ 'Article', 'NewsArticle' ],
-			$this->default_mock->add_news_article_type( [ 'Article' ] )
+			[
+				'AnalysisNewsArticle'   => '',
+				'AskPublicNewsArticle'  => '',
+				'BackgroundNewsArticle' => '',
+				'OpinionNewsArticle'    => '',
+				'ReportageNewsArticle'  => '',
+				'ReviewNewsArticle'     => '',
+			],
+			$this->default_mock->schema_add_news_types( [] )
 		);
 	}
 
 	/**
-	 * Tests that news article type changes None to Article.
+	 * Tests the Schema news types labels.
 	 *
-	 * @covers WPSEO_News_Schema::add_news_article_type
-	 * @covers WPSEO_News_Schema::is_post_type_included
-	 * @covers WPSEO_News_Schema::is_post_excluded
+	 * @covers WPSEO_News_Schema::schema_add_news_types_labels
 	 */
-	public function test_add_news_article_type_change_none() {
-		$this->set_post_mock();
-		$this->default_mock
-			->expects( $this->once() )
-			->method( 'get_post' );
-
-		$this->default_mock
-			->expects( $this->once() )
-			->method( 'is_post_excluded' )
-			->willReturn( false );
-
+	public function test_schema_add_news_types_labels() {
 		$this->assertSame(
-			[ 'Article', 'NewsArticle' ],
-			$this->default_mock->add_news_article_type( [ 'None' ] )
-		);
-	}
-
-	/**
-	 * Tests that news article type handling type as string.
-	 *
-	 * @covers WPSEO_News_Schema::add_news_article_type
-	 * @covers WPSEO_News_Schema::is_post_type_included
-	 * @covers WPSEO_News_Schema::is_post_excluded
-	 */
-	public function test_add_news_article_type_handle_string() {
-		$this->set_post_mock();
-		$this->default_mock
-			->expects( $this->once() )
-			->method( 'get_post' );
-
-		$this->default_mock
-			->expects( $this->once() )
-			->method( 'is_post_excluded' )
-			->willReturn( false );
-
-		$this->assertSame(
-			[ 'Article', 'NewsArticle' ],
-			$this->default_mock->add_news_article_type( 'None' )
-		);
-	}
-
-	/**
-	 * Tests that news article type is not changed when the post type is not included.
-	 *
-	 * @covers WPSEO_News_Schema::add_news_article_type
-	 * @covers WPSEO_News_Schema::is_post_type_included
-	 */
-	public function test_add_news_article_type_post_type_not_included() {
-		$this->set_post_mock( 'other_post_type' );
-		$this->default_mock
-			->expects( $this->once() )
-			->method( 'get_post' );
-
-		$this->assertSame(
-			'None',
-			$this->default_mock->add_news_article_type( 'None' )
-		);
-	}
-
-	/**
-	 * Tests that news article type is not changed when the post is excluded.
-	 *
-	 * @covers WPSEO_News_Schema::add_news_article_type
-	 * @covers WPSEO_News_Schema::is_post_type_included
-	 * @covers WPSEO_News_Schema::is_post_excluded
-	 */
-	public function test_add_news_article_type_post_excluded() {
-		$this->set_post_mock();
-		$this->default_mock
-			->expects( $this->once() )
-			->method( 'get_post' );
-
-		$this->default_mock
-			->expects( $this->once() )
-			->method( 'is_post_excluded' )
-			->willReturn( true );
-
-		$this->assertSame(
-			'None',
-			$this->default_mock->add_news_article_type( 'None' )
+			[
+				[
+					'name'  => 'News: Analysis article',
+					'value' => 'AnalysisNewsArticle',
+				],
+				[
+					'name'  => 'News: Ask The Public article',
+					'value' => 'AskPublicNewsArticle',
+				],
+				[
+					'name'  => 'News: Background article',
+					'value' => 'BackgroundNewsArticle',
+				],
+				[
+					'name'  => 'News: Opinion article',
+					'value' => 'OpinionNewsArticle',
+				],
+				[
+					'name'  => 'News: Reportage article',
+					'value' => 'ReportageNewsArticle',
+				],
+				[
+					'name'  => 'News: Review article',
+					'value' => 'ReviewNewsArticle',
+				],
+			],
+			$this->default_mock->schema_add_news_types_labels( [] )
 		);
 	}
 
