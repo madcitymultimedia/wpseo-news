@@ -2,9 +2,9 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yoast SEO: News 12.9\n"
+"Project-Id-Version: Yoast SEO: News 13.0-RC1\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
-"POT-Creation-Date: 2021-08-10 08:13:03+00:00\n"
+"POT-Creation-Date: 2021-10-05 13:31:34+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -90,6 +90,30 @@ msgstr ""
 
 #: classes/meta-box.php:143
 msgid "News"
+msgstr ""
+
+#: classes/schema.php:147
+msgid "News: Analysis article"
+msgstr ""
+
+#: classes/schema.php:151
+msgid "News: Ask The Public article"
+msgstr ""
+
+#: classes/schema.php:155
+msgid "News: Background article"
+msgstr ""
+
+#: classes/schema.php:159
+msgid "News: Opinion article"
+msgstr ""
+
+#: classes/schema.php:163
+msgid "News: Reportage article"
+msgstr ""
+
+#: classes/schema.php:167
+msgid "News: Review article"
 msgstr ""
 
 #: classes/wpseo-news.php:188
@@ -194,9 +218,7 @@ msgid "Yoast SEO: News"
 msgstr ""
 
 #. Plugin URI of the plugin/theme
-msgid ""
-"https://yoast.com/wordpress/plugins/news-seo/"
-"#utm_source=wpadmin&utm_medium=plugin&utm_campaign=wpseonewsplugin"
+msgid "https://yoa.st/4fg"
 msgstr ""
 
 #. Description of the plugin/theme
@@ -208,7 +230,7 @@ msgid "Team Yoast"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "https://yoast.com/"
+msgid "http://yoa.st/1uk"
 msgstr ""
 
 #. %s expands to an opening anchor tag, %s expands to a closing anchor tag
