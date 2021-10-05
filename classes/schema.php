@@ -27,8 +27,10 @@ class WPSEO_News_Schema {
 	public function __construct() {
 		$this->date = new WPSEO_Date_Helper();
 
+		add_filter( 'wpseo_schema_article_types', [ $this, 'schema_add_news_types' ] );
+		add_filter( 'wpseo_schema_article_types_labels', [ $this, 'schema_add_news_types_labels' ] );
+
 		add_filter( 'wpseo_schema_article_post_types', [ $this, 'article_post_types' ] );
-		add_filter( 'wpseo_schema_article_type', [ $this, 'add_news_article_type' ] );
 		add_filter( 'wpseo_schema_article', [ $this, 'add_copyright_information' ] );
 	}
 
@@ -47,44 +49,6 @@ class WPSEO_News_Schema {
 		}
 
 		return $post_types;
-	}
-
-	/**
-	 * Adds the NewsArticle type.
-	 *
-	 * @param array|string $type Schema Article type.
-	 *
-	 * @return array Schema Article type.
-	 */
-	public function add_news_article_type( $type ) {
-		$post = $this->get_post();
-
-		if ( ! $this->is_post_type_included( $post ) ) {
-			return $type;
-		}
-		if ( $this->is_post_excluded( $post ) ) {
-			return $type;
-		}
-
-		// Make sure that we are dealing with an array of types.
-		if ( ! is_array( $type ) ) {
-			$type = [ $type ];
-		}
-
-		/*
-		 * Replace `None` with `Article` if included.
-		 * This is to keep it consistent with post types that already include an Article.
-		 */
-		$type = array_map(
-			static function ( $value ) {
-				return ( $value === 'None' ) ? 'Article' : $value;
-			},
-			$type
-		);
-
-		$type[] = 'NewsArticle';
-
-		return $type;
 	}
 
 	/**
@@ -145,5 +109,65 @@ class WPSEO_News_Schema {
 	 */
 	protected function get_post( $post = null ) {
 		return get_post( $post );
+	}
+
+	/**
+	 * Add schema article types.
+	 *
+	 * @param array $schema_article_types Schema article types.
+	 *
+	 * @return array $schema_article_types Schema article types.
+	 */
+	public function schema_add_news_types( $schema_article_types ) {
+		return array_merge(
+			$schema_article_types,
+			[
+				'AnalysisNewsArticle'   => '',
+				'AskPublicNewsArticle'  => '',
+				'BackgroundNewsArticle' => '',
+				'OpinionNewsArticle'    => '',
+				'ReportageNewsArticle'  => '',
+				'ReviewNewsArticle'     => '',
+			]
+		);
+	}
+
+	/**
+	 * Add schema article types with labels.
+	 *
+	 * @param array $schema_article_types_labels Schema article types with labels.
+	 *
+	 * @return array $schema_article_types_labels Schema article types with labels.
+	 */
+	public function schema_add_news_types_labels( $schema_article_types_labels ) {
+		return array_merge(
+			$schema_article_types_labels,
+			[
+				[
+					'name'  => __( 'News: Analysis article', 'wordpress-seo-news' ),
+					'value' => 'AnalysisNewsArticle',
+				],
+				[
+					'name'  => __( 'News: Ask The Public article', 'wordpress-seo-news' ),
+					'value' => 'AskPublicNewsArticle',
+				],
+				[
+					'name'  => __( 'News: Background article', 'wordpress-seo-news' ),
+					'value' => 'BackgroundNewsArticle',
+				],
+				[
+					'name'  => __( 'News: Opinion article', 'wordpress-seo-news' ),
+					'value' => 'OpinionNewsArticle',
+				],
+				[
+					'name'  => __( 'News: Reportage article', 'wordpress-seo-news' ),
+					'value' => 'ReportageNewsArticle',
+				],
+				[
+					'name'  => __( 'News: Review article', 'wordpress-seo-news' ),
+					'value' => 'ReviewNewsArticle',
+				],
+			]
+		);
 	}
 }
