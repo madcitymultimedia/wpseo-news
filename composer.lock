@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8acb8707808084bc03554926d1779667",
+    "content-hash": "42223620a892d22d0c1e57570b58fb36",
     "packages": [
         {
             "name": "yoast/i18n-module",
@@ -2533,7 +2533,7 @@
         },
         {
             "name": "yoast/wordpress-seo",
-            "version": "dev-release/17.4",
+            "version": "dev-trunk",
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
@@ -2562,6 +2562,7 @@
                 "yoast/wp-test-utils": "^0.2.1",
                 "yoast/yoastcs": "^2.2.0"
             },
+            "default-branch": true,
             "type": "wordpress-plugin",
             "autoload": {
                 "classmap": [
