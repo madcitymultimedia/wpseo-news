@@ -35,7 +35,6 @@ Changelog
 Enhancements:
 * Add Schema Article News subtypes (`ReviewNewsArticle`, `AnalysisNewsArticle`, `AskPublicNewsArticle`, `BackgroundNewsArticle`, `OpinionNewsArticle`, `ReportageNewsArticle`). 
 
-
 ### 12.9: August 10th, 2021
 Bugfixes:
 * Fixes a bug where a duplicate News section would be shown in the Yoast sidebar in the post editor when Yoast SEO Premium is active in combination with WP 5.8.
