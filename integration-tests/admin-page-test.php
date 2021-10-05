@@ -20,8 +20,8 @@ class WPSEO_News_Admin_Page_Test extends WPSEO_News_UnitTestCase {
 	/**
 	 * Setting up the instance of WPSEO_News_Admin_Page.
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		// Because is a global $wpseo_admin_pages we have to fill this one with an instance of WPSEO_Admin_Pages.
 		global $wpseo_admin_pages;

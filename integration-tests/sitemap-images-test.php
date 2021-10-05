@@ -22,8 +22,8 @@ class WPSEO_News_Sitemap_Images_Test extends WPSEO_News_UnitTestCase {
 	/**
 	 * Setting up the instance of WPSEO_News_Sitemap_Images.
 	 */
-	public function setUp() {
-		parent::setUp();
+	public function set_up() {
+		parent::set_up();
 
 		// Create a post, so the new object can actually be created.
 		// Neither is actually used for the current unit tests.
@@ -36,10 +36,10 @@ class WPSEO_News_Sitemap_Images_Test extends WPSEO_News_UnitTestCase {
 	/**
 	 * Clean up after all tests in this class have run.
 	 */
-	public function tearDown() {
+	public function tear_down() {
 		$this->instance = null;
 
-		parent::tearDown();
+		parent::tear_down();
 	}
 
 	/**
