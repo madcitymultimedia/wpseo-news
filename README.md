@@ -33,7 +33,7 @@ Changelog
 
 ### 13.0: October 19th, 2021
 Enhancements:
-* Add Schema Article News subtypes (`ReviewNewsArticle`, `AnalysisNewsArticle`, `AskPublicNewsArticle`, `BackgroundNewsArticle`, `OpinionNewsArticle`, `ReportageNewsArticle`). 
+* Adds Schema Article News subtypes: `ReviewNewsArticle`, `AnalysisNewsArticle`, `AskPublicNewsArticle`, `BackgroundNewsArticle`, `OpinionNewsArticle`, and `ReportageNewsArticle`. 
 
 ### 12.9: August 10th, 2021
 Bugfixes:
