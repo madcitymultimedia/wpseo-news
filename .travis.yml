@@ -31,13 +31,13 @@ jobs:
     - php: 7.2
       env: WP_VERSION=latest WP_MULTISITE=1 PHPUNIT=1
     - php: 5.6
-      env: WP_VERSION=5.8 WP_MULTISITE=1 PHPLINT=1 PHPUNIT=1
+      env: WP_VERSION=5.8 WP_MULTISITE=1 PHPUNIT=1
       # Use 'trusty' to test against MySQL 5.6, 'xenial' contains 5.7 by default.
       dist: trusty
     - php: 7.4
-      env: WP_VERSION=latest PHPLINT=1 PHPUNIT=1
+      env: WP_VERSION=latest PHPUNIT=1
     - php: 8.0
-      env: WP_VERSION=latest PHPLINT=1 PHPUNIT=1
+      env: WP_VERSION=latest PHPUNIT=1
     - stage: deploy-to-github-dist
       env: WP_VERSION=latest
       if: tag IS present
@@ -78,7 +78,7 @@ install:
   - |
     if [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
       travis_retry composer install --no-interaction --ignore-platform-reqs
-    elif [[ "$PHPUNIT" == "1" || "$PHPLINT" == "1" ]]; then
+    elif [[ "$PHPUNIT" == "1" ]]; then
       travis_retry composer install --no-interaction
     elif [[ "$TRAVIS_BUILD_STAGE_NAME" == "deploy-to-github-dist" ]]; then
       travis_retry composer install --no-dev --no-interaction
@@ -136,13 +136,6 @@ script:
       travis_fold start "JavaScript.check" && travis_time_start
       npm install -g grunt-cli && npm install --no-optional && grunt check:js
       travis_time_finish && travis_fold end "JavaScript.check"
-    fi
-  # PHP Linting
-  - |
-    if [[ "$PHPLINT" == "1" ]]; then
-      travis_fold start "PHP.check" && travis_time_start
-      composer lint
-      travis_time_finish && travis_fold end "PHP.check"
     fi
   # PHP Integration Tests
   - |
