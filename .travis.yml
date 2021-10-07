@@ -29,7 +29,7 @@ jobs:
     - php: 7.3
       env: WP_VERSION=master PHPUNIT=1
     - php: 7.2
-      env: WP_VERSION=latest WP_MULTISITE=1 SECURITY=1 PHPUNIT=1
+      env: WP_VERSION=latest WP_MULTISITE=1 PHPUNIT=1
     - php: 5.6
       env: WP_VERSION=5.8 WP_MULTISITE=1 PHPLINT=1 PHPUNIT=1
       # Use 'trusty' to test against MySQL 5.6, 'xenial' contains 5.7 by default.
@@ -72,7 +72,6 @@ jobs:
 
 before_install:
   - phpenv config-rm xdebug.ini || echo 'No xdebug config.'
-  - export SECURITYCHECK_DIR=/tmp/security-checker
   - composer config --global github-oauth.github.com $GITHUB_OAUTH_TOKEN
 
 install:
@@ -84,7 +83,6 @@ install:
     elif [[ "$TRAVIS_BUILD_STAGE_NAME" == "deploy-to-github-dist" ]]; then
       travis_retry composer install --no-dev --no-interaction
     fi
-  - if [[ "$SECURITY" == "1" ]]; then wget -P $SECURITYCHECK_DIR https://github.com/fabpot/local-php-security-checker/releases/download/v1.2.0/local-php-security-checker_1.2.0_linux_amd64 && chmod +x $SECURITYCHECK_DIR/local-php-security-checker_1.2.0_linux_amd64;fi
 
 before_script:
   # Careful: The HTTPS version of the following URL is different, therefore we need to use HTTP.
@@ -181,5 +179,3 @@ script:
       composer test
       travis_time_finish && travis_fold end "PHP.tests"
     fi
-  # Check for known security vulnerabilities in the currently locked-in dependencies.
-  - if [[ "$SECURITY" == "1" ]]; then $SECURITYCHECK_DIR/local-php-security-checker_1.2.0_linux_amd64 --path=$(pwd)/composer.lock;fi
