@@ -10,9 +10,9 @@ phpcs.xml
 .phpcs.xml
 .cache/phpcs.cache
 .phpunit.result.cache
+/languages/*
 !/languages/index.php
 !/languages/wordpress-seo-news.pot
-/languages
 gettext.pot
 .env
 
