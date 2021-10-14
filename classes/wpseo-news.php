@@ -145,8 +145,8 @@ class WPSEO_News {
 			return false;
 		}
 
-		// At least 16.9-RC6, which fixes duplicate News sidebar items on WP 5.8.
-		if ( version_compare( $wordpress_seo_version, '16.9-RC6', '<' ) ) {
+		// At least 17.4-RC3, which enables the filtering of the Schema Article types.
+		if ( version_compare( $wordpress_seo_version, '17.4-RC3', '<' ) ) {
 			add_action( 'all_admin_notices', [ $this, 'error_upgrade_wpseo' ] );
 
 			return false;

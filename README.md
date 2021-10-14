@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 5.6
 Tested up to: 5.8
-Stable tag: 13.0-RC1
+Stable tag: 13.0-RC2
 Requires PHP: 5.6.20
 Depends: Yoast SEO
 
@@ -33,7 +33,7 @@ Changelog
 
 ### 13.0: October 19th, 2021
 Enhancements:
-* Add Schema Article News subtypes (`ReviewNewsArticle`, `AnalysisNewsArticle`, `AskPublicNewsArticle`, `BackgroundNewsArticle`, `OpinionNewsArticle`, `ReportageNewsArticle`). 
+* Adds Schema Article News subtypes: `ReviewNewsArticle`, `AnalysisNewsArticle`, `AskPublicNewsArticle`, `BackgroundNewsArticle`, `OpinionNewsArticle`, and `ReportageNewsArticle`. 
 
 ### 12.9: August 10th, 2021
 Bugfixes:
