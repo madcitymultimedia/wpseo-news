@@ -5,6 +5,8 @@
  * @package WPSEO_News\XML_Sitemaps
  */
 
+use Yoast\WP\SEO\Repositories\Indexable_Repository;
+
 /**
  * Handling the generation of the News Sitemap.
  */
@@ -212,8 +214,6 @@ class WPSEO_News_Sitemap {
 	 * @return array|object|null
 	 */
 	private function get_items( $limit = 1000 ) {
-		global $wpdb;
-
 		// Get supported post types.
 		$post_types = WPSEO_News::get_included_post_types();
 
@@ -221,23 +221,19 @@ class WPSEO_News_Sitemap {
 			return [];
 		}
 
-		$replacements   = $post_types;
-		$replacements[] = max( 1, min( 1000, $limit ) );
-
-		// Get posts for the last two days only, credit to Alex Moss for this code.
-		$items = $wpdb->get_results(
-			$wpdb->prepare(
-				"SELECT ID, post_content, post_name, post_author, post_parent, post_date_gmt, post_date, post_title, post_type
-				FROM {$wpdb->posts}
-				WHERE post_status='publish'
-					AND post_date_gmt >= NOW() - INTERVAL 48 HOUR
-					AND post_type IN (" . implode( ',', array_fill( 0, count( $post_types ), '%s' ) ) . ')
-				ORDER BY post_date_gmt DESC
-				LIMIT 0, %d
-				',
-				$replacements
-			)
-		);
+		$repository = YoastSEO()->classes->get( 'Yoast\WP\SEO\Repositories\Indexable_Repository' );
+		$items      = $repository->query()
+								 ->select( 'object_id', 'ID' )
+								 ->select( 'permalink' )
+								 ->select( 'breadcrumb_title', 'title' )
+								 ->select( 'object_published_at', 'post_date' )
+								 ->where( 'post_status', 'publish' )
+								 ->where( 'object_type', 'post' )
+//											 ->where_not_equal( 'is_robots_noindex', true )
+								 ->where_in( 'object_sub_type', $post_types )
+								 ->where_raw( 'object_published_at >= NOW() - INTERVAL 48 HOUR' )
+								 ->limit( 1000 )
+								 ->find_many();
 
 		return $items;
 	}

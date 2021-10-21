@@ -72,16 +72,6 @@ class WPSEO_News_Sitemap_Item {
 			$skip_build_item = true;
 		}
 
-		$item_noindex = WPSEO_Meta::get_value( 'meta-robots-noindex', $this->item->ID );
-
-		if ( $item_noindex === '1' ) {
-			$skip_build_item = true;
-		}
-
-		if ( $item_noindex === '0' && WPSEO_Options::get( 'noindex-' . $this->item->post_type ) === true ) {
-			$skip_build_item = true;
-		}
-
 		if ( WPSEO_News::is_excluded_through_terms( $this->item->ID, $this->item->post_type ) ) {
 			$skip_build_item = true;
 		}
@@ -103,10 +93,8 @@ class WPSEO_News_Sitemap_Item {
 	 * Building each sitemap item.
 	 */
 	private function build_item() {
-		$this->item->post_status = 'publish';
-
 		$this->output .= '<url>' . "\n";
-		$this->output .= "\t<loc>" . get_permalink( $this->item ) . '</loc>' . "\n";
+		$this->output .= "\t<loc>" . $this->item->permalink . '</loc>' . "\n";
 
 		// Building the news_tag.
 		$this->build_news_tag();
@@ -122,7 +110,6 @@ class WPSEO_News_Sitemap_Item {
 	 */
 	private function build_news_tag() {
 
-		$title         = $this->get_item_title( $this->item );
 		$stock_tickers = $this->get_item_stock_tickers( $this->item->ID );
 
 		$this->output .= "\t<news:news>\n";
@@ -130,8 +117,9 @@ class WPSEO_News_Sitemap_Item {
 		// Build the publication tag.
 		$this->build_publication_tag();
 
-		$this->output .= "\t\t<news:publication_date>" . $this->get_publication_date( $this->item ) . '</news:publication_date>' . "\n";
-		$this->output .= "\t\t<news:title><![CDATA[" . $title . ']]></news:title>' . "\n";
+		echo '<!--', print_r( $this->item, 1 ), '-->';
+		$this->output .= "\t\t<news:publication_date>" . $this->date->format( $this->item->post_date ) . '</news:publication_date>' . "\n";
+		$this->output .= "\t\t<news:title><![CDATA[" . $this->item->title . ']]></news:title>' . "\n";
 
 		if ( ! empty( $stock_tickers ) ) {
 			$this->output .= "\t\t<news:stock_tickers><![CDATA[" . $stock_tickers . ']]></news:stock_tickers>' . "\n";
@@ -154,22 +142,6 @@ class WPSEO_News_Sitemap_Item {
 	}
 
 	/**
-	 * Gets the SEO title of the item, with a fallback to the item title.
-	 *
-	 * @param WP_Post|null $item The post object.
-	 *
-	 * @return string The formatted title or, if no formatted title can be created, the post_title.
-	 */
-	protected function get_item_title( $item = null ) {
-		// Exit early if the item is null.
-		if ( $item === null ) {
-			return '';
-		}
-
-		return $item->post_title;
-	}
-
-	/**
 	 * Getting the publication language.
 	 *
 	 * @return string Publication language.
@@ -184,21 +156,6 @@ class WPSEO_News_Sitemap_Item {
 		}
 
 		return substr( $locale, 0, 2 );
-	}
-
-	/**
-	 * Parses the $item argument into an xml format.
-	 *
-	 * @param WP_Post $item Object to get data from.
-	 *
-	 * @return string
-	 */
-	protected function get_publication_date( $item ) {
-		if ( $this->date->is_valid_datetime( $item->post_date_gmt ) ) {
-			return $this->date->format( $item->post_date_gmt );
-		}
-
-		return '';
 	}
 
 	/**
