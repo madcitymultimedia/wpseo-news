@@ -252,6 +252,7 @@ class WPSEO_News_Sitemap {
 						  ->where_raw( '( is_robots_noindex = 0 OR is_robots_noindex IS NULL )' )
 						  ->where_raw( 'object_published_at >= NOW() - INTERVAL 48 HOUR' )
 						  ->where_raw( '( pm.meta_value = \'0\' OR pm.meta_value IS NULL )' )
+						  ->order_by_desc( 'object_published_at' )
 						  ->limit( 1000 )
 						  ->find_many();
 	}
