@@ -34,17 +34,22 @@ class WPSEO_News_Sitemap_Item {
 	private $item;
 
 	/**
+	 * The publication tag
+	 *
+	 * @var string
+	 */
+	private $publication_tag;
+
+	/**
 	 * Setting properties and build the item.
 	 *
-	 * @param Indexable $item    The post.
-	 * @param null      $options Deprecated. The options.
+	 * @param Indexable $item            The post.
+	 * @param null      $publication_tag The publication tag.
 	 */
-	public function __construct( $item, $options = null ) {
-		if ( $options !== null ) {
-			_deprecated_argument( __METHOD__, 'WPSEO News: 12.4', 'The options argument is deprecated' );
-		}
+	public function __construct( $item, $publication_tag ) {
+		$this->item            = $item;
+		$this->publication_tag = $publication_tag;
 
-		$this->item = $item;
 		$this->date = new WPSEO_Date_Helper();
 
 		// Check if item should be skipped.
@@ -104,13 +109,8 @@ class WPSEO_News_Sitemap_Item {
 	 * Building the news tag.
 	 */
 	private function build_news_tag() {
-
-
 		$this->output .= "\t<news:news>\n";
-
-		// Build the publication tag.
-		$this->build_publication_tag();
-
+		$this->output .= $this->publication_tag;
 		$this->output .= "\t\t<news:publication_date>" . $this->date->format( $this->item->object_published_at ) . '</news:publication_date>' . "\n";
 		$this->output .= "\t\t<news:title><![CDATA[" . $this->item->title . ']]></news:title>' . "\n";
 
@@ -119,41 +119,5 @@ class WPSEO_News_Sitemap_Item {
 		}
 
 		$this->output .= "\t</news:news>\n";
-	}
-
-	/**
-	 * Builds the publication tag.
-	 */
-	private function build_publication_tag() {
-		static $publication_tag = '';
-
-		if ( empty( $publication_tag ) ) {
-			$publication_name = WPSEO_Options::get( 'news_sitemap_name', get_bloginfo( 'name' ) );
-			$publication_lang = $this->get_publication_lang();
-
-			$publication_tag .= "\t\t<news:publication>\n";
-			$publication_tag .= "\t\t\t<news:name>" . $publication_name . '</news:name>' . "\n";
-			$publication_tag .= "\t\t\t<news:language>" . htmlspecialchars( $publication_lang, ENT_COMPAT, get_bloginfo( 'charset' ), false ) . '</news:language>' . "\n";
-			$publication_tag .= "\t\t</news:publication>\n";
-		}
-
-		$this->output .= $publication_tag;
-	}
-
-	/**
-	 * Getting the publication language.
-	 *
-	 * @return string Publication language.
-	 */
-	private function get_publication_lang() {
-		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WPSEO hook.
-		$locale = apply_filters( 'wpseo_locale', get_locale() );
-
-		// Fallback to 'en', if the length of the locale is less than 2 characters.
-		if ( strlen( $locale ) < 2 ) {
-			$locale = 'en';
-		}
-
-		return substr( $locale, 0, 2 );
 	}
 }
