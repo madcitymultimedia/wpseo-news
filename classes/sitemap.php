@@ -224,13 +224,14 @@ class WPSEO_News_Sitemap {
 		$repository = YoastSEO()->classes->get( 'Yoast\WP\SEO\Repositories\Indexable_Repository' );
 		$items      = $repository->query()
 								 ->select( 'object_id', 'ID' )
+								 ->select( 'object_sub_type', 'post_type' )
 								 ->select( 'permalink' )
 								 ->select( 'breadcrumb_title', 'title' )
 								 ->select( 'object_published_at', 'post_date' )
 								 ->where( 'post_status', 'publish' )
 								 ->where( 'object_type', 'post' )
-//											 ->where_not_equal( 'is_robots_noindex', true )
 								 ->where_in( 'object_sub_type', $post_types )
+								 ->where_raw( '( is_robots_noindex = 0 OR is_robots_noindex IS NULL )' )
 								 ->where_raw( 'object_published_at >= NOW() - INTERVAL 48 HOUR' )
 								 ->limit( 1000 )
 								 ->find_many();
