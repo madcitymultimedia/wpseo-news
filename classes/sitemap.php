@@ -149,6 +149,8 @@ class WPSEO_News_Sitemap {
 	 * @return string
 	 */
 	public function build_sitemap() {
+		$start_time = microtime();
+
 		$output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">' . "\n";
 
 		$items = $this->get_items();
@@ -160,6 +162,8 @@ class WPSEO_News_Sitemap {
 
 		$output .= '</urlset>';
 
+		$total_time = microtime() - $start_time;
+		$output .= '<!-- ' . $total_time . 's -->';
 		return $output;
 	}
 
