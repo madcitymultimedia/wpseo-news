@@ -5,6 +5,8 @@
  * @package WPSEO_News\XML_Sitemaps
  */
 
+use Yoast\WP\SEO\Models\Indexable;
+
 /**
  * Handle images used in News.
  */
@@ -13,7 +15,7 @@ class WPSEO_News_Sitemap_Images {
 	/**
 	 * The current item.
 	 *
-	 * @var object
+	 * @var Indexable
 	 */
 	private $item;
 
@@ -34,8 +36,8 @@ class WPSEO_News_Sitemap_Images {
 	/**
 	 * Setting properties and build the item.
 	 *
-	 * @param object $item    News post object.
-	 * @param null   $options Deprecated. The options.
+	 * @param Indexable $item    News post Indexable.
+	 * @param null      $options Deprecated. The options.
 	 */
 	public function __construct( $item, $options = null ) {
 		if ( $options !== null ) {
@@ -60,11 +62,16 @@ class WPSEO_News_Sitemap_Images {
 	 * Parsing the images from the item.
 	 */
 	private function parse_item_images() {
+		$encoding = get_bloginfo( 'charset' );
+
 		$this->get_item_images();
 
 		if ( ! empty( $this->images ) ) {
-			foreach ( $this->images as $src => $img ) {
-				$this->parse_item_image( $src, $img );
+			foreach ( $this->images as $image ) {
+				$this->output .= "\t<image:image>\n";
+				$this->output .= "\t\t<image:loc>" . htmlspecialchars( $image->url, ENT_COMPAT, $encoding, false ) . "</image:loc>\n";
+				// Ideally we'd want to output the image's alt here.
+				$this->output .= "\t</image:image>\n";
 			}
 		}
 	}
@@ -73,173 +80,18 @@ class WPSEO_News_Sitemap_Images {
 	 * Getting the images for the given $item.
 	 */
 	private function get_item_images() {
-		if ( preg_match_all( '/<img [^>]+>/', $this->item->post_content, $matches ) ) {
-			$this->get_images_from_content( $matches );
+		$links_repository = YoastSEO()->classes->get( 'Yoast\WP\SEO\Repositories\SEO_Links_Repository' );
+		$this->images = $links_repository->query()
+			->select( 'url' )
+			->where( 'indexable_id', $this->item->id )
+			->where( 'type', 'image-in' )
+			->find_many();
+
+		if ( has_post_thumbnail( $this->item->object_id ) ) {
+			$featured_image = (object) [
+				'url' => get_the_post_thumbnail_url( $this->item->object_id )
+			];
+			$this->images[] = $featured_image;
 		}
-
-		// Also check if the featured image value is set.
-		$post_thumbnail_id = get_post_thumbnail_id( $this->item->ID );
-		if ( $post_thumbnail_id ) {
-			$this->get_item_featured_image( $post_thumbnail_id );
-		}
-	}
-
-	/**
-	 * Getting the images from the content.
-	 *
-	 * @param array $matches Images found in the content.
-	 */
-	private function get_images_from_content( $matches ) {
-		foreach ( $matches[0] as $img ) {
-			if ( ! preg_match( '/src=("|\')([^"|\']+)("|\')/', $img, $match ) ) {
-				continue;
-			}
-
-			$src = $this->parse_image_source( $match[2] );
-			if ( ! empty( $src ) && ! isset( $this->images[ $src ] ) ) {
-				$this->images[ $src ] = $this->parse_image( $img );
-			}
-		}
-	}
-
-	/**
-	 * Parsing the image source.
-	 *
-	 * @param string $src Image Source.
-	 *
-	 * @return string|null
-	 */
-	private function parse_image_source( $src ) {
-
-		static $home_url;
-
-		if ( is_null( $home_url ) ) {
-			$home_url = home_url();
-		}
-
-		if ( strpos( $src, 'http' ) !== 0 && strpos( $src, '//' ) !== 0 ) {
-			if ( $src[0] !== '/' ) {
-				return null;
-			}
-
-			$src = $home_url . $src;
-		}
-
-		if ( $src !== esc_url( $src ) ) {
-			return null;
-		}
-
-		return $src;
-	}
-
-	/**
-	 * Setting title and alt for image and returns them in an array.
-	 *
-	 * @param string $img Image HTML.
-	 *
-	 * @return string[]
-	 */
-	private function parse_image( $img ) {
-		$image = [];
-		if ( preg_match( '/title=("|\')([^"\']+)("|\')/', $img, $match ) ) {
-			$image['title'] = str_replace( [ '-', '_' ], ' ', $match[2] );
-		}
-
-		if ( preg_match( '/alt=("|\')([^"\']+)("|\')/', $img, $match ) ) {
-			$image['alt'] = str_replace( [ '-', '_' ], ' ', $match[2] );
-		}
-
-		return $image;
-	}
-
-	/**
-	 * Parse the XML for given image.
-	 *
-	 * @param string $src Image source.
-	 * @param array  $img Image array.
-	 *
-	 * @return void
-	 */
-	private function parse_item_image( $src, $img ) {
-		/**
-		 * Filter: 'wpseo_xml_sitemap_img_src' - Allow changing of sitemap image src.
-		 *
-		 * @api string $src The image source.
-		 *
-		 * @param object $item The post item.
-		 */
-		$src = apply_filters( 'wpseo_xml_sitemap_img_src', $src, $this->item ); // phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WPSEO hook.
-
-		$encoding      = get_bloginfo( 'charset' );
-		$this->output .= "\t<image:image>\n";
-		$this->output .= "\t\t<image:loc>" . htmlspecialchars( $src, ENT_COMPAT, $encoding, false ) . "</image:loc>\n";
-
-		if ( ! empty( $img['title'] ) ) {
-			$this->output .= "\t\t<image:title>" . htmlspecialchars( $img['title'], ENT_COMPAT, $encoding, false ) . "</image:title>\n";
-		}
-
-		if ( ! empty( $img['alt'] ) ) {
-			$this->output .= "\t\t<image:caption>" . htmlspecialchars( $img['alt'], ENT_COMPAT, $encoding, false ) . "</image:caption>\n";
-		}
-
-		$this->output .= "\t</image:image>\n";
-	}
-
-	/**
-	 * Getting the featured image.
-	 *
-	 * @param int $post_thumbnail_id Thumbnail ID.
-	 *
-	 * @return void
-	 */
-	private function get_item_featured_image( $post_thumbnail_id ) {
-
-		$attachment = $this->get_attachment( $post_thumbnail_id );
-
-		if ( empty( $attachment ) ) {
-			return;
-		}
-
-		$image = [];
-
-		if ( ! empty( $attachment['title'] ) ) {
-			$image['title'] = $attachment['title'];
-		}
-
-		if ( ! empty( $attachment['alt'] ) ) {
-			$image['alt'] = $attachment['alt'];
-		}
-
-		if ( ! empty( $attachment['href'] ) ) {
-			$this->images[ $attachment['href'] ] = $image;
-		}
-		elseif ( ! empty( $attachment['src'] ) ) {
-			$this->images[ $attachment['src'] ] = $image;
-		}
-	}
-
-	/**
-	 * Get attachment.
-	 *
-	 * @param int $attachment_id Attachment ID.
-	 *
-	 * @return array
-	 */
-	private function get_attachment( $attachment_id ) {
-		// Get attachment.
-		$attachment = get_post( $attachment_id );
-
-		// Check if we've found an attachment.
-		if ( is_null( $attachment ) ) {
-			return [];
-		}
-
-		// Return properties.
-		return [
-			'title'       => $attachment->post_title,
-			'alt'         => get_post_meta( $attachment->ID, '_wp_attachment_image_alt', true ),
-			'href'        => wp_get_attachment_url( $attachment->ID ),
-			'src'         => $attachment->guid,
-		];
 	}
 }

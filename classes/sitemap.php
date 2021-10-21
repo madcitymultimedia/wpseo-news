@@ -5,6 +5,7 @@
  * @package WPSEO_News\XML_Sitemaps
  */
 
+use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
 
 /**
@@ -211,7 +212,7 @@ class WPSEO_News_Sitemap {
 	 *
 	 * @param int $limit The limit for the query, default is 1000 items.
 	 *
-	 * @return array|object|null
+	 * @return array
 	 */
 	private function get_items( $limit = 1000 ) {
 		// Get supported post types.
@@ -223,11 +224,12 @@ class WPSEO_News_Sitemap {
 
 		$repository = YoastSEO()->classes->get( 'Yoast\WP\SEO\Repositories\Indexable_Repository' );
 		$items      = $repository->query()
-								 ->select( 'object_id', 'ID' )
-								 ->select( 'object_sub_type', 'post_type' )
+			                     ->select( 'id' )
+								 ->select( 'object_id' )
+								 ->select( 'object_sub_type' )
 								 ->select( 'permalink' )
 								 ->select( 'breadcrumb_title', 'title' )
-								 ->select( 'object_published_at', 'post_date' )
+								 ->select( 'object_published_at' )
 								 ->where( 'post_status', 'publish' )
 								 ->where( 'object_type', 'post' )
 								 ->where_in( 'object_sub_type', $post_types )
@@ -242,7 +244,7 @@ class WPSEO_News_Sitemap {
 	/**
 	 * Loop through all $items and build each one of it.
 	 *
-	 * @param array $items Items to convert to sitemap output.
+	 * @param Indexable[] $items Items to convert to sitemap output.
 	 *
 	 * @return string
 	 */

@@ -5,6 +5,8 @@
  * @package WPSEO_News\XML_Sitemaps
  */
 
+use Yoast\WP\SEO\Models\Indexable;
+
 /**
  * The News Sitemap entry.
  */
@@ -27,15 +29,15 @@ class WPSEO_News_Sitemap_Item {
 	/**
 	 * The current item.
 	 *
-	 * @var object
+	 * @var Indexable
 	 */
 	private $item;
 
 	/**
 	 * Setting properties and build the item.
 	 *
-	 * @param object $item    The post.
-	 * @param null   $options Deprecated. The options.
+	 * @param Indexable $item    The post.
+	 * @param null      $options Deprecated. The options.
 	 */
 	public function __construct( $item, $options = null ) {
 		if ( $options !== null ) {
@@ -68,11 +70,11 @@ class WPSEO_News_Sitemap_Item {
 	private function skip_build_item() {
 		$skip_build_item = false;
 
-		if ( WPSEO_News::is_excluded_through_sitemap( $this->item->ID ) ) {
+		if ( WPSEO_News::is_excluded_through_sitemap( $this->item->object_id ) ) {
 			$skip_build_item = true;
 		}
 
-		if ( WPSEO_News::is_excluded_through_terms( $this->item->ID, $this->item->post_type ) ) {
+		if ( WPSEO_News::is_excluded_through_terms( $this->item->ID, $this->item->object_sub_type ) ) {
 			$skip_build_item = true;
 		}
 
@@ -84,7 +86,7 @@ class WPSEO_News_Sitemap_Item {
 		 *
 		 * @since 12.8.0
 		 */
-		$skip_build_item = apply_filters( 'Yoast\WP\News\skip_build_item', $skip_build_item, $this->item->ID );
+		$skip_build_item = apply_filters( 'Yoast\WP\News\skip_build_item', $skip_build_item, $this->item->object_id );
 
 		return is_bool( $skip_build_item ) && $skip_build_item;
 	}
@@ -110,14 +112,14 @@ class WPSEO_News_Sitemap_Item {
 	 */
 	private function build_news_tag() {
 
-		$stock_tickers = $this->get_item_stock_tickers( $this->item->ID );
+		$stock_tickers = $this->get_item_stock_tickers( $this->item->object_id );
 
 		$this->output .= "\t<news:news>\n";
 
 		// Build the publication tag.
 		$this->build_publication_tag();
 
-		$this->output .= "\t\t<news:publication_date>" . $this->date->format( $this->item->post_date ) . '</news:publication_date>' . "\n";
+		$this->output .= "\t\t<news:publication_date>" . $this->date->format( $this->item->object_published_at ) . '</news:publication_date>' . "\n";
 		$this->output .= "\t\t<news:title><![CDATA[" . $this->item->title . ']]></news:title>' . "\n";
 
 		if ( ! empty( $stock_tickers ) ) {
