@@ -358,15 +358,11 @@ class WPSEO_News {
 	/**
 	 * Determines whether the post is excluded in the news sitemap (and therefore schema) output.
 	 *
-	 * @deprecated 13.1
-	 * @codeCoverageIgnore
-	 *
 	 * @param int $post_id The ID of the post to check for.
 	 *
 	 * @return bool Whether or not the post is excluded.
 	 */
 	public static function is_excluded_through_sitemap( $post_id ) {
-		_deprecated_function( __METHOD__, 'WPSEO News 13.1' );
 		// Check the specific WordPress SEO News no-index value.
 		return WPSEO_Meta::get_value( 'newssitemap-robots-index', $post_id ) === '1';
 	}
