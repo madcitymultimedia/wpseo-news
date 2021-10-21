@@ -133,13 +133,19 @@ class WPSEO_News_Sitemap_Item {
 	 * Builds the publication tag.
 	 */
 	private function build_publication_tag() {
-		$publication_name = WPSEO_Options::get( 'news_sitemap_name', get_bloginfo( 'name' ) );
-		$publication_lang = $this->get_publication_lang();
+		static $publication_tag = '';
 
-		$this->output .= "\t\t<news:publication>\n";
-		$this->output .= "\t\t\t<news:name>" . $publication_name . '</news:name>' . "\n";
-		$this->output .= "\t\t\t<news:language>" . htmlspecialchars( $publication_lang, ENT_COMPAT, get_bloginfo( 'charset' ), false ) . '</news:language>' . "\n";
-		$this->output .= "\t\t</news:publication>\n";
+		if ( empty( $publication_tag ) ) {
+			$publication_name = WPSEO_Options::get( 'news_sitemap_name', get_bloginfo( 'name' ) );
+			$publication_lang = $this->get_publication_lang();
+
+			$publication_tag .= "\t\t<news:publication>\n";
+			$publication_tag .= "\t\t\t<news:name>" . $publication_name . '</news:name>' . "\n";
+			$publication_tag .= "\t\t\t<news:language>" . htmlspecialchars( $publication_lang, ENT_COMPAT, get_bloginfo( 'charset' ), false ) . '</news:language>' . "\n";
+			$publication_tag .= "\t\t</news:publication>\n";
+		}
+
+		$this->output = $publication_tag;
 	}
 
 	/**
