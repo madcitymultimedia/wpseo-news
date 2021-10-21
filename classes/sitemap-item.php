@@ -70,10 +70,6 @@ class WPSEO_News_Sitemap_Item {
 	private function skip_build_item() {
 		$skip_build_item = false;
 
-		if ( WPSEO_News::is_excluded_through_sitemap( $this->item->object_id ) ) {
-			$skip_build_item = true;
-		}
-
 		if ( WPSEO_News::is_excluded_through_terms( $this->item->ID, $this->item->object_sub_type ) ) {
 			$skip_build_item = true;
 		}
@@ -109,7 +105,6 @@ class WPSEO_News_Sitemap_Item {
 	 */
 	private function build_news_tag() {
 
-		$stock_tickers = $this->get_item_stock_tickers( $this->item->object_id );
 
 		$this->output .= "\t<news:news>\n";
 
@@ -119,8 +114,8 @@ class WPSEO_News_Sitemap_Item {
 		$this->output .= "\t\t<news:publication_date>" . $this->date->format( $this->item->object_published_at ) . '</news:publication_date>' . "\n";
 		$this->output .= "\t\t<news:title><![CDATA[" . $this->item->title . ']]></news:title>' . "\n";
 
-		if ( ! empty( $stock_tickers ) ) {
-			$this->output .= "\t\t<news:stock_tickers><![CDATA[" . $stock_tickers . ']]></news:stock_tickers>' . "\n";
+		if ( ! empty( $this->item->stock_tickers ) ) {
+			$this->output .= "\t\t<news:stock_tickers><![CDATA[" . $this->item->stock_tickers . ']]></news:stock_tickers>' . "\n";
 		}
 
 		$this->output .= "\t</news:news>\n";
@@ -160,19 +155,5 @@ class WPSEO_News_Sitemap_Item {
 		}
 
 		return substr( $locale, 0, 2 );
-	}
-
-	/**
-	 * Getting the stock_tickers for given $item_id.
-	 *
-	 * @param int $item_id Item to get ticker from.
-	 *
-	 * @return string
-	 */
-	private function get_item_stock_tickers( $item_id ) {
-		$stock_tickers = explode( ',', trim( WPSEO_Meta::get_value( 'newssitemap-stocktickers', $item_id ) ) );
-		$stock_tickers = trim( implode( ', ', $stock_tickers ), ', ' );
-
-		return $stock_tickers;
 	}
 }
