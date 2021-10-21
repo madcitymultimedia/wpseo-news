@@ -117,7 +117,6 @@ class WPSEO_News_Sitemap_Item {
 		// Build the publication tag.
 		$this->build_publication_tag();
 
-		echo '<!--', print_r( $this->item, 1 ), '-->';
 		$this->output .= "\t\t<news:publication_date>" . $this->date->format( $this->item->post_date ) . '</news:publication_date>' . "\n";
 		$this->output .= "\t\t<news:title><![CDATA[" . $this->item->title . ']]></news:title>' . "\n";
 
