@@ -101,9 +101,6 @@ class WPSEO_News_Sitemap_Item {
 		// Building the news_tag.
 		$this->build_news_tag();
 
-		// Getting the images for this item.
-		$this->get_item_images();
-
 		$this->output .= '</url>' . "\n";
 	}
 
@@ -177,12 +174,5 @@ class WPSEO_News_Sitemap_Item {
 		$stock_tickers = trim( implode( ', ', $stock_tickers ), ', ' );
 
 		return $stock_tickers;
-	}
-
-	/**
-	 * Getting the images for current item.
-	 */
-	private function get_item_images() {
-		$this->output .= new WPSEO_News_Sitemap_Images( $this->item );
 	}
 }

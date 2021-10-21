@@ -83,7 +83,10 @@ class WPSEO_News_Sitemap {
 			if ( method_exists( $GLOBALS['wpseo_sitemaps'], 'register_xsl' ) ) {
 				$xsl_rewrite_rule = sprintf( '^%s-sitemap.xsl$', $this->basename );
 
-				$GLOBALS['wpseo_sitemaps']->register_xsl( $this->basename, [ $this, 'build_news_sitemap_xsl' ], $xsl_rewrite_rule );
+				$GLOBALS['wpseo_sitemaps']->register_xsl( $this->basename, [
+					$this,
+					'build_news_sitemap_xsl'
+				], $xsl_rewrite_rule );
 			}
 		}
 	}
@@ -141,7 +144,7 @@ class WPSEO_News_Sitemap {
 	 * @return string
 	 */
 	public function build_sitemap() {
-		$output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
+		$output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">' . "\n";
 
 		$items = $this->get_items();
 
@@ -222,23 +225,23 @@ class WPSEO_News_Sitemap {
 			return [];
 		}
 
+		/** @var $repository Indexable_Repository */
 		$repository = YoastSEO()->classes->get( 'Yoast\WP\SEO\Repositories\Indexable_Repository' );
-		$items      = $repository->query()
-			                     ->select( 'id' )
-								 ->select( 'object_id' )
-								 ->select( 'object_sub_type' )
-								 ->select( 'permalink' )
-								 ->select( 'breadcrumb_title', 'title' )
-								 ->select( 'object_published_at' )
-								 ->where( 'post_status', 'publish' )
-								 ->where( 'object_type', 'post' )
-								 ->where_in( 'object_sub_type', $post_types )
-								 ->where_raw( '( is_robots_noindex = 0 OR is_robots_noindex IS NULL )' )
-								 ->where_raw( 'object_published_at >= NOW() - INTERVAL 48 HOUR' )
-								 ->limit( 1000 )
-								 ->find_many();
 
-		return $items;
+		return $repository->query()
+						  ->select( 'id' )
+						  ->select( 'object_id' )
+						  ->select( 'object_sub_type' )
+						  ->select( 'permalink' )
+						  ->select( 'breadcrumb_title', 'title' )
+						  ->select( 'object_published_at' )
+						  ->where( 'post_status', 'publish' )
+						  ->where( 'object_type', 'post' )
+						  ->where_in( 'object_sub_type', $post_types )
+						  ->where_raw( '( is_robots_noindex = 0 OR is_robots_noindex IS NULL )' )
+						  ->where_raw( 'object_published_at >= NOW() - INTERVAL 48 HOUR' )
+						  ->limit( 1000 )
+						  ->find_many();
 	}
 
 	/**
@@ -268,9 +271,10 @@ class WPSEO_News_Sitemap {
 		/**
 		 * Allows for filtering the News sitemap name.
 		 *
+		 * @param string $sitemap_name First portion of the news sitemap "file" name.
+		 *
 		 * @deprecated 12.5.0. Use the {@see 'Yoast\WP\News\sitemap_name'} filter instead.
 		 *
-		 * @param string $sitemap_name First portion of the news sitemap "file" name.
 		 */
 		$sitemap_name = apply_filters_deprecated(
 			'wpseo_news_sitemap_name',
@@ -282,9 +286,10 @@ class WPSEO_News_Sitemap {
 		/**
 		 * Allows for filtering the News sitemap name.
 		 *
+		 * @param string $sitemap_name First portion of the news sitemap "file" name.
+		 *
 		 * @since 12.5.0
 		 *
-		 * @param string $sitemap_name First portion of the news sitemap "file" name.
 		 */
 		$sitemap_name = apply_filters( 'Yoast\WP\News\sitemap_name', $sitemap_name );
 
@@ -301,9 +306,9 @@ class WPSEO_News_Sitemap {
 	 *
 	 * Defaults to news, but it's possible to override it by using the YOAST_NEWS_SITEMAP_BASENAME constant.
 	 *
+	 * @return string Basename for the news sitemap.
 	 * @since 3.1
 	 *
-	 * @return string Basename for the news sitemap.
 	 */
 	public static function news_sitemap_basename() {
 		$basename = 'news';
