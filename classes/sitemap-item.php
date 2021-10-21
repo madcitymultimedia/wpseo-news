@@ -145,7 +145,7 @@ class WPSEO_News_Sitemap_Item {
 			$publication_tag .= "\t\t</news:publication>\n";
 		}
 
-		$this->output = $publication_tag;
+		$this->output .= $publication_tag;
 	}
 
 	/**
