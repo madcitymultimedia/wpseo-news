@@ -163,7 +163,9 @@ class WPSEO_News_Sitemap {
 		$output .= '</urlset>';
 
 		$total_time = \microtime( true ) - $start_time;
-		$output .= '<!-- ' . $total_time . 's / ' . number_format( ( memory_get_peak_usage() / 1024 / 1024 ), 2 ) . 'MB -->';
+		if ( WP_DEBUG ) {
+			$output .= '<!-- ' . $total_time . 's / ' . number_format( ( memory_get_peak_usage() / 1024 / 1024 ), 2 ) . 'MB -->';
+		}
 		return $output;
 	}
 
