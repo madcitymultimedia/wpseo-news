@@ -164,7 +164,7 @@ class WPSEO_News_Admin_Page {
 
 			$taxonomies_list = [];
 			foreach ( $terms as $term ) {
-				$taxonomies_list[ $term->taxonomy . '_' . $term->slug . '_for_' . $post_type->name ] = $term->name;
+				$taxonomies_list[ $term->term_id . '_for_' . $post_type->name ] = $term->name;
 			}
 
 			Yoast_Form::get_instance()->checkbox_list( 'news_sitemap_exclude_terms', $taxonomies_list );

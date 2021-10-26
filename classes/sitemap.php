@@ -6,6 +6,7 @@
  */
 
 use Yoast\WP\Lib\Model;
+use Yoast\WP\Lib\ORM;
 use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
 
@@ -162,7 +163,7 @@ class WPSEO_News_Sitemap {
 
 		$output .= '</urlset>';
 
-		$total_time = \microtime( true ) - $start_time;
+		$total_time = ( \microtime( true ) - $start_time );
 		if ( WP_DEBUG ) {
 			$output .= '<!-- ' . $total_time . 's / ' . number_format( ( memory_get_peak_usage() / 1024 / 1024 ), 2 ) . 'MB -->';
 		}
@@ -245,22 +246,65 @@ class WPSEO_News_Sitemap {
 		 */
 		$repository = YoastSEO()->classes->get( 'Yoast\WP\SEO\Repositories\Indexable_Repository' );
 
-		return $repository->query()
-						  ->select_many( 'i.id', 'object_id', 'object_sub_type', 'permalink', 'object_published_at' )
-						  ->select( 'breadcrumb_title', 'title' )
-						  ->select( 'pm2.meta_value', 'stock_tickers' )
-						  ->table_alias( 'i' )
-						  ->left_outer_join( $wpdb->postmeta, 'pm.post_id = i.object_id AND pm.meta_key = \'_yoast_wpseo_newssitemap-robots-index\'', 'pm' )
-						  ->left_outer_join( $wpdb->postmeta, 'pm2.post_id = i.object_id AND pm2.meta_key = \'_yoast_wpseo_newssitemap-stocktickers\'', 'pm2' )
-						  ->where( 'post_status', 'publish' )
-						  ->where( 'object_type', 'post' )
-						  ->where_in( 'object_sub_type', $post_types )
-						  ->where_raw( '( is_robots_noindex = 0 OR is_robots_noindex IS NULL )' )
-						  ->where_raw( 'object_published_at >= NOW() - INTERVAL 48 HOUR' )
-						  ->where_raw( '( pm.meta_value = \'0\' OR pm.meta_value IS NULL )' )
-						  ->order_by_desc( 'object_published_at' )
-						  ->limit( 1000 )
-						  ->find_many();
+		$query = $repository
+			->query()
+			->select_many( 'i.id', 'object_id', 'object_sub_type', 'permalink', 'object_published_at' )
+			->select( 'breadcrumb_title', 'title' )
+			->select( 'pm2.meta_value', 'stock_tickers' )
+			->table_alias( 'i' )
+			->left_outer_join( $wpdb->postmeta, 'pm.post_id = i.object_id AND pm.meta_key = \'_yoast_wpseo_newssitemap-robots-index\'', 'pm' )
+			->left_outer_join( $wpdb->postmeta, 'pm2.post_id = i.object_id AND pm2.meta_key = \'_yoast_wpseo_newssitemap-stocktickers\'', 'pm2' )
+			->where( 'post_status', 'publish' )
+			->where( 'object_type', 'post' )
+			->where_in( 'object_sub_type', $post_types )
+			->where_raw( '( is_robots_noindex = 0 OR is_robots_noindex IS NULL )' )
+			->where_raw( 'object_published_at >= NOW() - INTERVAL 48 HOUR' )
+			->where_raw( '( pm.meta_value = \'0\' OR pm.meta_value IS NULL )' )
+			->order_by_desc( 'object_published_at' )
+			->limit( $limit );
+
+		$query = $this->maybe_add_terms_query( $query );
+		return $query->find_many();
+	}
+
+	/**
+	 * Adds the term query to the sitemap query if required.
+	 *
+	 * @param ORM $query The sitemap query.
+	 *
+	 * @return ORM The modified query.
+	 */
+	private function maybe_add_terms_query( ORM $query ) {
+		global $wpdb;
+
+		$excluded_terms = (array) WPSEO_Options::get( 'news_sitemap_exclude_terms', [] );
+
+		if ( empty( $excluded_terms ) ) {
+			return $query;
+		}
+
+		$excluded_terms_by_post_type = [];
+		foreach ( $excluded_terms as $excluded_term ) {
+			list( $term_id, $post_type ) = explode( $excluded_term, '_for_', 2 );
+			if ( ! array_key_exists( $post_type, $excluded_terms_by_post_type ) ) {
+				$excluded_terms_by_post_type[ $post_type ] = [];
+			}
+			$excluded_terms_by_post_type[ $post_type ][] = $term_id;
+		}
+
+		$replacements = [];
+		$term_query   = [];
+		foreach ( $excluded_terms_by_post_type as $post_type => $term_ids ) {
+			$replacements = array_merge( $replacements, [ $post_type ], $term_ids );
+			$placeholders = implode( ', ', array_fill( 0, count( $term_ids ), '%d' ) );
+			$term_query[] = "( object_sub_type = %s AND tt.term_id NOT IN ( $placeholders )";
+		}
+		$term_query = implode( ' OR ', $term_query );
+
+		return $query
+			->left_outer_join( $wpdb->term_relationships, 'tr.object_id = i.object_id', 'tr' )
+			->left_outer_join( $wpdb->term_taxonomy, 'tt.term_taxonomy_id = tr.term_taxonomy_id', 'tt' )
+			->where_raw( $term_query, $replacements );
 	}
 
 	/**
@@ -287,7 +331,7 @@ class WPSEO_News_Sitemap {
 		$publication_name = WPSEO_Options::get( 'news_sitemap_name', get_bloginfo( 'name' ) );
 		$publication_lang = $this->get_publication_lang();
 
-		$publication_tag = "\t\t<news:publication>\n";
+		$publication_tag  = "\t\t<news:publication>\n";
 		$publication_tag .= "\t\t\t<news:name>" . $publication_name . '</news:name>' . "\n";
 		$publication_tag .= "\t\t\t<news:language>" . htmlspecialchars( $publication_lang, ENT_COMPAT, get_bloginfo( 'charset' ), false ) . '</news:language>' . "\n";
 		$publication_tag .= "\t\t</news:publication>\n";

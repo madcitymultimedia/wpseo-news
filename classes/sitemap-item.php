@@ -75,10 +75,6 @@ class WPSEO_News_Sitemap_Item {
 	private function skip_build_item() {
 		$skip_build_item = false;
 
-		if ( WPSEO_News::is_excluded_through_terms( $this->item->ID, $this->item->object_sub_type ) ) {
-			$skip_build_item = true;
-		}
-
 		/**
 		 * Filter: 'Yoast\WP\News\skip_build_item' - Allow override of decision to skip adding this item to the news sitemap.
 		 *

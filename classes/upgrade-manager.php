@@ -5,6 +5,8 @@
  * @package WPSEO_News
  */
 
+use Yoast\WP\Lib\Model;
+
 // Exit if accessed directly.
 if ( ! defined( 'ABSPATH' ) ) {
 	exit;
@@ -80,6 +82,11 @@ class WPSEO_News_Upgrade_Manager {
 		// Upgrade to version 12.7.
 		if ( version_compare( $current_version, '12.7', '<=' ) ) {
 			$this->upgrade_127();
+		}
+
+		// Upgrade to version 13.1.
+		if ( version_compare( $current_version, '13.1-RC0', '<=' ) ) {
+			$this->upgrade_131();
 		}
 	}
 
@@ -258,6 +265,45 @@ class WPSEO_News_Upgrade_Manager {
 
 		// Remove the News sitemap exclude settings from the database.
 		$this->delete_meta_by_key( '_yoast_wpseo_newssitemap-exclude' );
+	}
+
+	/**
+	 * Performs the upgrade routine for Yoast SEO News 13.1.
+	 */
+	private function upgrade_131() {
+		$post_types     = WPSEO_News::get_included_post_types();
+		$excluded_terms = (array) WPSEO_Options::get( 'news_sitemap_exclude_terms', [] );
+		$updated_option = [];
+
+		foreach ( $post_types as $post_type ) {
+			$excludable_taxonomies = new WPSEO_News_Excludable_Taxonomies( $post_type );
+
+			foreach ( $excludable_taxonomies->get_terms() as $term ) {
+				$option_key = $term->taxonomy . '_' . $term->slug . '_for_' . $post_type;
+				if ( array_key_exists( $option_key, $excluded_terms ) && $excluded_terms[ $option_key ] === 'on' ) {
+					$updated_option[ $term->term_id . '_for_' . $post_type ] = 'on';
+				}
+			}
+		}
+
+		WPSEO_Options::set( 'news_sitemap_exclude_terms', $updated_option );
+
+		global $wpdb;
+
+		$indexable_table = Model::get_table_name( 'Indexable' );
+
+		// phpcs:disable WordPress.DB.PreparedSQL.InterpolatedNotPrepared
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.DirectQuery
+		// phpcs:disable WordPress.DB.DirectDatabaseQuery.NoCaching
+		$wpdb->query(
+			"
+			UPDATE $indexable_table AS i
+			JOIN {$wpdb->posts} AS p ON i.object_id = p.ID AND i.object_type = 'post'
+			SET i.object_published_at = p.post_date_gmt, i.object_last_modified = p.post_modified_gmt
+			WHERE p.post_date_gmt >= NOW() - INTERVAL 48 HOUR
+			"
+		);
+		// phpcs:enable
 	}
 
 	/**
