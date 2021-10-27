@@ -256,31 +256,31 @@ class WPSEO_News_Sitemap {
 			->left_outer_join( $wpdb->postmeta, 'pm2.post_id = i.object_id AND pm2.meta_key = \'_yoast_wpseo_newssitemap-stocktickers\'', 'pm2' )
 			->where( 'post_status', 'publish' )
 			->where( 'object_type', 'post' )
-			->where_in( 'object_sub_type', $post_types )
 			->where_raw( '( is_robots_noindex = 0 OR is_robots_noindex IS NULL )' )
 			->where_raw( 'object_published_at >= NOW() - INTERVAL 48 HOUR' )
 			->where_raw( '( pm.meta_value = \'0\' OR pm.meta_value IS NULL )' )
 			->order_by_desc( 'object_published_at' )
 			->limit( $limit );
 
-		$query = $this->maybe_add_terms_query( $query );
+		$query = $this->maybe_add_terms_query( $query, $post_types );
 		return $query->find_many();
 	}
 
 	/**
 	 * Adds the term query to the sitemap query if required.
 	 *
-	 * @param ORM $query The sitemap query.
+	 * @param ORM      $query      The sitemap query.
+	 * @param string[] $post_types The post types.
 	 *
 	 * @return ORM The modified query.
 	 */
-	private function maybe_add_terms_query( ORM $query ) {
+	private function maybe_add_terms_query( ORM $query, $post_types ) {
 		global $wpdb;
 
 		$excluded_terms = (array) WPSEO_Options::get( 'news_sitemap_exclude_terms', [] );
 
 		if ( empty( $excluded_terms ) ) {
-			return $query;
+			return $query->where_in( 'object_sub_type', $post_types );
 		}
 
 		$excluded_terms_by_post_type = [];
@@ -294,7 +294,13 @@ class WPSEO_News_Sitemap {
 
 		$replacements = [];
 		$term_query   = [];
-		foreach ( $excluded_terms_by_post_type as $post_type => $term_ids ) {
+		foreach ( $post_types as $post_type ) {
+			if ( ! array_key_exists( $post_type, $excluded_terms_by_post_type ) ) {
+				$term_query[]   = '( object_sub_type = %s )';
+				$replacements[] = $post_type;
+				continue;
+			}
+			$term_ids     = $excluded_terms_by_post_type[ $post_type ];
 			$replacements = array_merge( $replacements, [ $post_type ], $term_ids );
 			$placeholders = implode( ', ', array_fill( 0, count( $term_ids ), '%d' ) );
 			$term_query[] = "( object_sub_type = %s AND tt.term_id NOT IN ( $placeholders )";
