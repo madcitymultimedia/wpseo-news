@@ -271,22 +271,38 @@ class WPSEO_News_Upgrade_Manager {
 	 * Performs the upgrade routine for Yoast SEO News 13.1.
 	 */
 	private function upgrade_131() {
-		$post_types     = WPSEO_News::get_included_post_types();
-		$excluded_terms = (array) WPSEO_Options::get( 'news_sitemap_exclude_terms', [] );
+		$options    = get_option( 'wpseo_news' );
+		$post_types = [];
+		foreach ( get_post_types( [ 'public' => true ], 'names' ) as $post_type ) {
+			if ( array_key_exists( $post_type, $options['news_sitemap_include_post_types'] ) && $options['news_sitemap_include_post_types'][ $post_type ] === 'on' ) {
+				$post_types[] = $post_type;
+			}
+		}
+
+		// Support post if no post types are supported.
+		if ( empty( $post_types ) ) {
+			$post_types[] = 'post';
+		}
+
 		$updated_option = [];
 
 		foreach ( $post_types as $post_type ) {
 			$excludable_taxonomies = new WPSEO_News_Excludable_Taxonomies( $post_type );
 
-			foreach ( $excludable_taxonomies->get_terms() as $term ) {
-				$option_key = $term->taxonomy . '_' . $term->slug . '_for_' . $post_type;
-				if ( array_key_exists( $option_key, $excluded_terms ) && $excluded_terms[ $option_key ] === 'on' ) {
-					$updated_option[ $term->term_id . '_for_' . $post_type ] = 'on';
+			foreach ( $excludable_taxonomies->get_terms() as $data ) {
+				$terms = $data['terms'];
+
+				foreach ( $terms as $term ) {
+					$option_key = $term->taxonomy . '_' . $term->slug . '_for_' . $post_type;
+					if ( array_key_exists( $option_key, $options['news_sitemap_exclude_terms'] ) && $options['news_sitemap_exclude_terms'][ $option_key ] === 'on' ) {
+						$updated_option[ $term->term_id . '_for_' . $post_type ] = 'on';
+					}
 				}
 			}
 		}
 
-		WPSEO_Options::set( 'news_sitemap_exclude_terms', $updated_option );
+		$options['news_sitemap_exclude_terms'] = $updated_option;
+		update_option( 'wpseo_news', $options );
 
 		global $wpdb;
 
