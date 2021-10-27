@@ -248,18 +248,18 @@ class WPSEO_News_Sitemap {
 
 		$query = $repository
 			->query()
-			->select_many( 'i.id', 'object_id', 'object_sub_type', 'permalink', 'object_published_at' )
+			->select_many( 'i.id', 'i.object_id', 'i.object_sub_type', 'i.permalink', 'i.object_published_at' )
 			->select( 'breadcrumb_title', 'title' )
 			->select( 'pm2.meta_value', 'stock_tickers' )
 			->table_alias( 'i' )
 			->left_outer_join( $wpdb->postmeta, 'pm.post_id = i.object_id AND pm.meta_key = \'_yoast_wpseo_newssitemap-robots-index\'', 'pm' )
 			->left_outer_join( $wpdb->postmeta, 'pm2.post_id = i.object_id AND pm2.meta_key = \'_yoast_wpseo_newssitemap-stocktickers\'', 'pm2' )
-			->where( 'post_status', 'publish' )
-			->where( 'object_type', 'post' )
-			->where_raw( '( is_robots_noindex = 0 OR is_robots_noindex IS NULL )' )
-			->where_raw( 'object_published_at >= NOW() - INTERVAL 48 HOUR' )
+			->where( 'i.post_status', 'publish' )
+			->where( 'i.object_type', 'post' )
+			->where_raw( '( i.is_robots_noindex = 0 OR i.is_robots_noindex IS NULL )' )
+			->where_raw( 'i.object_published_at >= NOW() - INTERVAL 48 HOUR' )
 			->where_raw( '( pm.meta_value = \'0\' OR pm.meta_value IS NULL )' )
-			->order_by_desc( 'object_published_at' )
+			->order_by_desc( 'i.object_published_at' )
 			->limit( $limit );
 
 		$query = $this->maybe_add_terms_query( $query, $post_types );
@@ -284,8 +284,11 @@ class WPSEO_News_Sitemap {
 		}
 
 		$excluded_terms_by_post_type = [];
-		foreach ( $excluded_terms as $excluded_term ) {
-			list( $term_id, $post_type ) = explode( $excluded_term, '_for_', 2 );
+		foreach ( $excluded_terms as $excluded_term => $value ) {
+			if ( $value !== 'on' ) {
+				continue;
+			}
+			list( $term_id, $post_type ) = explode( '_for_', $excluded_term, 2 );
 			if ( ! array_key_exists( $post_type, $excluded_terms_by_post_type ) ) {
 				$excluded_terms_by_post_type[ $post_type ] = [];
 			}
@@ -303,14 +306,14 @@ class WPSEO_News_Sitemap {
 			$term_ids     = $excluded_terms_by_post_type[ $post_type ];
 			$replacements = array_merge( $replacements, [ $post_type ], $term_ids );
 			$placeholders = implode( ', ', array_fill( 0, count( $term_ids ), '%d' ) );
-			$term_query[] = "( object_sub_type = %s AND tt.term_id NOT IN ( $placeholders )";
+			$term_query[] = "( object_sub_type = %s AND tt.term_id NOT IN ( $placeholders ) )";
 		}
 		$term_query = implode( ' OR ', $term_query );
 
 		return $query
 			->left_outer_join( $wpdb->term_relationships, 'tr.object_id = i.object_id', 'tr' )
 			->left_outer_join( $wpdb->term_taxonomy, 'tt.term_taxonomy_id = tr.term_taxonomy_id', 'tt' )
-			->where_raw( $term_query, $replacements );
+			->where_raw( "( $term_query )", $replacements );
 	}
 
 	/**
