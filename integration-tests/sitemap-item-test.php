@@ -27,8 +27,12 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 				'post_type'     => 'post',
 			]
 		);
+		$publication_tag  = "\t\t<news:publication>\n";
+		$publication_tag .= "\t\t\t<news:name>Test News Site</news:name>\n";
+		$publication_tag .= "\t\t\t<news:language>en_GB</news:language>\n";
+		$publication_tag .= "\t\t</news:publication>\n";
 
-		$instance = new WPSEO_News_Sitemap_Item_Double( $test_post_date_gmt );
+		$instance = new WPSEO_News_Sitemap_Item_Double( $test_post_date_gmt , $publication_tag );
 
 		$original_post_utc_time      = gmdate( $timezone_format, $base_time );
 		$get_publication_date_output = $instance->get_publication_date( $test_post_date_gmt );
@@ -61,7 +65,12 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		// Manually set post_date_gmt to an invalid string, because at creation WP forces a valid string.
 		$test_post_date->post_date_gmt = 'This is an invalid string';
 
-		$instance = new WPSEO_News_Sitemap_Item_Double( $test_post_date );
+		$publication_tag  = "\t\t<news:publication>\n";
+		$publication_tag .= "\t\t\t<news:name>Test News Site</news:name>\n";
+		$publication_tag .= "\t\t\t<news:language>en_GB</news:language>\n";
+		$publication_tag .= "\t\t</news:publication>\n";
+
+		$instance = new WPSEO_News_Sitemap_Item_Double( $test_post_date, $publication_tag );
 
 		$original_post_date          = '';
 		$get_publication_date_output = $instance->get_publication_date( $test_post_date );
@@ -87,7 +96,12 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		$test_post_date_gmt->post_date     = -10;
 		$test_post_date_gmt->post_date_gmt = -10;
 
-		$instance = new WPSEO_News_Sitemap_Item_Double( $test_post_date_gmt );
+		$publication_tag  = "\t\t<news:publication>\n";
+		$publication_tag .= "\t\t\t<news:name>Test News Site</news:name>\n";
+		$publication_tag .= "\t\t\t<news:language>en_GB</news:language>\n";
+		$publication_tag .= "\t\t</news:publication>\n";
+
+		$instance = new WPSEO_News_Sitemap_Item_Double( $test_post_date_gmt, $publication_tag );
 
 		$get_publication_date_output = $instance->get_publication_date( $test_post_date_gmt );
 
@@ -108,7 +122,12 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		];
 		$test_seo_title = self::factory()->post->create_and_get( $post_details );
 
-		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_seo_title );
+		$publication_tag  = "\t\t<news:publication>\n";
+		$publication_tag .= "\t\t\t<news:name>Test News Site</news:name>\n";
+		$publication_tag .= "\t\t\t<news:language>en_GB</news:language>\n";
+		$publication_tag .= "\t\t</news:publication>\n";
+
+		$instance     = new WPSEO_News_Sitemap_Item_Double( $test_seo_title, $publication_tag );
 		$title_output = $instance->get_item_title( $test_seo_title );
 
 		// Check if correct post_title - blogname is returned.
@@ -127,7 +146,12 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 		];
 		$test_seo_title = self::factory()->post->create_and_get( $post_details );
 
-		$instance = new WPSEO_News_Sitemap_Item_Double( $test_seo_title );
+		$publication_tag  = "\t\t<news:publication>\n";
+		$publication_tag .= "\t\t\t<news:name>Test News Site</news:name>\n";
+		$publication_tag .= "\t\t\t<news:language>en_GB</news:language>\n";
+		$publication_tag .= "\t\t</news:publication>\n";
+
+		$instance = new WPSEO_News_Sitemap_Item_Double( $test_seo_title, $publication_tag );
 
 		$title_output = $instance->get_item_title( null );
 
@@ -146,7 +170,13 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 			'post_type'  => 'post',
 		];
 		$test_seo_title = self::factory()->post->create_and_get( $post_details );
-		$instance       = new WPSEO_News_Sitemap_Item_Double( $test_seo_title );
+
+		$publication_tag  = "\t\t<news:publication>\n";
+		$publication_tag .= "\t\t\t<news:name>Test News Site</news:name>\n";
+		$publication_tag .= "\t\t\t<news:language>en_GB</news:language>\n";
+		$publication_tag .= "\t\t</news:publication>\n";
+
+		$instance       = new WPSEO_News_Sitemap_Item_Double( $test_seo_title, $publication_tag );
 
 		$title_output = $instance->get_item_title( $test_seo_title );
 

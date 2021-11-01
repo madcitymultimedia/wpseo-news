@@ -44,7 +44,7 @@ class WPSEO_News_Sitemap_Item {
 	 * Setting properties and build the item.
 	 *
 	 * @param Indexable $item            The post.
-	 * @param null      $publication_tag The publication tag.
+	 * @param string    $publication_tag The publication tag.
 	 */
 	public function __construct( $item, $publication_tag ) {
 		$this->item            = $item;
