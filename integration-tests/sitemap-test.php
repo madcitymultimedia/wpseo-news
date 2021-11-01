@@ -77,7 +77,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		$output = $this->instance->build_sitemap();
 
-		$expected_output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+		$expected_output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
 </urlset>';
 
 		$this->assertSame( $expected_output, $output );
@@ -127,69 +127,11 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$output = $this->instance->build_sitemap();
 
 		// The expected output.
-		$expected_output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">
+		$expected_output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
 </urlset>';
 
 		// Check if the $output is the same as the $expected_output.
 		$this->assertSame( $expected_output, $output );
-	}
-
-	/**
-	 * Checks what happens if there is one post added with a image in its content.
-	 *
-	 * @covers WPSEO_News_Sitemap::build_sitemap
-	 */
-	public function test_sitemap_WITH_image() {
-
-		$image        = home_url( 'tests/assets/yoast.png' );
-		$post_details = [
-			'post_title'   => 'with images',
-			'post_content' => '<img src="' . $image . '" />',
-		];
-		$this->factory->post->create( $post_details );
-
-		$output = $this->instance->build_sitemap();
-
-		$expected_output  = "\t<image:image>\n";
-		$expected_output .= "\t\t<image:loc>" . $image . "</image:loc>\n";
-		$expected_output .= "\t</image:image>\n";
-
-		// Check if the $output contains the $expected_output.
-		$this->assertStringContainsString( $expected_output, $output );
-	}
-
-	/**
-	 * Checks what happens if there is one post added with a image in its content.
-	 *
-	 * @covers WPSEO_News_Sitemap::build_sitemap
-	 */
-	public function test_sitemap_WITHOUT_featured_image_restricted() {
-
-		$image        = home_url( 'tests/assets/yoast.png' );
-		$post_details = [
-			'post_title'   => 'featured image',
-			'post_content' => '<img src="' . $image . '" />',
-		];
-		$post_id      = $this->factory->post->create( $post_details );
-
-		$featured_image = home_url( 'tests/assets/yoast_featured.png' );
-		$thumbnail_id   = $this->create_attachment( $featured_image, $post_id );
-
-		update_post_meta( $post_id, '_thumbnail_id', $thumbnail_id );
-
-		$output = $this->instance->build_sitemap();
-
-		$expected_output  = "\t</news:news>\n";
-		$expected_output .= "\t<image:image>\n";
-		$expected_output .= "\t\t<image:loc>" . $image . "</image:loc>\n";
-		$expected_output .= "\t</image:image>\n";
-		$expected_output .= "\t<image:image>\n";
-		$expected_output .= "\t\t<image:loc>" . $featured_image . "</image:loc>\n";
-		$expected_output .= "\t\t<image:title>attachment</image:title>\n";
-		$expected_output .= "\t</image:image>\n";
-
-		// Check if the $output contains the $expected_output.
-		$this->assertStringContainsString( $expected_output, $output );
 	}
 
 	/**
