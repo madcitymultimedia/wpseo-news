@@ -5,6 +5,8 @@
  * @package WPSEO_News\Tests
  */
 
+use Yoast\WP\SEO\Models\Indexable;
+
 /**
  * Class WPSEO_News_Sitemap_Item_Test.
  */
@@ -16,17 +18,11 @@ class WPSEO_News_Sitemap_Item_Test extends WPSEO_News_UnitTestCase {
 	 * @covers WPSEO_News_Sitemap_Item::build_item
 	 */
 	public function test_build_item() {
-		$base_time       = '2021-10-29 13:21:13';
-		$timezone_format = DateTime::W3C;
-
-		$test_indexable   = self::factory()->indexable->create_and_get(
-			[
-				'object_id'           => '123',
-				'title'               => 'Newest post',
-				'permalink'           => 'https://fake.url/slug',
-				'object_published_at' => '2021-10-29 13:21:13',
-			]
-		);
+		$test_indexable   = new Indexable();
+		$test_indexable->object_id           = '123';
+		$test_indexable->title               = 'Newest post';
+		$test_indexable->permalink           = 'https://fake.url/slug';
+		$test_indexable->object_published_at = '2021-10-29 13:21:13';
 		$publication_tag  = "\t\t<news:publication>\n";
 		$publication_tag .= "\t\t\t<news:name>Test News Site</news:name>\n";
 		$publication_tag .= "\t\t\t<news:language>en_GB</news:language>\n";
