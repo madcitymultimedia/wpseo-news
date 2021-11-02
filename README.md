@@ -33,8 +33,8 @@ Changelog
 
 ### 13.1: November 16th, 2021
 Enhancements:
-* Huge performance improvement: move the XML News sitemap to be based on our Indexables architecture. 
-* Remove images from the XML News sitemap as they serve no purpose here and this further improves performance.
+* Huge performance improvement: moves the XML News sitemap to be based on our Indexables architecture. 
+* Removes images from the XML News sitemap as they serve no purpose here and this further improves performance.
 
 
 ### 13.0: October 19th, 2021
