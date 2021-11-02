@@ -31,13 +31,15 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
+### 13.1: November 16th, 2021
+Enhancements:
+* Huge performance improvement: move the XML News sitemap to be based on our Indexables architecture. 
+* Remove images from the XML News sitemap as they serve no purpose here and this further improves performance.
+
+
 ### 13.0: October 19th, 2021
 Enhancements:
 * Adds Schema Article News subtypes: `ReviewNewsArticle`, `AnalysisNewsArticle`, `AskPublicNewsArticle`, `BackgroundNewsArticle`, `OpinionNewsArticle`, and `ReportageNewsArticle`. 
-
-### 12.9: August 10th, 2021
-Bugfixes:
-* Fixes a bug where a duplicate News section would be shown in the Yoast sidebar in the post editor when Yoast SEO Premium is active in combination with WP 5.8.
 
 ### Earlier versions
 For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/news-seo-changelog).
