@@ -248,6 +248,7 @@ class WPSEO_News_Sitemap {
 
 		$query = $repository
 			->query()
+			->distinct()
 			->select_many( 'i.id', 'i.object_id', 'i.object_sub_type', 'i.permalink', 'i.object_published_at' )
 			->select( 'breadcrumb_title', 'title' )
 			->select( 'pm2.meta_value', 'stock_tickers' )
