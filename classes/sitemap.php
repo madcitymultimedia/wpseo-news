@@ -5,6 +5,11 @@
  * @package WPSEO_News\XML_Sitemaps
  */
 
+use Yoast\WP\Lib\Model;
+use Yoast\WP\Lib\ORM;
+use Yoast\WP\SEO\Models\Indexable;
+use Yoast\WP\SEO\Repositories\Indexable_Repository;
+
 /**
  * Handling the generation of the News Sitemap.
  */
@@ -80,7 +85,14 @@ class WPSEO_News_Sitemap {
 			if ( method_exists( $GLOBALS['wpseo_sitemaps'], 'register_xsl' ) ) {
 				$xsl_rewrite_rule = sprintf( '^%s-sitemap.xsl$', $this->basename );
 
-				$GLOBALS['wpseo_sitemaps']->register_xsl( $this->basename, [ $this, 'build_news_sitemap_xsl' ], $xsl_rewrite_rule );
+				$GLOBALS['wpseo_sitemaps']->register_xsl(
+					$this->basename,
+					[
+						$this,
+						'build_news_sitemap_xsl',
+					],
+					$xsl_rewrite_rule
+				);
 			}
 		}
 	}
@@ -138,7 +150,9 @@ class WPSEO_News_Sitemap {
 	 * @return string
 	 */
 	public function build_sitemap() {
-		$output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9" xmlns:image="http://www.google.com/schemas/sitemap-image/1.1">' . "\n";
+		$start_time = microtime( true );
+
+		$output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">' . "\n";
 
 		$items = $this->get_items();
 
@@ -149,6 +163,10 @@ class WPSEO_News_Sitemap {
 
 		$output .= '</urlset>';
 
+		$total_time = ( \microtime( true ) - $start_time );
+		if ( WP_DEBUG ) {
+			$output .= '<!-- ' . $total_time . 's / ' . number_format( ( memory_get_peak_usage() / 1024 / 1024 ), 2 ) . 'MB -->';
+		}
 		return $output;
 	}
 
@@ -209,7 +227,7 @@ class WPSEO_News_Sitemap {
 	 *
 	 * @param int $limit The limit for the query, default is 1000 items.
 	 *
-	 * @return array|object|null
+	 * @return array
 	 */
 	private function get_items( $limit = 1000 ) {
 		global $wpdb;
@@ -221,41 +239,114 @@ class WPSEO_News_Sitemap {
 			return [];
 		}
 
-		$replacements   = $post_types;
-		$replacements[] = max( 1, min( 1000, $limit ) );
+		/**
+		 * The indexable repository.
+		 *
+		 * @var $repository Indexable_Repository
+		 */
+		$repository = YoastSEO()->classes->get( 'Yoast\WP\SEO\Repositories\Indexable_Repository' );
 
-		// Get posts for the last two days only, credit to Alex Moss for this code.
-		$items = $wpdb->get_results(
-			$wpdb->prepare(
-				"SELECT ID, post_content, post_name, post_author, post_parent, post_date_gmt, post_date, post_title, post_type
-				FROM {$wpdb->posts}
-				WHERE post_status='publish'
-					AND post_date_gmt >= NOW() - INTERVAL 48 HOUR
-					AND post_type IN (" . implode( ',', array_fill( 0, count( $post_types ), '%s' ) ) . ')
-				ORDER BY post_date_gmt DESC
-				LIMIT 0, %d
-				',
-				$replacements
-			)
-		);
+		$query = $repository
+			->query()
+			->distinct()
+			->select_many( 'i.id', 'i.object_id', 'i.object_sub_type', 'i.permalink', 'i.object_published_at' )
+			->select( 'breadcrumb_title', 'title' )
+			->select( 'pm2.meta_value', 'stock_tickers' )
+			->table_alias( 'i' )
+			->left_outer_join( $wpdb->postmeta, 'pm.post_id = i.object_id AND pm.meta_key = \'_yoast_wpseo_newssitemap-robots-index\'', 'pm' )
+			->left_outer_join( $wpdb->postmeta, 'pm2.post_id = i.object_id AND pm2.meta_key = \'_yoast_wpseo_newssitemap-stocktickers\'', 'pm2' )
+			->where( 'i.post_status', 'publish' )
+			->where( 'i.object_type', 'post' )
+			->where_raw( '( i.is_robots_noindex = 0 OR i.is_robots_noindex IS NULL )' )
+			->where_raw( 'i.object_published_at >= NOW() - INTERVAL 48 HOUR' )
+			->where_raw( '( pm.meta_value = \'0\' OR pm.meta_value IS NULL )' )
+			->order_by_desc( 'i.object_published_at' )
+			->limit( $limit );
 
-		return $items;
+		$query = $this->maybe_add_terms_query( $query, $post_types );
+		return $query->find_many();
+	}
+
+	/**
+	 * Adds the term query to the sitemap query if required.
+	 *
+	 * @param ORM      $query      The sitemap query.
+	 * @param string[] $post_types The post types.
+	 *
+	 * @return ORM The modified query.
+	 */
+	private function maybe_add_terms_query( ORM $query, $post_types ) {
+		global $wpdb;
+
+		$excluded_terms = (array) WPSEO_Options::get( 'news_sitemap_exclude_terms', [] );
+
+		if ( empty( $excluded_terms ) ) {
+			return $query->where_in( 'object_sub_type', $post_types );
+		}
+
+		$excluded_terms_by_post_type = [];
+		foreach ( $excluded_terms as $excluded_term => $value ) {
+			if ( $value !== 'on' ) {
+				continue;
+			}
+			list( $term_id, $post_type ) = explode( '_for_', $excluded_term, 2 );
+			if ( ! array_key_exists( $post_type, $excluded_terms_by_post_type ) ) {
+				$excluded_terms_by_post_type[ $post_type ] = [];
+			}
+			$excluded_terms_by_post_type[ $post_type ][] = $term_id;
+		}
+
+		$replacements = [];
+		$term_query   = [];
+		foreach ( $post_types as $post_type ) {
+			if ( ! array_key_exists( $post_type, $excluded_terms_by_post_type ) ) {
+				$term_query[]   = '( object_sub_type = %s )';
+				$replacements[] = $post_type;
+				continue;
+			}
+			$term_ids     = $excluded_terms_by_post_type[ $post_type ];
+			$replacements = array_merge( $replacements, [ $post_type ], $term_ids );
+			$placeholders = implode( ', ', array_fill( 0, count( $term_ids ), '%d' ) );
+			$term_query[] = "( object_sub_type = %s AND tt.term_id NOT IN ( $placeholders ) )";
+		}
+		$term_query = implode( ' OR ', $term_query );
+
+		return $query
+			->left_outer_join( $wpdb->term_relationships, 'tr.object_id = i.object_id', 'tr' )
+			->left_outer_join( $wpdb->term_taxonomy, 'tt.term_taxonomy_id = tr.term_taxonomy_id', 'tt' )
+			->where_raw( "( $term_query )", $replacements );
 	}
 
 	/**
 	 * Loop through all $items and build each one of it.
 	 *
-	 * @param array $items Items to convert to sitemap output.
+	 * @param Indexable[] $items Items to convert to sitemap output.
 	 *
 	 * @return string
 	 */
 	private function build_items( $items ) {
-		$output = '';
+		$publication_tag = $this->build_publication_tag();
+		$output          = '';
 		foreach ( $items as $item ) {
-			$output .= new WPSEO_News_Sitemap_Item( $item );
+			$output .= new WPSEO_News_Sitemap_Item( $item, $publication_tag );
 		}
 
 		return $output;
+	}
+
+	/**
+	 * Builds the publication tag.
+	 */
+	private function build_publication_tag() {
+		$publication_name = WPSEO_Options::get( 'news_sitemap_name', get_bloginfo( 'name' ) );
+		$publication_lang = $this->get_publication_lang();
+
+		$publication_tag  = "\t\t<news:publication>\n";
+		$publication_tag .= "\t\t\t<news:name>" . $publication_name . '</news:name>' . "\n";
+		$publication_tag .= "\t\t\t<news:language>" . htmlspecialchars( $publication_lang, ENT_COMPAT, get_bloginfo( 'charset' ), false ) . '</news:language>' . "\n";
+		$publication_tag .= "\t\t</news:publication>\n";
+
+		return $publication_tag;
 	}
 
 	/**
@@ -269,9 +360,9 @@ class WPSEO_News_Sitemap {
 		/**
 		 * Allows for filtering the News sitemap name.
 		 *
-		 * @deprecated 12.5.0. Use the {@see 'Yoast\WP\News\sitemap_name'} filter instead.
-		 *
 		 * @param string $sitemap_name First portion of the news sitemap "file" name.
+		 *
+		 * @deprecated 12.5.0. Use the {@see 'Yoast\WP\News\sitemap_name'} filter instead.
 		 */
 		$sitemap_name = apply_filters_deprecated(
 			'wpseo_news_sitemap_name',
@@ -283,9 +374,9 @@ class WPSEO_News_Sitemap {
 		/**
 		 * Allows for filtering the News sitemap name.
 		 *
-		 * @since 12.5.0
-		 *
 		 * @param string $sitemap_name First portion of the news sitemap "file" name.
+		 *
+		 * @since 12.5.0
 		 */
 		$sitemap_name = apply_filters( 'Yoast\WP\News\sitemap_name', $sitemap_name );
 
@@ -302,9 +393,8 @@ class WPSEO_News_Sitemap {
 	 *
 	 * Defaults to news, but it's possible to override it by using the YOAST_NEWS_SITEMAP_BASENAME constant.
 	 *
-	 * @since 3.1
-	 *
 	 * @return string Basename for the news sitemap.
+	 * @since 3.1
 	 */
 	public static function news_sitemap_basename() {
 		$basename = 'news';
@@ -335,5 +425,22 @@ class WPSEO_News_Sitemap {
 		}
 
 		return plugin_dir_url( WPSEO_NEWS_FILE ) . 'assets/xml-news-sitemap.xsl';
+	}
+
+	/**
+	 * Getting the publication language.
+	 *
+	 * @return string Publication language.
+	 */
+	private function get_publication_lang() {
+		// phpcs:ignore WordPress.NamingConventions.PrefixAllGlobals.NonPrefixedHooknameFound -- WPSEO hook.
+		$locale = apply_filters( 'wpseo_locale', get_locale() );
+
+		// Fallback to 'en', if the length of the locale is less than 2 characters.
+		if ( strlen( $locale ) < 2 ) {
+			$locale = 'en';
+		}
+
+		return substr( $locale, 0, 2 );
 	}
 }
