@@ -80,7 +80,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 		$expected_output = '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:news="http://www.google.com/schemas/sitemap-news/0.9">
 </urlset>';
 
-		$this->assertSame( $expected_output, $output );
+		$this->assertStringStartsWith( $expected_output, $output );
 	}
 
 	/**
@@ -131,7 +131,7 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 </urlset>';
 
 		// Check if the $output is the same as the $expected_output.
-		$this->assertSame( $expected_output, $output );
+		$this->assertStringStartsWith( $expected_output, $output );
 	}
 
 	/**
