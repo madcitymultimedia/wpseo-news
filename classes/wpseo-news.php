@@ -145,8 +145,8 @@ class WPSEO_News {
 			return false;
 		}
 
-		// At least 17.4-RC3, which enables the filtering of the Schema Article types.
-		if ( version_compare( $wordpress_seo_version, '17.4-RC3', '<' ) ) {
+		// At least 17.6-RC1, which adds object timestamps to indexables.
+		if ( version_compare( $wordpress_seo_version, '17.6-RC1', '<' ) ) {
 			add_action( 'all_admin_notices', [ $this, 'error_upgrade_wpseo' ] );
 
 			return false;
