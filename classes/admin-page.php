@@ -81,6 +81,8 @@ class WPSEO_News_Admin_Page {
 	 * Generates the HTML for the post types which should be included in the sitemap.
 	 */
 	private function include_post_types() {
+		$post_type_helper = YoastSEO()->helpers->post_type;
+
 		// Post Types to include in News Sitemap.
 		echo '<h2>' . esc_html__( 'Post Types to include in News Sitemap', 'wordpress-seo-news' ) . '</h2>';
 		echo '<fieldset><legend class="screen-reader-text">' . esc_html__( 'Post Types to include:', 'wordpress-seo-news' ) . '</legend>';
@@ -88,7 +90,9 @@ class WPSEO_News_Admin_Page {
 		$post_types      = get_post_types( [ 'public' => true ], 'objects' );
 		$post_types_list = [];
 		foreach ( $post_types as $post_type ) {
-			$post_types_list[ $post_type->name ] = $post_type->labels->name . ' (' . $post_type->name . ')';
+			if ( ! $post_type_helper->is_excluded( $post_type->name ) ) {
+				$post_types_list[ $post_type->name ] = $post_type->labels->name . ' (' . $post_type->name . ')';
+			}
 		}
 
 		Yoast_Form::get_instance()->checkbox_list( 'news_sitemap_include_post_types', $post_types_list );

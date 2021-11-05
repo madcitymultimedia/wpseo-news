@@ -5,7 +5,6 @@
  * @package WPSEO_News\XML_Sitemaps
  */
 
-use Yoast\WP\Lib\Model;
 use Yoast\WP\Lib\ORM;
 use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
