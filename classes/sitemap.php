@@ -312,15 +312,17 @@ class WPSEO_News_Sitemap {
 		$term_query = implode( ' OR ', $term_query );
 
 		return $query
-			->where_raw(
-				"NOT EXISTS (
-					SELECT *
+			->raw_join(
+				"LEFT OUTER JOIN (
+					SELECT tr.object_id, tt.term_id
 					FROM $wpdb->term_relationships AS tr
-					JOIN $wpdb->term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
-					WHERE $term_query AND tr.object_id = i.object_id
+					LEFT OUTER JOIN $wpdb->term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
 				)",
+				"$term_query AND tr.object_id = i.object_id",
+				't',
 				$replacements
-			);
+			)
+			->where_null( 't.object_id' );
 	}
 
 	/**
