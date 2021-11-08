@@ -297,13 +297,16 @@ class WPSEO_News_Sitemap {
 			$excluded_terms_by_post_type[ $post_type ][] = (int) $term_id;
 		}
 
-		$term_query = [];
+		$replacements = [];
+		$term_query   = [];
 		foreach ( $post_types as $post_type ) {
 			if ( ! array_key_exists( $post_type, $excluded_terms_by_post_type ) ) {
 				continue;
 			}
-			$term_ids_string = implode( ', ', $excluded_terms_by_post_type[ $post_type ] );
-			$term_query[]    = "( i.object_sub_type = '$post_type' AND tt.term_id IN ( $term_ids_string ) )";
+			$term_ids     = $excluded_terms_by_post_type[ $post_type ];
+			$replacements = array_merge( $replacements, [ $post_type ], $term_ids );
+			$placeholders = implode( ', ', array_fill( 0, count( $term_ids ), '%d' ) );
+			$term_query[] = "( object_sub_type = %s AND tt.term_id IN ( $placeholders ) )";
 		}
 		$term_query = implode( ' OR ', $term_query );
 
@@ -314,7 +317,8 @@ class WPSEO_News_Sitemap {
 					FROM $wpdb->term_relationships AS tr
 					JOIN $wpdb->term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
 					WHERE $term_query
-				)"
+				)",
+				$replacements
 			);
 	}
 
