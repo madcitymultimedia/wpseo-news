@@ -307,7 +307,7 @@ class WPSEO_News_Sitemap {
 			$term_ids     = $excluded_terms_by_post_type[ $post_type ];
 			$replacements = array_merge( $replacements, [ $post_type ], $term_ids );
 			$placeholders = implode( ', ', array_fill( 0, count( $term_ids ), '%d' ) );
-			$term_query[] = "( object_sub_type = %s AND tt.term_id IN ( $placeholders ) )";
+			$term_query[] = "( object_sub_type = %s AND t.term_id IN ( $placeholders ) )";
 		}
 		$term_query = implode( ' OR ', $term_query );
 
@@ -318,7 +318,7 @@ class WPSEO_News_Sitemap {
 					FROM $wpdb->term_relationships AS tr
 					LEFT OUTER JOIN $wpdb->term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
 				)",
-				"$term_query AND tr.object_id = i.object_id",
+				"$term_query AND t.object_id = i.object_id",
 				't',
 				$replacements
 			)
