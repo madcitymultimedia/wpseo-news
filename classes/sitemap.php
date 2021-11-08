@@ -296,25 +296,20 @@ class WPSEO_News_Sitemap {
 			$excluded_terms_by_post_type[ $post_type ][] = $term_id;
 		}
 
-		$replacements = [];
-		$term_query   = [];
+		$term_query = [];
 		foreach ( $post_types as $post_type ) {
 			if ( ! array_key_exists( $post_type, $excluded_terms_by_post_type ) ) {
-				$term_query[]   = '( object_sub_type = %s )';
-				$replacements[] = $post_type;
 				continue;
 			}
-			$term_ids     = $excluded_terms_by_post_type[ $post_type ];
-			$replacements = array_merge( $replacements, [ $post_type ], $term_ids );
-			$placeholders = implode( ', ', array_fill( 0, count( $term_ids ), '%d' ) );
-			$term_query[] = "( object_sub_type = %s AND tt.term_id NOT IN ( $placeholders ) )";
+			$term_ids_string = implode( ', ', $excluded_terms_by_post_type[ $post_type ] );
+			$term_query[]    = "( object_sub_type = '$post_type' AND tt.term_id IN ( $term_ids_string ) )";
 		}
 		$term_query = implode( ' OR ', $term_query );
 
 		return $query
 			->left_outer_join( $wpdb->term_relationships, 'tr.object_id = i.object_id', 'tr' )
-			->left_outer_join( $wpdb->term_taxonomy, 'tt.term_taxonomy_id = tr.term_taxonomy_id', 'tt' )
-			->where_raw( "( $term_query )", $replacements );
+			->left_outer_join( $wpdb->term_taxonomy, "tt.term_taxonomy_id = tr.term_taxonomy_id AND ( $term_query )", 'tt' )
+			->where_null( 'tt.term_id' );
 	}
 
 	/**
