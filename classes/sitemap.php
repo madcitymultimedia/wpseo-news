@@ -257,6 +257,7 @@ class WPSEO_News_Sitemap {
 			->left_outer_join( $wpdb->postmeta, 'pm2.post_id = i.object_id AND pm2.meta_key = \'_yoast_wpseo_newssitemap-stocktickers\'', 'pm2' )
 			->where( 'i.post_status', 'publish' )
 			->where( 'i.object_type', 'post' )
+			->where_in( 'object_sub_type', $post_types )
 			->where_raw( '( i.is_robots_noindex = 0 OR i.is_robots_noindex IS NULL )' )
 			->where_raw( 'i.object_published_at >= NOW() - INTERVAL 48 HOUR' )
 			->where_raw( '( pm.meta_value = \'0\' OR pm.meta_value IS NULL )' )
@@ -281,7 +282,7 @@ class WPSEO_News_Sitemap {
 		$excluded_terms = (array) WPSEO_Options::get( 'news_sitemap_exclude_terms', [] );
 
 		if ( empty( $excluded_terms ) ) {
-			return $query->where_in( 'object_sub_type', $post_types );
+			return $query;
 		}
 
 		$excluded_terms_by_post_type = [];
@@ -302,14 +303,19 @@ class WPSEO_News_Sitemap {
 				continue;
 			}
 			$term_ids_string = implode( ', ', $excluded_terms_by_post_type[ $post_type ] );
-			$term_query[]    = "( object_sub_type = '$post_type' AND tt.term_id IN ( $term_ids_string ) )";
+			$term_query[]    = "( i.object_sub_type = '$post_type' AND tt.term_id IN ( $term_ids_string ) )";
 		}
 		$term_query = implode( ' OR ', $term_query );
 
 		return $query
-			->left_outer_join( $wpdb->term_relationships, 'tr.object_id = i.object_id', 'tr' )
-			->left_outer_join( $wpdb->term_taxonomy, "tt.term_taxonomy_id = tr.term_taxonomy_id AND ( $term_query )", 'tt' )
-			->where_null( 'tt.term_id' );
+			->where_raw(
+				"i.object_id NOT IN (
+					SELECT DISTINCT tr.object_id
+					FROM $wpdb->term_relationships AS tr
+					JOIN $wpdb->term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
+					WHERE $term_query
+				)"
+			);
 	}
 
 	/**
