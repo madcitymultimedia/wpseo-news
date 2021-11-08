@@ -293,7 +293,7 @@ class WPSEO_News_Sitemap {
 			if ( ! array_key_exists( $post_type, $excluded_terms_by_post_type ) ) {
 				$excluded_terms_by_post_type[ $post_type ] = [];
 			}
-			$excluded_terms_by_post_type[ $post_type ][] = $term_id;
+			$excluded_terms_by_post_type[ $post_type ][] = (int) $term_id;
 		}
 
 		$term_query = [];
