@@ -265,6 +265,7 @@ class WPSEO_News_Sitemap {
 			->limit( $limit );
 
 		$query = $this->maybe_add_terms_query( $query, $post_types );
+
 		return $query->find_many();
 	}
 
@@ -312,11 +313,11 @@ class WPSEO_News_Sitemap {
 
 		return $query
 			->where_raw(
-				"i.object_id NOT IN (
-					SELECT DISTINCT tr.object_id
+				"NOT EXISTS (
+					SELECT *
 					FROM $wpdb->term_relationships AS tr
 					JOIN $wpdb->term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
-					WHERE $term_query
+					WHERE $term_query AND tr.object_id = i.object_id
 				)",
 				$replacements
 			);
