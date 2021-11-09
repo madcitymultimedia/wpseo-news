@@ -90,7 +90,7 @@ class WPSEO_News_Admin_Page {
 		$post_types      = get_post_types( [ 'public' => true ], 'objects' );
 		$post_types_list = [];
 		foreach ( $post_types as $post_type ) {
-			if ( ! $post_type_helper->is_excluded( $post_type->name ) ) {
+			if ( ! $post_type_helper->is_excluded( $post_type->name ) && $post_type->name !== 'attachment' ) {
 				$post_types_list[ $post_type->name ] = $post_type->labels->name . ' (' . $post_type->name . ')';
 			}
 		}
