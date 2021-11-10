@@ -271,38 +271,11 @@ class WPSEO_News_Upgrade_Manager {
 	 * Performs the upgrade routine for Yoast SEO News 13.1.
 	 */
 	private function upgrade_131() {
-		$options    = get_option( 'wpseo_news' );
-		$post_types = [];
-		foreach ( get_post_types( [ 'public' => true ], 'names' ) as $post_type ) {
-			if ( array_key_exists( $post_type, $options['news_sitemap_include_post_types'] ) && $options['news_sitemap_include_post_types'][ $post_type ] === 'on' ) {
-				$post_types[] = $post_type;
-			}
-		}
-
-		// Support post if no post types are supported.
-		if ( empty( $post_types ) ) {
-			$post_types[] = 'post';
-		}
-
-		$updated_option = [];
-
-		foreach ( $post_types as $post_type ) {
-			$excludable_taxonomies = new WPSEO_News_Excludable_Taxonomies( $post_type );
-
-			foreach ( $excludable_taxonomies->get_terms() as $data ) {
-				$terms = $data['terms'];
-
-				foreach ( $terms as $term ) {
-					$option_key = $term->taxonomy . '_' . $term->slug . '_for_' . $post_type;
-					if ( array_key_exists( $option_key, $options['news_sitemap_exclude_terms'] ) && $options['news_sitemap_exclude_terms'][ $option_key ] === 'on' ) {
-						$updated_option[ $term->term_id . '_for_' . $post_type ] = 'on';
-					}
-				}
-			}
-		}
-
-		$options['news_sitemap_exclude_terms'] = $updated_option;
-		update_option( 'wpseo_news', $options );
+		/*
+		 * The updating of the excluded terms options needs to run later
+		 * so we can assume that all custom post types have been registered.
+		 */
+		add_action( 'init', [ $this, 'update_excluded_terms_options' ], 100 );
 
 		global $wpdb;
 
@@ -341,5 +314,43 @@ class WPSEO_News_Upgrade_Manager {
 			[ '%s' ]
 		);
 		// phpcs:enable
+	}
+
+	/**
+	 * Updates the options about excluded terms to the new 13.1 format.
+	 */
+	public function update_excluded_terms_options() {
+		$options    = get_option( 'wpseo_news' );
+		$post_types = [];
+		foreach ( get_post_types( [ 'public' => true ], 'names' ) as $post_type ) {
+			if ( array_key_exists( $post_type, $options['news_sitemap_include_post_types'] ) && $options['news_sitemap_include_post_types'][ $post_type ] === 'on' ) {
+				$post_types[] = $post_type;
+			}
+		}
+
+		// Support post if no post types are supported.
+		if ( empty( $post_types ) ) {
+			$post_types[] = 'post';
+		}
+
+		$updated_option = [];
+
+		foreach ( $post_types as $post_type ) {
+			$excludable_taxonomies = new WPSEO_News_Excludable_Taxonomies( $post_type );
+
+			foreach ( $excludable_taxonomies->get_terms() as $data ) {
+				$terms = $data['terms'];
+
+				foreach ( $terms as $term ) {
+					$option_key = $term->taxonomy . '_' . $term->slug . '_for_' . $post_type;
+					if ( array_key_exists( $option_key, $options['news_sitemap_exclude_terms'] ) && $options['news_sitemap_exclude_terms'][ $option_key ] === 'on' ) {
+						$updated_option[ $term->term_id . '_for_' . $post_type ] = 'on';
+					}
+				}
+			}
+		}
+
+		$options['news_sitemap_exclude_terms'] = $updated_option;
+		update_option( 'wpseo_news', $options );
 	}
 }
