@@ -2,9 +2,9 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yoast SEO: News 13.1-RC3\n"
+"Project-Id-Version: Yoast SEO: News 13.1-RC4\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
-"POT-Creation-Date: 2021-11-09 08:27:00+00:00\n"
+"POT-Creation-Date: 2021-11-10 12:42:44+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -48,21 +48,21 @@ msgstr ""
 msgid "Google News Publication Name"
 msgstr ""
 
-#: classes/admin-page.php:85
+#: classes/admin-page.php:87
 msgid "Post Types to include in News Sitemap"
 msgstr ""
 
-#: classes/admin-page.php:86
+#: classes/admin-page.php:88
 msgid "Post Types to include:"
 msgstr ""
 
 #. translators: %1%s expands to the post type name.
-#: classes/admin-page.php:156
+#: classes/admin-page.php:160
 msgid "Terms to exclude for %1$s"
 msgstr ""
 
 #. translators: %1%s expands to the taxonomy name name.
-#: classes/admin-page.php:163
+#: classes/admin-page.php:167
 msgid "%1$s to exclude"
 msgstr ""
 
