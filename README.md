@@ -36,6 +36,9 @@ Enhancements:
 * Huge performance improvement: moves the XML News sitemap to be based on our Indexables architecture. 
 * Removes images from the XML News sitemap as they serve no purpose here and this further improves performance.
 
+Other:
+* Excludes attachments and non-indexed post types from the possible post types to include in the News Sitemap.
+
 ### 13.0: October 19th, 2021
 Enhancements:
 * Adds Schema Article News subtypes: `ReviewNewsArticle`, `AnalysisNewsArticle`, `AskPublicNewsArticle`, `BackgroundNewsArticle`, `OpinionNewsArticle`, and `ReportageNewsArticle`. 
