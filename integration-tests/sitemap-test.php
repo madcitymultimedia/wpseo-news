@@ -208,25 +208,4 @@ class WPSEO_News_Sitemap_Test extends WPSEO_News_UnitTestCase {
 
 		$this->assertStringNotContainsString( "\t\t<news:title><![CDATA[Too old Post]]></news:title>\n", $output );
 	}
-
-	/**
-	 * Test helper. Create an attachment to test with.
-	 *
-	 * @param string $image   URL to the image.
-	 * @param int    $post_id ID of the post to attach the image to.
-	 *
-	 * @return int Attachment post ID.
-	 */
-	private function create_attachment( $image, $post_id = 0 ) {
-		return $this->factory->post->create(
-			[
-				'post_title'     => 'attachment',
-				'post_name'      => 'attachment',
-				'guid'           => $image,
-				'post_type'      => 'attachment',
-				'post_mime_type' => 'image/png',
-				'parent_id'      => $post_id,
-			]
-		);
-	}
 }

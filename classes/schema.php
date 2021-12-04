@@ -98,7 +98,7 @@ class WPSEO_News_Schema {
 	 *
 	 * @param array $schema_article_types Schema article types.
 	 *
-	 * @return array $schema_article_types Schema article types.
+	 * @return array Schema article types.
 	 */
 	public function schema_add_news_types( $schema_article_types ) {
 		return array_merge(
@@ -119,7 +119,7 @@ class WPSEO_News_Schema {
 	 *
 	 * @param array $schema_article_types_labels Schema article types with labels.
 	 *
-	 * @return array $schema_article_types_labels Schema article types with labels.
+	 * @return array Schema article types with labels.
 	 */
 	public function schema_add_news_types_labels( $schema_article_types_labels ) {
 		return array_merge(
