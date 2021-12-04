@@ -243,7 +243,7 @@ class WPSEO_News_Sitemap {
 		 *
 		 * @var $repository Indexable_Repository
 		 */
-		$repository = YoastSEO()->classes->get( 'Yoast\WP\SEO\Repositories\Indexable_Repository' );
+		$repository = YoastSEO()->classes->get( Indexable_Repository::class );
 
 		$query = $repository
 			->query()
@@ -400,8 +400,9 @@ class WPSEO_News_Sitemap {
 	 *
 	 * Defaults to news, but it's possible to override it by using the YOAST_NEWS_SITEMAP_BASENAME constant.
 	 *
-	 * @return string Basename for the news sitemap.
 	 * @since 3.1
+	 *
+	 * @return string Basename for the news sitemap.
 	 */
 	public static function news_sitemap_basename() {
 		$basename = 'news';
