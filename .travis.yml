@@ -130,13 +130,6 @@ before_script:
     fi
 
 script:
-  # JavaScript checks
-  - |
-    if [[ "$CHECKS" == "1" ]]; then
-      travis_fold start "JavaScript.check" && travis_time_start
-      npm install -g grunt-cli && npm install --no-optional && grunt check:js
-      travis_time_finish && travis_fold end "JavaScript.check"
-    fi
   # PHP Integration Tests
   - |
     if [[ "$PHPUNIT" == "1" && "$WP_VERSION" != "latest" ]] && [[ "${WP_VERSION:0:3}" == "5.9" || "${WP_VERSION:0:1}" == "6" || "$WP_VERSION" == "master" ]]; then
