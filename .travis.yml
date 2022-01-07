@@ -30,7 +30,7 @@ jobs:
     - php: 7.3
       env: WP_VERSION=master PHPUNIT=1
     - php: 7.2
-      env: WP_VERSION=latest WP_MULTISITE=1 PHPCS=1 SECURITY=1 COVERAGE=1
+      env: WP_VERSION=latest WP_MULTISITE=1 PHPCS=1 SECURITY=1 PHPUNIT=1
     - php: 5.6
       env: WP_VERSION=5.8 WP_MULTISITE=1 PHPLINT=1 PHPUNIT=1
       # Use 'trusty' to test against MySQL 5.6, 'xenial' contains 5.7 by default.
@@ -72,7 +72,7 @@ jobs:
       env: WP_VERSION=master PHPUNIT=1
 
 before_install:
-  - if [[ "$COVERAGE" != "1" ]]; then phpenv config-rm xdebug.ini || echo 'No xdebug config.'; fi
+  - phpenv config-rm xdebug.ini || echo 'No xdebug config.'
   - export SECURITYCHECK_DIR=/tmp/security-checker
   - composer config --global github-oauth.github.com $GITHUB_OAUTH_TOKEN
 
@@ -80,15 +80,10 @@ install:
   - |
     if [[ ${TRAVIS_PHP_VERSION:0:1} == "8" || $TRAVIS_PHP_VERSION == "nightly" ]]; then
       travis_retry composer install --no-interaction --ignore-platform-reqs
-    elif [[ "$PHPCS" == "1" || "$PHPUNIT" == "1" || "$COVERAGE" == "1" || "$PHPLINT" == "1" ]]; then
+    elif [[ "$PHPCS" == "1" || "$PHPUNIT" == "1" || "$PHPLINT" == "1" ]]; then
       travis_retry composer install --no-interaction
     elif [[ "$TRAVIS_BUILD_STAGE_NAME" == "deploy-to-github-dist" ]]; then
       travis_retry composer install --no-dev --no-interaction
-    fi
-  - |
-    if [[ "$COVERAGE" == "1" ]]; then
-      # Install phpcov so we can combine the coverage results of unit and integration tests.
-      travis_retry composer require phpunit/phpcov ^3.1
     fi
   - if [[ "$SECURITY" == "1" ]]; then wget -P $SECURITYCHECK_DIR https://github.com/fabpot/local-php-security-checker/releases/download/v1.2.0/local-php-security-checker_1.2.0_linux_amd64 && chmod +x $SECURITYCHECK_DIR/local-php-security-checker_1.2.0_linux_amd64;fi
 
@@ -105,25 +100,17 @@ before_script:
   - export -f travis_time_start
   - export -f travis_time_finish
 
-  - |
-    if [[ "$COVERAGE" == "1" ]]; then
-      curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
-      chmod +x ./cc-test-reporter
-      ./cc-test-reporter before-build
-      mkdir -p /tmp/coverage
-    fi
-
   # Clone WordPress
   #
   - |
-    if [[ "$PHPUNIT" == "1" || "$COVERAGE" == "1" ]]; then
+    if [[ "$PHPUNIT" == "1" ]]; then
       git clone --depth=1 --branch="$WP_VERSION" git://develop.git.wordpress.org/ /tmp/wordpress
     fi
 
   # Clone WPSEO and its submodule
   #
   - |
-    if [[ "$PHPUNIT" == "1" || "$COVERAGE" == "1" ]]; then
+    if [[ "$PHPUNIT" == "1" ]]; then
       git clone --depth=1 --branch="trunk" https://github.com/Yoast-dist/wordpress-seo.git $WP_DEVELOP_DIR/src/wp-content/plugins/wordpress-seo
       cd /tmp/wordpress/src/wp-content/plugins/wordpress-seo
       travis_retry composer install --no-dev --no-scripts --no-interaction --ignore-platform-reqs
@@ -132,7 +119,7 @@ before_script:
 
   # Copy news seo to test dir
   - |
-    if [[ "$PHPUNIT" == "1" || "$COVERAGE" == "1" ]]; then
+    if [[ "$PHPUNIT" == "1" ]]; then
       cd ..
       cp -r "$PLUGIN_SLUG" "$WP_DEVELOP_DIR/src/wp-content/plugins/$PLUGIN_SLUG"
       cd /tmp/wordpress/
@@ -202,26 +189,6 @@ script:
       composer test
       travis_time_finish && travis_fold end "PHP.tests"
     fi
-  # PHP Coverage
-  - |
-    if [[ "$COVERAGE" == "1" ]]; then
-      travis_fold start "PHP.coverage.part1" && travis_time_start
-      composer integration-test -- --coverage-php /tmp/coverage/integration-tests.cov
-      travis_time_finish && travis_fold end "PHP.coverage.part1"
-    fi
-  - |
-    if [[ "$COVERAGE" == "1" ]]; then
-      travis_fold start "PHP.coverage.part2" && travis_time_start
-      composer test -- --coverage-php /tmp/coverage/tests.cov
-      travis_time_finish && travis_fold end "PHP.coverage.part2"
-    fi
   - if [[ $TRAVIS_PHP_VERSION == "5.6" || $TRAVIS_PHP_VERSION == "7.4" ]]; then composer validate --no-check-all; fi
   # Check for known security vulnerabilities in the currently locked-in dependencies.
   - if [[ "$SECURITY" == "1" ]]; then $SECURITYCHECK_DIR/local-php-security-checker_1.2.0_linux_amd64 --path=$(pwd)/composer.lock;fi
-
-after_script:
-  - |
-    if [[ "$COVERAGE" == "1" ]]; then
-      ./vendor/bin/phpcov merge /tmp/coverage --clover build/logs/clover.xml
-    fi
-  - if [[ "$COVERAGE" == "1" ]]; then ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT; fi
