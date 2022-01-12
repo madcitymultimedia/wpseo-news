@@ -3,7 +3,7 @@ module.exports = function( grunt ) {
 	return {
 		
 		"composer-install": {
-			command: "composer install",
+			command: "composer install --no-interaction",
 		},
 
 		"php-lint": {
