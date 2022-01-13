@@ -2,9 +2,9 @@
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yoast SEO: News 13.1-RC1\n"
+"Project-Id-Version: Yoast SEO: News 13.1\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
-"POT-Creation-Date: 2021-11-02 12:55:24+00:00\n"
+"POT-Creation-Date: 2021-11-16 11:18:00+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -48,21 +48,21 @@ msgstr ""
 msgid "Google News Publication Name"
 msgstr ""
 
-#: classes/admin-page.php:85
+#: classes/admin-page.php:87
 msgid "Post Types to include in News Sitemap"
 msgstr ""
 
-#: classes/admin-page.php:86
+#: classes/admin-page.php:88
 msgid "Post Types to include:"
 msgstr ""
 
 #. translators: %1%s expands to the post type name.
-#: classes/admin-page.php:156
+#: classes/admin-page.php:160
 msgid "Terms to exclude for %1$s"
 msgstr ""
 
 #. translators: %1%s expands to the taxonomy name name.
-#: classes/admin-page.php:163
+#: classes/admin-page.php:167
 msgid "%1$s to exclude"
 msgstr ""
 
@@ -92,27 +92,27 @@ msgstr ""
 msgid "News"
 msgstr ""
 
-#: classes/schema.php:147
+#: classes/schema.php:129
 msgid "News: Analysis article"
 msgstr ""
 
-#: classes/schema.php:151
+#: classes/schema.php:133
 msgid "News: Ask The Public article"
 msgstr ""
 
-#: classes/schema.php:155
+#: classes/schema.php:137
 msgid "News: Background article"
 msgstr ""
 
-#: classes/schema.php:159
+#: classes/schema.php:141
 msgid "News: Opinion article"
 msgstr ""
 
-#: classes/schema.php:163
+#: classes/schema.php:145
 msgid "News: Reportage article"
 msgstr ""
 
-#: classes/schema.php:167
+#: classes/schema.php:149
 msgid "News: Review article"
 msgstr ""
 

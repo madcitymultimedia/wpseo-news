@@ -5,7 +5,6 @@
  * @package WPSEO_News\XML_Sitemaps
  */
 
-use Yoast\WP\Lib\Model;
 use Yoast\WP\Lib\ORM;
 use Yoast\WP\SEO\Models\Indexable;
 use Yoast\WP\SEO\Repositories\Indexable_Repository;
@@ -244,7 +243,7 @@ class WPSEO_News_Sitemap {
 		 *
 		 * @var $repository Indexable_Repository
 		 */
-		$repository = YoastSEO()->classes->get( 'Yoast\WP\SEO\Repositories\Indexable_Repository' );
+		$repository = YoastSEO()->classes->get( Indexable_Repository::class );
 
 		$query = $repository
 			->query()
@@ -257,6 +256,7 @@ class WPSEO_News_Sitemap {
 			->left_outer_join( $wpdb->postmeta, 'pm2.post_id = i.object_id AND pm2.meta_key = \'_yoast_wpseo_newssitemap-stocktickers\'', 'pm2' )
 			->where( 'i.post_status', 'publish' )
 			->where( 'i.object_type', 'post' )
+			->where_in( 'object_sub_type', $post_types )
 			->where_raw( '( i.is_robots_noindex = 0 OR i.is_robots_noindex IS NULL )' )
 			->where_raw( 'i.object_published_at >= NOW() - INTERVAL 48 HOUR' )
 			->where_raw( '( pm.meta_value = \'0\' OR pm.meta_value IS NULL )' )
@@ -264,6 +264,7 @@ class WPSEO_News_Sitemap {
 			->limit( $limit );
 
 		$query = $this->maybe_add_terms_query( $query, $post_types );
+
 		return $query->find_many();
 	}
 
@@ -281,7 +282,7 @@ class WPSEO_News_Sitemap {
 		$excluded_terms = (array) WPSEO_Options::get( 'news_sitemap_exclude_terms', [] );
 
 		if ( empty( $excluded_terms ) ) {
-			return $query->where_in( 'object_sub_type', $post_types );
+			return $query;
 		}
 
 		$excluded_terms_by_post_type = [];
@@ -293,28 +294,34 @@ class WPSEO_News_Sitemap {
 			if ( ! array_key_exists( $post_type, $excluded_terms_by_post_type ) ) {
 				$excluded_terms_by_post_type[ $post_type ] = [];
 			}
-			$excluded_terms_by_post_type[ $post_type ][] = $term_id;
+			$excluded_terms_by_post_type[ $post_type ][] = (int) $term_id;
 		}
 
 		$replacements = [];
 		$term_query   = [];
 		foreach ( $post_types as $post_type ) {
 			if ( ! array_key_exists( $post_type, $excluded_terms_by_post_type ) ) {
-				$term_query[]   = '( object_sub_type = %s )';
-				$replacements[] = $post_type;
 				continue;
 			}
 			$term_ids     = $excluded_terms_by_post_type[ $post_type ];
 			$replacements = array_merge( $replacements, [ $post_type ], $term_ids );
 			$placeholders = implode( ', ', array_fill( 0, count( $term_ids ), '%d' ) );
-			$term_query[] = "( object_sub_type = %s AND tt.term_id NOT IN ( $placeholders ) )";
+			$term_query[] = "( object_sub_type = %s AND t.term_id IN ( $placeholders ) )";
 		}
 		$term_query = implode( ' OR ', $term_query );
 
 		return $query
-			->left_outer_join( $wpdb->term_relationships, 'tr.object_id = i.object_id', 'tr' )
-			->left_outer_join( $wpdb->term_taxonomy, 'tt.term_taxonomy_id = tr.term_taxonomy_id', 'tt' )
-			->where_raw( "( $term_query )", $replacements );
+			->raw_join(
+				"LEFT OUTER JOIN (
+					SELECT tr.object_id, tt.term_id
+					FROM $wpdb->term_relationships AS tr
+					LEFT OUTER JOIN $wpdb->term_taxonomy AS tt ON tr.term_taxonomy_id = tt.term_taxonomy_id
+				)",
+				"( $term_query ) AND t.object_id = i.object_id",
+				't',
+				$replacements
+			)
+			->where_null( 't.object_id' );
 	}
 
 	/**
@@ -393,8 +400,9 @@ class WPSEO_News_Sitemap {
 	 *
 	 * Defaults to news, but it's possible to override it by using the YOAST_NEWS_SITEMAP_BASENAME constant.
 	 *
-	 * @return string Basename for the news sitemap.
 	 * @since 3.1
+	 *
+	 * @return string Basename for the news sitemap.
 	 */
 	public static function news_sitemap_basename() {
 		$basename = 'news';

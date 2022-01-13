@@ -30,25 +30,7 @@ class WPSEO_News_Schema {
 		add_filter( 'wpseo_schema_article_types', [ $this, 'schema_add_news_types' ] );
 		add_filter( 'wpseo_schema_article_types_labels', [ $this, 'schema_add_news_types_labels' ] );
 
-		add_filter( 'wpseo_schema_article_post_types', [ $this, 'article_post_types' ] );
 		add_filter( 'wpseo_schema_article', [ $this, 'add_copyright_information' ] );
-	}
-
-	/**
-	 * Make all News post types output Article schema.
-	 *
-	 * @param array $post_types Supported post types.
-	 *
-	 * @return array Supported post types.
-	 */
-	public function article_post_types( $post_types ) {
-		$post = $this->get_post();
-		// Alter the article post types only when the news article is not excluded.
-		if ( $post !== null && ! $this->is_post_excluded( $post ) ) {
-			$post_types = array_unique( array_merge( WPSEO_News::get_included_post_types(), $post_types ) );
-		}
-
-		return $post_types;
 	}
 
 	/**
@@ -116,7 +98,7 @@ class WPSEO_News_Schema {
 	 *
 	 * @param array $schema_article_types Schema article types.
 	 *
-	 * @return array $schema_article_types Schema article types.
+	 * @return array Schema article types.
 	 */
 	public function schema_add_news_types( $schema_article_types ) {
 		return array_merge(
@@ -137,7 +119,7 @@ class WPSEO_News_Schema {
 	 *
 	 * @param array $schema_article_types_labels Schema article types with labels.
 	 *
-	 * @return array $schema_article_types_labels Schema article types with labels.
+	 * @return array Schema article types with labels.
 	 */
 	public function schema_add_news_types_labels( $schema_article_types_labels ) {
 		return array_merge(
