@@ -56,7 +56,7 @@ class WPSEO_News_Test extends WPSEO_News_UnitTestCase {
 			[ false, '8.1', '5.6', 'WordPress SEO is below the minimal required version.' ],
 			[ false, '16.9', '5.7', 'WordPress SEO is below the minimal required version.' ],
 			[ false, '17.4-RC2', '5.7', 'WordPress SEO is below the minimal required version.' ],
-			[ true, '17.4-RC3', '5.8', 'WordPress and WordPress SEO have the minimal required versions.' ],
+			[ true, '17.4-RC3', '5.9', 'WordPress and WordPress SEO have the minimal required versions.' ],
 			[ true, '17.4-RC3', '5.7', 'WordPress and WordPress SEO have the minimal required versions.' ],
 			[ true, '17.4-RC3', '5.6', 'WordPress and WordPress SEO have the minimal required versions.' ],
 			[ true, '17.4', '5.8', 'WordPress and WordPress SEO have the minimal required versions.' ],
