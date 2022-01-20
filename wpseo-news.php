@@ -7,6 +7,7 @@
  * @wordpress-plugin
  * Plugin Name: Yoast SEO: News
  * Version:     13.1
+ * Update URI:  https://yoast.com/wordpress/plugins/news-seo/
  * Plugin URI:  https://yoa.st/4fg
  * Description: Google News plugin for the Yoast SEO plugin
  * Author:      Team Yoast
