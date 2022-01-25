@@ -67,6 +67,7 @@ add_action( 'plugins_loaded', '__wpseo_news_main' );
  * Clear the news sitemap.
  */
 function yoast_wpseo_news_clear_sitemap_cache() {
+	_deprecated_function( __METHOD__, "13.2" );
 	if ( class_exists( 'WPSEO_Sitemaps_Cache' ) && method_exists( 'WPSEO_Sitemaps_Cache', 'clear' ) ) {
 		WPSEO_Sitemaps_Cache::clear( [ WPSEO_News_Sitemap::get_sitemap_name() ] );
 	}
@@ -80,14 +81,4 @@ function yoast_wpseo_news_activate() {
 	if ( class_exists( 'WPSEO_Options' ) && method_exists( 'WPSEO_Options', 'set' ) ) {
 		WPSEO_Options::set( 'tracking', true );
 	}
-
-	yoast_wpseo_news_clear_sitemap_cache();
 }
-
-/**
- * Clear the news sitemap when we activate the plugin.
- */
-function yoast_wpseo_news_deactivate() {
-	yoast_wpseo_news_clear_sitemap_cache();
-}
-

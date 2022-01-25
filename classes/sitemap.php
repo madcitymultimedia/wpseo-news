@@ -35,10 +35,6 @@ class WPSEO_News_Sitemap {
 		$this->date = new WPSEO_Date_Helper();
 
 		add_action( 'init', [ $this, 'init' ], 10 );
-
-		add_action( 'save_post', [ $this, 'invalidate_sitemap' ] );
-
-		add_action( 'wpseo_news_schedule_sitemap_clear', 'yoast_wpseo_news_clear_sitemap_cache' );
 	}
 
 	/**
@@ -77,8 +73,6 @@ class WPSEO_News_Sitemap {
 		if ( isset( $GLOBALS['wpseo_sitemaps'] ) ) {
 			add_filter( 'wpseo_sitemap_index', [ $this, 'add_to_index' ] );
 
-			$this->yoast_wpseo_news_schedule_clear();
-
 			// We might consider deprecating/removing this, because we are using a static xsl file.
 			$GLOBALS['wpseo_sitemaps']->register_sitemap( $this->basename, [ $this, 'build' ] );
 			if ( method_exists( $GLOBALS['wpseo_sitemaps'], 'register_xsl' ) ) {
@@ -94,30 +88,6 @@ class WPSEO_News_Sitemap {
 				);
 			}
 		}
-	}
-
-	/**
-	 * Method to invalidate the sitemap.
-	 *
-	 * @param int $post_id Post ID to invalidate for.
-	 */
-	public function invalidate_sitemap( $post_id ) {
-		// If this is just a revision, don't invalidate the sitemap cache yet.
-		if ( wp_is_post_revision( $post_id ) ) {
-			return;
-		}
-
-		// Bail if this is a multisite installation and the site has been switched.
-		if ( is_multisite() && ms_is_switched() ) {
-			return;
-		}
-
-		// Only invalidate when we are in a News Post Type object.
-		if ( ! in_array( get_post_type( $post_id ), WPSEO_News::get_included_post_types(), true ) ) {
-			return;
-		}
-
-		WPSEO_Sitemaps_Cache::invalidate( $this->basename );
 	}
 
 	/**
@@ -197,19 +167,6 @@ class WPSEO_News_Sitemap {
 		// phpcs:enable
 
 		die();
-	}
-
-	/**
-	 * Clear the sitemap and sitemap index every hour to make sure the sitemap is hidden or shown when it needs to be.
-	 *
-	 * @return void
-	 */
-	private function yoast_wpseo_news_schedule_clear() {
-		$schedule = wp_get_schedule( 'wpseo_news_schedule_sitemap_clear' );
-
-		if ( empty( $schedule ) ) {
-			wp_schedule_event( time(), 'hourly', 'wpseo_news_schedule_sitemap_clear' );
-		}
 	}
 
 	/**
