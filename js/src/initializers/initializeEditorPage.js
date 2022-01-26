@@ -1,4 +1,5 @@
 /* global wpseoNewsScriptData */
+import React from "react";
 import { render } from "@wordpress/element";
 import { addAction } from "@wordpress/hooks";
 import { registerPlugin } from "@wordpress/plugins";

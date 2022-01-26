@@ -1,3 +1,4 @@
+import React from "react";
 import NewsEditorContainer from "../containers/EditorContainer";
 
 const { location: { LocationProvider } } = window.yoast.editorModules.components.contexts;

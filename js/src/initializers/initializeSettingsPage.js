@@ -1,3 +1,4 @@
+import React from "react";
 import { render } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 

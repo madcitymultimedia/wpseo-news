@@ -1,3 +1,4 @@
+import React from "react";
 import { createInterpolateElement, useEffect } from "@wordpress/element";
 import { __, sprintf } from "@wordpress/i18n";
 import { Checkbox, TextInput } from "@yoast/components";

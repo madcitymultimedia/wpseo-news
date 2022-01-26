@@ -1,3 +1,4 @@
+import React from "react";
 import { Fill } from "@wordpress/components";
 import NewsEditorContainer from "../containers/EditorContainer";
 
