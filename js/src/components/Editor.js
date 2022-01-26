@@ -53,6 +53,7 @@ export default function Editor( props ) {
 						<TextInput
 							id={ `yoast-news-stock-tickers-${ location }` }
 							label={ __( "Stock tickers", "wordpress-seo-news" ) }
+							// eslint-disable-next-line max-len
 							description={ __( "A comma-separated list of up to 5 stock tickers of the companies, mutual funds, or other financial entities that are the main subject of the article. Each ticker must be prefixed by the name of its stock exchange, and must match its entry in Google Finance. For example, \"NASDAQ:AMAT\" (but not \"NASD:AMAT\"), or \"BOM:500325\" (but not \"BOM:RIL\").", "wordpress-seo-news" ) }
 							value={ props.stockTickers }
 							onChange={ props.setStockTickers }
