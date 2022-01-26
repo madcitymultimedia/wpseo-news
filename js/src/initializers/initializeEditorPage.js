@@ -8,6 +8,8 @@ import Sidebar from "../components/Sidebar";
 
 /**
  * Initializes the metabox.
+ *
+ * @returns {void}
  */
 function initializeMetabox() {
 	const element = document.getElementById( "wpseo-news-metabox-root" );
@@ -19,6 +21,8 @@ function initializeMetabox() {
 
 /**
  * Initializes the sidebar.
+ *
+ * @returns {void}
  */
 function initializeSidebar() {
 	if ( wpseoNewsScriptData.isBlockEditor ) {
@@ -28,6 +32,8 @@ function initializeSidebar() {
 
 /**
  * Initializes the sidebar in Elementor.
+ *
+ * @returns {void}
  */
 function initializeElementorSidebar() {
 	/**
@@ -42,6 +48,8 @@ function initializeElementorSidebar() {
 
 /**
  * Initializes the content on the editor page.
+ *
+ * @returns {void}
  */
 export default function initializeEditorPage() {
 	initializeMetabox();

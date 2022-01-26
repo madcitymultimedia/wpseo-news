@@ -8,6 +8,8 @@ const genreRemovalAlertElement = document.getElementById( "wpseo-news-genre-remo
 
 /**
  * Renders the React content on the Settings pages.
+ *
+ * @returns {void}
  */
 export default function initializeSettingsPage() {
 	render(
