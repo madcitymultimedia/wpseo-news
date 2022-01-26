@@ -258,7 +258,7 @@ class WPSEO_News_Sitemap {
 			->where( 'i.object_type', 'post' )
 			->where_in( 'object_sub_type', $post_types )
 			->where_raw( '( i.is_robots_noindex = 0 OR i.is_robots_noindex IS NULL )' )
-			->where_raw( 'i.object_published_at >= NOW() - INTERVAL 48 HOUR' )
+			->where_raw( 'i.object_published_at >= UTC_TIMESTAMP() - INTERVAL 48 HOUR' )
 			->where_raw( '( pm.meta_value = \'0\' OR pm.meta_value IS NULL )' )
 			->order_by_desc( 'i.object_published_at' )
 			->limit( $limit );
