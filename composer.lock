@@ -2538,22 +2538,22 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "ecfddc09736d9253839743478fcc560df332674a"
+                "reference": "865229f06cc04ca62e69629f7f8b5f000ef308c1"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/ecfddc09736d9253839743478fcc560df332674a",
-                "reference": "ecfddc09736d9253839743478fcc560df332674a",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/865229f06cc04ca62e69629f7f8b5f000ef308c1",
+                "reference": "865229f06cc04ca62e69629f7f8b5f000ef308c1",
                 "shasum": ""
             },
             "require": {
-                "composer/installers": "^1.9.0",
+                "composer/installers": "^1.12.0",
                 "php": "^5.6.20 || ^7.0 || ^8.0",
                 "yoast/i18n-module": "^3.1.1"
             },
             "require-dev": {
                 "humbug/php-scoper": "^0.13.4",
-                "league/oauth2-client": "2.4.1",
+                "league/oauth2-client": "2.6.1",
                 "phpunit/phpunit": "^5.7",
                 "psr/container": "1.0.0",
                 "psr/log": "^1.0",
@@ -2603,8 +2603,8 @@
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_coding_standards"
                 ],
                 "check-cs-thresholds": [
-                    "@putenv YOASTCS_THRESHOLD_ERRORS=251",
-                    "@putenv YOASTCS_THRESHOLD_WARNINGS=221",
+                    "@putenv YOASTCS_THRESHOLD_ERRORS=252",
+                    "@putenv YOASTCS_THRESHOLD_WARNINGS=219",
                     "Yoast\\WP\\SEO\\Composer\\Actions::check_cs_thresholds"
                 ],
                 "check-cs": [
@@ -2677,7 +2677,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2021-12-03T15:20:26+00:00"
+            "time": "2022-01-28T10:12:06+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
