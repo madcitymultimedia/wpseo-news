@@ -56,7 +56,8 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		}
 
 		// Load the editor script when on an elementor edit page.
-		$get_action             = filter_input( INPUT_GET, 'action', FILTER_SANITIZE_STRING );
+        $raw_input              = filter_input( INPUT_GET, 'action' );
+		$get_action             = $raw_input === null ? null : htmlspecialchars( $raw_input );
 		$is_elementor_edit_page = $pagenow === 'post.php' && $get_action === 'elementor';
 		if ( $is_elementor_edit_page ) {
 			add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
