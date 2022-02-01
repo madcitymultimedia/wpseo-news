@@ -56,7 +56,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		}
 
 		// Load the editor script when on an elementor edit page.
-        $raw_input              = filter_input( INPUT_GET, 'action' );
+		$raw_input              = filter_input( INPUT_GET, 'action' );
 		$get_action             = $raw_input === null ? null : htmlspecialchars( $raw_input );
 		$is_elementor_edit_page = $pagenow === 'post.php' && $get_action === 'elementor';
 		if ( $is_elementor_edit_page ) {
