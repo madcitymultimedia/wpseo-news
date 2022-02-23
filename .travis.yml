@@ -169,7 +169,7 @@ script:
     fi
   # PHP Integration Tests
   - |
-    if [[ "$PHPUNIT" == "1" && "$WP_VERSION" != "latest" ]] && [[ "$WP_VERSION" == "5.9" || "${WP_VERSION:0:1}" == "6" || "$WP_VERSION" == "master" ]]; then
+    if [[ "$PHPUNIT" == "1" && "$WP_VERSION" != "latest" ]] && [[ "${WP_VERSION:0:3}" == "5.9" || "${WP_VERSION:0:1}" == "6" || "$WP_VERSION" == "master" ]]; then
       travis_fold start "PHP.integration-tests" && travis_time_start
       composer config --unset platform.php &&
       travis_retry composer update yoast/wp-test-utils --with-all-dependencies --no-interaction &&
