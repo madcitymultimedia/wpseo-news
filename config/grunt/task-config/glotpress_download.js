@@ -1,4 +1,5 @@
 // https://github.com/markoheijnen/grunt-glotpress
+/* eslint-disable camelcase */
 module.exports = function() {
 	const base = {
 		url: "<%= pkg.plugin.glotpress %>",
@@ -32,3 +33,4 @@ module.exports = function() {
 		},
 	};
 };
+/* eslint-enable camelcase */

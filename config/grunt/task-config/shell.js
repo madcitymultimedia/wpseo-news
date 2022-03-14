@@ -1,15 +1,14 @@
 // See https://github.com/sindresorhus/grunt-shell
 module.exports = function( grunt ) {
 	return {
-		
 		"composer-install": {
-			command: "composer install",
+			command: "composer install --no-interaction",
 		},
 
 		"php-lint": {
 			command: "composer lint",
 		},
-		"phpcs": {
+		phpcs: {
 			command: "composer check-cs",
 		},
 
@@ -27,6 +26,11 @@ module.exports = function( grunt ) {
 				"<%= paths.languages %><%= files.pot.js %>",
 			],
 			toFile: "<%= paths.languages %><%= files.pot.plugin %>",
+			/**
+			 * Gets the command that combines js.pot and php.pot files into a single .pot file.
+			 *
+			 * @returns {string} The command that combines js.pot and php.pot files into a single .pot file.
+			 */
 			command: function() {
 				const files = grunt.config.get( "shell.combine-pot-files.fromFiles" );
 				const toFile = grunt.config.get( "shell.combine-pot-files.toFile" );

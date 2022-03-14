@@ -23,6 +23,7 @@
     },
     "require": {
         "php": ">=5.6",
+        "composer/installers": "^1.12.0",
         "yoast/i18n-module": "^3.1.1"
     },
     "require-dev": {
@@ -65,7 +66,7 @@
     },
     "scripts": {
         "lint": [
-            "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --show-deprecated --exclude vendor --exclude node_modules --exclude .git"
+            "@php ./vendor/php-parallel-lint/php-parallel-lint/parallel-lint . -e php --show-deprecated --exclude vendor --exclude node_modules --exclude .git --exclude wp-content"
         ],
         "cs": [
             "Yoast\\WP\\News\\Composer\\Actions::check_coding_standards"
