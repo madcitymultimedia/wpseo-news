@@ -1,14 +1,12 @@
 Yoast News SEO for Yoast SEO
 ==========================
-Requires at least: 5.6
-Tested up to: 5.8
+Requires at least: 5.8
+Tested up to: 5.9
 Stable tag: 13.1
 Requires PHP: 5.6.20
 Depends: Yoast SEO
 
 Yoast News SEO module for the Yoast SEO plugin.
-
-[![Code Climate](https://codeclimate.com/repos/54523c37e30ba0670f0016b8/badges/373c97133cba47d9822b/gpa.svg)](https://codeclimate.com/repos/54523c37e30ba0670f0016b8/feed)
 
 This repository uses [the Yoast grunt tasks plugin](https://github.com/Yoast/plugin-grunt-tasks).
 

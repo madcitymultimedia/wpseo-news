@@ -1,3 +1,4 @@
+import React from "react";
 import { render } from "@wordpress/element";
 import { __ } from "@wordpress/i18n";
 
@@ -7,6 +8,8 @@ const genreRemovalAlertElement = document.getElementById( "wpseo-news-genre-remo
 
 /**
  * Renders the React content on the Settings pages.
+ *
+ * @returns {void}
  */
 export default function initializeSettingsPage() {
 	render(
@@ -15,6 +18,7 @@ export default function initializeSettingsPage() {
 			type="info"
 			alertKey="news-settings-genre-removal-alert"
 		>
+			{ /* eslint-disable-next-line max-len */ }
 			{ __( "Google no longer supports 'Genres' for articles in Google News, therefore we decided to remove the 'Default genre' setting below.", "wordpress-seo-news" ) }
 		</PersistentDismissableAlert>,
 		genreRemovalAlertElement,

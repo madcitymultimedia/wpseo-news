@@ -15,18 +15,18 @@ abstract class WPSEO_News_UnitTestCase extends TestCase {
 	/**
 	 * Call protected/private method of a class.
 	 *
-	 * @param object $object      Instantiated object that we will run method on.
-	 * @param string $method_name Method name to call.
-	 * @param array  $parameters  Array of parameters to pass into method.
+	 * @param object $target_object      Instantiated object that we will run method on.
+	 * @param string $method_name        Method name to call.
+	 * @param array  $parameters         Array of parameters to pass into method.
 	 *
 	 * @return mixed Method return.
 	 */
-	public function invoke_method( &$object, $method_name, array $parameters = [] ) {
-		$reflection = new ReflectionClass( get_class( $object ) );
+	public function invoke_method( &$target_object, $method_name, array $parameters = [] ) {
+		$reflection = new ReflectionClass( get_class( $target_object ) );
 		$method     = $reflection->getMethod( $method_name );
 
 		$method->setAccessible( true );
 
-		return $method->invokeArgs( $object, $parameters );
+		return $method->invokeArgs( $target_object, $parameters );
 	}
 }
