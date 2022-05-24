@@ -51,14 +51,14 @@ class WPSEO_News_Test extends WPSEO_News_UnitTestCase {
 	public function check_dependencies_data() {
 		return [
 			[ false, '12.7', '3.0', 'WordPress is below the minimal required version.' ],
-			[ false, '12.7', '5.5', 'WordPress is below the minimal required version.' ],
+			[ false, '12.7', '5.8', 'WordPress is below the minimal required version.' ],
 			[ false, false, '5.3', 'WordPress SEO is not installed.' ],
-			[ false, '8.1', '5.8', 'WordPress SEO is below the minimal required version.' ],
-			[ false, '16.9', '5.8', 'WordPress SEO is below the minimal required version.' ],
-			[ false, '17.5', '5.8', 'WordPress SEO is below the minimal required version.' ],
+			[ false, '8.1', '5.9', 'WordPress SEO is below the minimal required version.' ],
+			[ false, '16.9', '5.9', 'WordPress SEO is below the minimal required version.' ],
+			[ false, '17.5', '5.9', 'WordPress SEO is below the minimal required version.' ],
+			[ true, '17.6-RC1', '6.0', 'WordPress and WordPress SEO have the minimal required versions.' ],
 			[ true, '17.6-RC1', '5.9', 'WordPress and WordPress SEO have the minimal required versions.' ],
-			[ true, '17.6-RC1', '5.8', 'WordPress and WordPress SEO have the minimal required versions.' ],
-			[ true, '17.6', '5.8', 'WordPress and WordPress SEO have the minimal required versions.' ],
+			[ true, '17.6', '5.9', 'WordPress and WordPress SEO have the minimal required versions.' ],
 		];
 	}
 }
