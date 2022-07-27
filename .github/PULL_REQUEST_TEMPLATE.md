@@ -32,6 +32,16 @@ This PR can be acceptance tested by following these steps:
 
 *
 
+#### Relevant test scenarios
+* [ ] Changes should be tested with the browser console open
+* [ ] Changes should be tested on different posts/pages/taxonomies/custom post types/custom taxonomies
+* [ ] Changes should be tested on different editors (Block/Classic/Elementor/other)
+* [ ] Changes should be tested on different browsers
+* [ ] Changes should be tested on multisite
+<!--
+If you have checked any of the above cases, please add some context about the reason, what to check in the console,
+which type/editor/browser should be tested in particular, multisite with subfolders or subdomains, etc.
+-->
 
 ### Test instructions for QA when the code is in the RC
 <!--
