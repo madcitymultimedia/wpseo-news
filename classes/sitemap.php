@@ -241,7 +241,7 @@ class WPSEO_News_Sitemap {
 		/**
 		 * The indexable repository.
 		 *
-		 * @var $repository Indexable_Repository
+		 * @var Indexable_Repository $repository
 		 */
 		$repository = YoastSEO()->classes->get( Indexable_Repository::class );
 
