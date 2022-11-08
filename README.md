@@ -2,7 +2,7 @@ Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 5.9
 Tested up to: 6.1
-Stable tag: 13.2-RC1
+Stable tag: 13.1
 Requires PHP: 5.6.20
 Depends: Yoast SEO
 
@@ -29,16 +29,6 @@ You can find the [Yoast News SEO FAQ](https://kb.yoast.com/kb/category/news-seo/
 Changelog
 =========
 
-## 13.2
-
-Release date: November 22nd, 2022
-
-#### Other
-
-* Sets minimum WordPress version to 5.9 and tested up to 6.0.
-* Sets the WordPress tested up to version to 5.9.
-
-
 ## 13.1
 
 Release date: November 16th, 2021
@@ -52,6 +42,13 @@ Release date: November 16th, 2021
 
 * Excludes attachments and non-indexed post types from the possible post types to include in the News Sitemap.
 
-### Earlier versions
+## 13.0
 
-For the changelog of earlier versions, please refer to the changelog on yoast.com.
+Release date: October 19th, 2021
+
+#### Enhancements
+
+* Adds Schema Article News subtypes: `ReviewNewsArticle`, `AnalysisNewsArticle`, `AskPublicNewsArticle`, `BackgroundNewsArticle`, `OpinionNewsArticle`, and `ReportageNewsArticle`.
+
+### Earlier versions
+For the changelog of earlier versions, please refer to [the changelog on yoast.com](https://yoa.st/news-seo-changelog).
