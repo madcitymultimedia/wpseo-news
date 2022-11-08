@@ -17,7 +17,7 @@ module.exports = {
 			replaceCleanedChangelog: "### Earlier versions",
 			defaultChangelogEntries: "",
 			useANewLineAfterHeader: false,
-			commitChangelog: false,
+			commitChangelog: true,
 			changelogToInject: ".tmp/n8nchangelog.txt",
 		},
 	},
