@@ -1,14 +1,14 @@
-# Copyright (C) 2021 Team Yoast
+# Copyright (C) 2022 Team Yoast
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yoast SEO: News 13.1\n"
+"Project-Id-Version: Yoast SEO: News 13.2\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
-"POT-Creation-Date: 2021-11-16 11:18:00+00:00\n"
+"POT-Creation-Date: 2022-11-08 09:56:50+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2022-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Yoast Translate Team <translations@yoast.com>\n"
 "Language-Team: Yoast Translate <translations@yoast.com>\n"
 "Language: en\n"
@@ -66,11 +66,11 @@ msgstr ""
 msgid "%1$s to exclude"
 msgstr ""
 
-#: classes/meta-box.php:83
+#: classes/meta-box.php:84
 msgid "Stock Tickers"
 msgstr ""
 
-#: classes/meta-box.php:84
+#: classes/meta-box.php:85
 msgid ""
 "A comma-separated list of up to 5 stock tickers of the companies, mutual "
 "funds, or other financial entities that are the main subject of the article. "
@@ -79,16 +79,16 @@ msgid ""
 "\"NASD:AMAT\"), or \"BOM:500325\" (but not \"BOM:RIL\")."
 msgstr ""
 
-#: classes/meta-box.php:94
+#: classes/meta-box.php:95
 msgid "Googlebot-News index"
 msgstr ""
 
-#: classes/meta-box.php:95
+#: classes/meta-box.php:96
 msgid ""
 "Using noindex allows you to prevent articles from appearing in Google News."
 msgstr ""
 
-#: classes/meta-box.php:143
+#: classes/meta-box.php:144
 msgid "News"
 msgstr ""
 
@@ -234,22 +234,22 @@ msgid "http://yoa.st/1uk"
 msgstr ""
 
 #. %s expands to an opening anchor tag, %s expands to a closing anchor tag
-#: js/src/components/Editor.js:24
+#: js/src/components/Editor.js:25
 msgid ""
 "We've made some changes to Yoast SEO News. %sLearn more about what has "
 "changed%s"
 msgstr ""
 
 #. %s expands to the name of the post type
-#: js/src/components/Editor.js:36
+#: js/src/components/Editor.js:37
 msgid "Exclude this %s from Google News"
 msgstr ""
 
-#: js/src/components/Editor.js:54
+#: js/src/components/Editor.js:55
 msgid "Stock tickers"
 msgstr ""
 
-#: js/src/initializers/initializeSettingsPage.js:18
+#: js/src/initializers/initializeSettingsPage.js:22
 msgid ""
 "Google no longer supports 'Genres' for articles in Google News, therefore we "
 "decided to remove the 'Default genre' setting below."
