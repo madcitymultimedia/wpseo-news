@@ -62,7 +62,7 @@ class WPSEO_News_Googlebot_News_Presenter extends Abstract_Indexable_Tag_Present
 	 *
 	 * @see https://support.google.com/news/publisher/answer/93977?hl=en
 	 *
-	 * @param WP_Post|array $post The post object.
+	 * @param WP_Post $post The post object.
 	 *
 	 * @return bool True when noindex tag should be rendered.
 	 */
