@@ -3,6 +3,7 @@
 namespace Yoast\WP\News\Tests;
 
 use Mockery;
+use WPSEO_Option;
 use Yoast\WP\News\Tests\Doubles\Option_Double;
 
 /**
@@ -23,7 +24,7 @@ class Option_Test extends TestCase {
 	public function set_up() {
 		parent::set_up();
 
-		$external_mock              = Mockery::mock( 'overload:\WPSEO_Option' );
+		$external_mock              = Mockery::mock( 'overload:' . WPSEO_Option::class );
 		$external_mock->option_name = 'wpseo_news';
 		$external_mock->defaults    = [];
 
