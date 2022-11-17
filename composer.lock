@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "3b77c911762678ab076ab36bcf5a43ba",
+    "content-hash": "dccca502a4cab819c22530de9d11c258",
     "packages": [
         {
             "name": "composer/installers",
@@ -156,55 +156,6 @@
                 }
             ],
             "time": "2021-09-13T08:19:44+00:00"
-        },
-        {
-            "name": "yoast/i18n-module",
-            "version": "3.1.1",
-            "source": {
-                "type": "git",
-                "url": "https://github.com/Yoast/i18n-module.git",
-                "reference": "9d0a2f6daea6fb42376b023e7778294d19edd85d"
-            },
-            "dist": {
-                "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/i18n-module/zipball/9d0a2f6daea6fb42376b023e7778294d19edd85d",
-                "reference": "9d0a2f6daea6fb42376b023e7778294d19edd85d",
-                "shasum": ""
-            },
-            "require": {
-                "php": ">=5.2"
-            },
-            "require-dev": {
-                "roave/security-advisories": "dev-master",
-                "yoast/yoastcs": "^1.2.2"
-            },
-            "type": "library",
-            "autoload": {
-                "classmap": [
-                    "src/"
-                ]
-            },
-            "notification-url": "https://packagist.org/downloads/",
-            "license": [
-                "GPL-2.0-or-later"
-            ],
-            "authors": [
-                {
-                    "name": "Team Yoast",
-                    "email": "support@yoast.com",
-                    "homepage": "https://yoast.com"
-                }
-            ],
-            "description": "Handle i18n for WordPress plugins.",
-            "homepage": "https://github.com/Yoast/i18n-module",
-            "keywords": [
-                "wordpress"
-            ],
-            "support": {
-                "issues": "https://github.com/Yoast/i18n-module/issues",
-                "source": "https://github.com/Yoast/i18n-module"
-            },
-            "time": "2019-05-07T06:45:05+00:00"
         }
     ],
     "packages-dev": [
@@ -2544,18 +2495,17 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/Yoast/wordpress-seo.git",
-                "reference": "865229f06cc04ca62e69629f7f8b5f000ef308c1"
+                "reference": "b5f80c647065bd4b59b870b4e8ed23d19176b97c"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/865229f06cc04ca62e69629f7f8b5f000ef308c1",
-                "reference": "865229f06cc04ca62e69629f7f8b5f000ef308c1",
+                "url": "https://api.github.com/repos/Yoast/wordpress-seo/zipball/b5f80c647065bd4b59b870b4e8ed23d19176b97c",
+                "reference": "b5f80c647065bd4b59b870b4e8ed23d19176b97c",
                 "shasum": ""
             },
             "require": {
                 "composer/installers": "^1.12 || ^2.0",
-                "php": "^5.6.20 || ^7.0 || ^8.0",
-                "yoast/i18n-module": "^3.1.1"
+                "php": "^5.6.20 || ^7.0 || ^8.0"
             },
             "require-dev": {
                 "guzzlehttp/guzzle": "6.5.8",
@@ -2693,7 +2643,7 @@
                 "wiki": "https://github.com/Yoast/wordpress-seo/wiki",
                 "source": "https://github.com/Yoast/wordpress-seo"
             },
-            "time": "2022-01-28T10:12:06+00:00"
+            "time": "2022-11-17T14:23:00+00:00"
         },
         {
             "name": "yoast/wp-test-utils",
