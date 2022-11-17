@@ -5,6 +5,7 @@ namespace Yoast\WP\News\Tests;
 use Brain\Monkey;
 use Mockery;
 use Mockery\MockInterface;
+use WPSEO_Meta;
 use WPSEO_News_Googlebot_News_Presenter;
 
 /**
@@ -81,7 +82,7 @@ class Googlebot_News_Presenter_Test extends TestCase {
 		$this->model->object_type = 'post';
 		$this->source->ID         = 1337;
 
-		$meta = Mockery::mock( 'overload:WPSEO_Meta' );
+		$meta = Mockery::mock( 'overload:' . WPSEO_Meta::class );
 		$meta
 			->expects( 'get_value' )
 			->with( 'newssitemap-robots-index', 1337 )
@@ -125,7 +126,7 @@ class Googlebot_News_Presenter_Test extends TestCase {
 
 		$this->stubEscapeFunctions();
 
-		$meta = Mockery::mock( 'overload:WPSEO_Meta' );
+		$meta = Mockery::mock( 'overload:' . WPSEO_Meta::class );
 		$meta
 			->expects( 'get_value' )
 			->with( 'newssitemap-robots-index', 1337 )
