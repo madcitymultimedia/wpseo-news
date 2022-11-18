@@ -160,6 +160,13 @@ class WPSEO_News_Sitemap {
 			$output .= $this->build_items( $items );
 		}
 
+		/**
+		 * Filter to add extra entries to the news sitemap.
+		 *
+		 * @param string $content String content to add, defaults to empty.
+		 */
+		$output .= apply_filters( 'wpseo_news_sitemap_content', '' );
+
 		$output .= '</urlset>';
 
 		$total_time = ( \microtime( true ) - $start_time );
