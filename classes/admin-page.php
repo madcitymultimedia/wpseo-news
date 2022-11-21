@@ -11,15 +11,6 @@
 class WPSEO_News_Admin_Page {
 
 	/**
-	 * Constructor.
-	 */
-	public function __construct() {
-		if ( $this->is_news_page( filter_input( INPUT_GET, 'page' ) ) ) {
-			$this->register_i18n_promo_class();
-		}
-	}
-
-	/**
 	 * Display admin page.
 	 */
 	public function display() {
@@ -55,26 +46,6 @@ class WPSEO_News_Admin_Page {
 
 		// Admin footer.
 		Yoast_Form::get_instance()->admin_footer( true, false );
-	}
-
-	/**
-	 * Register the promotion class for our GlotPress instance.
-	 *
-	 * @link https://github.com/Yoast/i18n-module
-	 */
-	protected function register_i18n_promo_class() {
-		new Yoast_I18n_v3(
-			[
-				'textdomain'     => 'wordpress_seo_news',
-				'project_slug'   => 'news-seo',
-				'plugin_name'    => 'WordPress SEO News',
-				'hook'           => 'wpseo_admin_promo_footer',
-				'glotpress_url'  => 'https://translate.yoast.com/gp/',
-				'glotpress_name' => 'Yoast Translate',
-				'glotpress_logo' => 'https://translate.yoast.com/gp-templates/images/Yoast_Translate.svg',
-				'register_url'   => 'https://translate.yoast.com/register/#utm_source=plugin&utm_medium=promo-box&utm_campaign=wpseo-news-i18n-promo',
-			]
-		);
 	}
 
 	/**
