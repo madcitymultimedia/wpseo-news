@@ -3,6 +3,7 @@
 namespace Yoast\WP\News\Tests;
 
 use Brain\Monkey;
+use Brain\Monkey\Functions;
 use Mockery;
 use Mockery\MockInterface;
 use WPSEO_News_Googlebot_News_Presenter;
@@ -134,6 +135,9 @@ class Googlebot_News_Presenter_Test extends TestCase {
 
 		Monkey\Filters\expectApplied( 'Yoast\WP\News\head_display_noindex' )
 			->andReturn( true );
+
+		Functions\expect( 'is_admin_bar_showing' )
+			->andReturn( false );
 
 		$this->assertSame( '<meta name="Googlebot-News" content="noindex" />', $this->instance->present() );
 	}
