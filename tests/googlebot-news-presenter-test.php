@@ -6,8 +6,12 @@ use Brain\Monkey;
 use Brain\Monkey\Functions;
 use Mockery;
 use Mockery\MockInterface;
+use stdClass;
+use WP_Post;
 use WPSEO_Meta;
 use WPSEO_News_Googlebot_News_Presenter;
+use Yoast\WP\SEO\Models\Indexable;
+use Yoast\WP\SEO\Presentations\Indexable_Presentation;
 
 /**
  * Test the WPSEO_News class.
@@ -28,21 +32,21 @@ class Googlebot_News_Presenter_Test extends TestCase {
 	/**
 	 * Represents the presentation.
 	 *
-	 * @var MockInterface
+	 * @var Indexable_Presentation|MockInterface
 	 */
 	protected $presentation;
 
 	/**
 	 * Represents the model (indexable).
 	 *
-	 * @var MockInterface
+	 * @var Indexable|MockInterface
 	 */
 	protected $model;
 
 	/**
 	 * Represents the source.
 	 *
-	 * @var MockInterface
+	 * @var WP_Post|MockInterface
 	 */
 	protected $source;
 
@@ -53,9 +57,9 @@ class Googlebot_News_Presenter_Test extends TestCase {
 		parent::set_up();
 
 		$this->instance     = new WPSEO_News_Googlebot_News_Presenter();
-		$this->presentation = Mockery::mock();
-		$this->model        = Mockery::mock();
-		$this->source       = Mockery::mock();
+		$this->presentation = Mockery::mock( Indexable_Presentation::class );
+		$this->model        = Mockery::mock( Indexable::class, stdClass::class );
+		$this->source       = Mockery::mock( WP_Post::class, stdClass::class );
 
 		$this->presentation->model    = $this->model;
 		$this->presentation->source   = $this->source;
