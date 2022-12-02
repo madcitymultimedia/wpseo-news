@@ -228,20 +228,4 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
 		return $is_supported;
 	}
-
-	/* ********************* DEPRECATED METHODS ********************* */
-
-	/**
-	 * Only add the tab header and content actions when the post is supported.
-	 *
-	 * @deprecated 12.7
-	 * @codeCoverageIgnore
-	 */
-	public function add_tab_hooks() {
-		_deprecated_function( __METHOD__, 'WPSEO News 12.7' );
-
-		if ( $this->is_post_type_supported() ) {
-			add_filter( 'yoast_free_additional_metabox_sections', [ $this, 'add_metabox_section' ] );
-		}
-	}
 }

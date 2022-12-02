@@ -411,26 +411,4 @@ class WPSEO_News {
 
 		return $terms;
 	}
-
-	/**
-	 * Listing the genres.
-	 *
-	 * @deprecated 12.7 News genres are deprecated.
-	 * @codeCoverageIgnore
-	 *
-	 * @return array
-	 */
-	public static function list_genres() {
-		_deprecated_function( __METHOD__, 'WPSEO News 12.7' );
-
-		return [
-			'none'          => __( 'None', 'wordpress-seo-news' ),
-			'pressrelease'  => __( 'Press Release', 'wordpress-seo-news' ),
-			'satire'        => __( 'Satire', 'wordpress-seo-news' ),
-			'blog'          => __( 'Blog', 'wordpress-seo-news' ),
-			'oped'          => __( 'Op-Ed', 'wordpress-seo-news' ),
-			'opinion'       => __( 'Opinion', 'wordpress-seo-news' ),
-			'usergenerated' => __( 'User Generated', 'wordpress-seo-news' ),
-		];
-	}
 }

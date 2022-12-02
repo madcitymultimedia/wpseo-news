@@ -369,23 +369,9 @@ class WPSEO_News_Sitemap {
 		 *
 		 * @param string $sitemap_name First portion of the news sitemap "file" name.
 		 *
-		 * @deprecated 12.5.0. Use the {@see 'Yoast\WP\News\sitemap_name'} filter instead.
-		 */
-		$sitemap_name = apply_filters_deprecated(
-			'wpseo_news_sitemap_name',
-			[ self::news_sitemap_basename() ],
-			'YoastSEO News 12.5.0',
-			'Yoast\WP\News\sitemap_name'
-		);
-
-		/**
-		 * Allows for filtering the News sitemap name.
-		 *
-		 * @param string $sitemap_name First portion of the news sitemap "file" name.
-		 *
 		 * @since 12.5.0
 		 */
-		$sitemap_name = apply_filters( 'Yoast\WP\News\sitemap_name', $sitemap_name );
+		$sitemap_name = apply_filters( 'Yoast\WP\News\sitemap_name', self::news_sitemap_basename() );
 
 		// When $full_path is true, it will generate a full path.
 		if ( $full_path ) {
