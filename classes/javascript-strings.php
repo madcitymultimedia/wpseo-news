@@ -46,18 +46,4 @@ class WPSEO_News_Javascript_Strings {
 
 		return null;
 	}
-
-	/**
-	 * Returns the array with strings.
-	 *
-	 * @codeCoverageIgnore
-	 * @deprecated 12.7 Use WPSEO_News_Javascript_Strings\localize_script instead.
-	 *
-	 * @return string[]
-	 */
-	public static function strings() {
-		_deprecated_function( __METHOD__, 'WPSEO News 12.7' );
-
-		return [];
-	}
 }
