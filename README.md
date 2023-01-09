@@ -31,7 +31,7 @@ Changelog
 
 ## 13.1
 
-Release date: November 16th, 2021
+Release date: 2021-11-16
 
 #### Enhancements
 
@@ -44,7 +44,7 @@ Release date: November 16th, 2021
 
 ## 13.0
 
-Release date: October 19th, 2021
+Release date: 2021-10-19
 
 #### Enhancements
 
