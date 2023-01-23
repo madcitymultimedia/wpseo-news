@@ -349,7 +349,7 @@ class WPSEO_News_Sitemap {
 		$publication_lang = $this->get_publication_lang();
 
 		$publication_tag  = "\t\t<news:publication>\n";
-		$publication_tag .= "\t\t\t<news:name>" . $publication_name . '</news:name>' . "\n";
+		$publication_tag .= "\t\t\t<news:name>" . \htmlspecialchars( $publication_name ) . '</news:name>' . "\n";
 		$publication_tag .= "\t\t\t<news:language>" . htmlspecialchars( $publication_lang, ENT_COMPAT, get_bloginfo( 'charset' ), false ) . '</news:language>' . "\n";
 		$publication_tag .= "\t\t</news:publication>\n";
 
