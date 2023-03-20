@@ -10,7 +10,7 @@
  * Plugin URI:  https://yoa.st/4fg
  * Description: Google News plugin for the Yoast SEO plugin
  * Author:      Team Yoast
- * Author URI:  http://yoa.st/1uk
+ * Author URI:  https://yoa.st/team-yoast-news
  * Text Domain: wordpress-seo-news
  * Domain Path: /languages/
  * Depends:     Yoast SEO
