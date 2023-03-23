@@ -54,7 +54,7 @@ jobs:
       - name: Install PHP
         uses: shivammathur/setup-php@v2
         with:
-          php-version: 5.6
+          php-version: 7.2
           coverage: none
         env:
           # Token is needed for the YoastSEO install via VCS.
@@ -110,7 +110,7 @@ jobs:
 
       - name: "Grunt: create artifact"
         run: grunt artifact
-      
+
       - name: "Copy composer.json"
         run: cp composer.json ./artifact
 
