@@ -13,7 +13,7 @@
  * Author URI:  https://yoa.st/team-yoast-news
  * Text Domain: wordpress-seo-news
  * Domain Path: /languages/
- * Requires at least: 6.0
+ * Requires at least: 6.1
  * Requires PHP: 7.2.5
  * Depends:     Yoast SEO
  * License:     GPL v3
