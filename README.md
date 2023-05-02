@@ -1,3 +1,5 @@
+[![Coverage Status](https://coveralls.io/repos/github/Yoast/wpseo-news/badge.svg?branch=trunk)](https://coveralls.io/github/Yoast/wpseo-news?branch=trunk)
+
 Yoast News SEO for Yoast SEO
 ==========================
 Requires at least: 6.1

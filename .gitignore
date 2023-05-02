@@ -15,6 +15,7 @@ phpcs.xml
 !/languages/wordpress-seo-news.pot
 gettext.pot
 .env
+/build/
 
 ############
 # Temp
