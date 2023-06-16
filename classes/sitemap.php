@@ -181,8 +181,8 @@ class WPSEO_News_Sitemap {
 	 */
 	public function build_news_sitemap_xsl() {
 		$protocol = 'HTTP/1.1';
-		
-		if ( isset($_SERVER['SERVER_PROTOCOL']) && is_string( $_SERVER['SERVER_PROTOCOL'] && $_SERVER['SERVER_PROTOCOL'] !== '' ) ) {
+
+		if ( isset( $_SERVER['SERVER_PROTOCOL'] ) && is_string( $_SERVER['SERVER_PROTOCOL'] && $_SERVER['SERVER_PROTOCOL'] !== '' ) ) {
 			$protocol = sanitize_text_field( wp_unslash( $_SERVER['SERVER_PROTOCOL'] ) );
 		}
 		// Force a 200 header and replace other status codes.
