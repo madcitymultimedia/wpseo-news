@@ -52,10 +52,6 @@ class WPSEO_News {
 
 		// Schema.
 		new WPSEO_News_Schema();
-
-		if ( is_admin() ) {
-			$this->init_admin();
-		}
 	}
 
 	/**
@@ -66,6 +62,7 @@ class WPSEO_News {
 		add_filter( 'wpseo_submenu_pages', [ $this, 'add_submenu_pages' ] );
 		add_action( 'init', [ 'WPSEO_News_Option', 'register_option' ] );
 		add_action( 'init', [ 'WPSEO_News', 'read_options' ] );
+		add_action( 'admin_init', [ $this, 'init_admin' ] );
 
 		// Enable Yoast usage tracking.
 		add_filter( 'wpseo_enable_tracking', '__return_true' );
@@ -105,7 +102,7 @@ class WPSEO_News {
 	/**
 	 * Initialize the admin page.
 	 */
-	private function init_admin() {
+	public function init_admin() {
 		// Upgrade Manager.
 		$upgrade_manager = new WPSEO_News_Upgrade_Manager();
 		$upgrade_manager->check_update();
