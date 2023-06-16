@@ -28,6 +28,7 @@ class News_Test extends TestCase {
 		parent::set_up();
 
 		global $wp_version;
+		// phpcs:ignore WordPress.WP.GlobalVariablesOverride.Prohibited -- intended, to be able to test the constructor.
 		$wp_version = YOAST_SEO_NEWS_WP_REQUIRED;
 
 		$this->instance = new WPSEO_News();
