@@ -44,7 +44,7 @@ class News_Test extends TestCase {
 	public function test_construct() {
 		$this->assertNotFalse( Filters\has( 'plugin_action_links', [ $this->instance, 'plugin_links' ] ) );
 		$this->assertNotFalse( Filters\has( 'wpseo_submenu_pages', [ $this->instance, 'add_submenu_pages' ] ) );
-		$this->assertNotFalse( Actions\has('init', [ 'WPSEO_News_Option', 'register_option' ] ) );
+		$this->assertNotFalse( Actions\has( 'init', [ 'WPSEO_News_Option', 'register_option' ] ) );
 		$this->assertNotFalse( Actions\has( 'init', [ 'WPSEO_News', 'read_options' ] ) );
 		$this->assertNotFalse( Actions\has( 'admin_init', [ $this->instance, 'init_admin' ] ) );
 
