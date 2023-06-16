@@ -57,7 +57,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 
 		// Load the editor script when on an elementor edit page.
 		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, not form data.
-		$get_action = ( isset( $_GET['action'] ) ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : null;
+		$get_action             = ( isset( $_GET['action'] ) ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : null;
 		$is_elementor_edit_page = $pagenow === 'post.php' && $get_action === 'elementor';
 		if ( $is_elementor_edit_page ) {
 			add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
