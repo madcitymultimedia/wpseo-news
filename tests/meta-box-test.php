@@ -2,10 +2,6 @@
 
 namespace Yoast\WP\News\Tests;
 
-use Brain\Monkey\Functions;
-use Mockery;
-use WPSEO_News;
-use WPSEO_Options;
 use WPSEO_News_Meta_Box;
 
 /**
