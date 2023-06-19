@@ -73,10 +73,10 @@ class Meta_Box_Test extends TestCase {
 	 *
 	 * @dataProvider data_provider_register_hooks
 	 *
-	 * @param string     $page_now The current page.
-	 * @param array|null $get The $_GET array.
+	 * @param string     $page_now              The current page.
+	 * @param array|null $get                   The $_GET array.
 	 * @param bool       $admin_enqueue_scripts Whether the admin_enqueue_scripts hook should be called.
-	 * @param bool       $elementor_action Whether the elementor/editor/before_enqueue_scripts hook should be called.
+	 * @param bool       $elementor_action      Whether the elementor/editor/before_enqueue_scripts hook should be called.
 	 */
 	public function test_register_hooks( $page_now, $get, $admin_enqueue_scripts, $elementor_action ) {
 
