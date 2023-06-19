@@ -56,8 +56,8 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 		}
 
 		// Load the editor script when on an elementor edit page.
-		// phpcs:ignore WordPress.PHP.NoSilencedErrors.Discouraged -- This deprecation will be addressed later.
-		$get_action             = filter_input( INPUT_GET, 'action', @FILTER_SANITIZE_STRING );
+		// phpcs:ignore WordPress.Security.NonceVerification.Recommended, not form data.
+		$get_action             = isset( $_GET['action'] ) && is_string( $_GET['action'] ) ? sanitize_text_field( wp_unslash( $_GET['action'] ) ) : null;
 		$is_elementor_edit_page = $pagenow === 'post.php' && $get_action === 'elementor';
 		if ( $is_elementor_edit_page ) {
 			add_action( 'elementor/editor/before_enqueue_scripts', [ $this, 'enqueue_scripts' ] );
@@ -106,12 +106,7 @@ class WPSEO_News_Meta_Box extends WPSEO_Metabox {
 	 * @return array
 	 */
 	public function save( $meta_boxes ) {
-		// When action is inline-save there is nothing to save for seo news.
-		if ( filter_input( INPUT_POST, 'action' ) !== 'inline-save' ) {
-			$meta_boxes = array_merge( $meta_boxes, $this->get_meta_boxes() );
-		}
-
-		return $meta_boxes;
+		return array_merge( $meta_boxes, $this->get_meta_boxes() );
 	}
 
 	/**

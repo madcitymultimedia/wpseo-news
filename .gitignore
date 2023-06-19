@@ -21,3 +21,5 @@ gettext.pot
 # Temp
 ############
 /.tmp 
+
+.vscode/
