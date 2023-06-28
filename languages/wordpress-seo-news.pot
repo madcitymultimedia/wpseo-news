@@ -1,14 +1,14 @@
-# Copyright (C) 2021 Team Yoast
+# Copyright (C) 2023 Team Yoast
 # This file is distributed under the GPL v3.
 msgid ""
 msgstr ""
-"Project-Id-Version: Yoast SEO: News 13.1\n"
+"Project-Id-Version: Yoast SEO: News 20.11-RC1\n"
 "Report-Msgid-Bugs-To: https://github.com/yoast/wpseo-news/issues\n"
-"POT-Creation-Date: 2021-11-16 11:18:00+00:00\n"
+"POT-Creation-Date: 2023-06-28 07:56:02+00:00\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"PO-Revision-Date: 2021-MO-DA HO:MI+ZONE\n"
+"PO-Revision-Date: 2023-MO-DA HO:MI+ZONE\n"
 "Last-Translator: Yoast Translate Team <translations@yoast.com>\n"
 "Language-Team: Yoast Translate <translations@yoast.com>\n"
 "Language: en\n"
@@ -24,7 +24,7 @@ msgstr ""
 "X-Textdomain-Support: yes\n"
 "X-Generator: grunt-wp-i18n 1.0.3\n"
 
-#: classes/admin-page.php:31
+#: classes/admin-page.php:22
 msgid ""
 "You will generally only need a News Sitemap when your website is included in "
 "Google News."
@@ -32,45 +32,45 @@ msgstr ""
 
 #. translators: %1$s opening tag of the link to the News Sitemap, %2$s closing
 #. tag for the link.
-#: classes/admin-page.php:35
+#: classes/admin-page.php:26
 msgid "%1$sView your News Sitemap%2$s."
 msgstr ""
 
-#: classes/admin-page.php:41
+#: classes/admin-page.php:32
 msgid "General settings"
 msgstr ""
 
-#: classes/admin-page.php:43
+#: classes/admin-page.php:34
 msgid "News Sitemap settings"
 msgstr ""
 
-#: classes/admin-page.php:46
+#: classes/admin-page.php:37
 msgid "Google News Publication Name"
 msgstr ""
 
-#: classes/admin-page.php:87
+#: classes/admin-page.php:58
 msgid "Post Types to include in News Sitemap"
 msgstr ""
 
-#: classes/admin-page.php:88
+#: classes/admin-page.php:59
 msgid "Post Types to include:"
 msgstr ""
 
 #. translators: %1%s expands to the post type name.
-#: classes/admin-page.php:160
+#: classes/admin-page.php:131
 msgid "Terms to exclude for %1$s"
 msgstr ""
 
 #. translators: %1%s expands to the taxonomy name name.
-#: classes/admin-page.php:167
+#: classes/admin-page.php:138
 msgid "%1$s to exclude"
 msgstr ""
 
-#: classes/meta-box.php:83
+#: classes/meta-box.php:84
 msgid "Stock Tickers"
 msgstr ""
 
-#: classes/meta-box.php:84
+#: classes/meta-box.php:85
 msgid ""
 "A comma-separated list of up to 5 stock tickers of the companies, mutual "
 "funds, or other financial entities that are the main subject of the article. "
@@ -79,16 +79,16 @@ msgid ""
 "\"NASD:AMAT\"), or \"BOM:500325\" (but not \"BOM:RIL\")."
 msgstr ""
 
-#: classes/meta-box.php:94
+#: classes/meta-box.php:95
 msgid "Googlebot-News index"
 msgstr ""
 
-#: classes/meta-box.php:95
+#: classes/meta-box.php:96
 msgid ""
 "Using noindex allows you to prevent articles from appearing in Google News."
 msgstr ""
 
-#: classes/meta-box.php:143
+#: classes/meta-box.php:139
 msgid "News"
 msgstr ""
 
@@ -116,101 +116,31 @@ msgstr ""
 msgid "News: Review article"
 msgstr ""
 
-#: classes/wpseo-news.php:188
+#: classes/wpseo-news.php:185
 msgid "Settings"
 msgstr ""
 
 #. translators: %1$s resolves to the link to search for Yoast SEO, %2$s
 #. resolves to the closing tag for this link, %3$s resolves to Yoast SEO, %4$s
 #. resolves to News SEO
-#: classes/wpseo-news.php:267
+#: classes/wpseo-news.php:264
 msgid ""
 "Please %1$sinstall &amp; activate %3$s%2$s and then enable its XML sitemap "
 "functionality to allow the %4$s module to work."
 msgstr ""
 
 #. translators: %1$s resolves to News SEO
-#: classes/wpseo-news.php:288
+#: classes/wpseo-news.php:285
 msgid ""
 "Please upgrade WordPress to the latest version to allow WordPress and the "
 "%1$s module to work properly."
 msgstr ""
 
 #. translators: %1$s resolves to Yoast SEO, %2$s resolves to News SEO
-#: classes/wpseo-news.php:306
+#: classes/wpseo-news.php:303
 msgid ""
 "Please upgrade the %1$s plugin to the latest version to allow the %2$s "
 "module to work."
-msgstr ""
-
-#: classes/wpseo-news.php:427
-msgid "None"
-msgstr ""
-
-#: classes/wpseo-news.php:428
-msgid "Press Release"
-msgstr ""
-
-#: classes/wpseo-news.php:429
-msgid "Satire"
-msgstr ""
-
-#: classes/wpseo-news.php:430
-msgid "Blog"
-msgstr ""
-
-#: classes/wpseo-news.php:431
-msgid "Op-Ed"
-msgstr ""
-
-#: classes/wpseo-news.php:432
-msgid "Opinion"
-msgstr ""
-
-#: classes/wpseo-news.php:433
-msgid "User Generated"
-msgstr ""
-
-#. translators: 1: language name; 3: completion percentage; 4: link to
-#. translation platform.
-#: vendor/yoast/i18n-module/src/i18n-v3.php:233
-msgid ""
-"As you can see, there is a translation of this plugin in %1$s. This "
-"translation is currently %3$d%% complete. We need your help to make it "
-"complete and to fix any errors. Please register at %4$s to help complete the "
-"translation to %1$s!"
-msgstr ""
-
-#. translators: 1: language name; 2: plugin name; 3: completion percentage; 4:
-#. link to translation platform.
-#: vendor/yoast/i18n-module/src/i18n-v3.php:237
-msgid ""
-"You're using WordPress in %1$s. While %2$s has been translated to %1$s for "
-"%3$d%%, it's not been shipped with the plugin yet. You can help! Register at "
-"%4$s to help complete the translation to %1$s!"
-msgstr ""
-
-#. translators: 2: plugin name; 4: link to translation platform.
-#: vendor/yoast/i18n-module/src/i18n-v3.php:241
-msgid ""
-"You're using WordPress in a language we don't support yet. We'd love for "
-"%2$s to be translated in that language too, but unfortunately, it isn't "
-"right now. You can change that! Register at %4$s to help translate it!"
-msgstr ""
-
-#: vendor/yoast/i18n-module/src/i18n-v3.php:259
-msgid "Register now &raquo;"
-msgstr ""
-
-#. translators: %1$s is the notification dismissal link start tag, %2$s is the
-#. link closing tag.
-#: vendor/yoast/i18n-module/src/i18n-v3.php:275
-msgid "%1$sPlease don't show me this notification anymore%2$s"
-msgstr ""
-
-#. translators: %s: plugin name.
-#: vendor/yoast/i18n-module/src/i18n-v3.php:295
-msgid "Translation of %s"
 msgstr ""
 
 #. Plugin Name of the plugin/theme
@@ -230,26 +160,26 @@ msgid "Team Yoast"
 msgstr ""
 
 #. Author URI of the plugin/theme
-msgid "http://yoa.st/1uk"
+msgid "https://yoa.st/team-yoast-news"
 msgstr ""
 
 #. %s expands to an opening anchor tag, %s expands to a closing anchor tag
-#: js/src/components/Editor.js:24
+#: js/src/components/Editor.js:25
 msgid ""
 "We've made some changes to Yoast SEO News. %sLearn more about what has "
 "changed%s"
 msgstr ""
 
 #. %s expands to the name of the post type
-#: js/src/components/Editor.js:36
+#: js/src/components/Editor.js:37
 msgid "Exclude this %s from Google News"
 msgstr ""
 
-#: js/src/components/Editor.js:54
+#: js/src/components/Editor.js:55
 msgid "Stock tickers"
 msgstr ""
 
-#: js/src/initializers/initializeSettingsPage.js:18
+#: js/src/initializers/initializeSettingsPage.js:22
 msgid ""
 "Google no longer supports 'Genres' for articles in Google News, therefore we "
 "decided to remove the 'Default genre' setting below."
