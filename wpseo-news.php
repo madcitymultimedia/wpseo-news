@@ -6,7 +6,7 @@
  *
  * @wordpress-plugin
  * Plugin Name: Yoast SEO: News
- * Version:     13.1
+ * Version:     20.11-RC1
  * Plugin URI:  https://yoa.st/4fg
  * Description: Google News plugin for the Yoast SEO plugin
  * Author:      Team Yoast
@@ -39,7 +39,7 @@ if ( ! defined( 'WPSEO_NEWS_FILE' ) ) {
 	define( 'WPSEO_NEWS_FILE', __FILE__ );
 }
 
-define( 'WPSEO_NEWS_VERSION', '13.1' );
+define( 'WPSEO_NEWS_VERSION', '20.11-RC1' );
 
 if ( file_exists( __DIR__ . '/vendor/autoload.php' ) ) {
 	require __DIR__ . '/vendor/autoload.php';
